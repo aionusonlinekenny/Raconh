@@ -12,6 +12,9 @@ const IN_FILE  = path.join(__dirname, 'lang_en.json');
 const CW_FILE  = path.join(__dirname, '../client/main/resource/cw/cw.txt');
 const BAK_FILE = CW_FILE + '.bak';
 
+// Đường dẫn XAMPP — sửa nếu bạn đặt game ở chỗ khác
+const XAMPP_CW = 'C:\\xampp\\htdocs\\game\\resource\\cw\\cw.txt';
+
 // ── Binary reader (Big-Endian) ────────────────────────────────────────────────
 
 class BufReader {
@@ -113,9 +116,23 @@ function repack() {
         console.log(`  Backup → ${BAK_FILE}`);
     }
 
-    fs.writeFileSync(CW_FILE, w.toBuffer());
+    const outBuf = w.toBuffer();
+    fs.writeFileSync(CW_FILE, outBuf);
     const count = Object.keys(translations).length;
     console.log(`✓ Repacked ${count} strings → ${CW_FILE}`);
+
+    // Tự động copy sang XAMPP nếu thư mục tồn tại
+    try {
+        const xamppDir = path.dirname(XAMPP_CW);
+        if (fs.existsSync(xamppDir)) {
+            fs.writeFileSync(XAMPP_CW, outBuf);
+            console.log(`✓ Copied → ${XAMPP_CW}`);
+        } else {
+            console.log(`  (XAMPP path not found, skipped: ${XAMPP_CW})`);
+        }
+    } catch (e) {
+        console.warn(`  Warning: could not copy to XAMPP: ${e.message}`);
+    }
 }
 
 repack();
