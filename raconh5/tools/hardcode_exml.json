@@ -1,0 +1,1810 @@
+{
+  "resource/game_skins/activity/DailyItemSkin.exml": [
+    {
+      "line": 29,
+      "text": "text=\"次数：\""
+    },
+    {
+      "line": 31,
+      "text": "text=\"活跃：x10\""
+    },
+    {
+      "line": 32,
+      "text": "text=\"盟贡：x10\""
+    }
+  ],
+  "resource/game_skins/activity/DailyItemSkinII.exml": [
+    {
+      "line": 24,
+      "text": "text=\"次数：\""
+    },
+    {
+      "line": 26,
+      "text": "text=\"周一三五20:00-20:20\""
+    },
+    {
+      "line": 27,
+      "text": "text=\"活跃：x10\""
+    },
+    {
+      "line": 28,
+      "text": "text=\"盟贡：x10\""
+    }
+  ],
+  "resource/game_skins/activity/exp/CopyExpAddRateViewSkin.exml": [
+    {
+      "line": 19,
+      "text": "text=\"每次成功提升都可增加人物10%的经验收益\""
+    },
+    {
+      "line": 20,
+      "text": "text=\"当前提升       经验+10%\""
+    },
+    {
+      "line": 21,
+      "text": "text=\"银币提升\""
+    },
+    {
+      "line": 22,
+      "text": "text=\"元宝提升\""
+    },
+    {
+      "line": 23,
+      "text": "text=\"20万/次\""
+    },
+    {
+      "line": 24,
+      "text": "text=\"20万/次\""
+    }
+  ],
+  "resource/game_skins/activity/exp/CopyExpInfoViewSkin.exml": [
+    {
+      "line": 15,
+      "text": "text=\"经验+100%\""
+    }
+  ],
+  "resource/game_skins/activity/exp/CopyExpViewSkin.exml": [
+    {
+      "line": 24,
+      "text": "text=\"下一难度：盟会职位达到{0}、当前难度sss通关\""
+    },
+    {
+      "line": 25,
+      "text": "text=\"剩余次数：2/2\""
+    }
+  ],
+  "resource/game_skins/activity/silver/CopySilverViewSkin.exml": [
+    {
+      "line": 21,
+      "text": "text=\"剩余次数：2/2\""
+    },
+    {
+      "line": 23,
+      "text": "text=\"下一难度\\n下一难度\""
+    },
+    {
+      "line": 24,
+      "text": "text=\"下一难度：盟会职位达到{0}、当前难度sss通关\""
+    }
+  ],
+  "resource/game_skins/activity/tower/TowerCopyViewSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"怪怪怪\""
+    },
+    {
+      "line": 28,
+      "text": "text=\"排名：未上榜\""
+    },
+    {
+      "line": 30,
+      "text": "text=\"查看排名\""
+    },
+    {
+      "line": 40,
+      "text": "text=\"达到999级可挑战\""
+    }
+  ],
+  "resource/game_skins/arena/ArenaAwardViewSkin.exml": [
+    {
+      "line": 11,
+      "text": "text=\"我的排名：\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"每日排名奖励00:00邮件发送\""
+    }
+  ],
+  "resource/game_skins/arena/ArenaLogListItemSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"获得奖励：\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"对手：\""
+    }
+  ],
+  "resource/game_skins/arena/ArenaMaxAwardViewSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"奖励预览\""
+    }
+  ],
+  "resource/game_skins/arena/ArenaPKHeadViewSkin.exml": [
+    {
+      "line": 11,
+      "text": "text=\"名字名名名名\""
+    },
+    {
+      "line": 20,
+      "text": "text=\"名字名名名名\""
+    }
+  ],
+  "resource/game_skins/arena/ArenaResultViewSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"恭喜你挑战胜利！\""
+    },
+    {
+      "line": 22,
+      "text": "text=\"倒计时3s退出\""
+    }
+  ],
+  "resource/game_skins/arena/ArenaViewSkin.exml": [
+    {
+      "line": 57,
+      "text": "text=\"每日0点结算\""
+    }
+  ],
+  "resource/game_skins/artifact/ArtifactInfoListViewSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"寻宝记录\""
+    }
+  ],
+  "resource/game_skins/artifact/ArtifactItemSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"【1角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    },
+    {
+      "line": 5,
+      "text": "text=\"【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"【5角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    },
+    {
+      "line": 11,
+      "text": "text=\"【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人\""
+    }
+  ],
+  "resource/game_skins/artifact/ArtifactViewSkin.exml": [
+    {
+      "line": 48,
+      "text": "text=\"9折\""
+    }
+  ],
+  "resource/game_skins/bag/RonglianViewSkin.exml": [
+    {
+      "line": 35,
+      "text": "text=\"一次可熔炼50件装备\""
+    }
+  ],
+  "resource/game_skins/boss/BossPrivateItemSkin.exml": [
+    {
+      "line": 26,
+      "text": "text=\"200级可挑战\""
+    },
+    {
+      "line": 28,
+      "text": "text=\"怪物名\""
+    },
+    {
+      "line": 30,
+      "text": "text=\"剩余挑战次数1次\""
+    }
+  ],
+  "resource/game_skins/boss/BossPublicItemSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"怪物名\""
+    },
+    {
+      "line": 11,
+      "text": "text=\"血量：\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"200级可挑战\""
+    }
+  ],
+  "resource/game_skins/boss/BossPublicViewSkin.exml": [
+    {
+      "line": 3,
+      "text": "text=\"挑战次数：8/10\""
+    },
+    {
+      "line": 4,
+      "text": "text=\"恢复倒计时：00：28：00\""
+    },
+    {
+      "line": 5,
+      "text": "text=\"伤害第一的玩家可获得击杀大奖，其他玩家可获得参与奖励\""
+    }
+  ],
+  "resource/game_skins/boss/BossResultWinSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"排名：1\""
+    }
+  ],
+  "resource/game_skins/boss/BossReviveViewSkin.exml": [
+    {
+      "line": 13,
+      "text": "text=\"BOSS名\""
+    }
+  ],
+  "resource/game_skins/boss/rareDrop/RareDropViewSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"记录击败首领掉落的珍稀道具、装备\""
+    }
+  ],
+  "resource/game_skins/cashCow/CashCowViewSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"提升vip等级\""
+    }
+  ],
+  "resource/game_skins/chat/BackgroundNoticeSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"各位大侠！奔赴将于今日10:00开始进行 停机维护，预计维护时间为30分钟，还请 各位大侠见谅啊！                                                  XX游戏运营组\""
+    }
+  ],
+  "resource/game_skins/club/ClubCareerViewSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"无职位\""
+    }
+  ],
+  "resource/game_skins/club/ClubJoinTipsViewSkin.exml": [
+    {
+      "line": 15,
+      "text": "text=\"是否确定加入雄霸天下世家？（选择后无法更改）\""
+    },
+    {
+      "line": 16,
+      "text": "text=\"加入推荐的世家可获得推荐好礼一份！\""
+    }
+  ],
+  "resource/game_skins/club/ClubViewSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"名称\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"现任掌门：\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"虚位以待\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"盟会战力：\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"9999亿\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"门派成员\""
+    },
+    {
+      "line": 23,
+      "text": "text=\"盟会贡献：\""
+    },
+    {
+      "line": 29,
+      "text": "text=\"盟会贡献：\""
+    },
+    {
+      "line": 31,
+      "text": "text=\"剩余次数5次\""
+    },
+    {
+      "line": 45,
+      "text": "text=\"盟会贡献：\""
+    },
+    {
+      "line": 47,
+      "text": "text=\"剩余次数5次\""
+    }
+  ],
+  "resource/game_skins/club/items/ClubMemberItemViewSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"大神\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"大神大神大神\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"大神\""
+    }
+  ],
+  "resource/game_skins/clubBF/ClubBFAttackBuffSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"提 示\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"防守方连胜99次，攻方获得以下战意属性\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"生命+10%\\n防御+10%\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"攻击+10%\\n破甲+10%\""
+    }
+  ],
+  "resource/game_skins/clubBF/ClubBFBuyBuffSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"提 示\""
+    },
+    {
+      "line": 11,
+      "text": "text=\"花费      {0}鼓舞，全盟成员攻击+10%\""
+    }
+  ],
+  "resource/game_skins/clubBF/ClubBFClearCDSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"提 示\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"确定花费      100清除CD吗？\""
+    }
+  ],
+  "resource/game_skins/clubBF/ClubBFMiniSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"玄元剑\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"积分：0\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"排名：0\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"防守进攻人数：0/0\""
+    },
+    {
+      "line": 17,
+      "text": "text=\"防守\""
+    },
+    {
+      "line": 34,
+      "text": "text=\"攻击+10%\""
+    },
+    {
+      "line": 35,
+      "text": "text=\"999分可领\\n（5/6）\""
+    },
+    {
+      "line": 36,
+      "text": "text=\"友：9999\""
+    }
+  ],
+  "resource/game_skins/clubBF/ClubBFRankRewardsItemSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"盟内积分排名第1\""
+    }
+  ],
+  "resource/game_skins/clubBF/ClubBFScoreRewardsItemSkin.exml": [
+    {
+      "line": 12,
+      "text": "text=\"积分：9999\""
+    }
+  ],
+  "resource/game_skins/clubBF/ClubBFViewSkin.exml": [
+    {
+      "line": 16,
+      "text": "text=\"长林府\""
+    }
+  ],
+  "resource/game_skins/clubBF/challenge/ClubBFChallengeItemSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"玩家名\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"战力：0\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"连胜：0\""
+    }
+  ],
+  "resource/game_skins/clubBF/challenge/ClubBFChallengePanelSkin.exml": [
+    {
+      "line": 16,
+      "text": "text=\"点击敌对玩家头像即可挑战\""
+    }
+  ],
+  "resource/game_skins/clubBF/result/ClubBF1v1ResultSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"倒计时3s退出\""
+    },
+    {
+      "line": 18,
+      "text": "text=\"你被XXX击败了\""
+    },
+    {
+      "line": 19,
+      "text": "text=\"你被XXX击败了\""
+    }
+  ],
+  "resource/game_skins/clubBF/result/ClubBFResultSkin.exml": [
+    {
+      "line": 10,
+      "text": "text=\"长林府\""
+    },
+    {
+      "line": 11,
+      "text": "text=\"城门被成功击破，攻方获得胜利。\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"乾灵虚积分：9999\""
+    },
+    {
+      "line": 13,
+      "text": "text=\"济风堂积分：9999\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"乾灵虚占领王城。\""
+    },
+    {
+      "line": 15,
+      "text": "text=\"我的盟会：胜\""
+    },
+    {
+      "line": 16,
+      "text": "text=\"我的积分：9999\""
+    },
+    {
+      "line": 17,
+      "text": "text=\"盟内排名：99\""
+    },
+    {
+      "line": 18,
+      "text": "text=\"倒计时3s退出\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/ClubLeaderWarMemberViewSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"还有0个入室弟子名额未任命\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"盟主可任命盟会成员为入室弟子\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/ClubLeaderWarRankViewSkin.exml": [
+    {
+      "line": 10,
+      "text": "text=\"我的排名：\""
+    },
+    {
+      "line": 11,
+      "text": "text=\"盟主争夺战结束后，第一名将获得盟主之位\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"我的净胜场：\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/ClubLeaderWarResultViewSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"恭喜你挑战胜利！\""
+    },
+    {
+      "line": 22,
+      "text": "text=\"倒计时3s退出\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/ClubLeaderWarViewSkin.exml": [
+    {
+      "line": 23,
+      "text": "text=\"我的排名：\""
+    },
+    {
+      "line": 27,
+      "text": "text=\"挑战次数：\""
+    },
+    {
+      "line": 41,
+      "text": "text=\"00:00:00后回复1次\""
+    },
+    {
+      "line": 53,
+      "text": "text=\"膜拜次数：\""
+    },
+    {
+      "line": 55,
+      "text": "text=\"下一轮盟主争夺战00:00:00后开启\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/item/ClubLeaderWarFightInfoItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"候选人：\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"虚位以待\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"净胜场：\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/item/ClubLeaderWarLeaderRankItem1Skin.exml": [
+    {
+      "line": 11,
+      "text": "text=\"虚位以待\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/item/ClubLeaderWarLeaderRankItem2Skin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"名字\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"战力：0\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/item/ClubLeaderWarMatchingItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"名称名称名称\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/item/ClubLeaderWarMemberItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"[逍遥11阶]盟主大神\""
+    }
+  ],
+  "resource/game_skins/clubLeaderWar/item/ClubLeaderWarRankItemSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"s40.盟主大神\""
+    }
+  ],
+  "resource/game_skins/copy/CopyInfoViewSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"鬼影山\""
+    },
+    {
+      "line": 5,
+      "text": "text=\"通关：\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"奖励：\""
+    }
+  ],
+  "resource/game_skins/copy/CopyRankItemSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"第1名\""
+    },
+    {
+      "line": 5,
+      "text": "text=\"名字名字名字名字\""
+    }
+  ],
+  "resource/game_skins/copy/CopyRankSkin.exml": [
+    {
+      "line": 16,
+      "text": "text=\"排名：未上榜\""
+    },
+    {
+      "line": 17,
+      "text": "text=\"当前：11关\""
+    }
+  ],
+  "resource/game_skins/copy/CopyResultFailSkin.exml": [
+    {
+      "line": 31,
+      "text": "text=\"倒计时3s退出\""
+    }
+  ],
+  "resource/game_skins/copy/ResultWinBackSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"倒计时3s退出\""
+    }
+  ],
+  "resource/game_skins/copy/tower/TowerCopyWinViewSkin.exml": [
+    {
+      "line": 15,
+      "text": "text=\"倒计时3s退出\""
+    }
+  ],
+  "resource/game_skins/devil/DevilGrabItemSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"战力\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"9999分\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"99胜\""
+    }
+  ],
+  "resource/game_skins/devil/DevilResultViewSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"玩家名字啊\""
+    }
+  ],
+  "resource/game_skins/equip/GemAttrTipsSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"宝石阶段属性\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"全身宝石+30\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"（已激活）\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"攻击+100 生命+1000\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"全身宝石+30\""
+    },
+    {
+      "line": 13,
+      "text": "text=\"（下级效果）\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"攻击+100 生命+1000\""
+    }
+  ],
+  "resource/game_skins/equip/GemViewSkin.exml": [
+    {
+      "line": 19,
+      "text": "text=\"更换装备不影响所镶嵌的宝石\""
+    }
+  ],
+  "resource/game_skins/equip/StarUpExplainViewSkin.exml": [
+    {
+      "line": 12,
+      "text": "text=\"1、包中、穿戴中的红色1星、2星装备可以升星\""
+    }
+  ],
+  "resource/game_skins/equip/StarUpItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"已穿戴\""
+    }
+  ],
+  "resource/game_skins/equip/StarUpViewSkin.exml": [
+    {
+      "line": 16,
+      "text": "text=\"成功率：70%\""
+    }
+  ],
+  "resource/game_skins/equip/StrengthenViewSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"更换装备强化等级将完美继承\""
+    },
+    {
+      "line": 19,
+      "text": "text=\"所需材料\""
+    }
+  ],
+  "resource/game_skins/equip/SuitAllAttrItemSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"套装效果\""
+    }
+  ],
+  "resource/game_skins/equip/SuitDisassemblyTipsSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"拆解成功后当前部位重置为未打造状态\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"未打造\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"并返还全部升阶消耗材料：\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"全部升阶\""
+    }
+  ],
+  "resource/game_skins/equip/SuitItemSkin.exml": [
+    {
+      "line": 13,
+      "text": "text=\"阶\""
+    }
+  ],
+  "resource/game_skins/equip/SuitViewSkin.exml": [
+    {
+      "line": 28,
+      "text": "text=\"攻击套装\""
+    },
+    {
+      "line": 29,
+      "text": "text=\"(未打造)\""
+    },
+    {
+      "line": 30,
+      "text": "text=\"头  衣  手  鞋  符\""
+    },
+    {
+      "line": 33,
+      "text": "text=\"套装效果\""
+    }
+  ],
+  "resource/game_skins/equip/ZhuhunAttrTipsSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"铸魂阶段属性\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"全身铸魂+30\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"（已激活）\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"攻击+100 生命+1000\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"全身铸魂+30\""
+    },
+    {
+      "line": 13,
+      "text": "text=\"（下级效果）\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"攻击+100 生命+1000\""
+    }
+  ],
+  "resource/game_skins/equip/ZhuhunUpgradeSkin.exml": [
+    {
+      "line": 20,
+      "text": "text=\"攻击+99 防御+99\""
+    },
+    {
+      "line": 21,
+      "text": "text=\"阶段奖励属性\""
+    }
+  ],
+  "resource/game_skins/equip/ZhuhunViewSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"更换装备铸魂等级将完美继承\""
+    },
+    {
+      "line": 15,
+      "text": "text=\"所需材料\""
+    }
+  ],
+  "resource/game_skins/fireEye/FireEyeGameViewSkin.exml": [
+    {
+      "line": 10,
+      "text": "text=\"第1/10 关\""
+    }
+  ],
+  "resource/game_skins/fireEye/FireEyeLevelInfoViewSkin.exml": [
+    {
+      "line": 3,
+      "text": "text=\"第1/10 关\""
+    },
+    {
+      "line": 15,
+      "text": "text=\"请找到以下物品\""
+    }
+  ],
+  "resource/game_skins/fireEye/FireEyeLevelResultViewSkin.exml": [
+    {
+      "line": 11,
+      "text": "text=\"数据\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"我\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"积分\""
+    },
+    {
+      "line": 17,
+      "text": "text=\"用时\""
+    }
+  ],
+  "resource/game_skins/fireEye/FireEyeViewSkin.exml": [
+    {
+      "line": 12,
+      "text": "text=\"活动为限时挑战，请尽量在良好网络环境的安全区开始挑战\""
+    }
+  ],
+  "resource/game_skins/friends/friendsList/FriendsBatchDeleteSkin.exml": [
+    {
+      "line": 15,
+      "text": "text=\"全选\""
+    }
+  ],
+  "resource/game_skins/friends/friendsList/FriendsDeleteItemSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"角色名字七个字\""
+    },
+    {
+      "line": 5,
+      "text": "text=\"99转999级\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"离线7天以上\""
+    }
+  ],
+  "resource/game_skins/friends/friendsList/FriendsListItemSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"1级\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"在线\""
+    }
+  ],
+  "resource/game_skins/friends/privateChat/FriendsChatViewSkin.exml": [
+    {
+      "line": 17,
+      "text": "text=\"与XXX私聊中\""
+    }
+  ],
+  "resource/game_skins/friends/privateChat/FriendsDialogSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"测试测试\""
+    }
+  ],
+  "resource/game_skins/friends/privateChat/FriendsPrivateItemSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"角色名字七个字\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"99转999级\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"最新消息最新消息最新消息\""
+    }
+  ],
+  "resource/game_skins/jingmai/JingmainViewSkin.exml": [
+    {
+      "line": 35,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 37,
+      "text": "text=\"生命\""
+    },
+    {
+      "line": 39,
+      "text": "text=\"破甲\""
+    },
+    {
+      "line": 40,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 41,
+      "text": "text=\"防御\""
+    },
+    {
+      "line": 42,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 53,
+      "text": "text=\"攻击+\""
+    }
+  ],
+  "resource/game_skins/juexue/JuexueJuanzouChileItemSkin.exml": [
+    {
+      "line": 10,
+      "text": "text=\"级\""
+    }
+  ],
+  "resource/game_skins/juyuan/JuyuanItemSkin.exml": [
+    {
+      "line": 11,
+      "text": "text=\"当前元魂激活属性\""
+    }
+  ],
+  "resource/game_skins/juyuan/JuyuanViewSkin.exml": [
+    {
+      "line": 26,
+      "text": "text=\"聚元丹：\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordCatchViewSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"抓捕次数：\""
+    },
+    {
+      "line": 18,
+      "text": "text=\"暂时没有手下败将\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordHistoryItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"[抢夺]你抢夺连月林的奴隶成功获得了TA的奴隶龙登峰。\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordInfoViewSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"你的身份：\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"抓捕次数：\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"解救次数：\""
+    },
+    {
+      "line": 16,
+      "text": "text=\"抓捕次数：\""
+    },
+    {
+      "line": 17,
+      "text": "text=\"互动次数：\""
+    },
+    {
+      "line": 18,
+      "text": "text=\"解救次数：\""
+    },
+    {
+      "line": 19,
+      "text": "text=\"获得经验：\""
+    },
+    {
+      "line": 27,
+      "text": "text=\"互动次数：\""
+    },
+    {
+      "line": 28,
+      "text": "text=\"求救次数：\""
+    },
+    {
+      "line": 51,
+      "text": "text=\"你的身份为自由身。可以抓捕苦工、解救盟友，获得大量经验。\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordInteractItemSkin.exml": [
+    {
+      "line": 37,
+      "text": "text=\"互动保护：\""
+    },
+    {
+      "line": 39,
+      "text": "text=\"互动保护时间内不可反抗或解救\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordInteractViewSkin.exml": [
+    {
+      "line": 11,
+      "text": "text=\"倒酒\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"贿赂\""
+    },
+    {
+      "line": 13,
+      "text": "text=\"鞭打\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"流放\""
+    },
+    {
+      "line": 15,
+      "text": "text=\"获得奖励：\""
+    },
+    {
+      "line": 16,
+      "text": "text=\"冷却时间：\""
+    },
+    {
+      "line": 17,
+      "text": "text=\"道具名称X1\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordInteractViewSkin1.exml": [
+    {
+      "line": 5,
+      "text": "text=\"今日互动：\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"苦工经验：\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"9999亿/9999亿\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordInteractViewSkin2.exml": [
+    {
+      "line": 7,
+      "text": "text=\"今日互动：\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"Lv.21 玩家名字\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"盟会：盟会名字\""
+    },
+    {
+      "line": 17,
+      "text": "text=\"倒酒\""
+    },
+    {
+      "line": 18,
+      "text": "text=\"贿赂\""
+    },
+    {
+      "line": 19,
+      "text": "text=\"鞭打\""
+    },
+    {
+      "line": 20,
+      "text": "text=\"流放\""
+    },
+    {
+      "line": 22,
+      "text": "text=\"获得奖励：\""
+    },
+    {
+      "line": 23,
+      "text": "text=\"道具名称X1\""
+    },
+    {
+      "line": 24,
+      "text": "text=\"冷却时间：\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordMsgItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"Lv.40 玩家名字\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"身份：\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"状态：\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"自由\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"向你求救\""
+    },
+    {
+      "line": 19,
+      "text": "text=\"向您求救\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordMsgViewSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"你的身份：\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"自由身\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"今日解救次数：\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordPressViewSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"苦工名称：\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"苦工等级：\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"干活时间：\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"干活经验：\""
+    },
+    {
+      "line": 11,
+      "text": "text=\"提取经验：\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"玩家名字\""
+    },
+    {
+      "line": 42,
+      "text": "text=\"(已抽干)\""
+    },
+    {
+      "line": 43,
+      "text": "text=\"苦工干活时间满释放会自动提取经验\""
+    }
+  ],
+  "resource/game_skins/landlord/LandlordResultWinSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"你击败了XXXX，成功抢夺了TA的苦工！\""
+    }
+  ],
+  "resource/game_skins/lifeGrid/lifegridview/LifeGridFuseViewSkin.exml": [
+    {
+      "line": 34,
+      "text": "text=\"高品质命格将与底品质命格融合底品质命格消失，保留最高属性\""
+    }
+  ],
+  "resource/game_skins/lifeGrid/lifegridview/LifeGridLeveUpViewSkin.exml": [
+    {
+      "line": 14,
+      "text": "text=\"升级条件\""
+    }
+  ],
+  "resource/game_skins/login/LoginViewSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"测试服\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"点击换服\""
+    },
+    {
+      "line": 13,
+      "text": "text=\"账号：\""
+    }
+  ],
+  "resource/game_skins/login/ServerItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"服服服服\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"名名名名名 5转999级\""
+    }
+  ],
+  "resource/game_skins/mail/MailContentSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"新手礼包\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"亲爱的玩家\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"附件：\""
+    }
+  ],
+  "resource/game_skins/mail/MailItemViewSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"（未读）\""
+    }
+  ],
+  "resource/game_skins/market/MarketPlayerNameItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"高峰期d d\""
+    }
+  ],
+  "resource/game_skins/market/tips/MarketBuyTipsViewSkin.exml": [
+    {
+      "line": 44,
+      "text": "text=\"数量\""
+    },
+    {
+      "line": 47,
+      "text": "text=\"数量\""
+    },
+    {
+      "line": 48,
+      "text": "text=\"单价\""
+    },
+    {
+      "line": 49,
+      "text": "text=\"总价\""
+    },
+    {
+      "line": 51,
+      "text": "text=\"数量\""
+    }
+  ],
+  "resource/game_skins/market/tips/MarketRecycleTipsViewSkin.exml": [
+    {
+      "line": 20,
+      "text": "text=\"数量\""
+    },
+    {
+      "line": 21,
+      "text": "text=\"数量\""
+    },
+    {
+      "line": 22,
+      "text": "text=\"数量\""
+    },
+    {
+      "line": 23,
+      "text": "text=\"数量\""
+    },
+    {
+      "line": 24,
+      "text": "text=\"单价\""
+    },
+    {
+      "line": 25,
+      "text": "text=\"总价\""
+    }
+  ],
+  "resource/game_skins/market/tips/MarketSaleTipsViewSkin.exml": [
+    {
+      "line": 47,
+      "text": "text=\"数量\""
+    },
+    {
+      "line": 53,
+      "text": "text=\"单价\""
+    },
+    {
+      "line": 54,
+      "text": "text=\"数量\""
+    },
+    {
+      "line": 55,
+      "text": "text=\"数量\""
+    }
+  ],
+  "resource/game_skins/materialCopy/MaterialCheckPointItemSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"高富帅\""
+    }
+  ],
+  "resource/game_skins/materialCopy/MaterialGetBoxViewSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"难度总星级达到{0}星，可领取：{1}\""
+    }
+  ],
+  "resource/game_skins/materialCopy/MaterialSecondViewSkin.exml": [
+    {
+      "line": 26,
+      "text": "text=\"30级可挑战\""
+    }
+  ],
+  "resource/game_skins/offlineProfit/OfflineProfitViewSkin.exml": [
+    {
+      "line": 47,
+      "text": "text=\"00小时00分（最多累计24小时收益）\""
+    },
+    {
+      "line": 48,
+      "text": "text=\"离线超过8小时，只能获得80%收益\""
+    }
+  ],
+  "resource/game_skins/pet/PetFeedItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"宠物资质丹\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"当前已使用：6\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"当前可使用：30\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"剩余：2个\""
+    }
+  ],
+  "resource/game_skins/pet/PetSkillViewSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"英雄Lv.1\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"（未激活）\""
+    },
+    {
+      "line": 11,
+      "text": "text=\"战斗中有一定几率提升宠物自身攻击力10%\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"宠物达到3阶\""
+    }
+  ],
+  "resource/game_skins/pet/PetViewSkin.exml": [
+    {
+      "line": 81,
+      "text": "text=\"宠物进阶丹：10/20\""
+    }
+  ],
+  "resource/game_skins/qiandao/QiandaoViewSkins.exml": [
+    {
+      "line": 7,
+      "text": "text=\"累计签到次数：\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"可补签到次数：\""
+    },
+    {
+      "line": 13,
+      "text": "text=\"激活                ，可以再领一次奖励，收益提升         元宝\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"钻石卡特权\""
+    }
+  ],
+  "resource/game_skins/rank/RankItemSkin0.exml": [
+    {
+      "line": 19,
+      "text": "text=\"虚位以待\""
+    }
+  ],
+  "resource/game_skins/rank/RankItemSkin1.exml": [
+    {
+      "line": 6,
+      "text": "text=\"名字\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"战力：0\""
+    }
+  ],
+  "resource/game_skins/rank/RankItemSkin2.exml": [
+    {
+      "line": 7,
+      "text": "text=\"名字\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"战力：0\""
+    }
+  ],
+  "resource/game_skins/rank/RankSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"我的排行：未入榜\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"我的战力：0\""
+    }
+  ],
+  "resource/game_skins/rechargeActivity/ExchangeItemSkin.exml": [
+    {
+      "line": 18,
+      "text": "text=\"（99/99）\""
+    }
+  ],
+  "resource/game_skins/relicStuff/RelicStuffCuccessViewSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"点击空白区域关闭窗口\""
+    }
+  ],
+  "resource/game_skins/rename/RenameViewSkin.exml": [
+    {
+      "line": 12,
+      "text": "text=\"请输入新名字：\""
+    }
+  ],
+  "resource/game_skins/revive/ReviveChooseViewSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"您被摩羯伊妮击杀了\""
+    },
+    {
+      "line": 9,
+      "text": "text=\"倒计时后将在中立地区安全区自动复活\""
+    }
+  ],
+  "resource/game_skins/role/RoleAttrViewSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"详细属性\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 10,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 12,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 14,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 16,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 18,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 20,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 22,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 24,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 26,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 28,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 30,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 32,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 34,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 36,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 38,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 40,
+      "text": "text=\"攻击\""
+    },
+    {
+      "line": 42,
+      "text": "text=\"攻击\""
+    }
+  ],
+  "resource/game_skins/role/SelectRoleBtnSkin.exml": [
+    {
+      "line": 9,
+      "text": "text=\"四转\""
+    }
+  ],
+  "resource/game_skins/shop/ShopItemSkin.exml": [
+    {
+      "line": 17,
+      "text": "text=\"原价:\""
+    },
+    {
+      "line": 21,
+      "text": "text=\"现价:\""
+    },
+    {
+      "line": 25,
+      "text": "text=\"1扣\""
+    }
+  ],
+  "resource/game_skins/skill/SkillListItemSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"绝代风华\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"Lv：140\""
+    }
+  ],
+  "resource/game_skins/skill/SkillMarkSkin.exml": [
+    {
+      "line": 8,
+      "text": "text=\"绝命风华\""
+    }
+  ],
+  "resource/game_skins/skill/SkillTipsSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"绝命风华\""
+    },
+    {
+      "line": 7,
+      "text": "text=\"战力：\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"觉醒：\""
+    }
+  ],
+  "resource/game_skins/soldier/SoldierItemSkin.exml": [
+    {
+      "line": 12,
+      "text": "text=\"星数：10\""
+    }
+  ],
+  "resource/game_skins/srvRank/SrvRankViewSkin.exml": [
+    {
+      "line": 11,
+      "text": "text=\"活动结束倒计时：\""
+    }
+  ],
+  "resource/game_skins/syscharge/SysChargeItemSkin.exml": [
+    {
+      "line": 12,
+      "text": "text=\"1元\""
+    }
+  ],
+  "resource/game_skins/syscharge/SysChargePanelSkin.exml": [
+    {
+      "line": 20,
+      "text": "text=\"再充\""
+    },
+    {
+      "line": 21,
+      "text": "text=\"成为VIP1\""
+    }
+  ],
+  "resource/game_skins/sysnotice/MainCopyViewSkin.exml": [
+    {
+      "line": 12,
+      "text": "text=\"怪\""
+    },
+    {
+      "line": 33,
+      "text": "text=\"排名：未上榜\""
+    },
+    {
+      "line": 36,
+      "text": "text=\"查看排名\""
+    }
+  ],
+  "resource/game_skins/sysnotice/SysnoticeItemSkin.exml": [
+    {
+      "line": 17,
+      "text": "text=\"补\""
+    }
+  ],
+  "resource/game_skins/sysprivilege/SysPrivilegeViewSkin.exml": [
+    {
+      "line": 24,
+      "text": "text=\"（特权卡效果可叠加）\""
+    },
+    {
+      "line": 25,
+      "text": "text=\"体验卡剩余时间：\""
+    }
+  ],
+  "resource/game_skins/tips/ChangeEquipTipsSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"提示\""
+    },
+    {
+      "line": 8,
+      "text": "text=\"物品名称物品\""
+    }
+  ],
+  "resource/game_skins/tips/EquipTipsSkin.exml": [
+    {
+      "line": 18,
+      "text": "text=\"战力：\""
+    },
+    {
+      "line": 19,
+      "text": "text=\"等级：\""
+    },
+    {
+      "line": 20,
+      "text": "text=\"职业：\""
+    },
+    {
+      "line": 23,
+      "text": "text=\"无\""
+    },
+    {
+      "line": 25,
+      "text": "text=\"攻击：\""
+    },
+    {
+      "line": 26,
+      "text": "text=\"破甲：\""
+    },
+    {
+      "line": 29,
+      "text": "text=\"(强化+0)\""
+    },
+    {
+      "line": 30,
+      "text": "text=\"(强化+0)\""
+    },
+    {
+      "line": 34,
+      "text": "text=\"极品属性\""
+    },
+    {
+      "line": 38,
+      "text": "text=\"铸魂属性\""
+    }
+  ],
+  "resource/game_skins/tips/RollTipSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"最强群攻 全屏大招\""
+    }
+  ],
+  "resource/game_skins/tips/TextTipsSkin.exml": [
+    {
+      "line": 6,
+      "text": "text=\"提示\""
+    }
+  ],
+  "resource/game_skins/tips/TipsGemItemSkin.exml": [
+    {
+      "line": 5,
+      "text": "text=\"血精石(3级)\""
+    },
+    {
+      "line": 6,
+      "text": "text=\"攻击+9999\""
+    }
+  ],
+  "resource/game_skins/tips/TipsViewSkin.exml": [
+    {
+      "line": 7,
+      "text": "text=\"提示\""
+    }
+  ],
+  "resource/game_skins/uiCommon/BaseGoodsSkin.exml": [
+    {
+      "line": 17,
+      "text": "text=\"1阶\""
+    }
+  ],
+  "resource/game_skins/vip/VipViewSkin.exml": [
+    {
+      "line": 13,
+      "text": "text=\"在充值100元宝成为VIP1\""
+    }
+  ],
+  "resource/game_skins/worldMap/WorldMapItemSkin.exml": [
+    {
+      "line": 4,
+      "text": "text=\"地图名称\""
+    },
+    {
+      "line": 5,
+      "text": "text=\"第几章\""
+    }
+  ]
+}

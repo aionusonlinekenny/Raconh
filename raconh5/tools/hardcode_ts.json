@@ -1,0 +1,756 @@
+{
+  "src/Main.ts": [
+    {
+      "line": 215,
+      "text": "\"版本号：\""
+    }
+  ],
+  "src/com/changwan/cmd/friends/FriendsAddCMD.ts": [
+    {
+      "line": 46,
+      "text": "\"操作成功\""
+    }
+  ],
+  "src/com/changwan/cmd/friends/FriendsBatchOperateCMD.ts": [
+    {
+      "line": 38,
+      "text": "\"成功添加好友\""
+    }
+  ],
+  "src/com/changwan/cmd/login/GameKickOfflineCMD.ts": [
+    {
+      "line": 16,
+      "text": "\"未知原因退出登录！\""
+    },
+    {
+      "line": 21,
+      "text": "\"您的账号已在别处登录！\""
+    },
+    {
+      "line": 26,
+      "text": "\"您已被踢下线！\""
+    }
+  ],
+  "src/com/changwan/cmd/login/GameLoginRequestCMD.ts": [
+    {
+      "line": 46,
+      "text": "\"您的账号已被封！\""
+    },
+    {
+      "line": 50,
+      "text": "\"您所在的IP已被封！\""
+    }
+  ],
+  "src/com/changwan/cmd/login/NickNameRandomCMD.ts": [
+    {
+      "line": 31,
+      "text": "\"失败\""
+    },
+    {
+      "line": 32,
+      "text": "\"失败\""
+    },
+    {
+      "line": 35,
+      "text": "\"名字用完了\""
+    }
+  ],
+  "src/com/changwan/cmd/map/MapEnterCMD.ts": [
+    {
+      "line": 27,
+      "text": "\"进入地图\""
+    }
+  ],
+  "src/com/changwan/cmd/map/MapMonsterAddCMD.ts": [
+    {
+      "line": 40,
+      "text": "\"服务器不该发信息过来！\""
+    }
+  ],
+  "src/com/changwan/cmd/map/MapPlayerAddCMD.ts": [
+    {
+      "line": 34,
+      "text": "\"服务器乱发信息过来！\""
+    }
+  ],
+  "src/com/changwan/cmd/relicstuff/RelicStuffActivityCMD.ts": [
+    {
+      "line": 13,
+      "text": "'激活类型 1-碎片 2-神器'"
+    }
+  ],
+  "src/com/changwan/control/MapControl.ts": [
+    {
+      "line": 241,
+      "text": "\"视图移除找不到，需调试\""
+    }
+  ],
+  "src/com/changwan/cvo/AnimationCVO.ts": [
+    {
+      "line": 60,
+      "text": "\"重要报错：特效表没有 \""
+    }
+  ],
+  "src/com/changwan/cvo/analysis/ConditionVO.ts": [
+    {
+      "line": 200,
+      "text": "\"没有对应类型:\""
+    }
+  ],
+  "src/com/changwan/cvo/analysis/GainLossVO.ts": [
+    {
+      "line": 269,
+      "text": "\"没有对应类型:\""
+    },
+    {
+      "line": 279,
+      "text": "\"元宝\""
+    },
+    {
+      "line": 282,
+      "text": "\"银币\""
+    },
+    {
+      "line": 285,
+      "text": "\"经验\""
+    },
+    {
+      "line": 288,
+      "text": "\"荣誉\""
+    },
+    {
+      "line": 291,
+      "text": "\"贡献\""
+    }
+  ],
+  "src/com/changwan/cvo/dress/TitleCVO.ts": [
+    {
+      "line": 64,
+      "text": "\"普通称号\""
+    },
+    {
+      "line": 67,
+      "text": "\"稀世称号\""
+    },
+    {
+      "line": 70,
+      "text": "\"至尊称号\""
+    }
+  ],
+  "src/com/changwan/debug/gm/GM.ts": [
+    {
+      "line": 88,
+      "text": "\"一级菜单\""
+    },
+    {
+      "line": 271,
+      "text": "\"例子：\""
+    },
+    {
+      "line": 285,
+      "text": "\"已提交\""
+    }
+  ],
+  "src/com/changwan/loader/Loader.ts": [
+    {
+      "line": 202,
+      "text": "\"加载文件错误:\""
+    },
+    {
+      "line": 212,
+      "text": "\"加载资源不存在\""
+    }
+  ],
+  "src/com/changwan/loader/PathInfo.ts": [
+    {
+      "line": 40,
+      "text": "\"不存在资源路径:\""
+    }
+  ],
+  "src/com/changwan/loader/TextureLoader.ts": [
+    {
+      "line": 122,
+      "text": "\"加载皮肤贴图错误:\""
+    }
+  ],
+  "src/com/changwan/manager/CVOManager.ts": [
+    {
+      "line": 279,
+      "text": "\"未定义的表\""
+    }
+  ],
+  "src/com/changwan/manager/ObjectPoolManager.ts": [
+    {
+      "line": 224,
+      "text": "\"未写对象池回收方法\""
+    },
+    {
+      "line": 268,
+      "text": "\"对象实例：\""
+    }
+  ],
+  "src/com/changwan/manager/PlatformManager.ts": [
+    {
+      "line": 81,
+      "text": "\"请示玩家数据失败\""
+    },
+    {
+      "line": 126,
+      "text": "\"元(RMB)\""
+    },
+    {
+      "line": 181,
+      "text": "\"裤袋平台不支持分享！\""
+    }
+  ],
+  "src/com/changwan/manager/RenderManager.ts": [
+    {
+      "line": 101,
+      "text": "\"循环调用最多的类\""
+    }
+  ],
+  "src/com/changwan/manager/SocketManager.ts": [
+    {
+      "line": 58,
+      "text": "\"开始连接socket\""
+    },
+    {
+      "line": 74,
+      "text": "\"开始连接socket2\""
+    },
+    {
+      "line": 248,
+      "text": "\"错误：服务器与客户端协议对不上 \""
+    },
+    {
+      "line": 326,
+      "text": "\"SocketManager未连接就尝试发送协议\""
+    }
+  ],
+  "src/com/changwan/manager/SocketManger2.ts": [
+    {
+      "line": 48,
+      "text": "\"开始连接socket\""
+    },
+    {
+      "line": 270,
+      "text": "\"错误：服务器与客户端协议对不上 \""
+    }
+  ],
+  "src/com/changwan/model/artifact/ArtifactModel.ts": [
+    {
+      "line": 62,
+      "text": "\"轩辕公山\""
+    },
+    {
+      "line": 63,
+      "text": "\"太史刀狂\""
+    },
+    {
+      "line": 64,
+      "text": "\"钟离真人\""
+    },
+    {
+      "line": 65,
+      "text": "\"武当三疯\""
+    },
+    {
+      "line": 66,
+      "text": "\"少林真仙\""
+    },
+    {
+      "line": 67,
+      "text": "\"左丘渭闾\""
+    },
+    {
+      "line": 68,
+      "text": "\"东郭千里\""
+    },
+    {
+      "line": 69,
+      "text": "\"义薄云天\""
+    },
+    {
+      "line": 70,
+      "text": "\"丐帮乔主\""
+    },
+    {
+      "line": 71,
+      "text": "\"慕容飞鸿\""
+    },
+    {
+      "line": 72,
+      "text": "\"花谢花飞\""
+    },
+    {
+      "line": 73,
+      "text": "\"入梦语嫣\""
+    },
+    {
+      "line": 74,
+      "text": "\"南门飞燕\""
+    },
+    {
+      "line": 75,
+      "text": "\"三生若曦\""
+    },
+    {
+      "line": 76,
+      "text": "\"司空星儿\""
+    }
+  ],
+  "src/com/changwan/model/chat/ChatInfo.ts": [
+    {
+      "line": 116,
+      "text": "\"盟会\""
+    },
+    {
+      "line": 121,
+      "text": "\"世界\""
+    },
+    {
+      "line": 181,
+      "text": "\"[系统]\""
+    }
+  ],
+  "src/com/changwan/model/chat/ChatModel.ts": [
+    {
+      "line": 101,
+      "text": "\"查无此物id:\""
+    },
+    {
+      "line": 106,
+      "text": "\"查无此物id:\""
+    },
+    {
+      "line": 127,
+      "text": "\"查无此物id:\""
+    },
+    {
+      "line": 132,
+      "text": "\"查无此物id:\""
+    }
+  ],
+  "src/com/changwan/model/friends/FriendsModel.ts": [
+    {
+      "line": 25,
+      "text": "\"添加成功\""
+    }
+  ],
+  "src/com/changwan/model/friends/FriendsPlayerInfo.ts": [
+    {
+      "line": 50,
+      "text": "\"<font color='#38B800'>在线</font>\""
+    },
+    {
+      "line": 54,
+      "text": "\"<font color='#5A5B59'>离线\""
+    },
+    {
+      "line": 57,
+      "text": "\"<font color='#5A5B59'>离线\""
+    },
+    {
+      "line": 60,
+      "text": "\"<font color='#5A5B59'>离线\""
+    },
+    {
+      "line": 62,
+      "text": "\"<font color='#5A5B59'>离线7天以上</font>\""
+    }
+  ],
+  "src/com/changwan/model/map/MapModel.ts": [
+    {
+      "line": 24,
+      "text": "\"地图表数据打不到\""
+    }
+  ],
+  "src/com/changwan/model/sound/SoundObject.ts": [
+    {
+      "line": 45,
+      "text": "\"声音音频问题！\""
+    },
+    {
+      "line": 119,
+      "text": "\"声音停止报错：\""
+    }
+  ],
+  "src/com/changwan/util/GameUtil.ts": [
+    {
+      "line": 77,
+      "text": "\"亿\""
+    },
+    {
+      "line": 78,
+      "text": "\"万\""
+    }
+  ],
+  "src/com/changwan/util/ObjectUtil.ts": [
+    {
+      "line": 150,
+      "text": "\"未写释放内存\""
+    }
+  ],
+  "src/com/changwan/util/Trace.ts": [
+    {
+      "line": 13,
+      "text": "\"【错误】：\""
+    },
+    {
+      "line": 44,
+      "text": "\"短时间发送日志过多，停止发送日志！\""
+    }
+  ],
+  "src/com/changwan/view/base/ButtonImage.ts": [
+    {
+      "line": 181,
+      "text": "\"ButtonImage同时删除多次\""
+    }
+  ],
+  "src/com/changwan/view/base/Sprite.ts": [
+    {
+      "line": 85,
+      "text": "\"Sprite同时删除多次\""
+    }
+  ],
+  "src/com/changwan/view/gameobject/animation/ShowAnimation.ts": [
+    {
+      "line": 150,
+      "text": "\"子类需重写\""
+    },
+    {
+      "line": 155,
+      "text": "\"子类需重写\""
+    },
+    {
+      "line": 160,
+      "text": "\"子类需重写\""
+    }
+  ],
+  "src/com/changwan/view/strip/BloodStripView2.ts": [
+    {
+      "line": 74,
+      "text": "\"总血量不能为0！\""
+    }
+  ],
+  "src/com/changwan/view/ui/activity/tower/TowerCopyView.ts": [
+    {
+      "line": 214,
+      "text": "\"命格槽位\""
+    }
+  ],
+  "src/com/changwan/view/ui/arena/log/ArenaLogListItem.ts": [
+    {
+      "line": 34,
+      "text": "\"排名降低至第{0}名\""
+    },
+    {
+      "line": 35,
+      "text": "\"排名上升至第{0}名\""
+    }
+  ],
+  "src/com/changwan/view/ui/chat/ChatView.ts": [
+    {
+      "line": 154,
+      "text": "\"系统频道禁止发言\""
+    },
+    {
+      "line": 162,
+      "text": "\"聊天发送信息输入区域\""
+    },
+    {
+      "line": 167,
+      "text": "\"未加入盟会禁止发言\""
+    },
+    {
+      "line": 172,
+      "text": "\"聊天发送信息输入区域\""
+    }
+  ],
+  "src/com/changwan/view/ui/cloak/CloakItem.ts": [
+    {
+      "line": 155,
+      "text": "\"转可激活\""
+    },
+    {
+      "line": 159,
+      "text": "\"可激活\""
+    },
+    {
+      "line": 163,
+      "text": "\"级可激活\""
+    }
+  ],
+  "src/com/changwan/view/ui/cloak/CloakView.ts": [
+    {
+      "line": 129,
+      "text": "\"已满星\""
+    },
+    {
+      "line": 159,
+      "text": "\"转可激活\""
+    },
+    {
+      "line": 163,
+      "text": "\"可激活\""
+    },
+    {
+      "line": 167,
+      "text": "\"级可激活\""
+    }
+  ],
+  "src/com/changwan/view/ui/copy/rank/CopyRankView.ts": [
+    {
+      "line": 110,
+      "text": "\"排名：\""
+    },
+    {
+      "line": 111,
+      "text": "\"当前：\""
+    },
+    {
+      "line": 115,
+      "text": "\"排名：\""
+    },
+    {
+      "line": 116,
+      "text": "\"当前：\""
+    }
+  ],
+  "src/com/changwan/view/ui/devil/DevilGrabItem.ts": [
+    {
+      "line": 95,
+      "text": "\"亿\""
+    },
+    {
+      "line": 96,
+      "text": "\"万\""
+    }
+  ],
+  "src/com/changwan/view/ui/friends/friendsList/FriendsDeleteItem.ts": [
+    {
+      "line": 30,
+      "text": "\"级\""
+    }
+  ],
+  "src/com/changwan/view/ui/friends/friendsList/FriendsListItem.ts": [
+    {
+      "line": 40,
+      "text": "\"总战力：\""
+    },
+    {
+      "line": 41,
+      "text": "\"级\""
+    }
+  ],
+  "src/com/changwan/view/ui/friends/privateChat/FriendsChatView.ts": [
+    {
+      "line": 138,
+      "text": "\"与\""
+    }
+  ],
+  "src/com/changwan/view/ui/friends/search/FriendsSearchView.ts": [
+    {
+      "line": 32,
+      "text": "\"请输入玩家名字\""
+    },
+    {
+      "line": 99,
+      "text": "\"请输入角色姓名\""
+    }
+  ],
+  "src/com/changwan/view/ui/home/Task.ts": [
+    {
+      "line": 473,
+      "text": "\"------找不到主线任务--------\""
+    }
+  ],
+  "src/com/changwan/view/ui/jingmai/JingmaiCondView.ts": [
+    {
+      "line": 75,
+      "text": "\"经脉\""
+    },
+    {
+      "line": 78,
+      "text": "\"免伤\""
+    },
+    {
+      "line": 87,
+      "text": "\"经脉\""
+    },
+    {
+      "line": 94,
+      "text": "\"经脉\""
+    },
+    {
+      "line": 99,
+      "text": "\"免伤\""
+    }
+  ],
+  "src/com/changwan/view/ui/jingmai/JingmaiView.ts": [
+    {
+      "line": 216,
+      "text": "\"消耗：\""
+    },
+    {
+      "line": 220,
+      "text": "\"消耗：\""
+    },
+    {
+      "line": 268,
+      "text": "\"免伤\""
+    }
+  ],
+  "src/com/changwan/view/ui/login/LoginView.ts": [
+    {
+      "line": 55,
+      "text": "\"脚本网1区\""
+    }
+  ],
+  "src/com/changwan/view/ui/mail/MailContentView.ts": [
+    {
+      "line": 44,
+      "text": "\"背包已满！\""
+    }
+  ],
+  "src/com/changwan/view/ui/pet/PetView2.ts": [
+    {
+      "line": 194,
+      "text": "\"宠物进阶丹：10/20\""
+    }
+  ],
+  "src/com/changwan/view/ui/role/dress/fashion/FashionListItem2.ts": [
+    {
+      "line": 146,
+      "text": "\"星数：\""
+    }
+  ],
+  "src/com/changwan/view/ui/role/dress/fashion/FashionView2.ts": [
+    {
+      "line": 118,
+      "text": "\"剩余：\""
+    },
+    {
+      "line": 128,
+      "text": "\"消耗：\""
+    },
+    {
+      "line": 235,
+      "text": "\"有效期：永久\""
+    },
+    {
+      "line": 240,
+      "text": "\"有效期：已过期\""
+    },
+    {
+      "line": 256,
+      "text": "\"有效期：\""
+    },
+    {
+      "line": 270,
+      "text": "\"消耗：\""
+    },
+    {
+      "line": 321,
+      "text": "\"该服饰还没激活\""
+    },
+    {
+      "line": 339,
+      "text": "\"已升到最高星级\""
+    }
+  ],
+  "src/com/changwan/view/ui/role/dress/title/TitleView2.ts": [
+    {
+      "line": 171,
+      "text": "\"剩余时间：永久\""
+    },
+    {
+      "line": 179,
+      "text": "\"激活：\""
+    },
+    {
+      "line": 181,
+      "text": "\"激活：\""
+    },
+    {
+      "line": 210,
+      "text": "\"剩余时间：\""
+    }
+  ],
+  "src/com/changwan/view/ui/shop/ShopBuyView.ts": [
+    {
+      "line": 74,
+      "text": "\"限购：\""
+    },
+    {
+      "line": 78,
+      "text": "\"限购：\""
+    },
+    {
+      "line": 247,
+      "text": "\"不足,是否充值？\""
+    },
+    {
+      "line": 252,
+      "text": "\"不足\""
+    }
+  ],
+  "src/com/changwan/view/ui/shop/ShopItem.ts": [
+    {
+      "line": 110,
+      "text": "\"热卖\""
+    },
+    {
+      "line": 117,
+      "text": "\"珍品\""
+    },
+    {
+      "line": 128,
+      "text": "\"折\""
+    }
+  ],
+  "src/com/changwan/view/ui/shortcutMenu/ShortcutMenu.ts": [
+    {
+      "line": 225,
+      "text": "\"对方不在线，不能进行窗口聊天\""
+    },
+    {
+      "line": 230,
+      "text": "\"对方在你的黑名单，不能进行窗口聊天\""
+    },
+    {
+      "line": 251,
+      "text": "\"对方已在你的黑名单\""
+    },
+    {
+      "line": 261,
+      "text": "\"对方已是你的好友\""
+    }
+  ],
+  "src/com/changwan/view/ui/sysPrivilege/sysInvest/SysInvestView.ts": [
+    {
+      "line": 48,
+      "text": "'>{0}元</font>购买<font color = '"
+    }
+  ],
+  "src/com/changwan/view/ui/tips/EquipTips.ts": [
+    {
+      "line": 184,
+      "text": "\"（强化+\""
+    },
+    {
+      "line": 185,
+      "text": "\"（强化+\""
+    }
+  ],
+  "src/com/changwan/view/ui/uiCommon/GameMoneyView.ts": [
+    {
+      "line": 78,
+      "text": "\"亿\""
+    },
+    {
+      "line": 79,
+      "text": "\"万\""
+    }
+  ]
+}
