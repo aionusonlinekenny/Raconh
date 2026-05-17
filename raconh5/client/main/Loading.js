@@ -52,7 +52,7 @@ var Loading = ( function()
     	_allCtrls[ txtPercent1.id ] = txtPercent1;
 		loadingPanel.appendChild( txtPercent1 );
 
-		var txtTips = UITool.createFont("<nobr>首次加载时间较长请耐心等待....</nobr>", "txtTips", 0, 25, "absolute", "0%", "0%", 0, 390, "微软雅黑", "#FFF7E7", 18, "center" );
+		var txtTips = UITool.createFont("<nobr>First load may take a while, please wait....</nobr>", "txtTips", 0, 25, "absolute", "0%", "0%", 0, 390, "微软雅黑", "#FFF7E7", 18, "center" );
     	_allCtrls[ txtTips.id ] = txtTips;
 		loadingPanel.appendChild( txtTips );
 		
