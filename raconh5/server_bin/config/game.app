@@ -35,7 +35,7 @@
             , {host, "localhost"}       %% mysql ip
             , {port, 3306}              %% mysql 端口
             , {user, "root"}            %% mysql 账号
-            , {password, "root"}      %% mysql 密码
+            , {password, "Eban0815@"}      %% mysql 密码
             , {db, "cw02_game1"}        %% mysql 数据库名
             , {encode, utf8}            %% mysql 编码
             , {pool_size, 8}            %% mysql 进程池大小
