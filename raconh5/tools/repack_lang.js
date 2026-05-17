@@ -9,11 +9,11 @@ const fs   = require('fs');
 const path = require('path');
 
 const IN_FILE  = path.join(__dirname, 'lang_en.json');
-const CW_FILE  = path.join(__dirname, '../client/main/resource/cw/cw.txt');
+const CW_FILE  = path.join(__dirname, '../client/main/resource/res/cw.txt');
 const BAK_FILE = CW_FILE + '.bak';
 
 // Đường dẫn XAMPP — sửa nếu bạn đặt game ở chỗ khác
-const XAMPP_CW = 'C:\\xampp\\htdocs\\game\\resource\\cw\\cw.txt';
+const XAMPP_CW = 'C:\\xampp\\htdocs\\game\\resource\\res\\cw.txt';
 
 // ── Binary reader (Big-Endian) ────────────────────────────────────────────────
 

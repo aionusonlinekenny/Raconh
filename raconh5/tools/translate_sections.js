@@ -15,11 +15,11 @@
 const fs   = require('fs');
 const path = require('path');
 
-const CW_SRC   = path.join(__dirname, '../client/main/resource/cw/cw.txt');
+const CW_SRC   = path.join(__dirname, '../client/main/resource/res/cw.txt');
 const CN_FILE  = path.join(__dirname, 'sections_cn.json');
 const EN_FILE  = path.join(__dirname, 'sections_en.json');
 const BAK_FILE = CW_SRC + '.bak2';
-const XAMPP_CW = 'C:\\xampp\\htdocs\\game\\resource\\cw\\cw.txt';
+const XAMPP_CW = 'C:\\xampp\\htdocs\\game\\resource\\res\\cw.txt';
 
 const CJK = /[一-鿿㐀-䶿]/;
 

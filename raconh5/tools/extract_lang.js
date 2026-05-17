@@ -21,7 +21,7 @@
 const fs   = require('fs');
 const path = require('path');
 
-const CW_FILE  = path.join(__dirname, '../client/main/resource/cw/cw.txt');
+const CW_FILE  = path.join(__dirname, '../client/main/resource/res/cw.txt');
 const OUT_FILE = path.join(__dirname, 'lang_en.json');
 
 // ── Binary reader (Big-Endian) ────────────────────────────────────────────────
