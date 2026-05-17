@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="EfficiencyAlertSkin" width="477" height="249" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="_back" source="ui_drop_back_png" y="0" scale9Grid="43,120,393,118" x="0"/>
+	<e:Image id="_title" source="ui_drop_efficiency_title_png" y="11" width="238" height="60" horizontalCenter="0"/>
+	<e:Group id="_group0" x="54" y="75">
+		<e:Image source="playRes_exp_54_png" x="0" y="1" width="54" height="54"/>
+		<e:Image source="playRes_coin_54_png" x="0" y="54" width="54" height="54"/>
+	</e:Group>
+	<e:Group id="_group1" x="104" y="87">
+		<ns1:Label id="_txtSilver0" text="123456" x="0" y="54" size="30" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x7c6e62"/>
+		<ns1:Label id="_txtExp0" text="123456" x="0" y="1" size="30" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x7c6e62"/>
+	</e:Group>
+	<e:Group id="_group2" x="216" y="89">
+		<e:Image source="ui_drop_arrow_png" x="0" y="0"/>
+		<e:Image source="ui_drop_arrow_png" x="0" y="53"/>
+	</e:Group>
+	<e:Group id="_group3" x="250" y="87">
+		<ns1:Label id="_txtSilver1" text="123456" x="0" y="54" size="30" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x7C6E62"/>
+		<ns1:Label id="_txtExp1" text="123456" x="0" y="1" size="30" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x7C6E62"/>
+	</e:Group>
+</e:Skin>

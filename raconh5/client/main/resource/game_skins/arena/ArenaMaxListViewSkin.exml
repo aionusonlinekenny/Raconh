@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArenaMaxListViewSkin" width="650" height="127" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Scroller id="_scroll" width="650" height="127" x="0" y="0">
+		<e:Group id="_group"/>
+	</ns1:Scroller>
+</e:Skin>

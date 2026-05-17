@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubBFScoreRewardsItemSkin" width="703" height="148" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_wordBg_normal_png" scale9Grid="37,30,43,35" x="0" y="0" anchorOffsetX="0" width="703" height="148"/>
+	<ns1:Button id="_btn" label="Button" x="498" y="48" width="187" height="80">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image source="common_label_lingqu_0_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Label text="积分：9999" x="529" y="25" textColor="0x7C6E62" size="22" fontFamily="Microsoft YaHei" id="_txt"/>
+	<e:Image id="_label" source="commony_ilingqu_png" x="522" y="44"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="646" y="48" touchEnabled="false"/>
+</e:Skin>

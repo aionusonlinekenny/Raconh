@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RelicStuffAttrViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin"/>
+	<e:Image id="_diImg" source="common_itemBg_png" y="379" horizontalCenter="0"/>
+	<ns1:Button id="_actBtn" label="Button" y="742" anchorOffsetX="0" width="238" anchorOffsetY="0" height="105" horizontalCenter="0">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="common_active_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:BitmapRemote id="_equipBit" width="210" height="210" y="361" anchorOffsetX="0" anchorOffsetY="0" x="255"/>
+	<e:Image id="_fightImg" source="main_fighting_png" x="277" y="521"/>
+	<ns1:Label id="_attrTxt0" text="Label" x="203" y="586" textColor="0x7c6e62" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="167"/>
+	<ns1:Label id="_attrTxt1" text="Label" x="406" y="586" textColor="0x7C6E62" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="168"/>
+	<ns1:Label text="Label" x="203" y="627" textColor="0x7C6E62" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="167" id="_attrTxt2"/>
+	<ns1:Label text="Label" x="406" y="627" textColor="0x7C6E62" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="168" id="_attrTxt3"/>
+	<ns1:Label id="_versTxt" text="Label" y="788" anchorOffsetX="0" width="320" fontFamily="Microsoft YaHei" textColor="0x00ff00" textAlign="center" x="200"/>
+	<e:Group id="_descGroup" x="204" y="668">
+		<ns1:Label id="_desc1" text="Label" x="0" y="0" anchorOffsetX="0" width="444" fontFamily="Microsoft YaHei" textColor="0xea7925"/>
+		<ns1:Label id="_desc2" text="Label" x="0" y="40" anchorOffsetX="0" width="444" fontFamily="Microsoft YaHei" textColor="0xEA7925"/>
+		<e:Image source="common_point_png" x="-22" y="5"/>
+		<e:Image source="common_point_png" x="-22" y="46"/>
+	</e:Group>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="433" y="751" visible="false"/>
+</e:Skin>

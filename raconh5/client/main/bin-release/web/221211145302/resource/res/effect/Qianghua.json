@@ -1,0 +1,8 @@
+{"mc":{"Qianghua":{"frameRate":24,"events":[],"frames":[
+  {"res":"Qianghua_00001","x":80,"y":75},
+  {"res":"Qianghua_00002","x":79,"y":74},
+  {"res":"Qianghua_00003","x":80,"y":75}]}},
+"res":{
+  "Qianghua_00001":{"x":0,"y":0,"w":107,"h":107},
+  "Qianghua_00002":{"x":107,"y":0,"w":109,"h":109},
+  "Qianghua_00003":{"x":216,"y":0,"w":107,"h":107}}}

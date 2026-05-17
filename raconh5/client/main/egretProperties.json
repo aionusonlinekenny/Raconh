@@ -1,0 +1,56 @@
+{
+	"native": {
+		"path_ignore": [],
+		"android_as_path": "../../../test/egret/test/packtest"
+	},
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "bin-release"
+	},
+	"egret_version": "5.0.15",
+	"template": {},
+	"eui": {
+		"exmlRoot": [
+			"resource/eui_skins",
+			"resource/game_skins"
+		],
+		"themes": [
+			"resource/default.thm.json"
+		],
+		"exmlPublishPolicy": "gjs"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "promise",
+			"path": "./promise"
+		},
+		{
+			"name": "util",
+			"path": "../gamelib/util"
+		},
+		{
+			"name": "jszip",
+			"path": "../gamelib/jszip"
+		}
+	
+	]
+}

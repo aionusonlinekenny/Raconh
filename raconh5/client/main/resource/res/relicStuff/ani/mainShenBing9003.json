@@ -1,0 +1,10 @@
+{"mc":{"mainShenBing9003":{"frameRate":24,"events":[],"frames":[
+  {"res":"mainShenBing9003_0000","x":346,"y":321},
+  {"res":"mainShenBing9003_0001","x":346,"y":319},
+  {"res":"mainShenBing9003_0002","x":346,"y":301},
+  {"res":"mainShenBing9003_0003","x":346,"y":338}]}},
+"res":{
+  "mainShenBing9003_0002":{"x":0,"y":0,"w":123,"h":168},
+  "mainShenBing9003_0001":{"x":123,"y":0,"w":123,"h":151},
+  "mainShenBing9003_0000":{"x":246,"y":0,"w":123,"h":148},
+  "mainShenBing9003_0003":{"x":369,"y":0,"w":123,"h":130}}}

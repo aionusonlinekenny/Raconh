@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SevenDaysItemSkin" width="134" height="122" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="_bgImg" source="cashCow_sevendDay_quan_png" y="0" x="11"/>
+	<ns1:BitmapRemote id="_bitimg" width="86" height="86" x="24" y="14" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image id="_dayImg" source="cashCow_sevendDay_1_png" y="84" horizontalCenter="0"/>
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" y="17" x="-3" visible="false"/>
+	<e:Image source="common_red_icon_png" x="93" y="5" id="_redIcon" visible="false"/>
+</e:Skin>

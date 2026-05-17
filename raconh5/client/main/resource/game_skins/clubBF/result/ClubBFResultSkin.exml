@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubBFResultSkin" width="715" height="677" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group x="0" y="0" width="715">
+		<e:Image source="result_bg_png" x="0" y="70" scale9Grid="89,38,535,7" height="607"/>
+		<e:Image source="result_line_png" y="379" x="113"/>
+		<e:Image y="360" x="283" source="common_label_huodejiangli_png"/>
+		<e:Image source="result_title_png" x="122" y="0"/>
+		<e:Image source="clubBF_flag_png" x="34" y="124"/>
+		<e:Image source="clubBF_sheng_png" x="106" y="193"/>
+		<ns1:Label id="_txtClubWin" text="长林府" y="272" fontFamily="Microsoft YaHei" size="24" textAlign="center" textColor="0xFFF7E6" anchorOffsetX="0" width="150" x="62" anchorOffsetY="0" height="52" verticalAlign="middle"/>
+		<ns1:Label id="_txt0" text="城门被成功击破，攻方获得胜利。" y="157" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" x="250" anchorOffsetY="0"/>
+		<ns1:Label id="_txtClubScore0" text="乾灵虚积分：9999" y="196" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" x="250" anchorOffsetY="0"/>
+		<ns1:Label id="_txtClubScore1" text="济风堂积分：9999" y="234" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" x="250" anchorOffsetY="0"/>
+		<ns1:Label id="_txt1" text="乾灵虚占领王城。" y="273" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" x="250" anchorOffsetY="0"/>
+		<ns1:Label id="_txtResult" text="我的盟会：胜" y="414" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" x="82" anchorOffsetY="0"/>
+		<ns1:Label id="_txtScore" text="我的积分：9999" y="414" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" x="262" anchorOffsetY="0"/>
+		<ns1:Label id="_txtRank" text="盟内排名：99" y="414" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" x="475" anchorOffsetY="0"/>
+		<ns1:Label id="_txtTime" text="倒计时3s退出" x="475" y="596" textColor="0xFFF7E6" fontFamily="Microsoft YaHei"/>
+		<e:Group id="_gItems" y="432" anchorOffsetY="0" horizontalCenter="0"/>
+		<ns1:Button id="_btn" label="" y="556" width="238" height="105" x="237">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image source="confirm_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_btnClose" source="common_tip_close_png" x="639" y="88"/>
+	</e:Group>
+</e:Skin>

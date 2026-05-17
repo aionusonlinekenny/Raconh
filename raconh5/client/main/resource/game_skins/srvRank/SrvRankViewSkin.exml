@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SrvRankViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_name_back_png" x="94" y="126" anchorOffsetY="0" height="358"/>
+	<e:Image source="srvRank_weiyi_png" x="486" y="152"/>
+	<ns1:BitmapRemote id="_titleBit" width="55" height="222" x="110" y="158" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image source="sysprivilege_zhanlibiaosheng_png" x="236" y="381"/>
+	<e:Image source="common_line_png" x="0" y="446" width="720"/>
+	<e:Image source="common_line_png" x="5" y="1093" width="720"/>
+	<ns1:BaseVScrollerList id="_vscroll" width="710" height="645" x="6" y="449" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:Label id="_rankTxt" text="Label" x="43" y="1130" anchorOffsetX="0" width="244" anchorOffsetY="0" height="33" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="活动结束倒计时：" x="43" y="1200" anchorOffsetX="0" width="242" anchorOffsetY="0" height="33" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_timeTxt" text="123" x="239" y="1200" anchorOffsetX="0" width="214" anchorOffsetY="0" height="33" fontFamily="Microsoft YaHei" textColor="0x00ff00"/>
+	<ns1:Button id="_btn" label="Button" x="484" y="1155" width="200" height="87">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="srvRank_chakanpaihang_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

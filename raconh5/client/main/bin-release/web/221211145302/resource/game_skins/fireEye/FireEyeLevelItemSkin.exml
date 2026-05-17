@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FireEyeLevelItemSkin" width="350" height="34" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_point_png" x="0" y="5"/>
+	<ns1:Label id="_txt" text="6666" x="25" y="3" textColor="0xFD7100" size="26" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+</e:Skin>

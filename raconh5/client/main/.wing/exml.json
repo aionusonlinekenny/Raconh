@@ -1,0 +1,316 @@
+{
+  "global": {
+    "globalAutoLayerMarkEnable": false,
+    "globalAdsorbEnable": false,
+    "globalRulerEnable": false,
+    "globalBindingDataTestObj": [],
+    "gridColor": 8355711,
+    "gridEnabled": false,
+    "gridSize": 20
+  },
+  "15f052f3547": {
+    "backgroundX": 0,
+    "backgroundY": 0,
+    "backgroundWidth": -1,
+    "backgroundHeight": -1,
+    "useBgImage": true,
+    "useBgColor": true,
+    "backgroundAlpha": 100,
+    "backgroundType": "null"
+  },
+  "15f2820a168": {
+    "path": "..\\resource\\game_skins\\HomeView.ts",
+    "class": "HomeView",
+    "parentPath": ""
+  },
+  "15f292542c2": {
+    "path": "..\\resource\\game_skins\\home\\HeroView.ts",
+    "class": "HeroView",
+    "parentPath": ""
+  },
+  "15f2e5bf2d6": {
+    "path": "..\\resource\\game_skins\\home\\ContentItem.ts",
+    "class": "ContentItem",
+    "parentPath": ""
+  },
+  "15f2eb6916c": {
+    "path": "..\\resource\\game_skins\\base\\Panel.ts",
+    "class": "Panel",
+    "parentPath": ""
+  },
+  "15f38d631b9": {
+    "path": "..\\resource\\game_skins\\bag\\BagSkin.ts",
+    "class": "BagSkin",
+    "parentPath": ""
+  },
+  "15f38db4083": {
+    "path": "..\\resource\\game_skins\\panel\\BasePanel.ts",
+    "class": "BasePanel",
+    "parentPath": ""
+  },
+  "15f38f739de": {
+    "path": "..\\resource\\game_skins\\common\\CloseBtn.ts",
+    "class": "CloseBtn",
+    "parentPath": ""
+  },
+  "15f4d04d1e1": {
+    "path": "..\\resource\\game_skins\\login\\LoginViewSkin.ts",
+    "class": "LoginViewSkin",
+    "parentPath": ""
+  },
+  "15f4d1bf86e": {
+    "path": "..\\resource\\game_skins\\login\\CreateRole.ts",
+    "class": "CreateRole",
+    "parentPath": ""
+  },
+  "15f5bb9eed6": {
+    "path": "..\\resource\\game_skins\\common\\BaseFuncBtn.ts",
+    "class": "BaseFuncBtn",
+    "parentPath": ""
+  },
+  "15f5cb7188c": {
+    "path": "..\\resource\\game_skins\\common\\BaseHScrollerList.ts",
+    "class": "BaseHScrollerList",
+    "parentPath": ""
+  },
+  "15f77560c27": {
+    "path": "..\\resource\\game_skins\\top\\TopInfoSkin.ts",
+    "class": "TopInfoSkin",
+    "parentPath": ""
+  },
+  "15f7b6a7825": {
+    "path": "..\\resource\\game_skins\\common\\BaseVScrollerListSkin.ts",
+    "class": "BaseVScrollerListSkin",
+    "parentPath": ""
+  },
+  "15f84c6d4cd": {
+    "path": "..\\resource\\game_skins\\tips\\EquipTips.ts",
+    "class": "EquipTips",
+    "parentPath": "",
+    "guideLinesEnabled": false,
+    "guideLines": [
+      {
+        "type": "v",
+        "pos": 36
+      }
+    ]
+  },
+  "15f9ebe7350": {
+    "path": "..\\resource\\game_skins\\home\\HeadSkin.ts",
+    "class": "HeadSkin",
+    "parentPath": ""
+  },
+  "15f9ed24abf": {
+    "path": "..\\resource\\game_skins\\common\\BaseButtonSkin.ts",
+    "class": "BaseButtonSkin",
+    "parentPath": ""
+  },
+  "15f9f7e9c3f": {
+    "path": "..\\resource\\game_skins\\home\\MainButtonSkin.ts",
+    "class": "MainButtonSkin",
+    "parentPath": ""
+  },
+  "15f99700366": {
+    "path": "..\\resource\\game_skins\\StrengthenViewSkin.ts",
+    "class": "StrengthenViewSkin",
+    "parentPath": ""
+  },
+  "15f9ed5d8b8": {
+    "backgroundType": "user",
+    "backgroundColor": "#000000",
+    "backgroundAlpha": "60"
+  },
+  "15fd728f785": {
+    "path": "..\\resource\\game_skins\\equip\\ZhuhunUpgrade.ts",
+    "class": "ZhuhunUpgrade",
+    "parentPath": ""
+  },
+  "15fe2b915f0": {
+    "path": "..\\resource\\game_skins\\role\\RoleAttrView.ts",
+    "class": "RoleAttrView",
+    "parentPath": ""
+  },
+  "15fe6982704": {
+    "path": "..\\resource\\game_skins\\equip\\GemView.ts",
+    "class": "GemView",
+    "parentPath": ""
+  },
+  "15fed50f55c": {
+    "path": "..\\resource\\game_skins\\equip\\GemAttrTips.ts",
+    "class": "GemAttrTips",
+    "parentPath": ""
+  },
+  "160151dc502": {
+    "backgroundX": 0,
+    "backgroundY": 0,
+    "backgroundWidth": -1,
+    "backgroundHeight": -1,
+    "useBgImage": true,
+    "useBgColor": true,
+    "backgroundAlpha": 100
+  },
+  "1602bd8ed2f": {
+    "guideLines": [
+      {
+        "type": "v",
+        "pos": 764
+      }
+    ]
+  },
+  "16053db64f0": {
+    "path": "..\\resource\\game_skins\\club\\ClubPanel.ts",
+    "class": "ClubPanel",
+    "parentPath": ""
+  },
+  "1605416d9f5": {
+    "path": "..\\resource\\game_skins\\club\\ChooseClubView.ts",
+    "class": "ChooseClubView",
+    "parentPath": ""
+  },
+  "16054576da6": {
+    "path": "..\\resource\\game_skins\\club\\ClubJoinTipsView.ts",
+    "class": "ClubJoinTipsView",
+    "parentPath": ""
+  },
+  "16054ddb214": {
+    "path": "..\\resource\\game_skins\\club\\ClubViewSkin.ts",
+    "class": "ClubViewSkin",
+    "parentPath": ""
+  },
+  "16054e1896a": {
+    "path": "..\\resource\\game_skins\\club\\ClubBuildView.ts",
+    "class": "ClubBuildView",
+    "parentPath": ""
+  },
+  "1605534d622": {
+    "path": "..\\resource\\game_skins\\club\\items\\ClubMemberItemView.ts",
+    "class": "ClubMemberItemView",
+    "parentPath": ""
+  },
+  "1605831e548": {
+    "path": "..\\resource\\game_skins\\club\\ClubCareerView.ts",
+    "class": "ClubCareerView",
+    "parentPath": ""
+  },
+  "160a27457ff": {
+    "backgroundX": 0,
+    "backgroundY": 0,
+    "backgroundWidth": -1,
+    "backgroundHeight": -1,
+    "useBgImage": true,
+    "useBgColor": true,
+    "backgroundAlpha": 100,
+    "bindingDataTestObj": []
+  },
+  "160c93e3432": {
+    "path": "..\\resource\\game_skins\\equip\\SuitAttrList.ts",
+    "class": "SuitAttrList",
+    "parentPath": ""
+  },
+  "160ca7fd938": {
+    "path": "..\\resource\\game_skins\\equip\\SuitAttrView.ts",
+    "class": "SuitAttrView",
+    "parentPath": ""
+  },
+  "160caa55309": {
+    "path": "..\\resource\\game_skins\\equip\\SuitAllAttrItem.ts",
+    "class": "SuitAllAttrItem",
+    "parentPath": ""
+  },
+  "160d4a8a61e": {
+    "path": "..\\resource\\game_skins\\equip\\SuitDisassemblyTips.ts",
+    "class": "SuitDisassemblyTips",
+    "parentPath": ""
+  },
+  "160debbe1ba": {
+    "path": "..\\resource\\game_skins\\chuangong\\ChuangongBeiItem.ts",
+    "class": "ChuangongBeiItem",
+    "parentPath": ""
+  },
+  "160e40defd3": {
+    "path": "..\\resource\\game_skins\\chuangong\\ChuangongScussView.ts",
+    "class": "ChuangongScussView",
+    "parentPath": ""
+  },
+  "160f92ab9d4": {
+    "path": "..\\resource\\game_skins\\chuangong\\ChuangongAwardItem.ts",
+    "class": "ChuangongAwardItem",
+    "parentPath": ""
+  },
+  "161211b4002": {
+    "path": "..\\resource\\game_skins\\landlord\\LandlordInfoView.ts",
+    "class": "LandlordInfoView",
+    "parentPath": ""
+  },
+  "16122ea0cb9": {
+    "path": "..\\resource\\game_skins\\landlord\\LandlordInteractView1.ts",
+    "class": "LandlordInteractView1",
+    "parentPath": ""
+  },
+  "161234cff78": {
+    "path": "..\\resource\\game_skins\\landlord\\LandlordInteractItem.ts",
+    "class": "LandlordInteractItem",
+    "parentPath": ""
+  },
+  "1612818dcc5": {
+    "path": "..\\resource\\game_skins\\landlord\\LairdResultWin.ts",
+    "class": "LairdResultWin",
+    "parentPath": ""
+  },
+  "1612c632b8e": {
+    "path": "..\\resource\\game_skins\\landlord\\LandlordInteractView.ts",
+    "class": "LandlordInteractView",
+    "parentPath": ""
+  },
+  "1612c7ece93": {
+    "path": "..\\resource\\game_skins\\landlord\\LandlordPressView.ts",
+    "class": "LandlordPressView",
+    "parentPath": ""
+  },
+  "1616540ceb2": {
+    "path": "..\\resource\\game_skins\\debug\\GMContentItem.ts",
+    "class": "GMContentItem",
+    "parentPath": ""
+  },
+  "1616e53e15c": {
+    "guideLines": [
+      {
+        "type": "h",
+        "pos": 267
+      },
+      {
+        "type": "h",
+        "pos": 366
+      }
+    ],
+    "guideLinesEnabled": false
+  },
+  "16224a5bc03": {
+    "path": "com\\changwan\\view\\ui\\materialCopy\\MaterialCheckPointItem.ts",
+    "class": "MaterialCheckPointItem",
+    "parentPath": ""
+  },
+  "16229129b7e": {
+    "path": "com\\changwan\\view\\ui\\materialCopy\\MaterialBallItem.ts",
+    "class": "MaterialBallItem",
+    "parentPath": ""
+  },
+  "1623d2ad1a2": {
+    "path": "com\\changwan\\view\\ui\\materialCopy\\MaterialGetBoxView.ts",
+    "class": "MaterialGetBoxView",
+    "parentPath": ""
+  },
+  "1628af3859e": {
+    "guideLines": [
+      {
+        "type": "h",
+        "pos": 414
+      }
+    ]
+  },
+  "162a359038d": {
+    "path": "..\\resource\\game_skins\\uiCommon\\BaseItem.ts",
+    "class": "BaseItem",
+    "parentPath": ""
+  }
+}

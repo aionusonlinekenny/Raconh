@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopyExpResultViewSkin" width="720" height="637" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:ResultWinBack id="_back" x="2" y="0" skinName="ResultWinBackSkin"/>
+	<ns1:BitmapRemote id="_back1" width="572" height="448" y="67" x="73"/>
+	<ns1:BitmapRemote id="_scorePic" width="272" height="235" y="163" x="224"/>
+	<e:Image source="copy_exp_label_4_png" x="209" y="439"/>
+	<e:Image source="copy_exp_label_5_png" x="209" y="483"/>
+	<ns1:Label id="_txtTime" text="Label" y="441" fontFamily="Microsoft YaHei" size="30" x="367" textColor="0x4dff00"/>
+	<ns1:Label id="_txtExp" text="Label" y="485" fontFamily="Microsoft YaHei" textColor="0x4DFF00" size="30" x="367"/>
+
+</e:Skin>

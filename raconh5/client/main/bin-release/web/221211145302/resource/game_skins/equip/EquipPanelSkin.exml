@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="EquipPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15fc4afd9ec" ></w:Config>
+	<e:Image id="_titleImg" width="181" height="52" y="72" horizontalCenter="0" x="320" scaleX="1" scaleY="1" source=""/>
+	<e:Image id="_titleBg" source="common_title_wordBg_png" y="166" horizontalCenter="0" x="256" scaleX="1" scaleY="1"/>
+	<ns1:Label id="_equipName" text="" y="167" textColor="0x7c6e62" horizontalCenter="0" fontFamily="Microsoft YaHei" x="360" scaleX="1" scaleY="1" size="32"/>
+	<e:Image id="_topBtn" width="49" height="48" x="471" y="160"/>
+	<e:Image id="_fightImg" width="441" height="65" y="836" source="common_fighting_png" scaleX="1" scaleY="1" horizontalCenter="35"/>
+	<e:Image id="_fightImg2" width="102" height="57" x="222" y="843" source="common_zhanli_png"/>
+	<e:Group id="_func" width="720" height="1280" x="0" y="0" anchorOffsetY="0">
+	</e:Group>
+	<e:Group id="_equipItemList" width="720" height="950" x="0" y="237">
+		<ns1:EquipItem id="_equipItem1" width="141" height="141" x="12" y="-1" skinName="BaseGoodsSkin" scaleX="1" scaleY="1"/>
+		<ns1:EquipItem id="_equipItem2" width="141" height="141" x="12" y="164" skinName="BaseGoodsSkin" scaleX="1" scaleY="1"/>
+		<ns1:EquipItem id="_equipItem3" width="141" height="141" x="12" y="319" skinName="BaseGoodsSkin" scaleX="1" scaleY="1"/>
+		<ns1:EquipItem id="_equipItem4" width="141" height="141" x="12" y="474" skinName="BaseGoodsSkin" scaleX="1" scaleY="1"/>
+		<ns1:EquipItem id="_equipItem5" width="141" height="141" x="569" y="-1" skinName="BaseGoodsSkin" scaleX="1" scaleY="1"/>
+		<ns1:EquipItem id="_equipItem6" width="141" height="141" x="569" y="166" skinName="BaseGoodsSkin" scaleX="1" scaleY="1"/>
+		<ns1:EquipItem id="_equipItem7" width="141" height="141" x="569" y="321" skinName="BaseGoodsSkin" scaleX="1" scaleY="1"/>
+		<ns1:EquipItem id="_equipItem8" width="141" height="141" x="569" y="476" skinName="BaseGoodsSkin" scaleX="1" scaleY="1"/>
+		<e:Image id="_baseIcon1" width="63" height="70" x="52" y="35" source="equip_baseIcon1_png"/>
+		<e:Image id="_baseIcon2" width="63" height="70" x="52" y="200" source="equip_baseIcon2_png"/>
+		<e:Image id="_baseIcon3" width="63" height="70" x="52" y="355" source="equip_baseIcon3_png"/>
+		<e:Image id="_baseIcon4" width="63" height="70" x="52" y="510" source="equip_baseIcon4_png"/>
+		<e:Image id="_baseIcon5" width="63" height="70" x="608" y="34" source="equip_baseIcon5_png"/>
+		<e:Image id="_baseIcon6" width="63" height="70" x="608" y="202" source="equip_baseIcon6_png"/>
+		<e:Image id="_baseIcon7" width="63" height="70" x="608" y="356" source="equip_baseIcon7_png"/>
+		<e:Image id="_baseIcon8" width="63" height="70" x="608" y="510" source="equip_baseIcon8_png"/>
+		<e:Image id="_redImg1" width="23" height="23" x="117" y="12" source="common_red_icon_png" visible="false"/>
+		<e:Image id="_redImg2" width="23" height="23" x="117" y="176" source="common_red_icon_png" visible="false"/>
+		<e:Image id="_redImg3" width="23" height="23" x="117" y="331" source="common_red_icon_png" visible="false"/>
+		<e:Image id="_redImg4" width="23" height="23" x="117" y="486" source="common_red_icon_png" visible="false"/>
+		<e:Image id="_redImg5" width="23" height="23" x="674" y="12" source="common_red_icon_png" visible="false"/>
+		<e:Image id="_redImg6" width="23" height="23" x="674" y="177" source="common_red_icon_png" visible="false"/>
+		<e:Image id="_redImg7" width="23" height="23" x="674" y="334" source="common_red_icon_png" visible="false"/>
+		<e:Image id="_redImg8" width="23" height="23" x="674" y="489" source="common_red_icon_png" visible="false"/>
+	</e:Group>
+</e:Skin>

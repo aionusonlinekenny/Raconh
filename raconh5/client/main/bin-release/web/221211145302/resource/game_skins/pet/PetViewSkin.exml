@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PetViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_fightImg" width="102" height="57" x="434" y="158" source="common_zhanli_png"/>
+	<e:Image source="common_back2_png" x="136" y="166" width="184" height="48"/>
+	<ns1:Label id="_nameTxt" text="Label" x="141" y="176" textColor="0xfffbeb" size="24" fontFamily="Microsoft YaHei" width="174" height="28" verticalAlign="middle" textAlign="center"/>
+	<ns1:Button id="_preBtn" label="" x="10" y="432" width="37" height="70">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_page_arrow_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_nextBtn" label="" x="422" y="432" scaleX="-1" width="37" height="70">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_page_arrow_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Group width="227" height="172" x="465" y="254">
+		<e:Image x="0" y="1" width="227" height="37" source="common_back3_png" scale9Grid="8,4,49,29"/>
+		<e:Image x="0" y="46" width="227" height="37" scaleX="1" scaleY="1" source="common_back3_png" scale9Grid="8,4,49,29"/>
+		<e:Image x="0" y="90" width="227" height="37" scaleX="1" scaleY="1" source="common_back3_png" scale9Grid="8,4,49,29"/>
+		<e:Image x="0" y="134" width="227" height="37" scaleX="1" scaleY="1" source="common_back3_png" scale9Grid="8,4,49,29"/>
+		<ns1:Label id="_attrTxt" text="" x="45" y="4" fontFamily="Microsoft YaHei" textColor="0xfffbeb" size="24" width="180" height="164" scaleX="1" scaleY="1" verticalAlign="middle" textAlign="left" lineSpacing="20"/>
+	</e:Group>
+	<e:Group width="272" height="296" x="438" y="491">
+		<e:Image source="common_rect_1_png" scale9Grid="6,6,38,38" x="0" y="0" width="272" height="296" scaleX="1" scaleY="1"/>
+		<e:Image source="pet_skill_title_png" x="46" y="3" scaleX="1" scaleY="1"/>
+		<ns1:PetSkillGrid id="_grid0" x="18" y="49" skinName="PetSkillGridSkin"/>
+		<ns1:PetSkillGrid x="148" y="49" skinName="PetSkillGridSkin" id="_grid1"/>
+		<ns1:PetSkillGrid x="18" y="169" skinName="PetSkillGridSkin" id="_grid2"/>
+		<ns1:PetSkillGrid id="_grid3" x="148" y="169" skinName="PetSkillGridSkin"/>
+		<e:Image id="_skillRed0" source="common_red_icon_png" x="98" y="45" visible="false"/>
+		<e:Image id="_skillRed1" source="common_red_icon_png" x="228" y="45" visible="false"/>
+		<e:Image id="_skillRed2" source="common_red_icon_png" x="98" y="166" visible="false"/>
+		<e:Image id="_skillRed3" source="common_red_icon_png" x="228" y="166" visible="false"/>
+
+
+
+
+	</e:Group>
+	<e:Group width="197" height="90" x="131" y="714">
+		<ns1:Button id="_huanhuaBtn" label="" x="0" y="0" width="197" height="90" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_hhImg" source="common_label_huanhua_png" x="8" y="19"/>
+		<e:Image id="_hashhImg" source="common_label_hasHuanhua_png" x="8" y="19"/>
+	</e:Group>
+
+	<e:Image source="common_bg1_normal_png" scale9Grid="29,11,181,69" x="5" y="841" width="710" height="138"/>
+	<e:Image source="pet_rate_label_png" x="114" y="852"/>
+	<ns1:Button id="_feedBtn" label="" x="73" y="1015" width="238" height="105">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+            <e:Image source="pet_feed_label_png" x="29" y="27"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_feedIcon" source="common_red_icon_png" x="276" y="1015" visible="false"/>
+	<ns1:Button id="_upgradeBtn" label="" x="422" y="1015" width="238" height="105">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="common_label_all_upgrade_png" x="29" y="27"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_upgradeIcon" source="common_red_icon_png" x="625" y="1015" visible="false"/>
+
+	<ns1:Label id="_lossTxt" text="宠物进阶丹：10/20" x="423" y="993" textColor="0xfff7e6" size="22" fontFamily="Microsoft YaHei" width="233" height="29" verticalAlign="middle" textAlign="center"/>
+	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="91" y="908" width="564" height="32"/>
+</e:Skin>

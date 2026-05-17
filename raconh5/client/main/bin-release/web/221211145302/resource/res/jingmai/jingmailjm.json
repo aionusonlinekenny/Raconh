@@ -1,0 +1,14 @@
+{"mc":{"jingmailjm":{"frameRate":24,"events":[],"frames":[
+  {"res":"jingmailjm_00000","x":32,"y":35},
+  {"res":"jingmailjm_00001","x":32,"y":33},
+  {"res":"jingmailjm_00002","x":32,"y":34},
+  {"res":"jingmailjm_00003","x":32,"y":35},
+  {"res":"jingmailjm_00004","x":32,"y":33},
+  {"res":"jingmailjm_00005","x":32,"y":34}]}},
+"res":{
+  "jingmailjm_00000":{"x":0,"y":0,"w":62,"h":61},
+  "jingmailjm_00001":{"x":62,"y":0,"w":63,"h":64},
+  "jingmailjm_00002":{"x":125,"y":0,"w":64,"h":62},
+  "jingmailjm_00003":{"x":189,"y":0,"w":62,"h":61},
+  "jingmailjm_00004":{"x":251,"y":0,"w":63,"h":64},
+  "jingmailjm_00005":{"x":314,"y":0,"w":64,"h":62}}}

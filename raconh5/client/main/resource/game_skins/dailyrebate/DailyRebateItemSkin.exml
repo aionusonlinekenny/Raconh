@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DailyRebateItemSkin" width="580" height="140" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Label id="_rmbTxt" text="Label" x="8" y="78" textColor="0x38b800" anchorOffsetX="0" width="100" textAlign="center"/>
+	<e:Image x="2" y="138" anchorOffsetX="0" width="573" anchorOffsetY="0" height="2" source="common_line_png"/>
+	<e:Image source="dailyrebate_jinri_png" x="4" y="37"/>
+	<ns1:BaseGoods id="_item0" width="141" height="141" x="93" y="1" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods width="141" height="141" x="213" y="1" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin" id="_item1"/>
+	<ns1:BaseGoods width="141" height="141" x="332" y="1" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin" id="_item2"/>
+	<ns1:BaseGoods width="141" height="141" x="450" y="1" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin" id="_item3"/>
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" y="26" horizontalCenter="45" visible="false"/>
+</e:Skin>

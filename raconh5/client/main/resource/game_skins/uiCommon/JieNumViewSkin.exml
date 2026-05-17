@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JieNumViewSkin" width="74" height="40" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_left" source="common_bracket_png" x="-8" y="4"/>
+	<e:Image id="_right" source="common_bracket_png" x="82" y="4" scaleX="-1"/>
+	<e:Image id="_jie" source="common_label_jie_png" x="32" y="3"/>
+</e:Skin>

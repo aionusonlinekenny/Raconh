@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridContainerSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+
+
+
+	<ns1:LifeGridBallItem id="_ball1" width="113" height="113" x="78" y="789" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridBallItemSkin"/>
+	<ns1:LifeGridBallItem id="_ball2" width="113" height="113" x="42" y="607" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridBallItemSkin"/>
+	<ns1:LifeGridBallItem id="_ball3" width="113" height="113" x="76" y="437" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridBallItemSkin"/>
+	<ns1:LifeGridBallItem id="_ball4" width="113" height="113" x="203" y="323" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridBallItemSkin"/>
+	<ns1:LifeGridBallItem id="_ball5" width="113" height="113" x="404.5" y="323" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridBallItemSkin"/>
+	<ns1:LifeGridBallItem id="_ball6" width="113" height="113" x="530" y="437" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridBallItemSkin"/>
+	<ns1:LifeGridBallItem id="_ball7" width="113" height="113" x="564" y="607" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridBallItemSkin"/>
+	<ns1:LifeGridBallItem id="_ball8" width="113" height="113" x="530" y="799" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridBallItemSkin"/>
+	<ns1:Button id="_fuwenBtn" label="Button" x="27.5" y="1054">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="lifeGrid_fuwenzl_png"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image source="common_fighting_png" y="1023" x="171"/>
+	<e:Image id="_finghtImg" source="common_zhanli_png" x="193" y="1029"/>
+	<ns1:Label id="_nextPassTxt" text="Label" y="1104" anchorOffsetX="0" width="461" textAlign="center" textColor="0x7C6E62" fontFamily="Microsoft YaHei" horizontalCenter="0"/>
+	<e:Image id="_towerImg" source="activity_copy_tower_btn_png" x="590" y="1015"/>
+</e:Skin>

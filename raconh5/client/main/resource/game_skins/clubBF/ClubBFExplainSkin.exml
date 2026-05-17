@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubBFExplainSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_basePopView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+	<e:Image source="clubBF_title_explain_png" y="107" x="270"/>
+	<e:Group id="_group0" x="10" y="171">
+		<e:Image source="common_title_wordBg_png" x="212" y="5" width="277" scale9Grid="54,4,105,28"/>
+		<e:Image source="clubBF_label_0_png" x="260" y="0"/>
+		<ns1:Label id="_txt0" text="Label" x="17" y="52" anchorOffsetX="0" width="666" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="20" lineSpacing="12"/>
+		<e:Image id="_line0" source="common_line_png" x="0" y="89" width="700"/>
+	</e:Group>
+	<e:Group x="10" y="316" id="_group1">
+		<e:Image source="common_title_wordBg_png" x="212" y="5" width="277" scale9Grid="54,4,105,28"/>
+		<e:Image x="260" y="0" source="clubBF_label_1_png"/>
+		<ns1:Label text="Label" x="17" y="52" anchorOffsetX="0" width="666" id="_txt1" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="20" lineSpacing="12"/>
+		<e:Image source="common_line_png" x="0" y="89" width="700" id="_line1"/>
+	</e:Group>
+	<e:Group x="10" y="416" id="_group2">
+		<e:Image source="common_title_wordBg_png" x="212" y="5" width="277" scale9Grid="54,4,105,28"/>
+		<e:Image x="260" y="-4" source="clubBF_label_2_png"/>
+		<ns1:Label text="Label" x="17" y="52" anchorOffsetX="0" width="666" id="_txt2" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="20" lineSpacing="12"/>
+		<e:Image source="common_line_png" x="0" y="89" width="700" id="_line2"/>
+	</e:Group>
+	<e:Group x="10" y="519" id="_group3">
+		<e:Image source="common_title_wordBg_png" x="212" y="5" width="277" scale9Grid="54,4,105,28"/>
+		<e:Image x="260" y="-3" source="clubBF_label_3_png"/>
+		<ns1:Label text="Label" x="17" y="52" anchorOffsetX="0" width="666" id="_txt3" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="20" lineSpacing="12"/>
+	</e:Group>
+	<ns1:Button id="_btn" label="Button" y="672" x="241">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image source="confirm_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

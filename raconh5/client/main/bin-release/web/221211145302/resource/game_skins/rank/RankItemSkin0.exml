@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RankItemSkin0" width="720" height="459" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_back" width="720" height="459" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:BitmapRemote id="_headImg" width="457" height="411" x="0" y="47" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:BitmapRemote id="_titleImg" width="210" height="80" x="71" y="44" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image source="rank_1_png" x="443" y="48"/>
+	<ns1:Button id="_btnWorship" label="" x="417" y="330" width="238" height="105">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image source="rank_btn_label_mobai_png" x="28" y="28"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_bubbleIcon" source="common_red_icon_png" x="611" y="337" touchEnabled="false" visible="false"/>
+	<e:Image id="_powerBack" x="351" y="265" source="common_fighting_png"/>
+	<e:Image id="_imgValueName" x="380" y="268" source="rank_zhanli_png"/>
+	<e:Image source="common_back5_png" x="426" y="216"/>
+	<ns1:Label id="_txtName" text="虚位以待" x="436" y="222" textAlign="center" width="200" fontFamily="Microsoft YaHei" size="30"/>
+
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

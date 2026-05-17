@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SuitAllAttrViewSkin" width="410" height="580" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="160ca7fd938" ></w:Config>
+	<e:Group width="410" height="580" horizontalCenter="0" verticalCenter="0">
+		<e:Image id="_bgImg" width="400" height="570" x="0" y="10" source="common_tipsBg_png" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1" scale9Grid="49,51,20,16"/>
+		<ns1:BaseVScrollerList id="_scroller" width="350" height="520" x="25" y="35" anchorOffsetX="0" anchorOffsetY="0" scaleX="1" scaleY="1"/>
+		<ns1:Button id="_closeBtn" label="" y="8" anchorOffsetX="0" width="50" anchorOffsetY="0" height="93" right="0" x="360" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_tip_close_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+	</e:Group>
+</e:Skin>

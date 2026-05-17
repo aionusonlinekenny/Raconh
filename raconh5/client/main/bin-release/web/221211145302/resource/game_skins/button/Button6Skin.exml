@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Button6Skin" xmlns:e="http://ns.egret.com/eui" states="up,down,disabled" xmlns:ns1="*" width="239" height="60">
+    <e:Image width="239" height="60" source="common_ddlist_back_png"/>
+	<e:Image width="34" height="17" x="190" y="23" source="common_triangle_normal_png"/>
+    <ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"  fontFamily="Microsoft YaHei" size="24" textColor="0x7e6c62"/>
+</e:Skin>

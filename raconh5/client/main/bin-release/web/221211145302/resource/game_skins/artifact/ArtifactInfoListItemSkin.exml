@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArtifactInfoListItemSkin" width="540" height="32" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Label id="_label" text="Label" x="0" y="0" anchorOffsetX="0" width="540" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+</e:Skin>

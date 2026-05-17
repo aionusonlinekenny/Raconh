@@ -1,0 +1,14 @@
+{"mc":{"uifighting":{"frameRate":24,"events":[],"frames":[
+  {"res":"uifighting_00000","x":80,"y":80},
+  {"res":"uifighting_00001","x":0,"y":0},
+  {"res":"uifighting_00002","x":11,"y":13},
+  {"res":"uifighting_00003","x":38,"y":43},
+  {"res":"uifighting_00004","x":53,"y":56},
+  {"res":"uifighting_00005","x":80,"y":80}]}},
+"res":{
+  "uifighting_00001":{"x":0,"y":0,"w":256,"h":256},
+  "uifighting_00002":{"x":256,"y":0,"w":226,"h":230},
+  "uifighting_00003":{"x":482,"y":0,"w":172,"h":172},
+  "uifighting_00004":{"x":654,"y":0,"w":145,"h":144},
+  "uifighting_00000":{"x":799,"y":0,"w":93,"h":105},
+  "uifighting_00005":{"x":892,"y":0,"w":93,"h":105}}}

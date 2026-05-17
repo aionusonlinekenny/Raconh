@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SkillTipsSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="_back" source="common_tipsBg_png" x="180" y="463" width="406" height="484" scale9Grid="47,49,20,18"/>
+	<e:Image source="common_title_wordBg_png" x="279" y="485"/>
+	<ns1:Label id="_titleTxt" text="绝命风华" x="180" y="491" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24" width="406" textAlign="center"/>
+	<ns1:BaseGoods id="_lossItem" width="141" height="141" x="200" y="510" skinName="BaseGoodsSkin"/>
+	<ns1:Label id="_fightTxt" text="战力：" x="330" y="530" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22" width="230"/>
+	<ns1:Label id="_awakeTxt" text="觉醒：" x="330" y="565" size="22" textColor="0x7c6e62" width="230" fontFamily="Microsoft YaHei"/>
+	<e:Image source="split_line_png" x="183" y="637" width="400"/>
+	<ns1:Label id="_descTxt" text="" x="217" y="644" fontFamily="Microsoft YaHei" size="20" textColor="0x7c6e62" width="333"/>
+	<e:Image source="split_line_png" x="183" y="704" width="400"/>
+	<ns1:Button id="_closeBtn" label="" x="544" y="464">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_tip_close_png"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<ns1:Button id="_awakeBtn" label="" x="285" y="717" width="197" height="90" locked="true">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="skill_label2_png" x="8" y="19"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<ns1:Button id="_actBtn" label="" x="285" y="717" width="197" height="90">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="common_active_png" x="8" y="19"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<e:Image id="_actIcon" x="314" y="718" source="common_label_yijhihuo_png" locked="true"/>
+	<e:Group id="_goShopG" width="406" height="190" x="180" y="707">
+		<e:Image source="tips_items_huoqutuj_png" x="148" y="5"/>
+		<e:Group id="_shopBtn1" x="10" y="44">
+			<ns1:BitmapRemote id="_pathBg1" width="120" height="120" anchorOffsetX="0" anchorOffsetY="0" x="0" y="0"/>
+			<e:Image id="_tuijianImg1" source="tips_items_tuijian_png" x="9" y="23"/>
+		</e:Group>
+		<e:Group id="_shopBtn0" x="144" y="44">
+			<ns1:BitmapRemote id="_pathBg0" width="120" height="120" anchorOffsetX="0" anchorOffsetY="0" x="0" y="0"/>
+			<e:Image source="tips_items_tuijian_png" x="9" y="23" id="_tuijianImg0"/>
+		</e:Group>
+		<e:Group id="_shopBtn2" x="278" y="44">
+			<ns1:BitmapRemote id="_pathBg2" width="120" height="120" anchorOffsetX="0" anchorOffsetY="0" x="0" y="0"/>
+			<e:Image source="tips_items_tuijian_png" x="9" y="23" id="_tuijianImg2"/>
+		</e:Group>
+
+
+
+
+
+
+	</e:Group>
+</e:Skin>

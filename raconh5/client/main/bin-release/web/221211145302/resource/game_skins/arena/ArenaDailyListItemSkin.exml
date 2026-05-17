@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArenaDailyListItemSkin" width="671" height="133" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image left="0" right="0" top="0" bottom="0" source="common_wordBg_normal_png"/>
+	<ns1:Label id="_txt" x="17" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="245" text="label" size="28" textColor="0x7B6D61" verticalCenter="-3.5"/>
+</e:Skin>

@@ -1,0 +1,11 @@
+E:/cw/game2/client/main/resource/assets/nums/nums_cd
+E:/cw/game2/client/main/resource/assets/nums/nums_count
+E:/cw/game2/client/main/resource/assets/nums/nums_fighting
+E:/cw/game2/client/main/resource/assets/nums/nums_fighting2
+E:/cw/game2/client/main/resource/assets/nums/nums_golden
+E:/cw/game2/client/main/resource/assets/nums/nums_lifegrid
+E:/cw/game2/client/main/resource/assets/nums/nums_rein
+E:/cw/game2/client/main/resource/assets/nums/nums_suit
+E:/cw/game2/client/main/resource/assets/nums/nums_syscharge
+E:/cw/game2/client/main/resource/assets/nums/nums_sysnontic
+E:/cw/game2/client/main/resource/assets/nums/nums_vip

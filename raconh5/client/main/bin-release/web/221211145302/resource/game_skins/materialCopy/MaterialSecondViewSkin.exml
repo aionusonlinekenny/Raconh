@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MaterialSecondViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="16227c307b2" ></w:Config>
+	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_baseView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<e:Group id="_bgGroup" width="720" height="1280" x="0" y="0" scaleX="1" scaleY="1">
+		</e:Group>
+		<e:Group id="_ballGroup" width="710" height="620" x="5" y="379" anchorOffsetY="0"/>
+		<e:Image width="80" height="394" x="15" y="390" source="common_name_back_png" scaleX="1" scaleY="1"/>
+		<e:Image id="_nandu" width="66" height="127" x="24" y="477" source="material_difficulty1_png"/>
+		<e:Image id="_star1" width="32" height="30" x="87" y="436" source="common_star_bright_png"/>
+		<e:Image id="_star2" width="32" height="30" x="87" y="476" source="common_star_bright_png"/>
+		<e:Image id="_star3" width="32" height="30" x="87" y="516" source="common_star_bright_png"/>
+		<e:Image id="_star4" width="32" height="30" x="87" y="556" source="common_star_bright_png"/>
+		<e:Image id="_star5" width="32" height="30" x="87" y="596" source="common_star_bright_png"/>
+		<ns1:Button id="_btn" label="" y="975" horizontalCenter="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image width="181" height="52" source="common_label_tiaozhan_png" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+		<e:Image id="_redIcon" width="35" height="35" x="444" y="973" source="common_red_icon_png" visible="false"/>
+		<ns1:Label id="_needLevel" text="30级可挑战" x="505" y="1029" fontFamily="Microsoft YaHei" size="24" textColor="0xffffff"/>
+	</e:Group>
+</e:Skin>

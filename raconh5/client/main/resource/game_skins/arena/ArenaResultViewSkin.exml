@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArenaResultViewSkin" width="715" height="637" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_back" source="result_bg_png" x="0" y="70" scale9Grid="89,38,535,7" height="567"/>
+	<e:Image id="_picTitle" source="result_title_win_png" x="122" y="0"/>
+	<e:Image id="_btnClose" source="common_tip_close_png" x="639" y="88"/>
+	<e:Image id="_picFail" source="result_fail_words_png" x="224" y="179"/>
+
+
+	<ns1:Label id="_txt1" text="恭喜你挑战胜利！" y="153" textColor="0xfff7e6" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" x="245" size="30"/>
+	<ns1:Label id="_txt2" text="Label" y="203" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" x="245" size="30"/>
+	<ns1:Label id="_txt3" text="Label" y="254" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" x="245" size="30"/>
+	<e:Image source="result_line_png" y="340" x="113"/>
+	<e:Image y="319" x="285" source="arenaResultAwardLabel_png"/>
+	<ns1:Button id="_btnOk" label="" y="516" width="238" height="105" x="237">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image source="confirm_png" verticalCenter="0" horizontalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Label id="_txtTime" text="倒计时3s退出" x="475" y="556" textColor="0xFFF7E6" fontFamily="Microsoft YaHei"/>
+
+</e:Skin>

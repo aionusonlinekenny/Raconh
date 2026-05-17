@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MailItemViewSkin" width="661" height="133" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_back" left="0" right="0" top="0" bottom="0" source="common_wordBg_normal_png"/>
+	<e:Image source="mail_sign_png" x="8" y="16"/>
+	<e:Label id="_titleTxt" left="114" top="23" fontFamily="Microsoft YaHei" width="280" textColor="0x7c6e62" anchorOffsetX="0" text="" size="28" height="28"/>
+	<e:Label id="_dateTxt" left="113" top="80" size="24" textColor="0x7c6e62" width="280" fontFamily="Microsoft YaHei" anchorOffsetX="0" text="" height="24"/>
+	<e:Image id="_attachSign" source="mail_attach_png" x="515" y="17"/>
+
+	<e:Label id="_unreadSign" text="（未读）" x="380" y="23" textColor="0x38b800" fontFamily="Microsoft YaHei" size="28"/>
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" x="501" verticalCenter="0"/>
+</e:Skin>

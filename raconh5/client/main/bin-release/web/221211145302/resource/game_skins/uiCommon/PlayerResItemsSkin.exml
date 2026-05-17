@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PlayerResItemsSkin" width="67" height="54" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15fa527d639" ></w:Config>
+	<e:Image id="_resImg" x="0" y="0" width="54" height="54" anchorOffsetX="0" anchorOffsetY="0" source=""/>
+	<ns1:Label id="_countTxt" text="X1000" x="30" anchorOffsetX="0" width="122" size="20" anchorOffsetY="0" height="32" fontFamily="Microsoft YaHei" y="15"/>
+</e:Skin>

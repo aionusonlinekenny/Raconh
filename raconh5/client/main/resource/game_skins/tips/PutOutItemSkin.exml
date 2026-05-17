@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PutOutItemSkin" width="120" height="140" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*">
+	<ns1:Label id="_pathtxt1" text="Label" x="3" y="116" anchorOffsetX="0" width="114" textAlign="center" size="24" textColor="0x7C6E62"/>
+	<e:Image id="_tuijianImg1" source="tips_items_tuijian_png" x="9" y="23"/>
+</e:Skin>

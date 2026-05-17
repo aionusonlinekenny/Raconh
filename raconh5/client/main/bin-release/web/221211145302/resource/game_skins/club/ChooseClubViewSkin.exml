@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChooseClubViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1605416d9f5" ></w:Config>
+	<ns1:BitmapRemote id="_back0" width="716" height="580" x="2" y="117"/>
+	<ns1:BitmapRemote id="_back1" width="716" height="580" x="2" y="697"/>
+	<ns1:Button id="_club2" label="" x="410" y="324">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="club_img1_png" source.down="club_img1_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<e:Image width="80" height="394" x="583" y="257" source="common_name_back_png"/>
+	<e:Image width="44" height="126" x="605" y="342" source="club_name2_png"/>
+	<ns1:Button id="_club3" label="" x="120" y="454">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="club_img2_png" source.down="club_img2_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<e:Image width="80" height="394" x="63" y="386" source="common_name_back_png"/>
+	<e:Image width="44" height="126" x="85" y="471" source="club_name3_png"/>
+	<ns1:Button id="_club1" label="" x="260" y="904">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="club_img3_png" source.down="club_img3_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<e:Image width="80" height="394" x="173" y="837" source="common_name_back_png"/>
+	<e:Image width="44" height="126" x="195" y="922" source="club_name1_png"/>
+	<e:Image id="_tui2" width="140" height="86" x="414" y="441" source="club_tuijian_png" visible="false"/>
+	<e:Image id="_tui3" width="140" height="86" x="123" y="570" source="club_tuijian_png" visible="false"/>
+	<e:Image id="_tui1" width="140" height="86" x="264" y="1023" source="club_tuijian_png" visible="false"/>
+</e:Skin>

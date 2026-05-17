@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridHuntSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+
+
+	<ns1:Button id="_hontBtn" label="Button" x="125" y="995" locked="true">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			<e:Image width="181" height="52" source="lifeGrid_lmyc_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_bgimg1" source="common_back3_png" x="143" y="968" anchorOffsetX="0" width="200" anchorOffsetY="0" height="35" scale9Grid="8,7,49,22"/>
+	<e:Image id="_resImg1" source="playRes_gold_54_png" x="190" y="959"/>
+	<ns1:Label id="_lossTxt1" text="Label" x="242" y="973" anchorOffsetX="0" width="155" fontFamily="Microsoft YaHei"/>
+
+
+
+	<e:Image source="lifeGrid_zi_png" y="298" x="61"/>
+	<e:Image source="common_back3_png" x="143" y="1093" anchorOffsetX="0" width="200" anchorOffsetY="0" height="35" scale9Grid="8,7,49,22"/>
+	<ns1:Label id="_cdTxt" text=" " x="144" y="1098.5" anchorOffsetX="0" width="196" fontFamily="Microsoft YaHei" textAlign="center"/>
+	<e:Group y="917" horizontalCenter="0">
+		<e:Image source="lifeGrid_suipian_png" x="0" y="1"/>
+		<e:Image source="nums_lifegrid_3_png" x="391.5" y="0"/>
+		<e:Image source="nums_lifegrid_6_png" x="411" y="0"/>
+		<e:Image source="nums_lifegrid_-_png" x="436" y="0"/>
+		<e:Image source="nums_lifegrid_4_png" x="464" y="0"/>
+		<e:Image source="nums_lifegrid_2_png" x="484" y="0"/>
+	</e:Group>
+
+	<e:Group x="399" y="959">
+		<e:Image source="common_back3_png" x="18" y="9" anchorOffsetX="0" width="200" anchorOffsetY="0" height="35" scale9Grid="8,7,49,22"/>
+		<ns1:Button id="_hontTenBtn" label="Button" x="0" y="38.5">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image width="181" height="52" source="lifeGrid_lmsc_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Group y="0" x="0">
+			<e:Image id="_resImg0" source="playRes_gold_54_png" x="62" y="0"/>
+			<ns1:Label id="_lossTxt0" text="Label" x="111" y="14" anchorOffsetX="0" width="161" fontFamily="Microsoft YaHei"/>
+		</e:Group>
+	</e:Group>
+	<e:Image source="lifeGrid_chaozhi_png" x="411" y="1008"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="319" y="1004" visible="false"/>
+</e:Skin>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopyRankSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="160151dc502"/>
+	<e:Image source="panel_bg3_png" scale9Grid="5,114,4,687" width="720" x="0" height="592" y="294" anchorOffsetY="0"/>
+	<e:Image source="border1_png" scale9Grid="90,10,540,5" height="32" y="276" x="0"/>
+	<e:Image source="common_titleBg2_png" height="69" y="259" x="0"/>
+
+	<e:Image source="border2_png" scale9Grid="90,4,540,25" height="32" y="878" anchorOffsetY="0" width="720" x="0"/>
+	<e:Image source="activity_copy_label_0_png" y="265" horizontalCenter="6"/>
+	<e:Image source="activity_copy_rank_label_4_png" x="41" y="811"/>
+	<e:Image source="common_label_rank_png" x="62" y="331"/>
+	<e:Image source="common_label_name_png" x="237" y="331"/>
+	<e:Image source="common_fight_rank_png" x="433" y="331"/>
+	<e:Image id="_labelValue" source="activity_copy_rank_label_3_png" x="562" y="331"/>
+	<ns1:BaseVScrollerList id="_list" width="672" height="382" x="25" y="386" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:Label id="_txtRank" text="排名：未上榜" x="246" y="820" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
+	<ns1:Label id="_txtValue" text="当前：11关" x="491" y="820" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
+	<ns1:Button id="_btnClose" label="Button" x="622" y="253" width="82">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_closeImg_png"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

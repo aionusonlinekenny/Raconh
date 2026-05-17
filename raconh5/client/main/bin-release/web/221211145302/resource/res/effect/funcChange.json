@@ -1,0 +1,14 @@
+{"mc":{"funcChange":{"frameRate":24,"events":[],"frames":[
+  {"res":"funcChange_00000","x":73,"y":69},
+  {"res":"funcChange_00001","x":74,"y":70},
+  {"res":"funcChange_00002","x":75,"y":69},
+  {"res":"funcChange_00003","x":77,"y":69},
+  {"res":"funcChange_00004","x":77,"y":69},
+  {"res":"funcChange_00005","x":74,"y":69}]}},
+"res":{
+  "funcChange_00000":{"x":0,"y":0,"w":117,"h":115},
+  "funcChange_00001":{"x":117,"y":0,"w":116,"h":116},
+  "funcChange_00002":{"x":233,"y":0,"w":116,"h":118},
+  "funcChange_00003":{"x":349,"y":0,"w":114,"h":118},
+  "funcChange_00004":{"x":463,"y":0,"w":113,"h":118},
+  "funcChange_00005":{"x":576,"y":0,"w":116,"h":117}}}

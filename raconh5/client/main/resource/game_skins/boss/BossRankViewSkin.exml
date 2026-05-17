@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BossRankViewSkin" width="418" height="144" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="boss_dmgList_bg_png" x="171" y="2" scale9Grid="9,9,21,17" width="203" height="35"/>
+	<e:Image id="_btn" source="boss_dmgList_btn_png" x="396" y="20" anchorOffsetX="20.5" anchorOffsetY="20.5"/>
+	<ns1:Label id="_txtMy" text="" x="-2" y="9" size="20" fontFamily="Microsoft YaHei" textColor="0xfffbeb"/>
+	<ns1:Label id="_txtFirst" text="" x="179" y="9" size="20" fontFamily="Microsoft YaHei" textColor="0xFFFBEB"/>
+	<e:Group id="_group" x="171" y="40">
+		<e:Image id="_back" source="boss_dmgList_bg_png" x="0" y="0" width="203" height="92" anchorOffsetY="0" scale9Grid="9,9,21,17"/>
+		<ns1:Label id="_txtRank" text="" x="8" y="8" size="20" fontFamily="Microsoft YaHei" textColor="0xFFFBEB" lineSpacing="5"/>
+	</e:Group>
+</e:Skin>

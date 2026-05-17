@@ -1,0 +1,27 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * vip事件
+ * liangyan
+ * create 2017-12-25
+*/
+var VipEvent = /** @class */ (function (_super) {
+    __extends(VipEvent, _super);
+    function VipEvent() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**额度更新 */
+    VipEvent.EXP_UPDATE = "EXP_UPDATE";
+    /**奖励更新 */
+    VipEvent.REWARDS_UPDATE = "REWARDS_UPDATE";
+    return VipEvent;
+}(BaseEvent));
+//# sourceMappingURL=VipEvent.js.map

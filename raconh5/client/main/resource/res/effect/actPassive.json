@@ -1,0 +1,8 @@
+{"mc":{"actPassive":{"frameRate":24,"events":[],"frames":[
+  {"res":"actPassive_00001","x":49,"y":53},
+  {"res":"actPassive_00002","x":49,"y":53},
+  {"res":"actPassive_00003","x":49,"y":53}]}},
+"res":{
+  "actPassive_00001":{"x":0,"y":0,"w":160,"h":147},
+  "actPassive_00002":{"x":160,"y":0,"w":160,"h":147},
+  "actPassive_00003":{"x":320,"y":0,"w":160,"h":147}}}

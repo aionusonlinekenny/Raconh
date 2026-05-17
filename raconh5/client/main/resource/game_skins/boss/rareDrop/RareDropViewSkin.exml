@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RareDropViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BaseVScrollerList id="_scroll" width="700" height="943" x="8" y="164" anchorOffsetY="0"/>
+	<ns1:Label text="记录击败首领掉落的珍稀道具、装备" y="131" anchorOffsetX="0" width="504" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="40" textColor="0x7c6e62" horizontalCenter="50"/>
+</e:Skin>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Button2Skin" xmlns:e="http://ns.egret.com/eui" states="up,down,disabled" xmlns:ns1="*">
+    <e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+    <ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0" />
+</e:Skin>

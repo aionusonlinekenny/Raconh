@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArenaLogListItemSkin" width="710" height="115" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image left="0" right="0" top="0" bottom="0" source="common_bg1_normal_png"/>
+	<e:Image x="308" y="51" source="playRes_honor_54_png"/>
+	<ns1:Label id="_txtTime" x="202" y="21" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="300" text="label" size="24" textColor="0x37b700"/>
+	<ns1:Label x="202" y="66" fontFamily="Microsoft YaHei" anchorOffsetX="0" text="获得奖励：" size="24" textColor="0x7b6d61"/>
+	<ns1:Label id="_txtHonour" x="356" y="66" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="65" text="0" size="24" textColor="0xfd7100"/>
+	<ns1:Label x="469" y="21" textColor="0x7B6D61" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="106" text="对手：" size="24"/>
+	<ns1:Label id="_txtName" x="538" y="21" textColor="0xFD7100" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="160" text="label" size="24"/>
+	<ns1:Label id="_txtRank" x="469" y="66" textColor="0x7B6D61" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="230" text="label" size="24" textAlign="left"/>
+</e:Skin>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopySilverInfoViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="_gBottom" y="1028" horizontalCenter="-12">
+		<e:Image source="copy_exp_back_1_png" x="0" y="0"/>
+		<e:Image source="copy_exp_back_0_png" x="441" y="3"/>
+		<ns1:Label id="_txtAdd" text="Label" x="117" y="17" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="20"/>
+		<ns1:Label id="_txtTime" text="Label" x="117" y="47" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="20"/>
+		<ns1:Label id="_txtSilver" text="Label" x="460" y="17" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="20"/>
+		<ns1:Label id="_txtGold" text="Label" x="460" y="47" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="20"/>
+		<e:Image id="_imgPercent" source="nums_vip2_percent_png" x="58" y="26"/>
+		<ns1:CopySilverBox id="_box1" width="95" height="91" x="288" y="-137" scaleX="1" scaleY="1"/>
+		<ns1:CopySilverBox id="_box2" width="95" height="91" x="438" y="-137" scaleX="1" scaleY="1"/>
+		<ns1:CopySilverBox id="_box0" width="95" height="91" x="138" y="-137" scaleX="1" scaleY="1"/>
+	</e:Group>
+
+
+
+
+
+</e:Skin>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DevilGrabItemSkin" width="123" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_cb_rect_png" x="5.5" y="0" width="112" height="112"/>
+	<e:Image source="common_back2_png" scale9Grid="1,10,137,20" x="0" y="112" width="123" height="38"/>
+	<e:Image id="_winTimesImg" source="equipsheet.suit_qizi_png" x="0" y="0"/>
+	<ns1:Label id="_fightTxt" text="战力" x="0" y="80" size="20" fontFamily="Microsoft YaHei" textColor="0xfff7e6" width="100%" textAlign="center" verticalAlign="middle"/>
+	<ns1:Label id="_scoreTxt" text="9999分" x="0" y="112" textColor="0xfff7e6" width="100%" size="20" height="38" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_winTimesTxt" text="99胜" textColor="0xFFF7E6" size="20" height="51" verticalAlign="top" textAlign="center" fontFamily="Microsoft YaHei" width="32"/>
+</e:Skin>

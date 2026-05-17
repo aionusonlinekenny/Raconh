@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RenameViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="100%" height="100%" y="0" skinName="BasePopUpSkin"/>
+	<ns1:Button id="_okBtn" label="Button" y="669" x="241">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="confirm_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Label id="_txt" text="请输入新名字：" x="113.5" y="439" anchorOffsetX="0" width="255" anchorOffsetY="0" height="30" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<e:Image source="rename_gaiming_png" x="278" y="317"/>
+	<ns1:TextInput id="_inputTxt" width="352" height="66" x="182" y="517" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseTextInputSkin"/>
+	<ns1:Label id="_loginTxt" text="Label" x="154" y="498" anchorOffsetX="0" width="429" anchorOffsetY="0" height="120" textColor="0x7c6e62" verticalAlign="top" textAlign="center" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_itemTxt" text="Label" x="497" y="710.5" anchorOffsetX="0" width="215" textColor="0xffe3ce" size="24"/>
+	<ns1:PlayerResItems id="_res" width="192" height="36" x="479" y="681.5" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

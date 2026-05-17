@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridListItemSkin" width="608" height="514" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_title_wordBg_png" y="5" scale9Grid="61,4,75,28" anchorOffsetX="0" width="289" horizontalCenter="0"/>
+	<ns1:Label id="_titleTxt" text="Label" y="10" anchorOffsetX="0" width="277" textAlign="center" fontFamily="Microsoft YaHei" horizontalCenter="0" textColor="0x7c6e62"/>
+</e:Skin>

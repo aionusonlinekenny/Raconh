@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubLeaderWarLeaderRankViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="161690786d1" ></w:Config>
+
+	<e:Group id="_content" x="0" y="16">
+		<ns1:ClubLeaderWarLeaderRankItem1 id="_item0" width="720" height="459" x="0" y="89" anchorOffsetX="0" anchorOffsetY="0"/>
+		<ns1:BaseVScrollerList id="_list" width="670" height="486" x="26" y="549" anchorOffsetY="0"/>
+	</e:Group>
+</e:Skin>

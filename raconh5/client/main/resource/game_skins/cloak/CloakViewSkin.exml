@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CloakViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+
+	<e:Image source="common_pnl_back1_png" x="250" y="124" anchorOffsetY="0" height="853" width="465" anchorOffsetX="0" scale9Grid="32,29,18,12"/>
+	<ns1:Button id="_putonBtn" label="Button" x="73" y="1010">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_activeBtn" label="Button" x="420" y="1013">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+
+	<e:Image id="_actImg" source="common_active_png" x="449" y="1038"/>
+	<e:Image id="_putonImg" source="common_label_png" x="101" y="1037"/>
+	<e:Group id="_diGroup" width="454" height="629" x="254" y="127"/>
+	<e:Image source="common_name_back_png" x="256" y="158"/>
+	<e:Image source="common_di2_png" scale9Grid="10,10,63,65" x="256" y="759" anchorOffsetX="0" width="223" anchorOffsetY="0" height="194"/>
+	<e:Image source="common_di2_png" scale9Grid="10,10,63,65" x="484.36" y="759" anchorOffsetX="0" width="223" anchorOffsetY="0" height="194"/>
+
+	<e:Image source="cloak_suoxucl_png" x="500" y="768"/>
+	<e:Image source="cloak_shuxingjc_png" x="269" y="767"/>
+	<e:Image source="common_fighting_png" x="264" y="669"/>
+	<ns1:BaseGoods id="_goods" width="141" height="141" x="529" y="807" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<e:Image id="_fightImg" source="common_zhanli_png" x="327" y="677"/>
+	<ns1:Label id="_attrTxt1" text="Label" x="275" y="823" anchorOffsetX="0" width="205" anchorOffsetY="0" height="34" textColor="0x7c6e62" textAlign="left" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_attrTxt2" text="Label" x="275" y="860" anchorOffsetX="0" width="207" anchorOffsetY="0" height="34" textColor="0x7c6e62" textAlign="left" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_attrTxt3" text="Label" x="275" y="897" anchorOffsetX="0" width="207" anchorOffsetY="0" height="34" textColor="0x7c6e62" textAlign="left" fontFamily="Microsoft YaHei"/>
+	<e:Image source="common_star_grey_png" x="429" y="146"/>
+	<e:Image id="_star1" source="common_star_bright_png" x="429" y="146"/>
+	<e:Image source="common_star_grey_png" x="470" y="146"/>
+	<e:Image id="_star2" source="common_star_bright_png" x="470" y="146"/>
+	<e:Image source="common_star_grey_png" x="510" y="146"/>
+	<e:Image id="_star3" source="common_star_bright_png" x="510" y="146"/>
+	<e:Image id="_takeoffImg" source="common_takeoff_label_png" x="102" y="1038"/>
+	<e:Image id="_upgradeImg" source="common_upgrade_label_png" x="450" y="1039"/>
+	<ns1:BaseVScrollerList id="_vscroll" width="242" height="841" x="7" y="129" anchorOffsetX="0" anchorOffsetY="0"/>
+
+	<ns1:Label id="_numTxt" text="1" x="576" y="893" anchorOffsetY="0" height="25" textAlign="right" anchorOffsetX="0" width="63"/>
+	<ns1:BitmapRemote id="_nameImg" width="52" height="170" x="272" y="211" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArtifactInfoListViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group y="357" horizontalCenter="0">
+		<e:Image source="common_tipsBg_png" anchorOffsetX="0" width="572" anchorOffsetY="0" height="621" y="0" x="0" scale9Grid="50,50,17,16"/>
+		<e:Image source="common_title_wordBg_png" y="9" x="182"/>
+		<e:Image id="_closeImg" source="common_tip_close_png" x="539" y="0"/>
+		<ns1:BaseVScrollerList id="_scroll" width="540" height="551" y="51" anchorOffsetX="0" anchorOffsetY="0" x="16"/>
+		<ns1:Label text="寻宝记录" y="15" anchorOffsetX="0" width="138" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center" x="217"/>
+	</e:Group>
+
+</e:Skin>

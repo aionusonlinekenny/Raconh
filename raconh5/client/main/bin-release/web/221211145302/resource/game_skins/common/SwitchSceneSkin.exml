@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SwitchSceneSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_back0" source="swich_back_png" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" width="720" height="1280"/>
+	<e:Image id="_back1" source="swich_back_png" x="720" y="1280" rotation="180" anchorOffsetY="0" anchorOffsetX="0" width="720" height="1280"/>
+	<e:Group id="_group" anchorOffsetX="215" anchorOffsetY="258" x="386" y="655">
+		<e:Image id="_hand0" x="62" y="159" source="switch_hand_0_png"/>
+		<e:Image id="_hand1" x="0" y="69" source="switch_hand_1_png"/>
+		<e:Image id="_light0" source="swicth_light_0_png" x="189" y="245" anchorOffsetX="134" anchorOffsetY="146"/>
+		<e:Image id="_light1" source="swicth_light_1_png" x="189" y="242" anchorOffsetX="156" anchorOffsetY="260"/>
+	</e:Group>
+</e:Skin>

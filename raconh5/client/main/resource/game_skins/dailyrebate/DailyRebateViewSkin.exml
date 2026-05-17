@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DailyRebateViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_bitmap" width="720" height="986" x="0" y="127"/>
+	<e:Image x="75" y="557" anchorOffsetX="0" width="573" anchorOffsetY="0" height="2" source="common_line_png"/>
+	<e:Image source="dailyrebate_juexue_png" x="243" y="217"/>
+	<e:Image source="dailyrebate_mochong_png" x="434" y="197"/>
+	<e:Image source="dailyrebate_taozhuang_png" x="40" y="197"/>
+	<ns1:DailyRebateItem id="_item0" width="580" height="140" y="560" anchorOffsetX="0" anchorOffsetY="0" skinName="DailyRebateItemSkin" x="70"/>
+	<ns1:DailyRebateItem width="580" height="140" y="696" anchorOffsetX="0" anchorOffsetY="0" skinName="DailyRebateItemSkin" id="_item1" x="70"/>
+	<ns1:DailyRebateItem width="580" height="140" y="832" anchorOffsetX="0" anchorOffsetY="0" skinName="DailyRebateItemSkin" id="_item2" x="70"/>
+	<ns1:Label id="_rmbTxt" text="Label" x="56" y="1043" textColor="0x38B800" anchorOffsetX="0" width="196" textAlign="center"/>
+	<ns1:Button id="_rewardBtn" label="Button" y="985" x="241">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Label id="_itemTxt" text="Label" x="468" y="1043" textColor="0x38B800" anchorOffsetX="0" width="196" textAlign="center"/>
+	<e:Image id="_chongzhiImg" source="common_qianwangchongzhi_png" x="271" y="1011"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="433" y="993"/>
+</e:Skin>

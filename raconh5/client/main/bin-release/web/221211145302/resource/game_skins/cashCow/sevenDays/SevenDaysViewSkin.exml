@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SevenDaysViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_name_back_png" x="220" y="329"/>
+	<ns1:BitmapRemote id="_bitimg" width="430" height="430" x="249" y="313" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image source="common_fighting_png" x="270" y="727"/>
+	<e:Image source="common_zhanli2_png" x="288" y="731"/>
+	<e:Image source="cashCow_sevendDay_zi_png" x="357" y="823"/>
+	<e:Group x="0" y="1000">
+		<ns1:BaseGoods id="_item1" width="141" height="141" x="0" y="0" skinName="BaseGoodsSkin"/>
+		<ns1:BaseGoods id="_item2" width="141" height="141" x="117" y="0" skinName="BaseGoodsSkin"/>
+		<ns1:BaseGoods id="_item3" width="141" height="141" x="233" y="0" skinName="BaseGoodsSkin"/>
+		<ns1:BaseGoods id="_item4" width="141" height="141" x="348" y="0" skinName="BaseGoodsSkin"/>
+		<ns1:Button id="_rewardBtn" label="Button" x="472" y="17" visible="false">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image width="181" height="52" source="common_label_lingqu_0_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_yijhihuoImg" source="commony_ilingqu_png" x="527" y="26" visible="false"/>
+		<e:Image id="_redIcon" source="common_red_icon_png" x="668" y="26" visible="false"/>
+	</e:Group>
+	<ns1:SevenDaysItem id="_sevenDayItem1" width="134" height="122" x="460" y="126" skinName="SevenDaysItemSkin"/>
+	<ns1:SevenDaysItem id="_sevenDayItem2" width="134" height="122" x="279" y="141" skinName="SevenDaysItemSkin"/>
+	<ns1:SevenDaysItem id="_sevenDayItem3" width="134" height="122" x="133" y="227" skinName="SevenDaysItemSkin"/>
+	<ns1:SevenDaysItem id="_sevenDayItem4" width="134" height="122" x="33" y="393" skinName="SevenDaysItemSkin"/>
+	<ns1:SevenDaysItem id="_sevenDayItem5" width="134" height="122" x="28" y="571" skinName="SevenDaysItemSkin"/>
+	<ns1:SevenDaysItem id="_sevenDayItem6" width="134" height="122" x="79" y="733" skinName="SevenDaysItemSkin"/>
+	<ns1:SevenDaysItem id="_sevenDayItem7" width="134" height="122" x="211" y="841" skinName="SevenDaysItemSkin"/>
+	<e:Image id="_nameImg" source="cashCowsevendDayname_1_png" x="231" y="382"/>
+	<e:Image id="_descImg" source="cashCowsevendDaydesc_1_png" x="593" y="367" visible="false"/>
+</e:Skin>

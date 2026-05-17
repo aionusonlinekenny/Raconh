@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SuitDisassemblyTipsSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="160d4a8a61e" ></w:Config>
+	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_baseView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<e:Label text="拆解成功后当前部位重置为未打造状态" y="428" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24" horizontalCenter="0"/>
+		<e:Label text="未打造" x="444" y="428" textColor="0x38b800" fontFamily="Microsoft YaHei" size="24"/>
+		<e:Label text="并返还全部升阶消耗材料：" y="468" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" horizontalCenter="0"/>
+		<e:Label text="全部升阶" x="288" y="468" fontFamily="Microsoft YaHei" size="24" textColor="0x38b800"/>
+		<ns1:Button id="_cancelBtn" label="" x="57" y="674">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image width="181" height="52" x="28" y="26" source="common_label_quxiao_png"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+		<ns1:Button id="_okBtn" label="" x="422" y="674">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image width="181" height="52" x="30" y="27" source="confirm_png"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+		<ns1:BaseGoods id="_item" width="141" height="141" y="515" skinName="BaseGoodsSkin" horizontalCenter="0"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GMContentItemSkin" width="470" height="60" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1616540ceb2" ></w:Config>
+	<ns1:Label id="_content" text="" y="7" size="22" fontFamily="Microsoft YaHei" textColor="0x000000" width="450" horizontalCenter="0" height="44"/>
+	
+</e:Skin>

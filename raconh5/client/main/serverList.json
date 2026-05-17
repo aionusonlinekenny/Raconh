@@ -1,0 +1,230 @@
+{
+    "items": [
+        {
+            "name": "历史服务器",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":1 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":2 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"外网", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1", "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"外网", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"外网", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"外网", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "51-100服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }, 
+        {
+            "name": "1-50服",
+            "list": [
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿50", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"林铿51", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李京峰", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"徐锦鸿", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
+                { "name":"李超武", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 }
+            ]
+        }
+    ]
+}

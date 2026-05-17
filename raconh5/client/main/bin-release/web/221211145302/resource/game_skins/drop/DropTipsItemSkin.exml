@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DropTipsItemSkin" width="498" height="41" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_tips_back_png" x="0" y="0"/>
+	<ns1:Label id="_name" text="" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="498" textAlign="center" scaleX="1" scaleY="1" size="20" horizontalCenter="0" verticalCenter="0"/>
+
+</e:Skin>

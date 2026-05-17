@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FireEyeLevelInfoViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Label id="_levelTxt" text="第1/10 关" x="166" y="135" textColor="0xfff7e6" size="24" fontFamily="Microsoft YaHei"/>
+	<e:Image source="fireEye_shalou_png" x="448" y="124"/>
+	<ns1:Label id="_timeTxt" text="00:30" x="490" y="135" size="24" fontFamily="Microsoft YaHei" textColor="0x4dff00"/>
+	<e:Image source="fireEye_vs_title_png" x="32" y="209"/>
+	<ns1:Label id="_myNameTxt" text="" x="175" y="245" textColor="0xfff7e6" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_enemyNameTxt" text="" x="450" y="245" textColor="0xFFF7E6" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_myScoreTxt" text="" x="175" y="283" textColor="0xFFF7E6" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_enemyScoreTxt" text="" x="450" y="283" textColor="0xFFF7E6" size="22" fontFamily="Microsoft YaHei"/>
+	<e:Image id="_leadSign" source="fireEye_sign_lead_png" x="131" y="230"/>
+	<e:Image id="_doubleSign" source="fireEye_sign_double_png" x="481" y="376"/>
+	<e:Image id="_levelImg" source="arenaRankLabel1_png" x="295" y="475"/>
+	<e:Image source="fireEye_label_level_png" x="395" y="475"/>
+	<ns1:Label text="请找到以下物品" x="0" y="523" textColor="0x7b6d61" size="26" fontFamily="Microsoft YaHei" left="0" right="0" textAlign="center"/>
+	<e:Image id="_cdLabel" source="fireEye_label_enter_png" x="272" y="846"/>
+	<e:Image x="45" y="1005" source="fireEye_cat_goodBig_png"/>
+	<e:Image x="578" y="1005" source="fireEye_cat_badBig_png"/>
+	<e:Image source="fireEye_label_earn_png" x="58" y="1084"/>
+	<e:Image source="fireEye_label_trick_png" x="591" y="1084"/>
+	<ns1:Label id="_findScoreTxt" text="" x="160" y="1065" textColor="0xfff7e6" size="26" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_timeScoreTxt" text="" x="386" y="1065" textColor="0xFFF7E6" size="26" fontFamily="Microsoft YaHei"/>
+	<e:Image source="activity_xiangzi_2_png" x="68" y="1175" width="73" height="71"/>
+	<e:Image source="activity_xiangzi_3_png" x="394" y="1175" width="73" height="71"/>
+	<ns1:Button id="_sevenBtn" label="" x="131" y="1163" width="197" height="90">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+            <e:Image source="fireEye_label_7_png" x="8" y="19"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_allBtn" label="" x="456" y="1163" width="197" height="90">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="fireEye_label_all_win_png" x="8" y="19"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_sevenSign" source="commony_ilingqu_png" x="161" y="1165" visible="false"/>
+	<e:Image id="_allSign" source="commony_ilingqu_png" x="486" y="1165" visible="false"/>
+	<e:Image id="_sevenRed" source="common_red_icon_png" x="291" y="1164" visible="false"/>
+	<e:Image id="_allRed" source="common_red_icon_png" x="616" y="1164" visible="false"/>
+</e:Skin>

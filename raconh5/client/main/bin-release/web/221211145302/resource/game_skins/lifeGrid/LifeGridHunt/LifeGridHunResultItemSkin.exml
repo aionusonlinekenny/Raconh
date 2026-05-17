@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridHunResultItemSkin" width="195" height="182" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="160a27457ff"/>
+	<ns1:Goods id="_goods" width="141" height="141" x="27" y="-9" skinName="BaseGoodsSkin" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:Label id="_nameTxt" text="Label" y="115" anchorOffsetX="0" width="133" x="31" textAlign="center"/>
+
+</e:Skin>

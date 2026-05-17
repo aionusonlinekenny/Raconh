@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GMSkin" width="600" height="900" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+    <ns1:BaseVScrollerList id="_scrollerList" width="500" height="500" x="50" y="200" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

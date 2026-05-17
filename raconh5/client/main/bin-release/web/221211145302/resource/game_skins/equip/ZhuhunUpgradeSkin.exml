@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ZhuhunUpgradeSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15fd728f785" ></w:Config>
+	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="baseView" width="720" height="1280" x="0" y="0" scaleX="1" scaleY="1"/>
+		<ns1:BitmapRemote id="_imageBg1" width="720" height="328" x="0" y="341"/>
+		<ns1:Button id="_btn" label="" y="674" horizontalCenter="0" x="241" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_btnImg" y="701" horizontalCenter="0.5" source="confirm_png" x="270" scaleX="1" scaleY="1"/>
+		<e:Image width="181" height="52" y="312" source="equip_zhuhun_suit_png" horizontalCenter="0" x="270" scaleX="1" scaleY="1"/>
+		<e:Image id="_upgradeImg" width="431" height="46" x="112" y="415" source="equip_zhuhun_upgradeLevel1_png"/>
+		<e:Image id="_ji" width="38" height="46" x="585" y="416" source="equip_zhuhun_upgradeLevel2_png"/>
+		<e:Image width="209" height="36" y="520" source="common_title_wordBg_png" horizontalCenter="0" x="256" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrValue" text="攻击+99 防御+99" y="594" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="263" scaleX="1" scaleY="1"/>
+		<ns1:Label text="阶段奖励属性" y="526" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" horizontalCenter="0" x="288" scaleX="1" scaleY="1"/>
+	</e:Group>
+</e:Skin>

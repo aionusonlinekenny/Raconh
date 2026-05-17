@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JingmaiCondViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_popupView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<ns1:Button id="_backBtn" label="Button" y="542.6" x="241" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<e:Image width="181" height="52" source="common_fanhui_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image source="common_wordBg_normal_png" x="46" y="381" anchorOffsetX="0" width="640" scaleX="1" scaleY="1" height="147"/>
+		<e:Image source="jingmai_jieduan_png" x="269" y="315" scaleX="1" scaleY="1"/>
+		<e:Group x="105" y="418" scaleX="1" scaleY="1">
+			<e:Image id="_arrowImg" y="4" rotation="360" source="common_strengthen_jiantou_png" x="235"/>
+			<ns1:Label id="_nameTxt1" text="Label" x="-49" y="0" anchorOffsetX="0" width="282" anchorOffsetY="0" height="48" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="32" textAlign="center"/>
+			<ns1:Label id="_valueTxt1" text="Label" x="-31" y="48" anchorOffsetX="0" width="247" anchorOffsetY="0" height="48" textAlign="center" textColor="0xad37c6" fontFamily="Microsoft YaHei" size="32" verticalAlign="top"/>
+			<ns1:Label id="_valueTxt2" text="Label" x="329" y="48" anchorOffsetX="0" width="200" anchorOffsetY="0" height="48" textColor="0xAD37C6" textAlign="center" fontFamily="Microsoft YaHei" size="32" verticalAlign="top"/>
+			<ns1:Label id="_nameTxt2" text="Label" x="297" y="0" anchorOffsetX="0" width="274" anchorOffsetY="0" height="48" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="32" textAlign="center"/>
+		</e:Group>
+	</e:Group>
+
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

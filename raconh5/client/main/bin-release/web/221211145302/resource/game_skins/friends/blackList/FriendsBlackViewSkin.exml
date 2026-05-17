@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FriendsBlackViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BaseVScrollerList id="_list" width="672" height="857" x="22" y="122"/>
+	<e:Image source="friends_delete_tips_png" x="82" y="989"/>
+	<ns1:Button id="_deleteBtn" label="" x="235" y="1014">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image source="friends_btn_all_delete_png" x="29" y="27"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

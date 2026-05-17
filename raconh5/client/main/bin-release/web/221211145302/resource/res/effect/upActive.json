@@ -1,0 +1,8 @@
+{"mc":{"upActive":{"frameRate":24,"events":[],"frames":[
+  {"res":"upActive_00001","x":56,"y":55},
+  {"res":"upActive_00002","x":57,"y":56},
+  {"res":"upActive_00003","x":56,"y":55}]}},
+"res":{
+  "upActive_00001":{"x":0,"y":0,"w":137,"h":137},
+  "upActive_00002":{"x":137,"y":0,"w":135,"h":135},
+  "upActive_00003":{"x":272,"y":0,"w":137,"h":137}}}

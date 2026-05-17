@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="UpdNoticeViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_line_png" x="31" y="782"/>
+	<e:Image source="common_title_wordBg_png" y="804" x="256"/>
+	<ns1:BaseGoods id="_item0" width="141" height="141" x="67" y="840" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods width="141" height="141" x="216" y="840" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin" id="_item1"/>
+	<ns1:BaseGoods width="141" height="141" x="364" y="840" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin" id="_item2"/>
+	<ns1:BaseGoods width="141" height="141" x="511" y="840" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin" id="_item3"/>
+	<ns1:Button id="_rewardBtn" label="Button" y="1026" horizontalCenter="0">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="common_label_fetch_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="434" y="1036" visible="false"/>
+	<e:Image source="updNotice_gengxinjiangli_png" x="268" y="796"/>
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" x="295" y="1035" visible="false"/>
+	<ns1:Scroller width="670" height="656" x="25" y="124">
+		<e:Group y="-1">
+			<ns1:Label id="_desc" text="Label" x="0" y="4" width="670" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei"/>
+		</e:Group>
+	</ns1:Scroller>
+</e:Skin>

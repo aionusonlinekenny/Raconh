@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MarketSaleTipsViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="100%" height="100%" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1" locked="true"/>
+	<ns1:Goods id="_goods" width="141" height="140" y="324" skinName="BaseGoodsSkin" scaleX="1" scaleY="1" horizontalCenter="0.5" x="290"/>
+
+	<ns1:Button id="_buyBtn" label="Button" y="864" x="241" scaleX="1" scaleY="1">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			<e:Image width="181" height="52" source="market_titel_1_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_jianBtn" label="Button" x="175" y="509" width="70" scaleX="1" scaleY="1">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common__jian_png"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_jiaBtn" label="Button" x="476" y="509" width="70" scaleX="1" scaleY="1">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_jia_png"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_jianBtn0" label="Button" x="175" y="635" width="70" scaleX="1" scaleY="1">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common__jian_png"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_jiaBtn0" label="Button" x="476" y="635" width="70" scaleX="1" scaleY="1">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_jia_png"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+
+
+	<e:Image source="marketsheet.market_di_png" y="777" horizontalCenter="0"/>
+	<e:Image source="commonsheet.panel_gold_54_png" y="783" horizontalCenter="-30"/>
+
+	<ns1:Label text="数量" x="93" y="528" size="30" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+
+
+
+
+
+	<ns1:Label text="单价" x="93" y="653" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
+	<ns1:Label id="_taxrateTxt" text="数量" y="708" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="312" textAlign="center" horizontalCenter="0"/>
+	<ns1:Label id="_recommendTxt" text="数量" y="592" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="312" textAlign="center" horizontalCenter="0"/>
+
+	<ns1:Label id="_nameTxt" text="Label" y="463" rotation="0" anchorOffsetX="0" width="203.02" anchorOffsetY="0" height="38" textAlign="center" scaleX="1" scaleY="1" x="259" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_goldTxt" text="123" y="794" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="187" textAlign="left" x="353"/>
+	<ns1:TextInput id="_inputNumTxt" width="212" height="60" x="255" y="517" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseTextInputSkin"/>
+	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" y="642" anchorOffsetX="0" width="207" anchorOffsetY="0" height="58" scaleX="1" scaleY="1" horizontalCenter="0.5"/>
+	<ns1:Label id="_priceTxt" text="Label" y="650" anchorOffsetX="0" width="193" anchorOffsetY="0" height="37" textAlign="center" verticalAlign="middle" scaleX="1" scaleY="1" fontFamily="Microsoft YaHei" horizontalCenter="0.5"/>
+
+
+</e:Skin>

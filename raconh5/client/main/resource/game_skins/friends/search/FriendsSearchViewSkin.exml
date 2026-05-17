@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FriendsSearchViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="friends_suggest_png" x="14" y="127"/>
+	<ns1:BaseVScrollerList id="_list" width="672" height="703" x="22" y="181"/>
+	<ns1:TextInput id="_input" width="427" height="63" x="110" y="897" enabled="true" skinName="BaseTextInputSkin"/>
+	<ns1:Button id="_searchBtn" label="" x="545" y="892">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="friends_icon_search_png" source.down="friends_icon_search_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_changeBtn" label="" x="42" y="1008">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="friends_btn_change_png" x="29" y="27"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_addBtn" label="" x="440" y="1008">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="friends_btn_invite_png" x="29" y="27"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

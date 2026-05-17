@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MaterialGetBoxViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1623d2ad1a2" ></w:Config>
+	<e:Group id="_group" width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_base" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_txt" text="难度总星级达到{0}星，可领取：{1}" y="410" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24" textAlign="center" width="450" horizontalCenter="0"/>
+		<ns1:Button id="_btn" label="" y="674" horizontalCenter="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image width="181" height="52" y="27" source="common_label_lingqu_0_png" horizontalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+	</e:Group>
+</e:Skin>

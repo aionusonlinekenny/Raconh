@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JingmaiRen6Skin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+
+	<e:Image id="_ling7" source="jingmai_xian_png" x="435.1700000000001" y="514" rotation="110.69" anchorOffsetX="0" width="83.86"/>
+	<e:Image id="_star7" source="jingmai_zhu1_png" x="414" y="467"/>
+	<e:Image id="_star0" source="jingmai_zhu1_png" x="343.5" y="149"/>
+	<e:Image id="_ling1" source="jingmai_xian_png" x="382.64" y="202.91" rotation="41.05" anchorOffsetX="0" width="51.36"/>
+	<e:Image id="_star1" source="jingmai_zhu1_png" x="371" y="235.49"/>
+	<e:Image id="_ling2" source="jingmai_xian_png" x="385.70000000000005" y="279.04" rotation="161.52" anchorOffsetX="0" width="69.71"/>
+	<e:Image id="_star2" source="jingmai_zhu1_png" x="258.99" y="233.05"/>
+	<e:Image id="_ling3" source="jingmai_xian_png" x="303.66" y="281" rotation="16.04" anchorOffsetX="0" width="45.07"/>
+	<e:Image id="_star3" source="jingmai_zhu1_png" x="313" y="301"/>
+	<e:Image id="_ling4" source="jingmai_xian_png" x="354.37" y="352.16" rotation="27.23" anchorOffsetX="0" width="31.58" anchorOffsetY="0" height="32.94"/>
+	<e:Image id="_star4" source="jingmai_zhu1_png" x="340" y="375"/>
+	<e:Image id="_ling5" source="jingmai_xian_png" x="321.21" y="475.52" rotation="284.98" anchorOffsetX="0" width="58.12"/>
+	<e:Image id="_star5" source="jingmai_zhu1_png" x="278" y="451"/>
+	<e:Image id="_ling6" source="jingmai_xian_png" x="314.82" y="509" rotation="37.39" anchorOffsetX="0" width="72.33" anchorOffsetY="0" height="32.68"/>
+	<e:Image id="_star6" source="jingmai_zhu1_png" x="333" y="555"/>
+
+</e:Skin>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SrvRankItemSkin" width="710" height="134" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group x="2" y="31" anchorOffsetX="0" width="152">
+		<e:Image id="_rankImg" source="srvRank_rank2_png" y="0" horizontalCenter="0.5"/>
+	</e:Group>
+	<ns1:BaseGoods id="_item0" width="141" height="141" x="137" y="-5" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:Label id="_nameTxt" text="Label" x="0" anchorOffsetX="0" width="149" fontFamily="Microsoft YaHei" textColor="0x00FF00" textAlign="center" y="73"/>
+	<ns1:BaseGoods id="_item1" width="141" height="141" x="259" y="-5" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item2" width="141" height="141" x="379" y="-5" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:Button id="_btn" label="Button" x="498" y="23" width="200" height="87">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="common_label_fetch_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Label id="_statuTxt" text="Label" x="506" anchorOffsetX="0" width="185" fontFamily="Microsoft YaHei" textColor="0x00ff00" textAlign="center" y="52"/>
+	<e:Image source="common_line_png" y="132" x="26"/>
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" x="536" y="23" visible="false"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="656" y="28" visible="false"/>
+</e:Skin>

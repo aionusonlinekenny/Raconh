@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RechargeActivityItemSkin" width="695" height="160" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_wordBg_normal_png" scale9Grid="37,30,43,35" x="-4" y="-4" anchorOffsetX="0" width="701" anchorOffsetY="0" height="167"/>
+	<ns1:Label id="_descTxt" text="Label" x="23" y="8" anchorOffsetX="0" width="581" anchorOffsetY="0" height="34" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:BaseGoods id="_item0" width="141" height="141" x="2" y="22" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item1" width="141" height="141" x="120" y="22" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item2" width="141" height="141" x="238" y="22" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item3" width="141" height="141" x="355" y="22" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<e:Group id="_rewardGroup" x="491.73" y="40">
+		<ns1:Button id="_okBtn" label="Button" x="0" anchorOffsetX="0" width="189" anchorOffsetY="0" height="96" y="-7">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:Label id="_countTxt" text="Label" x="17.27" y="81" textColor="0x7c6e62" anchorOffsetX="0" width="155" textAlign="center" fontFamily="Microsoft YaHei"/>
+		<e:Image id="_fetchImg" source="common_label_fetch_png" x="3.27" y="17" visible="false"/>
+		<e:Image id="_chongzhiImg" source="common_qianwangchongzhi_png" x="7.27" y="15.33"/>
+	</e:Group>
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" x="523" y="37" visible="false"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="637" y="41" visible="false"/>
+</e:Skin>

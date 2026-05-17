@@ -1,0 +1,18 @@
+{"mc":{"roleLevelUp":{"frameRate":24,"events":[],"frames":[
+  {"res":"roleLevelUp_00000","x":262,"y":146},
+  {"res":"roleLevelUp_00001","x":250,"y":109},
+  {"res":"roleLevelUp_00002","x":250,"y":50},
+  {"res":"roleLevelUp_00003","x":250,"y":34},
+  {"res":"roleLevelUp_00004","x":250,"y":30},
+  {"res":"roleLevelUp_00005","x":250,"y":29},
+  {"res":"roleLevelUp_00006","x":283,"y":100},
+  {"res":"roleLevelUp_00007","x":316,"y":100}]}},
+"res":{
+  "roleLevelUp_00005":{"x":0,"y":0,"w":300,"h":467},
+  "roleLevelUp_00004":{"x":300,"y":0,"w":300,"h":466},
+  "roleLevelUp_00003":{"x":600,"y":0,"w":300,"h":462},
+  "roleLevelUp_00002":{"x":0,"y":467,"w":300,"h":446},
+  "roleLevelUp_00001":{"x":300,"y":467,"w":300,"h":387},
+  "roleLevelUp_00000":{"x":600,"y":467,"w":274,"h":350},
+  "roleLevelUp_00006":{"x":0,"y":913,"w":238,"h":349},
+  "roleLevelUp_00007":{"x":238,"y":913,"w":190,"h":347}}}

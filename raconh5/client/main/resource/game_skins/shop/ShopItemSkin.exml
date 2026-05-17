@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShopItemSkin" width="231" height="327" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="shop_di_png" x="0" y="-1"/>
+	<ns1:Label id="_nameTxt" text="Label" y="12" anchorOffsetX="0" width="201" textAlign="center" textColor="0xffffff" horizontalCenter="0"/>
+	<e:Image id="_tuijianImg" x="0" y="-3" source="common_itemRecommend_png"/>
+	<ns1:Button id="_buyBtn" label="Button" x="27" y="236" width="179" height="78">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			<e:Image width="181" height="52" source="shop_goumai_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_noStockImg" source="shop_yigoumai_png" y="236" horizontalCenter="0"/>
+	<e:Group id="_gro1" y="171" x="34">
+		<ns1:PlayerResItems id="_res1" width="53" height="54" y="-15" anchorOffsetX="0" anchorOffsetY="0" skinName="PlayerResItemsSkin" x="54"/>
+		<ns1:Label id="_priceTxt" text="原价:" x="3" y="0" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei"/>
+	</e:Group>
+	<e:Group id="_gro2" x="34" y="187">
+		<ns1:PlayerResItems id="_res2" width="78" height="54" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="PlayerResItemsSkin" x="54"/>
+		<ns1:Label id="_currentPriceTxt" text="现价:" x="3" y="12" textColor="0x7C6E62" size="22" fontFamily="Microsoft YaHei"/>
+	</e:Group>
+	<e:Image id="_hongImg" source="shop_hong_png" y="182" height="2" x="36" fillMode="clip"/>
+	<e:Image id="_vipImg" source="shop_vip_png" y="258" horizontalCenter="0"/>
+	<ns1:Label id="_agioTxt" text="1扣" x="-4.83" y="47.35" rotation="314.1" textAlign="center" anchorOffsetX="0" width="73.62" fontFamily="Microsoft YaHei" size="25"/>
+	<ns1:BaseGoods id="_goods" width="141" height="141" y="35" skinName="BaseGoodsSkin" horizontalCenter="0"/>
+</e:Skin>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubBFViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_back" width="720" height="744" x="0" y="116"/>
+
+	<e:Image scale9Grid="29,11,181,69" x="4" y="847" anchorOffsetX="0" width="712" anchorOffsetY="0" height="138" source="common_bg1_normal_png"/>
+	<e:Image source="clubBF_label_5_png" x="32" y="898"/>
+	<e:Group id="_btnRewards" x="558" y="706">
+		<e:Image source="clubBF_circle_png" x="34" y="0"/>
+		<e:Image source="clubBF_box_png" x="51" y="18"/>
+		<e:Image source="clubBF_label_4_png" x="0" y="91"/>
+		<e:Image id="_redIcon" source="common_red_icon_png" x="105" y="8" touchEnabled="false"/>
+	</e:Group>
+	<e:Group id="_btnTips" x="509" y="116">
+		<e:Image source="clubBF_flag_png" x="0" y="0"/>
+		<e:Image source="clubBF_shou_png" x="72" y="67"/>
+		<ns1:Label id="_txtClub" text="长林府" y="148" fontFamily="Microsoft YaHei" size="24" textAlign="center" textColor="0xFFF7E6" anchorOffsetX="0" width="150" anchorOffsetY="0" height="52" verticalAlign="middle" horizontalCenter="0"/>
+
+
+	</e:Group>
+	<ns1:Label id="_txtTime" text="" y="994" fontFamily="Microsoft YaHei" size="24" textAlign="center" textColor="0xFFF7E6" anchorOffsetX="0" width="683" x="19" height="33"/>
+	<ns1:Button id="_btnEnter" label="Button" x="239" y="1013">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image source="clubBF_label_6_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_btnExplain" source="clubBF_wenhao_png" x="12" y="46"/>
+
+</e:Skin>

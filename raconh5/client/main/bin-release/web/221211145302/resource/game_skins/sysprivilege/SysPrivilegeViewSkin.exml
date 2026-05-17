@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SysPrivilegeViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_name_back_png" x="94" y="126" anchorOffsetY="0" height="358"/>
+	<e:Image source="sysprivilege_yongjiushengxiao_png" x="486" y="152"/>
+
+	<e:Image id="_kaImg" source="sysprivilege_huangjinka_png" x="110" y="158"/>
+	<ns1:Button id="_rewardBtn" label="Button" y="1038" horizontalCenter="0">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_activeImg" source="sysprivilege_28_png" y="1065" horizontalCenter="0.5"/>
+	<e:Group x="9" y="451">
+		<ns1:SysPrivilegeItem id="_item1" width="700" height="147" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="SysPrivilegeItemSkin"/>
+		<ns1:SysPrivilegeItem id="_item3" width="700" height="147" x="0" y="291" anchorOffsetX="0" anchorOffsetY="0" skinName="SysPrivilegeItemSkin"/>
+		<ns1:SysPrivilegeItem id="_item4" width="700" height="147" x="0" y="436" anchorOffsetX="0" anchorOffsetY="0" skinName="SysPrivilegeItemSkin"/>
+		<ns1:SysPrivilegeItem id="_item2" width="700" height="147" x="0" y="146" anchorOffsetX="0" anchorOffsetY="0" skinName="SysPrivilegeItemSkin" scaleX="1" scaleY="1"/>
+	</e:Group>
+
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" x="296" y="1050" visible="false"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="435" y="1047" visible="false"/>
+	<ns1:Label text="（特权卡效果可叠加）" x="471" y="1080" anchorOffsetX="0" width="245" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="25" size="24" textColor="0xfff7e7"/>
+	<ns1:Label id="_timeDescTxt" text="体验卡剩余时间：" x="37" y="1061" anchorOffsetX="0" width="195" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="25" size="24" textColor="0xFFF7E7"/>
+	<ns1:Label id="_timeTxt" text="1" x="37" y="1098" anchorOffsetX="0" width="195" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="25" size="24" textColor="0xFFF7E7" textAlign="center"/>
+</e:Skin>

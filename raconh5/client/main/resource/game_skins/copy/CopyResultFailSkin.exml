@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopyResultFailSkin" width="715" height="637" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="1628af3859e"/>
+	<e:Group x="0" y="0" width="715">
+		<e:Image source="result_bg_png" x="0" y="70" scale9Grid="89,38,535,7" height="567"/>
+		<e:Image source="result_title_fail_png" x="121" y="0"/>
+		<e:Image source="result_fail_words_png" x="220" y="165"/>
+		<e:Image source="result_line_png" y="313" x="114"/>
+		<e:Image source="result_label_png" y="291" x="271"/>
+
+		<ns1:Button id="_btn" label="" y="516" width="238" height="105" x="238">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image source="common_label_leave_png" verticalCenter="0" horizontalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+
+
+
+
+		<e:Image id="_btnClose" source="common_tip_close_png" x="639" y="88"/>
+		<e:Group id="_gBtns0" x="105" y="362">
+			<e:Image id="_btnEquip" source="main_icon_forging_png" x="0" y="14"/>
+			<e:Image id="_btnPet" source="role_pet_normal_png" x="119.67" y="2"/>
+			<e:Image id="_btnSkill" source="main_icon_skill_png" x="266.33" y="21"/>
+			<e:Image id="_btnJieXue" source="juexue_bouttmIcon_png" x="391" y="0"/>
+		</e:Group>
+		<e:Image id="_btnShenQi" source="relicStuff_shenbingxiao_png" x="297" y="363" visible="false"/>
+		<ns1:Label id="_txt" text="倒计时3s退出" x="475" y="556" textColor="0xfff7e6" fontFamily="Microsoft YaHei"/>
+	</e:Group>
+</e:Skin>

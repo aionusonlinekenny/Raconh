@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ReinConditionItemSkin" width="322" height="80" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="common_wordBg_normal_png" left="0" right="0" top="0" bottom="0"/>
+	<ns1:Label id="_descTxt" text="" x="20" y="10" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22"/>
+	<ns1:Label id="_goTxt" text="" x="259" y="9" size="22" fontFamily="Microsoft YaHei"/>
+	<e:Image id="_icon" source="common_label_finish_png" x="92" y="-3"/>
+</e:Skin>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridBuyItemSkin" width="700" height="129" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_di2_png" scale9Grid="10,10,63,65" x="0" y="0" anchorOffsetX="0" width="700" anchorOffsetY="0" height="128"/>
+
+	<ns1:BaseGoods id="_goods" width="141" height="141" x="-7" y="-8" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:Label id="_nameTxt" text="" x="123" y="29" anchorOffsetX="0" width="205" anchorOffsetY="0" height="30" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_attrTxt0" text="" x="123" y="73" anchorOffsetX="0" width="189" anchorOffsetY="0" height="30" textColor="0x7C6E62" fontFamily="Microsoft YaHei"/>
+	<e:Group id="_numGroup" x="483" y="6">
+		<e:Image source="playRes_suipian_54_png" x="0" y="0"/>
+		<ns1:Label id="_numTxt" text="" x="54" y="14" anchorOffsetX="0" width="141" anchorOffsetY="0" height="30" textColor="0x7C6E62"/>
+		<ns1:Button id="_buyBtn" label="Button" y="41" x="-3" anchorOffsetX="0" width="201" anchorOffsetY="0" height="81" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image width="181" height="52" source="common_dh_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+	</e:Group>
+	<ns1:Label id="_copyTxt" text="" x="438" y="51.5" anchorOffsetX="0" width="239" anchorOffsetY="0" height="30" textColor="0x7C6E62" textAlign="right"/>
+	<ns1:Label id="_attrTxt1" text="" x="312" y="73" anchorOffsetX="0" width="179" anchorOffsetY="0" height="30" textColor="0x7C6E62" fontFamily="Microsoft YaHei"/>
+	<e:Image id="_yiyouImg" source="common_existing_png" x="541" y="19.5" visible="false"/>
+
+</e:Skin>

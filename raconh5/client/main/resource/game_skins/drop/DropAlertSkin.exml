@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DropAlertSkin" width="477" height="249" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="_back" source="ui_drop_back_png" y="0" scale9Grid="43,120,393,118" x="0"/>
+	<e:Image id="_title" source="ui_drop_title_png" y="12" horizontalCenter="0"/>
+</e:Skin>

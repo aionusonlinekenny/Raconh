@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SysChargeItemSkin" width="354" height="276" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="sysCharge_kuang2_png" x="0" y="0"/>
+	<e:Image id="_kuangImg" source="sysCharge_kuang_png" x="0" y="0" visible="false"/>
+	<e:Image source="playRes_gold_54_png" x="129" y="14"/>
+	<e:Image id="_goldBgImg" source="sysCharge_yuanbao1_png" x="81" y="58"/>
+	<e:Group id="_largessGroup" x="226" y="96">
+		<e:Image source="sysCharge_zengsong_png" x="0" y="0"/>
+		<ns1:Label id="_goldTxt0" text="1" x="2" y="56" anchorOffsetX="0" width="99" textAlign="center" fontFamily="Microsoft YaHei"/>
+	</e:Group>
+	<ns1:Label id="_goldTxt" text=" " x="180" y="30" anchorOffsetX="0" width="100" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_moneyTxt" text="1元" y="227" anchorOffsetX="0" width="204" textAlign="center" fontFamily="Microsoft YaHei" horizontalCenter="0"/>
+	<e:Group id="_chargeGroup" x="6" y="6">
+		<e:Image source="sysCharge_dikuang_png" x="0" y="0"/>
+		<e:Image id="_czImg" source="sysCharge_cz_png" x="20" y="40"/>
+		<e:Image id="_perImg" x="41" y="117" source="sysCharge_per_png"/>
+	</e:Group>
+</e:Skin>

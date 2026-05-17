@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JuyuanResultSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Image id="_back" width="713" height="636" x="2" y="213" source="result_bg_png" scale9Grid="89,38,535,7"/>
+	<e:Image width="472" height="172" x="124" y="143" source="result_title_win_png"/>
+	<e:Group x="228" y="695">
+		<e:Button id="_enterBtn" label="Button" x="0" y="27">
+			<e:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image source="confirm_png" x="29" y="27"/>
+			</e:Skin>
+			</e:skinName>
+		</e:Button>
+		<ns1:Label id="_time" text="" x="233" y="79" fontFamily="Microsoft YaHei"/>
+	</e:Group>
+	<e:Image id="_btnClose" width="50" height="93" x="639" y="231" source="common_tip_close_png"/>
+	<ns1:Label id="_txt" text="Label" x="190" y="630" fontFamily="Microsoft YaHei"/>
+	<e:Image width="100" height="100" x="306.5" y="380" source="juyuan_ball_png"/>
+	<e:Image id="_ballback" width="100" height="100" x="306.5" y="380"/>
+	<e:Image width="115" height="57" x="238" y="550" source="common_zhanli_png"/>
+</e:Skin>

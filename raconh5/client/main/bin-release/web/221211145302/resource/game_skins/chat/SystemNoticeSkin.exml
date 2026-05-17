@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SystemNoticeSkin" width="498" height="41" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="notice_back_png" x="0" y="0"/>
+	<ns1:Label id="_txt" text="" fontFamily="Microsoft YaHei" size="22" verticalAlign="middle" textAlign="left" multiline="false" wordWrap="false" x="456" y="9"/>
+</e:Skin>

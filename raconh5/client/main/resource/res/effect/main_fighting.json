@@ -1,0 +1,14 @@
+{"mc":{"main_fighting":{"frameRate":24,"events":[],"frames":[
+  {"res":"main_fighting_00000","x":26,"y":44},
+  {"res":"main_fighting_00001","x":26,"y":44},
+  {"res":"main_fighting_00002","x":26,"y":44},
+  {"res":"main_fighting_00003","x":26,"y":44},
+  {"res":"main_fighting_00004","x":26,"y":44},
+  {"res":"main_fighting_00005","x":26,"y":44}]}},
+"res":{
+  "main_fighting_00000":{"x":0,"y":0,"w":76,"h":44},
+  "main_fighting_00001":{"x":76,"y":0,"w":76,"h":44},
+  "main_fighting_00002":{"x":152,"y":0,"w":76,"h":44},
+  "main_fighting_00003":{"x":228,"y":0,"w":76,"h":44},
+  "main_fighting_00004":{"x":304,"y":0,"w":76,"h":44},
+  "main_fighting_00005":{"x":380,"y":0,"w":76,"h":44}}}

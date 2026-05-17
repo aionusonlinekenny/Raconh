@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubLeaderWarFightInfoItemSkin" width="250" height="165" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="161548baa73" ></w:Config>
+	<e:Image width="250" height="75" x="0" y="0" source="common_back2_png" scale9Grid="62,20,20,0" anchorOffsetY="0"/>
+	<e:Label id="txt1" text="候选人：" x="19" y="11" fontFamily="Microsoft YaHei" size="22"/>
+	<ns1:Label id="nickName" text="虚位以待" x="115" y="11" size="22" fontFamily="Microsoft YaHei"/>
+	<e:Label id="txt2" text="净胜场：" x="19" y="41" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="count" text="0" x="115" y="42" fontFamily="Microsoft YaHei" size="22" textColor="0x4eff00"/>
+	<ns1:Button id="btn" label="" y="74" anchorOffsetX="0" width="199" anchorOffsetY="0" height="87.79" horizontalCenter="0.5">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			<e:Image width="181" height="52" x="12" y="18" source="rank_btn_label_mobai_png"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+</e:Skin>

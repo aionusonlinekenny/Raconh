@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SuitAttrListSkin" width="250" height="{data.viewHeight}" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="160c93e3432" ></w:Config>
+	<ns1:Label id="_amount" text="{data.amount}" x="13" y="0" size="24" textColor="{data.amountColor}" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+	<ns1:Label id="_attr" text="{data.attrValue}" x="77" y="0" size="24" fontFamily="Microsoft YaHei" textColor="{data.attrValueColor}" scaleX="1" scaleY="1"/>
+</e:Skin>

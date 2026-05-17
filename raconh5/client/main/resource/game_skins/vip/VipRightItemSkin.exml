@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="VipRightItemSkin" width="550" height="56" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<ns1:Label id="_txt" text="" left="50" size="28" fontFamily="Microsoft YaHei" textColor="0x7b6d61" height="100%" width="500" verticalAlign="middle" textAlign="left"/>
+	<e:Image id="_icon" source="common_label_new_png" x="450" y="13"/>
+</e:Skin>

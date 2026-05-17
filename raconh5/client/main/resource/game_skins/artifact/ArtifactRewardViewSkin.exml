@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArtifactRewardViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin"/>
+	<ns1:Label id="_label" text="Label" y="401" textColor="0x7c6e62" anchorOffsetX="0" width="404" x="158" textAlign="center"/>
+	<ns1:Button id="_rewardBtn" label="Button" x="238" y="672">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="common_label_lingqu_0_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Group id="_group" y="484" anchorOffsetX="0" width="111" anchorOffsetY="0" height="141" x="305">
+	</e:Group>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="429" y="682"/>
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" x="285" y="681" visible="false"/>
+</e:Skin>

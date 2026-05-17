@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JuyuanViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="710" height="740" source="juyuan_back_jpg" top="115" left="5" visible="false"/>
+	<e:Image width="121" height="38" x="20" y="870" source="juyuan_jieduan_png"/>
+	<e:Button id="_juyuanBtn" label="Button" y="1029" width="238" height="105" horizontalCenter="0">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="juyuan_title_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="_tupoBtn" label="Button" y="1029" width="238" height="105" horizontalCenter="0">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="jingmai_tupo_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Group id="_cost" x="185" y="980">
+		<e:Image width="54" height="54" x="-30" y="0" source="commonsheet.juyuan_icon_54_png"/>
+		<e:Image width="54" height="54" x="225" y="0" source="playRes_coin_54_png"/>
+		<ns1:Label id="_cailiao" text="10/20" x="122" y="16" textColor="0xfff7e7" size="24" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_yinbi" text="123456" x="275" y="15" textColor="0xfff7e7" size="24" fontFamily="Microsoft YaHei"/>
+		<ns1:Label text="聚元丹：" x="25" y="15"/>
+	</e:Group>
+	<e:Image id="_jieduanBack" width="80" height="394" x="608" y="128" source="common_name_back_png"/>
+	<e:Image id="_zhanliBack" width="441" height="65" x="176" y="780" source="common_fighting_png"/>
+	<e:Group id="_ballBackList" x="40" y="138">
+		<e:Image width="119" height="108" x="174" y="0" source="juyuan_ball_png"/>
+		<e:Image width="119" height="108" x="406" y="50" source="juyuan_ball_png"/>
+		<e:Image width="119" height="108" x="488" y="214" source="juyuan_ball_png"/>
+		<e:Image width="119" height="108" x="532" y="372" source="juyuan_ball_png"/>
+		<e:Image width="119" height="108" x="468" y="524" source="juyuan_ball_png"/>
+		<e:Image width="119" height="108" x="166" y="540" source="juyuan_ball_png"/>
+		<e:Image width="119" height="108" x="64" y="424" source="juyuan_ball_png"/>
+		<e:Image width="119" height="108" x="0" y="262" source="juyuan_ball_png"/>
+		<e:Image width="119" height="108" x="18" y="98" source="juyuan_ball_png"/>
+		<e:Image width="33" height="39" x="594" y="160" source="common_label_jie_png"/>
+	</e:Group>
+	<e:Group x="100" y="900">
+		<e:Image width="520" height="30" x="0" y="12" source="strip_back_png"/>
+		<e:Image id="_scedule" width="0" height="28" x="1" y="13" source="strip_yellow_png"/>
+		<e:Image id="_star01" width="53" height="53" x="103.5" y="0" source="juyuan_star02_png"/>
+		<e:Image id="_star02" width="53" height="53" x="233.5" y="0" source="juyuan_star02_png"/>
+		<e:Image id="_star03" width="53" height="53" x="363.5" y="0" source="juyuan_star02_png"/>
+		<e:Image id="_star04" width="53" height="53" x="493.5" y="0" source="juyuan_star02_png"/>
+	</e:Group>
+	<e:Image width="102" height="57" x="198" y="780" source="common_zhanli2_png"/>
+	<ns1:Label id="_redText" text="" x="278" y="1072" size="24" fontFamily="Microsoft YaHei"/>
+	<e:Image id="_redIcon" width="35" height="35" x="435" y="1037" source="common_red_icon_png"/>
+</e:Skin>

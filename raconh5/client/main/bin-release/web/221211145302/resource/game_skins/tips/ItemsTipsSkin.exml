@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ItemsTipsSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="_group" x="50" y="416" horizontalCenter="0" verticalCenter="0">
+		<e:Image id="_bgImg" x="412" y="3" anchorOffsetX="0" width="200" anchorOffsetY="0" height="135" source="common_tipsBg_png" scale9Grid="50,52,17,15"/>
+		<ns1:Button id="_useBtn" label="Button" x="413" y="26" anchorOffsetX="0" width="197" anchorOffsetY="0" height="90">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image width="77" height="44" source="shiyong_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:Button id="_fangruckBtn" label="Button" x="413" width="197" height="90" anchorOffsetX="0" anchorOffsetY="0" y="125">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<e:Image width="181" height="52" source="tips_items_fangruck_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+
+		<ns1:Button id="_quchuBtn" label="Button" x="413" y="26" anchorOffsetX="0" width="197" anchorOffsetY="0" height="90">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image width="181" height="52" source="tips_quchu_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:BaseTips id="_tipspanel" width="425" height="656" x="0" y="0" skinName="BaseTipsSkin" anchorOffsetY="0"/>
+		<ns1:Button id="_marketBtn" label="Button" x="412" width="197" height="90" anchorOffsetX="0" anchorOffsetY="0" y="220">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<e:Image width="181" height="52" source="market_titel_1_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+	</e:Group>
+
+</e:Skin>

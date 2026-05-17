@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FriendsChatItemSkin" width="666" height="111" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="_headBack" source="common_itemBg_png" x="0" y="-15"/>
+	<ns1:FriendsDialog id="_dialog" width="500" height="69" x="0" y="6" skinName="FriendsDialogSkin"/>
+</e:Skin>

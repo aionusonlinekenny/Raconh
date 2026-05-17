@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArenaMaxListItemSkin" width="167" height="125" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="arenaHistoryBarBack_png" x="0" y="0"/>
+	<e:Image id="_picStrip" x="0" y="36" source="strip_blue2_png" scale9Grid="7,6,27,17" height="26" width="80"/>
+	<e:Image id="_picFull" x="74" y="2" source="arenaHistoryBarFull_png"/>
+	<e:Image id="_picBox" x="75" y="4" source="arenaHistoryBox_png"/>
+	<e:Image id="_picGeted" x="74" y="24" source="common_label_yilingqu_1_png"/>
+	<e:Image id="_redIcon" x="134" y="0" source="common_red_icon_png"/>
+	<ns1:Label id="_txt" x="75" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="91" text="label" size="24" textColor="0x7B6D61" textAlign="center" y="101"/>
+	<e:Group id="_groupHot" width="88" height="88" x="77" y="4"/>
+</e:Skin>

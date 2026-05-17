@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridBagItemSkin" width="635" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_di2_png" scale9Grid="10,10,63,65" x="0" y="0" anchorOffsetX="0" width="632" anchorOffsetY="0" height="128"/>
+	<ns1:BaseGoods id="_goods" width="141" height="141" x="-7" y="-8" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:Label id="_nameTxt" text="" x="123" y="27" anchorOffsetX="0" width="254" anchorOffsetY="0" height="30"/>
+	<ns1:Label id="_attrTxt0" text="" x="123" y="74" anchorOffsetX="0" width="210" anchorOffsetY="0" height="30" textColor="0x7c6e62"/>
+	<ns1:Label id="_attrTxt1" text="" x="335" y="74" anchorOffsetX="0" width="167" anchorOffsetY="0" height="30" textColor="0x7c6e62"/>
+
+	<e:Image id="_tuijianImg" x="479" y="18" source="common_tuijian_png" visible="false"/>
+	<e:Image id="_yiyouImg" source="common_existing_png" x="482" y="19" locked="true"/>
+</e:Skin>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArenaViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_imageBg" width="720" height="860" x="0" y="115"/>
+
+	<e:Image x="4" y="115" height="45" width="711" source="common_back5_png" scale9Grid="51,8,119,28"/>
+	<ns1:Label id="_txtCount" text="Label" x="10" y="124" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e6" width="176"/>
+	<ns1:Label id="_txtVip" text="Label" x="186" y="124" size="24" fontFamily="Microsoft YaHei" width="103" textColor="0x37b700"/>
+	<ns1:Label id="_txtTime" text="Label" x="414" y="124" size="24" fontFamily="Microsoft YaHei" width="283" anchorOffsetX="0" textAlign="right" textColor="0x37b700"/>
+	<ns1:Button id="_btnBuy" label="" x="290" y="119">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_countAdd_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_btnShop" label="" x="568" y="178">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="arenaShopIcon_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_btnLog" label="" x="541" y="892">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="arenaSearchIcon_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_btnRenew" label="" x="625" y="892">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="arenaRenewIcon_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image x="0" y="975" height="168" width="720" source="common_bg1_normal_png"/>
+	<e:Image x="28" y="1005" scale9Grid="29,11,181,69" source="arenaMyInfoLabel_png"/>
+	<e:Image x="64" y="991" source="common_itemBg_png"/>
+	<ns1:BitmapRemote id="_imageHead" width="87" height="87" x="90" y="1019"/>
+	<ns1:Label id="_txtRank" text="Label" x="205" y="1010" size="26" fontFamily="Microsoft YaHei" width="283" anchorOffsetX="0" textAlign="left" textColor="0x7b6d61"/>
+	<ns1:Label id="_txtName" text="Label" x="205" y="1049" size="26" fontFamily="Microsoft YaHei" width="283" anchorOffsetX="0" textAlign="left" textColor="0x7B6D61"/>
+	<ns1:Label id="_txtPower" text="Label" x="205" y="1087" size="26" fontFamily="Microsoft YaHei" width="283" anchorOffsetX="0" textAlign="left" textColor="0x7B6D61"/>
+	<ns1:Button id="_btnAward" label="" x="578" y="987">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="arenaDailyAwadIcon_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_redIconMax" x="660" y="1012" source="common_red_icon_png"/>
+	<ns1:Label id="_txtRenew" text="每日0点结算" x="570" y="1109" size="22" fontFamily="Microsoft YaHei" width="131" anchorOffsetX="0" textAlign="center" textColor="0x37b700"/>
+	<ns1:ArenaRankHeadView id="_item1" x="120" y="175" skinName="ArenaRankHeadViewSkin"/>
+	<ns1:ArenaRankHeadView id="_item2" x="444" y="415" skinName="ArenaRankHeadViewSkin"/>
+	<ns1:ArenaRankHeadView id="_item3" x="70" y="652" skinName="ArenaRankHeadViewSkin"/>
+</e:Skin>

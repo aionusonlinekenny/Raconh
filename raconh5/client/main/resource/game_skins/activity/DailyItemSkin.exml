@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DailyItemSkin" width="669" height="145" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_back" source="common_wordBg_normal_png" x="0" width="100%" height="100%"/>
+	<ns1:BitmapRemote id="_icon" width="120" height="120" x="20" y="2"/>
+
+
+
+	<e:Group x="458" y="30">
+		<ns1:Button id="_btn0" label="" x="0" y="0" width="191" height="85" anchorOffsetX="0" anchorOffsetY="0">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+		</ns1:Button>
+		<ns1:Button id="_btn1" label="" x="0" y="0" width="191" height="85" anchorOffsetX="0" anchorOffsetY="0">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_btnLabel" source="common_label_qianwang_png" touchEnabled="false" horizontalCenter="0" verticalCenter="0"/>
+	</e:Group>
+
+
+
+	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="228" y="33" height="42" width="180"/>
+	<ns1:Label id="_txtDesc" text="次数：" x="145" y="38" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="28"/>
+	<ns1:Label id="_txtCount" text="10/10" x="231" y="38" fontFamily="Microsoft YaHei" size="28" textColor="0xFFF7E6" width="174" textAlign="center" wordWrap="false" anchorOffsetX="0"/>
+	<ns1:Label id="_txtValue0" text="活跃：x10" x="145" y="90" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="28"/>
+	<ns1:Label id="_txtValue1" text="盟贡：x10" x="301" y="90" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="28"/>
+</e:Skin>

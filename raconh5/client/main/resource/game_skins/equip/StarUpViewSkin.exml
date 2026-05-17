@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="StarUpViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+
+	<e:Image id="_explainBtn" width="82" height="82" x="24" y="46" source="clubBF_wenhao_png"/>
+	<e:Group x="50" y="100">
+		<e:Image width="141" height="141" x="239.5" y="0" source="common_itemBg_add_png"/>
+		<e:Image width="140" height="140" x="490" y="215" source="common_itemBg_add_png"/>
+		<e:Image width="141" height="141" x="406" y="438" source="common_itemBg_add_png"/>
+		<e:Image width="141" height="141" x="116" y="438" source="common_itemBg_add_png"/>
+		<e:Image width="141" height="141" x="0" y="215" source="common_itemBg_add_png"/>
+	</e:Group>
+	<e:Group id="_itemMainBg" x="310" y="340">
+		<e:Image width="100" height="100" x="0" y="0" source="equip_gem_kuang0_png"/>
+		<e:Image width="65" height="65" x="18" y="18" source="role_add_png"/>
+	</e:Group>
+	<ns1:Label id="_success" text="成功率：70%" x="280" y="688" size="24" fontFamily="Microsoft YaHei" textColor="0x37b700"/>
+	<e:Group id="_oldAttr" x="69" y="667">
+		<e:Image width="205" height="175" x="0" y="0" source="common_di2_png"/>
+		<e:Image width="164" height="41" x="23" y="15" source="starUp_jpsx_png"/>
+		<ns1:Label id="_oldTxt01" text="Label" x="11" y="63" textColor="0x7c6e63" size="24" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_oldTxt02" text="Label" x="11" y="98" textColor="0x7c6e63" size="24" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_oldTxt03" text="Label" x="11" y="133" textColor="0x7c6e63" size="24" fontFamily="Microsoft YaHei"/>
+	</e:Group>
+	<e:Group id="_newAttr" x="446" y="667">
+		<e:Image width="205" height="175" x="0" y="0" source="common_di2_png"/>
+		<e:Image width="164" height="41" x="23" y="15" source="starUp_jpsx_png"/>
+		<ns1:Label id="_newTxt01" text="Label" x="11" y="63" textColor="0x7c6e63" size="24" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_newTxt02" text="Label" x="11" y="98" textColor="0x7c6e63" size="24" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_newTxt03" text="Label" x="11" y="133" textColor="0x7c6e63" size="24" fontFamily="Microsoft YaHei"/>
+	</e:Group>
+	<e:Image width="713" height="140" x="3.5" y="855" source="common_bg1_normal_png"/>
+	<ns1:BaseHScrollerList id="_hScroll" width="713" height="140" x="3.5" y="855"/>
+	<e:Button id="_allUpBtn" label="Button" x="70" y="1008">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			<e:Image width="181" height="52" source="friends_btn_invite_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button id="_starUpBtn" label="Button" x="410" y="1014">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="starUp_title_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Image width="53" height="58" x="333.5" y="748" source="common_arrow_png"/>
+
+</e:Skin>

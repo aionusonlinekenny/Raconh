@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridSeparateItemSkin" width="223" height="238" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_di2_png" scale9Grid="10,10,63,65" x="0" y="0" anchorOffsetX="0" width="223" anchorOffsetY="0" height="238"/>
+	<e:Image id="_effImg" source="common_di3_png" scale9Grid="19,16,23,27" x="-4.69" y="-4.35" anchorOffsetX="0" width="232" anchorOffsetY="0" height="247" visible="false"/>
+	<ns1:BaseGoods id="_goods" width="141" height="141" y="4.5" skinName="BaseGoodsSkin" x="41"/>
+	<ns1:Label id="_nameTxt" text="Label" y="134" anchorOffsetX="0" width="167" textAlign="center" x="28"/>
+	<ns1:Label id="_attrTxt1" text="Label" y="169" anchorOffsetX="0" width="199" textAlign="center" textColor="0x7c6e62" x="12"/>
+	<ns1:Label id="_attrTxt2" text="Label" y="204" anchorOffsetX="0" width="209" textAlign="center" textColor="0x7c6e62" x="7"/>
+
+
+
+
+
+
+
+</e:Skin>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubJoinTipsViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="16054576da6" ></w:Config>
+	<e:Group id="_group" width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_tipsView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<ns1:Button id="_okBtn" label="" y="675" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="157">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+		<e:Image id="_okBtnImg" y="703" source="confirm_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="157.5"/>
+		<ns1:Label id="_tips1" text="是否确定加入雄霸天下世家？（选择后无法更改）" y="401" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24" horizontalCenter="0"/>
+		<ns1:Label id="_tips2" text="加入推荐的世家可获得推荐好礼一份！" y="475" textColor="0xff0000" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0"/>
+		<ns1:Button id="_cancelBtn" label="" x="95" y="675">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+		<e:Image id="_cancelBtnImg" x="127" y="702" source="common_label_quxiao_png"/>
+	</e:Group>
+</e:Skin>

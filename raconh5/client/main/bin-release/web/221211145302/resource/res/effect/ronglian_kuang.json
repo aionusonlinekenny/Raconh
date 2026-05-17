@@ -1,0 +1,12 @@
+{"mc":{"ronglian_kuang":{"frameRate":24,"events":[],"frames":[
+  {"res":"ronglian_kuang_00000","x":166,"y":163},
+  {"res":"ronglian_kuang_00001","x":153,"y":132},
+  {"res":"ronglian_kuang_00002","x":154,"y":118},
+  {"res":"ronglian_kuang_00003","x":157,"y":132},
+  {"res":"ronglian_kuang_00004","x":167,"y":118}]}},
+"res":{
+  "ronglian_kuang_00000":{"x":0,"y":0,"w":90,"h":118},
+  "ronglian_kuang_00001":{"x":90,"y":0,"w":105,"h":154},
+  "ronglian_kuang_00002":{"x":195,"y":0,"w":102,"h":145},
+  "ronglian_kuang_00003":{"x":297,"y":0,"w":92,"h":101},
+  "ronglian_kuang_00004":{"x":389,"y":0,"w":79,"h":85}}}

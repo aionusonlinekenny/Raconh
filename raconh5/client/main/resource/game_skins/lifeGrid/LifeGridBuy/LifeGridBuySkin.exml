@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridBuySkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Button id="_splerBtn" label="Button" y="1011" horizontalCenter="0">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="lifeGrid_huoqusuipian_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image source="playRes_suipian_54_png" x="466" y="1036.5"/>
+	<ns1:Label id="_numTxt" text="L" x="524" y="1051" anchorOffsetX="0" width="177" fontFamily="Microsoft YaHei" textColor="0xffebe2"/>
+	<ns1:BaseVScrollerList id="_vScroller" width="700" height="680" x="10" y="292" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopySilverResultViewSkin" width="715" height="637" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:ResultWinBack id="_back" x="2" y="0" skinName="ResultWinBackSkin"/>
+	<ns1:BitmapRemote id="_back1" width="572" height="448" y="67" x="73"/>
+	<ns1:BitmapRemote id="_box" width="248" height="293" y="136" x="240"/>
+	<ns1:Label id="_txtKill" text="Label" y="441" fontFamily="Microsoft YaHei" size="30" x="224" textColor="0x4DFF00"/>
+	<ns1:Label id="_txtGold" text="Label" y="485" fontFamily="Microsoft YaHei" textColor="0x4DFF00" size="30" x="224"/>
+	<ns1:Label id="_txtRate" text="Label" y="441" fontFamily="Microsoft YaHei" size="30" x="510" textColor="0x4DFF00"/>
+	<ns1:Label id="_txtSilver" text="Label" y="485" fontFamily="Microsoft YaHei" textColor="0x4DFF00" size="30" x="510"/>
+	<e:Image source="copy_silver_label_0_png" x="73" y="436"/>
+	<e:Image source="copy_silver_label_1_png" x="359" y="480"/>
+	<e:Image source="copy_silver_label_3_png" x="359" y="436"/>
+	<e:Image source="copy_silver_label_2_png" x="73" y="480"/>
+</e:Skin>

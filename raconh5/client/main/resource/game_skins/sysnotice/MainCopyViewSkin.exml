@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainCopyViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_bg" width="720" height="730" x="0" y="117" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image source="common_rect_1_png" x="5" y="117" width="234" height="150" scale9Grid="6,6,38,38"/>
+
+	<e:Image source="common_bg1_normal_png" scale9Grid="29,11,181,69" x="5" y="847" anchorOffsetX="0" width="710" anchorOffsetY="0" height="138"/>
+	<e:Image source="common_back2_png" x="268" y="124" width="184"/>
+
+	<e:Image source="activity_copy_label_2_png" x="34" y="893"/>
+	<e:Image source="activity_copy_rank_title_png" x="13" y="124"/>
+	<e:Image source="common_name_back_png" x="517" y="142.5"/>
+	<ns1:Label id="_txtBoss" text="怪" x="550" y="234" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" anchorOffsetY="0" height="182" anchorOffsetX="0" width="27" lineSpacing="8"/>
+	<e:Group id="_groupPre" x="535" y="605">
+		<e:Image source="common_rect_1_png" y="0" width="164" height="188" scale9Grid="6,6,38,38" x="0"/>
+		<e:Group id="_groupUnlock" y="11" horizontalCenter="0">
+			<e:Image source="common_label_di_png" x="0" y="0"/>
+			<e:Image id="_unlock1" x="67" y="0" source="common_label_guanjihuo_png"/>
+		</e:Group>
+		<e:Image source="common_itemBg_png" x="11" y="27"/>
+		<ns1:BitmapRemote id="_imgPre" width="84" height="84" x="40" y="57" anchorOffsetX="0" anchorOffsetY="0"/>
+		<ns1:Label id="_txtPreName" text="XX" x="7" y="153" fontFamily="Microsoft YaHei" textColor="0xfff7e6" size="22" textAlign="center" width="150"/>
+	</e:Group>
+
+
+
+
+
+
+
+
+
+
+	<ns1:Label id="_txtName" text="排名：未上榜" x="280" y="134" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" width="160" textAlign="center"/>
+
+	<ns1:Label id="_txtRank" text="" x="15" y="164" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" anchorOffsetX="0" width="220" anchorOffsetY="0" height="95" lineSpacing="12"/>
+	<ns1:Label id="_txtLink" text="查看排名" x="132" y="130" fontFamily="Microsoft YaHei" size="22" textColor="0x37b700"/>
+	<ns1:Button id="_btn" label="" y="1014" horizontalCenter="0">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image source="activity_copy_label_tiaozhan_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

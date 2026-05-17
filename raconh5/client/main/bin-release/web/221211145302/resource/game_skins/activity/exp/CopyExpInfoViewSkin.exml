@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopyExpInfoViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="copy_exp_back_1_png" x="17" y="1028"/>
+	<e:Image source="copy_exp_back_0_png" x="458" y="1031"/>
+	<ns1:Label id="_txtScore" text="Label" x="134" y="1045" fontFamily="Microsoft YaHei" textColor="0xfff7e6" size="20"/>
+	<ns1:Label id="_txtKill" text="Label" x="134" y="1075" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="20"/>
+	<ns1:Label id="_txtTime" text="Label" x="477" y="1045" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="20"/>
+	<ns1:Label id="_txtExp" text="Label" x="477" y="1075" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="20"/>
+	<e:Image id="_imgScore" source="copy_exp_score_C_png" x="74" y="1073" anchorOffsetX="34" anchorOffsetY="21"/>
+	<e:Group id="_group" x="606" y="634">
+		<e:Image id="_btnExpUp" source="copy_exp_efficiency_btn_0_png" x="7" y="0"/>
+		<e:Image id="_btnKillUp" source="copy_exp_efficiency_btn_1_png" x="7" y="97"/>
+		<e:Image id="_expUpRedIcon" source="common_red_icon_png" x="59" y="-5" touchEnabled="false" visible="false"/>
+		<e:Image id="_killUpRedIcon" source="common_red_icon_png" x="59" y="92" touchEnabled="false" visible="false"/>
+		<ns1:Label id="_txtExpRate" text="经验+100%" y="-21" fontFamily="Microsoft YaHei" size="20" textColor="0x4eff00" width="120" textAlign="center" x="-7"/>
+
+	</e:Group>
+
+</e:Skin>

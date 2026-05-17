@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CreateRoleViewSkin" width="880" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<ns1:BitmapRemote id="_back0" width="880" height="640" x="-1" y="0"/>
+	<ns1:BitmapRemote id="_back1" width="880" height="640" x="0" y="640"/>
+	<e:Image source="createRole_back2_jpg" x="0" y="0"/>
+	<ns1:BitmapRemote id="_role" width="720" height="880" x="80" y="250"/>
+
+	<e:Image source="createRole_back1_png" x="0" y="788" width="880"/>
+	<e:Image source="createRole_back2_jpg" x="0" y="1229"/>
+	<e:Image id="_headBack1" source="common_roleKuang_normal_png" x="469" y="45"/>
+	<e:Image id="_headBack0" source="common_roleKuang_selected_png" x="237" y="45"/>
+	<e:Image source="createRole_rope_png" x="309" y="16" touchEnabled="false"/>
+	<e:Image source="createRole_rope_png" x="541" y="16" touchEnabled="false"/>
+	<e:Image source="createRole_headFemale_png" x="510" y="45" touchEnabled="false"/>
+	<e:Image source="createRole_headMale_png" x="267" y="49" touchEnabled="false"/>
+	<e:Image source="createRole_nameBack_png" x="98" y="185"/>
+	<e:Image id="_name" source="createRole_nameMale_png" x="98" y="185"/>
+	<e:Image source="createRole_txtBack_jpg" x="282" y="946"/>
+	<ns1:Label id="_txtName" text="" x="295" y="955" anchorOffsetX="0" width="245" fontFamily="Microsoft YaHei" textAlign="center"/>
+	<e:Image id="_btnRole" source="createRole_dice_png" x="541" y="945"/>
+	<e:Image id="_btnCreate" source="createRole_btn_png" y="1034" horizontalCenter="0"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

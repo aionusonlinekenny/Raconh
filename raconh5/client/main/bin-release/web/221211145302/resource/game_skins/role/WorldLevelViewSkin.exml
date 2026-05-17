@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="WorldLevelViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin"/>
+	<ns1:Label id="_desc" text="Label" y="390" anchorOffsetX="0" width="651" anchorOffsetY="0" height="178" textColor="0x7c6e62" x="33" fontFamily="Microsoft YaHei" size="31"/>
+	<ns1:Label id="_desc0" text="Label" y="546" anchorOffsetX="0" width="651" anchorOffsetY="0" height="122" textColor="0x7C6E62" x="33" fontFamily="Microsoft YaHei" size="31"/>
+	<ns1:Button id="_okBtn" label="Button" x="242" y="671">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="confirm_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

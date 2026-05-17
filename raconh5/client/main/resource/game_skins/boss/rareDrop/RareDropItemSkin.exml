@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RareDropItemSkin" width="700" height="136" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_wordBg_normal_png" scale9Grid="37,30,43,35" x="-4" y="-4" anchorOffsetX="0" width="708" anchorOffsetY="0" height="142"/>
+	<ns1:Label id="_timeTxt" text=" " x="27" y="34" anchorOffsetX="0" width="648" anchorOffsetY="0" height="32" textColor="0x7c6e62" textAlign="left" size="28" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_descTxt" text=" " x="27" y="74" anchorOffsetX="0" width="648" anchorOffsetY="0" height="35" textColor="0x7C6E62" textAlign="left" size="28" fontFamily="Microsoft YaHei"/>
+</e:Skin>

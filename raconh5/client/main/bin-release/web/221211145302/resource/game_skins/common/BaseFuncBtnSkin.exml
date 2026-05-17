@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BaseFuncBtnSkin" width="120" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"  states="up,down" >
+	<w:Config id="15f5d2b9f20" ></w:Config>
+	<e:Image source="{data.bgImgNormal}" includeIn="up" x="15" y="27"/>
+	<e:Image source="{data.bgImgClick}" includeIn="down" x="15" y="27"/>
+	<e:Group id="_effect" width="120" height="130" x="0" y="0">
+	</e:Group>
+	<e:Image source="{data.imgNormal}" includeIn="up" width="120" height="120" horizontalCenter="0" bottom="10"/>
+	<e:Image source="{data.imgClick}" includeIn="down" width="120" height="120" horizontalCenter="0" bottom="10"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" right="0" top="9"/>
+	<e:Image source="{data.imgSuo}" x="27" y="52"/>
+</e:Skin>

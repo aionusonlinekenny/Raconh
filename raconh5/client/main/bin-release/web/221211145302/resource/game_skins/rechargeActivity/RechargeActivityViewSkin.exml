@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RechargeActivityViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Label id="_timeTxt" text="Label" x="240" y="308" anchorOffsetX="0" width="347" fontFamily="Microsoft YaHei" size="28"/>
+	<ns1:Label id="_descTxt" text="Label" x="51" y="351" anchorOffsetX="0" width="396.02" fontFamily="Microsoft YaHei" rotation="0.02" anchorOffsetY="0" height="83.95" textAlign="left" verticalAlign="middle"/>
+	<ns1:BaseVScrollerList id="_scroll" width="694" height="688" x="13" y="450" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

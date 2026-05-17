@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TowerCopyViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_rect_1_png" x="5" y="117" width="234" height="150" scale9Grid="6,6,38,38"/>
+	<e:Image source="common_bg1_normal_png" scale9Grid="29,11,181,69" x="5" y="847" anchorOffsetX="0" width="710" anchorOffsetY="0" height="138"/>
+	<e:Image source="common_back2_png" x="268" y="124" width="184"/>
+	<e:Image source="activity_copy_label_2_png" x="34" y="893"/>
+	<e:Image source="activity_copy_rank_title_png" x="13" y="124"/>
+	<e:Image source="common_name_back_png" x="517" y="142.5"/>
+	<ns1:Label id="_txtName" text="怪怪怪" x="544" y="234" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" anchorOffsetY="0" height="182" anchorOffsetX="0" width="27" textAlign="center" lineSpacing="12"/>
+	<e:Group id="_groupPre" x="535" y="605">
+		<e:Image source="common_rect_1_png" y="0" width="164" height="188" scale9Grid="6,6,38,38" x="0"/>
+		<e:Group id="_groupUnlock" y="11" horizontalCenter="0">
+			<e:Image source="common_label_di_png" x="0" y="0"/>
+			<e:Image id="_unlock1" source="common_label_guanjiesuo_png" x="67" y="0"/>
+		</e:Group>
+		<ns1:Label id="_txtPreName" text="XX" x="7" y="153" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" textAlign="center" width="150"/>
+	</e:Group>
+
+
+
+
+
+
+
+
+
+
+	<ns1:Label id="_txtLvl" text="排名：未上榜" x="280" y="134" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" width="160" textAlign="center"/>
+	<ns1:Label id="_txtRank" text="" x="15" y="164" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" anchorOffsetX="0" width="220" anchorOffsetY="0" height="95" lineSpacing="12"/>
+	<ns1:Label id="_txtLink" text="查看排名" x="132" y="130" fontFamily="Microsoft YaHei" size="22" textColor="0x37B700"/>
+	<ns1:Button id="_btn" label="" y="1014" x="241">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_tiaozhanImg" source="activity_copy_label_tiaozhan_png" x="270" y="1041"/>
+	<e:Image id="_saodangImg" source="common_label_saodang_png" x="270" y="1041" visible="false"/>
+	<ns1:Label id="_txtTiaozhan" text="达到999级可挑战" x="0" y="1052" fontFamily="Microsoft YaHei" width="100%" textAlign="center" verticalAlign="middle" textColor="0xffffff" visible="false"/>
+	<e:Image id="_tipsIcon" source="common_red_icon_png" x="444" y="1014" visible="false"/>
+	<e:Image id="_labelFinish" source="common_yitongguan_png" y="1027" x="295" visible="false"/>
+</e:Skin>

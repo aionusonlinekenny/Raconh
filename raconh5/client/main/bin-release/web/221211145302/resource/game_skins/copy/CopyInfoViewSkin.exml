@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopyInfoViewSkin" width="235" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_back1_png" x="0" y="0" scale9Grid="56,32,118,64"/>
+	<ns1:Label id="_txtTitle" text="鬼影山" x="34" y="2" fontFamily="Microsoft YaHei" size="22" anchorOffsetX="0" width="167" textAlign="center"/>
+	<ns1:Label id="_txt0" text="通关：" x="15" y="66" fontFamily="Microsoft YaHei" size="22" anchorOffsetX="0" textAlign="left"/>
+	<ns1:Label id="_txt1" text="奖励：" x="15" y="35" fontFamily="Microsoft YaHei" size="22" anchorOffsetX="0" textAlign="left"/>
+</e:Skin>

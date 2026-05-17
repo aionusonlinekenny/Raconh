@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BackgroundNoticeSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="notice_border_png" x="105" y="330"/>
+	<ns1:Label id="_txt" text="各位大侠！奔赴将于今日10:00开始进行 停机维护，预计维护时间为30分钟，还请 各位大侠见谅啊！                                                  XX游戏运营组" x="166" y="369" width="420" height="145" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="22" textAlign="left" lineSpacing="17" multiline="true" verticalAlign="middle"/>
+	<ns1:Button id="_closeBtn" label="" x="584" y="355">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_tip_close_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

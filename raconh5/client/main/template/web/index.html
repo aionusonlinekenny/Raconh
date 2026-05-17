@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Egret</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="full-screen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="360-fullscreen" content="true" />
+    <style>
+        html, body {
+            -ms-touch-action: none;
+            background: #888888;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="Loading.js"></script>
+	<script>
+        var version = Math.random();
+		function showLoading()
+		{
+			Loading.init(version);
+		}
+		function setLoading(cur)
+		{
+            Loading.updateProgress(cur, 8);
+		}
+        function cleanLoading()
+        {
+            Loading.cleanAll();
+        }
+	</script>
+</head>
+
+<body>
+    <div id="egret-player" style="margin: auto;width: 100%;height: 100%;" class="egret-player"
+         data-entry-class="Main"
+         data-orientation="auto"
+         data-scale-mode="showAll"
+         data-content-width="720"
+         data-content-height="1280"
+         data-show-paint-rect="false"
+         data-multi-fingered="2"
+         data-show-fps="true" data-show-log="false"
+         data-show-fps-style="x:0,y:200,size:12,textColor:0xffffff,bgAlpha:0.9">
+    </div>
+    <script>
+        showLoading();
+        var playerObj = document.getElementById("egret-player");
+		var os = navigator.userAgent.toLowerCase();
+		var frameRate;
+		var isMobile = (os.indexOf('mobile') >= 0 || os.indexOf('android') >= 0);
+		if (isMobile)
+			frameRate = "30";
+		else
+			frameRate = "60";
+		playerObj.setAttribute("data-frame-rate", frameRate);
+
+
+		var loadSingleScript = function (src, callback) {
+			var s = document.createElement('script');
+			s.async = false;
+			s.src = src;
+			s.addEventListener('load', function () {
+				s.parentNode.removeChild(s);
+				s.removeEventListener('load', arguments.callee, false);
+				callback();
+			}, false);
+			document.body.appendChild(s);
+		};
+        setLoading(1);
+        loadSingleScript("egret.txt?v=" + version,function()
+        {
+            egret.runEgret({ renderMode: "webgl", audioType: 3,screenAdapter:new ScreenAdapter()});
+        });
+    </script>
+</body>
+
+</html>

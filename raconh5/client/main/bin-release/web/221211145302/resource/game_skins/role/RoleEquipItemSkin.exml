@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RoleEquipItemSkin" width="141" height="141" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15f70080a8d" ></w:Config>
+	<ns1:EquipItem id="equipItem" width="141" height="141" x="0" y="0" skinName="BaseGoodsSkin"/>
+	<e:Image id="addImg" source="role_add_png" horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

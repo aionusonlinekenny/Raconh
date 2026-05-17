@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArtifactViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="artifact_kuang_png" x="155" y="157"/>
+	<e:Image source="artifact_kuang_png" x="377" y="157"/>
+	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="174" y="940" width="372" height="33" anchorOffsetX="0"/>
+	<ns1:BaseGoods id="_item0" width="141" height="141" x="179" y="166" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item1" width="141" height="141" x="402" y="166" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item2" width="141" height="141" x="5" y="247" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item3" width="141" height="141" x="574" y="247" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item4" width="141" height="141" x="153" y="363" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item5" width="141" height="141" x="426" y="363" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item7" width="141" height="141" x="291" y="483" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item6" width="141" height="141" x="5" y="483" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item8" width="141" height="141" x="575" y="483" skinName="BaseGoodsSkin"/>
+	<e:Image id="_historyBoxImg" source="arenaHistoryBox_png" x="579" y="909"/>
+	<e:Image source="common_jifeng_png" x="83" y="939"/>
+	<e:Image source="common_bg1_normal_png" scale9Grid="29,11,181,69" x="4" y="1003" anchorOffsetX="0" width="711" anchorOffsetY="0" height="168"/>
+	<e:Group x="101" y="1018">
+		<ns1:Button id="_huntingOneBtn" label="Button" x="0" y="0">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			<e:Image width="181" height="52" source="artifact_xunbao1_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+		</ns1:Button>
+		<e:Group x="73" y="90">
+		<e:Image id="_gold1Icon" source="playRes_gold_54_png" x="0" y="0"/>
+		<ns1:Label id="_goldTxt" text="1" x="48" y="15" anchorOffsetX="0" width="105" textColor="0x7C6E62"/>
+		</e:Group>
+		<e:Image id="_redIcon" source="common_red_icon_png" x="191" y="9"/>
+	</e:Group>
+	<e:Group x="375" y="1012">
+		<ns1:Button id="_huntingTenBtn" label="Button" x="7" y="6">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="artifact_xunbao10_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+		</ns1:Button>
+		<e:Group x="79" y="96">
+		<e:Image source="playRes_gold_54_png" x="0" y="0"/>
+		<ns1:Label id="_gold10Txt" text="1" x="48" y="15" anchorOffsetX="0" width="105" textColor="0x7C6E62"/>
+		</e:Group>
+		<e:Group x="0" y="0">
+		<e:Image source="artifact_zhe_png" x="0" y="0"/>
+		<ns1:Label text="9折" x="7" y="16" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="49" anchorOffsetY="0" height="34" size="28"/>
+		</e:Group>
+	</e:Group>
+	<ns1:Label id="_descTxt" text="  " y="1196" anchorOffsetX="0" width="618" anchorOffsetY="0" height="66" textColor="0x4EFF00" textAlign="center" fontFamily="Microsoft YaHei" x="51"/>
+	<ns1:Label id="_takeTxt" text="  " x="608" y="1080" fontFamily="Microsoft YaHei" size="23" anchorOffsetX="0" width="104" textAlign="center"/>
+	<ns1:ArtifactItem id="_artItem" width="720" height="294" x="0" y="641" skinName="ArtifactItemSkin"/>
+	<e:Group id="_group" x="426" y="823">
+		<e:Image source="common_rect_1_png" scale9Grid="6,6,38,38" y="-14" anchorOffsetX="0" width="158" anchorOffsetY="0" height="182" horizontalCenter="0"/>
+		<ns1:BaseGoods id="_item9" width="141" height="141" y="2" skinName="BaseGoodsSkin" x="9"/>
+		<e:Image source="common_jiantou_png" y="151" horizontalCenter="0"/>
+		<e:Image id="_zengsongImg" source="artifact_zengsong1_png" y="-11" horizontalCenter="0.5"/>
+		<ns1:Label id="_nameTxt" text="  " x="2" y="129" anchorOffsetX="0" width="153" textAlign="center"/>
+	</e:Group>
+	<e:Image id="_redBoxIcon" source="common_red_icon_png" x="646" y="910"/>
+</e:Skin>

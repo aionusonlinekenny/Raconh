@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FriendsConfirmViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popView" width="20" height="20" x="0" y="0" skinName="BasePopUpSkin"/>
+	<ns1:Label id="_txt" text="Label" x="5" y="400" width="710" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" verticalAlign="middle" textAlign="center" anchorOffsetY="0" height="218"/>
+	<ns1:Button id="_confirmBtn" label="" y="675" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="157">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image x="29" y="27" source="confirm_png"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_cancelBtn" label="" x="95" y="675">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+            <e:Image x="29" y="27" source="common_label_quxiao_png"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MarketSaleItemSkin" width="325" height="131" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="commonsheet.common_di4_png" x="0" y="0" anchorOffsetX="0" width="325" anchorOffsetY="0" height="131"/>
+	<e:Image id="_icon" source="commonsheet.panel_gold_54_png" x="136" y="68"/>
+	<ns1:Label id="_nameTxt" text="Label" x="142" y="32" anchorOffsetX="0" width="173" textColor="0x7c6e62" textAlign="left" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_numTxt" text="Label" x="185" y="81" anchorOffsetX="0" width="134" textColor="0x7C6E62" textAlign="left" fontFamily="Microsoft YaHei"/>
+	<ns1:BaseGoods id="_item" width="141" height="141" x="4" y="-4" skinName="BaseGoodsSkin"/>
+</e:Skin>

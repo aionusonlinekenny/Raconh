@@ -1,0 +1,12 @@
+{"mc":{"lifeGridmgjm":{"frameRate":24,"events":[],"frames":[
+  {"res":"lifeGridmgjm_00000","x":45,"y":38},
+  {"res":"lifeGridmgjm_00001","x":49,"y":39},
+  {"res":"lifeGridmgjm_00002","x":50,"y":41},
+  {"res":"lifeGridmgjm_00003","x":87,"y":61},
+  {"res":"lifeGridmgjm_00004","x":109,"y":84}]}},
+"res":{
+  "lifeGridmgjm_00000":{"x":0,"y":0,"w":204,"h":209},
+  "lifeGridmgjm_00001":{"x":204,"y":0,"w":200,"h":211},
+  "lifeGridmgjm_00002":{"x":404,"y":0,"w":199,"h":206},
+  "lifeGridmgjm_00003":{"x":603,"y":0,"w":129,"h":142},
+  "lifeGridmgjm_00004":{"x":732,"y":0,"w":105,"h":115}}}

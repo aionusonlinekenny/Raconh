@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FriendsPrivateItemSkin" width="671" height="147" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_wordBg_normal_png" left="0" right="0" top="0" bottom="0"/>
+	<e:Image source="split_line_png" left="0" right="0" top="72" bottom="72"/>
+	<e:Image id="_headBack" source="common_itemBg_png" x="3" y="3"/>
+	<ns1:BubbleView id="_bubble" width="43" height="44" x="88" y="4" skinName="BubbleViewSkin"/>
+	<ns1:Label id="_nameTxt" text="角色名字七个字" x="140" y="30" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="28"/>
+	<ns1:Label id="_lvlTxt" text="99转999级" x="510" y="30" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="28" width="150"/>
+	<ns1:Label id="_msgTxt" text="最新消息最新消息最新消息" x="140" y="85" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24" width="360" wordWrap="false" multiline="false" maxChars="336"/>
+	<ns1:Label id="_timeTxt" text="23:59:59" x="510" y="88" fontFamily="Microsoft YaHei" textColor="0x38b800" size="24" width="150"/>
+</e:Skin>

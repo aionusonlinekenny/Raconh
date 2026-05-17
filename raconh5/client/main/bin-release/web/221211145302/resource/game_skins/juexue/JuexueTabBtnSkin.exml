@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JuexueTabBtnSkin" width="139" height="64" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_bgImg" x="-7" y="0" source="juexue_weixuanzhong_png"/>
+	<e:Image id="_nameImg" source="juexue_esoterica1_png" x="25" verticalCenter="0.5"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="107" y="1" visible="false"/>
+</e:Skin>

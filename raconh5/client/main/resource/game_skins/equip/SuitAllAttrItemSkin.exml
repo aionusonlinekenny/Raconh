@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SuitAllAttrItemSkin" width="350" height="{data.viewHeight}" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="160caa55309" ></w:Config>
+	<e:Image id="_topLine" width="300" height="3" y="0" source="common_line_png" scale9Grid="320,0,25,3" horizontalCenter="0.5"/>
+	<ns1:Label text="{data.suitName}" x="8" y="10" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24"/>
+	<ns1:Label id="_equipName" text="{data.equipName}" x="8" y="44" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<e:Image width="300" height="3" y="78" source="common_line_png" scale9Grid="320,0,25,3" horizontalCenter="0.5"/>
+	<ns1:Label text="套装效果" x="8" y="89" textColor="0xffa800" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_attrValue" text="{data.suitAttr}" x="8" y="122" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" width="330"/>
+</e:Skin>

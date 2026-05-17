@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AddItemsScrollerSKin" width="400" height="98" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15f8f589184" ></w:Config>
+	<e:Image scale9Grid="12,8,78,16" x="89" y="45" anchorOffsetX="0" width="220" source="common__jindudi_png"/>
+	<e:Image id="_progreImg" source="tips_jindutiao_png" scale9Grid="9,9,32,10" x="90" y="47"/>
+	<ns1:Button id="_jianBtn" label="Button" x="8" y="26" width="70">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common__jian_png"/>
+			</e:Skin>
+		</ns1:skinName>
+
+	</ns1:Button>
+	<e:Group id="_kunGro" x="110" y="7">
+		<e:Image source="tips_jindu_png" x="0" y="0"/>
+		<ns1:Label id="_countTxt" text="55" x="1" y="1" size="22" textAlign="center" anchorOffsetX="0" width="52" textColor="0x7c6e62"/>
+	</e:Group>
+	<ns1:Button id="_jiaBtn" label="Button" x="321" y="27" width="70">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_jia_png"/>
+			</e:Skin>
+		</ns1:skinName>
+
+	</ns1:Button>
+
+	<ns1:Button id="_barBtn" label="Button" x="120" y="35" width="51">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="tips_jindu2_png" source.down="tips_jindu2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+
+	</ns1:Button>
+</e:Skin>

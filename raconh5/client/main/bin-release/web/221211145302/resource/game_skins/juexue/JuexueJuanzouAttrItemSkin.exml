@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JuexueJuanzouAttrItemSkin" width="640" height="528" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="_group" x="92" y="53">
+		<e:Image source="juexue_juanzou1_png" x="0" y="0"/>
+		<e:Image source="common_di4_png" scale9Grid="2,2,16,16" x="35" y="87" anchorOffsetX="0" width="207" anchorOffsetY="0" height="174"/>
+
+
+		<e:Image source="juexue_di2_png" x="38" y="41"/>
+
+		<e:Image source="juexue_di2_png" x="280" y="41"/>
+		<e:Image source="juexue_ewaishuxing_png" x="323" y="40"/>
+
+		<e:Image source="common_di4_png" scale9Grid="2,2,16,16" x="279" y="86" anchorOffsetX="0" width="207" anchorOffsetY="0" height="174"/>
+		<ns1:Label id="_attr0" text="Label" x="287" y="95" anchorOffsetX="0" width="192" anchorOffsetY="0" height="22" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22"/>
+		<ns1:Label text="Label" x="287" y="128" anchorOffsetX="0" width="192" anchorOffsetY="0" height="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="22" id="_attr1"/>
+		<ns1:Label text="Label" x="287" y="161" anchorOffsetX="0" width="192" anchorOffsetY="0" height="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="22" id="_attr2"/>
+		<ns1:Label text="Label" x="287" y="194" anchorOffsetX="0" width="192" anchorOffsetY="0" height="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="22" id="_attr3"/>
+		<ns1:Label text="Label" x="287" y="227" anchorOffsetX="0" width="192" anchorOffsetY="0" height="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="22" id="_attr4"/>
+		<ns1:Label text="Label" x="57" y="95" anchorOffsetX="0" width="192" anchorOffsetY="0" height="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="22" id="_attr5"/>
+		<ns1:Label text="Label" x="57" y="131" anchorOffsetX="0" width="192" anchorOffsetY="0" height="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="22" id="_attr6"/>
+		<ns1:Label text="Label" x="57" y="169" anchorOffsetX="0" width="192" anchorOffsetY="0" height="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="22" id="_attr7"/>
+		<e:Group id="_actGroup" x="133" y="85">
+			<e:Image source="common_di4_png" scale9Grid="2,2,16,16" y="231" anchorOffsetX="0" width="246" anchorOffsetY="0" height="64" x="0"/>
+			<e:Image source="juexue_di2_png" x="23" y="191"/>
+			<e:Image source="juexue_jihuotiaojian_png" x="66" y="191"/>
+			<e:Image source="common_upgrade_png" x="71" y="75"/>
+			<e:Image source="common_upgrade_png" x="71" y="37"/>
+			<e:Image source="common_upgrade_png" x="71" y="0"/>
+		</e:Group>
+		<e:Image source="common_fighting_png" x="52" y="386"/>
+		<ns1:Label id="_lossTxt" text="Label" x="141" y="337" anchorOffsetX="0" width="233" anchorOffsetY="0" height="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="24" textAlign="center"/>
+		<e:Image id="close" source="juexue_fanhui_png" x="465" y="376"/>
+		<e:Image source="juexue_shuxing_png" x="81" y="41"/>
+		<e:Image source="common_zhanli2_png" x="61" y="389"/>
+		<e:Image id="_mainjiImg" source="common_yimanji_png" x="185" y="279" visible="false"/>
+		<e:Image source="common_tip_close_png" x="488" y="17" visible="false"/>
+	</e:Group>
+</e:Skin>

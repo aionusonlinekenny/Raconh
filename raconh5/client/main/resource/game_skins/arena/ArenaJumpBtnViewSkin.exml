@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArenaJumpBtnViewSkin" width="129" height="70" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_btn" source="arenaSkipBtnPic_png"/>
+
+
+
+</e:Skin>

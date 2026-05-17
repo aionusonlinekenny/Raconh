@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubBFChallengePanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group x="0" y="0">
+		<ns1:BaseVScrollerList id="_listDef" width="327" height="945" x="376" y="123" anchorOffsetY="0"/>
+		<ns1:BaseVScrollerList id="_listAtk" width="327" height="945" x="16" y="123" anchorOffsetY="0"/>
+		<ns1:BitmapRemote id="_backBoss" width="205" height="154" x="436" y="455"/>
+		<ns1:Button id="_btnBoss" label="Button" x="440" y="596" width="197" height="90">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png"/>
+				<e:Image source="clubBF_label_10_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_label" source="clubBF_label_9_png" x="30" y="543"/>
+		<e:Label id="_txtTips" size="24" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" text="点击敌对玩家头像即可挑战" y="1124" horizontalCenter="0"/>
+		<ns1:CheckBox id="_checkBox" label="按连胜高到低" x="40" y="1182">
+			<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
+			<e:Image source="common_cb_rect_png" x="0" y="0"/>
+			<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>
+			<e:Label id="labelDisplay" size="24" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" text="" x="48" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:CheckBox>
+		<ns1:Button id="_btnReset" label="Button" x="241" y="1151">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image source="common_label_reset_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+	</e:Group>
+</e:Skin>

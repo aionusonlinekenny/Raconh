@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="RelicStuffViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_bodyBit" width="400" height="400" y="349" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="12"/>
+	<e:Image source="relicStuff_di_png" y="164" x="4"/>
+	<e:Image id="_leftImg" source="common_page_arrow_png" x="46" y="564"/>
+	<e:Image id="_rightImg" source="common_page_arrow_png" x="672" y="564" scaleX="-1"/>
+	<e:Image source="common_name_back_png" x="135" y="325"/>
+	<ns1:BitmapRemote id="_hengfuBit" width="508" height="105" y="180" anchorOffsetX="0" anchorOffsetY="0" x="106"/>
+	<e:Image id="_actImg" source="relicStuff_weijihuo_png" x="509" y="145"/>
+	<e:Image source="common_fighting_png" x="161" y="881"/>
+	<e:Image source="common_zhanli2_png" x="176" y="888"/>
+	<e:Image id="_attrImg" source="relicStuff_xiangxi_png" x="528" y="882"/>
+	<ns1:BitmapRemote id="_nameBit" width="44" height="166" x="154" y="402" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Group id="_spGroup" x="135" y="998">
+		<ns1:RelicStuffDebrisItem id="_item0" width="244" height="60" x="0" y="-1" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
+		<ns1:RelicStuffDebrisItem id="_item1" width="244" height="60" x="252" y="-1" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
+		<ns1:RelicStuffDebrisItem id="_item2" width="244" height="60" x="0" y="70" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
+		<ns1:RelicStuffDebrisItem id="_item3" width="244" height="60" x="252" y="69" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
+	</e:Group>
+	<ns1:Button id="_actBtn" label="Button" y="1007" anchorOffsetX="0" width="238" anchorOffsetY="0" height="105" x="241" visible="false">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="common_active_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="433" y="1014" visible="false"/>
+</e:Skin>

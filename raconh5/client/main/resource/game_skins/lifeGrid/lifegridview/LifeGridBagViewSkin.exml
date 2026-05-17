@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridBagViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin"/>
+	<ns1:Button id="_gainBtn" label="Button" y="949" x="241">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="lifeGrid_hqmg_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:BaseVScrollerList id="_scroller" width="699" height="687" x="10" y="192" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:Label id="_numTxt" text="Label" x="189" y="901" anchorOffsetX="0" width="312" textColor="0x7c6e62" textAlign="center"/>
+</e:Skin>

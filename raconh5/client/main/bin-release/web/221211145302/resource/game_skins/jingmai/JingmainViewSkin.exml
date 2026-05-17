@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JingmainViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Button id="_chongtianBtn" label="Button" x="623" y="171" width="69">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="jingmai_dazuo_png"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_dazuohuiImg" source="jingmai_dazuo_hui_png" x="623" y="171"/>
+
+
+	<ns1:Label id="_itemTxt" text="123" y="1002" anchorOffsetX="0" width="341" fontFamily="Microsoft YaHei" size="22" textAlign="center" textColor="0xfffade" anchorOffsetY="0" height="23" horizontalCenter="0"/>
+	<ns1:Button id="_tupoBtn" label="Button" y="1029" horizontalCenter="0">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image width="181" height="52" horizontalCenter="0" verticalCenter="0" source="jingmai_tupo_png"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_chongxueBtn" label="Button"  y="1029" horizontalCenter="0">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image width="181" height="52" source="jingmai_chongxue_png" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Group x="140" y="860">
+		<e:Image source="jingmai_heidi_png" x="1" y="0"/>
+		<e:Image source="jingmai_heidi_png" x="250" y="0"/>
+		<e:Image source="jingmai_heidi_png" x="0" y="56"/>
+		<e:Image source="jingmai_heidi_png" x="250" y="56"/>
+		<ns1:Label text="攻击" x="14" y="9" anchorOffsetX="0" width="62" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24"/>
+		<ns1:Label id="_attackTxt" text="+123456" x="71" y="9" anchorOffsetX="0" width="118" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label text="生命" x="265" y="9" anchorOffsetX="0" width="65" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label id="_hpTxt" text="+123456" x="320" y="9" anchorOffsetX="0" width="119" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetY="0" height="26" size="24"/>
+		<ns1:Label text="破甲" x="14" y="66" anchorOffsetX="0" width="64" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label id="_armorTxt" text="攻击" x="71" y="66" anchorOffsetX="0" width="118" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label text="防御" x="265" y="66" anchorOffsetX="0" width="55" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label id="_defenseTxt" text="攻击" x="320" y="66" anchorOffsetX="0" width="118" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<e:Image id="_arrorw1" source="common_upgrade_png" x="195" y="4"/>
+		<e:Image id="_arrorw2" source="common_upgrade_png" x="448" y="4"/>
+		<e:Image id="_arrorw3" source="common_upgrade_png" x="195" y="59"/>
+		<e:Image id="_arrorw4" source="common_upgrade_png" x="448" y="59"/>
+	</e:Group>
+
+	<e:Group x="15" y="119">
+		<e:Image source="common_name_back_png" x="0" y="0"/>
+		<e:Image id="_dumaiImg" x="20" y="64"/>
+	</e:Group>
+	<ns1:Label id="_resistTxt" text="攻击+" x="597" y="251" anchorOffsetX="0" width="121" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="22" textAlign="center"/>
+	<e:Image id="_chongtianImg" source="jingmai_6chongtian_png" x="624" y="219"/>
+
+	<e:Image source="common_fighting_png" x="140" y="764"/>
+	<e:Image source="common_zhanli_png" x="177" y="769"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="435" y="1037"/>
+	<ns1:PlayerResItems id="_res1" width="165" height="43" x="312" y="986.5" skinName="PlayerResItemsSkin" anchorOffsetX="0" anchorOffsetY="0"/>
+
+</e:Skin>

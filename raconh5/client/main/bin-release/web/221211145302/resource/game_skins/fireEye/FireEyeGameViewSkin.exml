@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FireEyeGameViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Label id="_itemTxt" text="" x="0" y="135" size="26" fontFamily="Microsoft YaHei" textColor="0xfff7e6" width="720" textAlign="center" verticalAlign="middle"/>
+
+
+	<ns1:Label id="_rateTxt" text="" x="0" y="1065" textColor="0xFFF7E6" size="26" fontFamily="Microsoft YaHei" width="720" textAlign="center" verticalAlign="middle"/>
+
+	<e:Image source="fire_eye_kuang_png" x="115" y="1177" width="512"/>
+	<e:Image source="fireEye_glass_png" x="76" y="1178"/>
+	<ns1:Label id="_levelTxt" text="第1/10 关" x="166" y="1197" textColor="0xFFF7E6" size="24" fontFamily="Microsoft YaHei"/>
+	<e:Image source="fireEye_shalou_png" x="465" y="1185"/>
+	<ns1:Label id="_timeTxt" text="00:30" x="515" y="1197" size="24" fontFamily="Microsoft YaHei" textColor="0x4DFF00"/>
+
+
+
+</e:Skin>

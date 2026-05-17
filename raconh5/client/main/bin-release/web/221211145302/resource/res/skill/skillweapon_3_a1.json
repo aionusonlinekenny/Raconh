@@ -1,0 +1,8 @@
+{"mc":{"skillweapon_3_a1":{"frameRate":24,"events":[],"frames":[
+  {"res":"skillweapon_3_a1_00000","x":431,"y":333},
+  {"res":"skillweapon_3_a1_00001","x":438,"y":317},
+  {"res":"skillweapon_3_a1_00002","x":439,"y":309}]}},
+"res":{
+  "skillweapon_3_a1_00002":{"x":0,"y":0,"w":281,"h":194},
+  "skillweapon_3_a1_00001":{"x":281,"y":0,"w":280,"h":188},
+  "skillweapon_3_a1_00000":{"x":561,"y":0,"w":269,"h":161}}}

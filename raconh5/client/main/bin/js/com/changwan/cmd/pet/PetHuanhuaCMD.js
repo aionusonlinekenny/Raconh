@@ -1,0 +1,33 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+/**
+ * 宠物幻化协议
+ * liangyan
+ * create 2017-12-18
+*/
+var PetHuanhuaCMD = /** @class */ (function (_super) {
+    __extends(PetHuanhuaCMD, _super);
+    function PetHuanhuaCMD() {
+        var _this = _super.call(this) || this;
+        _this._protocol = Protocol.PET_HUANHUA;
+        return _this;
+    }
+    PetHuanhuaCMD.prototype.processOut = function (pkg) {
+        pkg.writeShort(this.id);
+    };
+    PetHuanhuaCMD.prototype.receive = function (pi) {
+        var petModel = Manager.model.getPet();
+        petModel.huanhuaID = pi.readShort();
+        petModel.dispatchEvent(new PetEvent(PetEvent.HUANHUA));
+    };
+    return PetHuanhuaCMD;
+}(BaseCMD));
+//# sourceMappingURL=PetHuanhuaCMD.js.map

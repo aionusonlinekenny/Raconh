@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridFuseViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" locked="true"/>
+
+
+
+
+
+
+	<e:Group id="_lifeGroup" x="282" y="383">
+		<ns1:Label text="Label" x="32.5" y="156" anchorOffsetX="0" width="234" textColor="0x7C6E62" textAlign="left" id="_attrTxt0"/>
+		<ns1:Label text="Label" x="33.5" y="186" anchorOffsetX="0" width="234" textColor="0x7C6E62" textAlign="left" id="_attrTxt1"/>
+		<ns1:BaseGoods id="_goods1" width="141" height="141" x="11" y="0" skinName="BaseGoodsSkin"/>
+		<ns1:Label id="_nameTxt1" text="Label" x="0" y="126" anchorOffsetX="0" width="157" textColor="0x7c6e62" textAlign="center"/>
+	</e:Group>
+
+
+
+
+	<e:Group id="_rightGroup" x="311" y="373">
+		<ns1:Label id="_attrTxt3" text="Label" x="162.5" y="186" anchorOffsetX="0" width="234" textColor="0x7C6E62" textAlign="left"/>
+		<ns1:Label id="_attrTxt2" text="Label" x="162.5" y="156" anchorOffsetX="0" width="234" textAlign="left" textColor="0x7c6e62"/>
+		<ns1:BaseGoods id="_goods2" width="141" height="141" x="140" y="0" skinName="BaseGoodsSkin"/>
+		<ns1:Label id="_nameTxt2" text="Label" x="132" y="126" anchorOffsetX="0" width="157" textColor="0x7C6E62" textAlign="center"/>
+		<e:Image source="common_arrow_png" x="24" y="65"/>
+		<ns1:Button id="_rhBtn" label="Button" y="298" x="-71.5" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image width="181" height="52" source="lifeGrid_reonghe_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:Label text="高品质命格将与底品质命格融合底品质命格消失，保留最高属性" x="-124" y="216" anchorOffsetX="0" width="347" anchorOffsetY="0" height="67" fontFamily="Microsoft YaHei" textAlign="center" scaleX="1" scaleY="1" textColor="0x38b800"/>
+	</e:Group>
+	<e:Group id="_group1" x="106" y="613" locked="true">
+		<ns1:Label id="_losseTxt" text="Label" y="0" anchorOffsetX="0" width="509" textAlign="center" textColor="0x7c6e62" x="0"/>
+		<ns1:Button id="_buyBtn" label="Button" y="58" scaleX="1" scaleY="1" x="135">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image width="181" height="52" source="common_dh_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+	</e:Group>
+
+</e:Skin>

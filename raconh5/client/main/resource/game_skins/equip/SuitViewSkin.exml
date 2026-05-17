@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SuitViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="160961f14ac" ></w:Config>
+	<e:Image width="710" height="855" x="5" y="120" source="common_panelBg_png" scale9Grid="2,4,11,7"/>
+	<e:Image width="454" height="693" x="256" y="126" source="common_pnl_back1_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="28,32,25,11"/>
+
+
+	<e:Group id="_equipGroup" width="720" height="1280" x="0" y="0">
+		<ns1:SuitItem id="_equipItem1" width="141" height="141" x="267" y="376" skinName="SuitItemSkin"/>
+		<ns1:SuitItem id="_equipItem2" width="141" height="141" x="301" y="219" skinName="SuitItemSkin"/>
+		<ns1:SuitItem id="_equipItem3" width="141" height="141" x="517" y="479" skinName="SuitItemSkin"/>
+		<ns1:SuitItem id="_equipItem4" width="141" height="141" x="323" y="499" skinName="SuitItemSkin"/>
+		<ns1:SuitItem id="_equipItem5" width="141" height="141" x="421" y="139" skinName="SuitItemSkin"/>
+		<ns1:SuitItem id="_equipItem6" width="141" height="141" x="417" y="309" skinName="SuitItemSkin"/>
+		<ns1:SuitItem id="_equipItem7" width="141" height="141" x="557" y="329" skinName="SuitItemSkin"/>
+		<ns1:SuitItem id="_equipItem8" width="141" height="141" x="542" y="627" skinName="SuitItemSkin"/>
+	</e:Group>
+	<e:Image x="263" y="744" source="common_fighting_png"/>
+	<e:Image id="_fighting" width="102" height="57" x="305" y="750" source="common_zhanli_png"/>
+	<e:Image width="711" height="143" y="818" source="common_bg1_normal_png" scale9Grid="29,11,181,69" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-0.5" scaleY="1.15"/>
+	<e:Image x="41" y="880" source="cloak_suoxucl_png"/>
+	<ns1:BaseGoods id="_item" width="141" height="141" x="211" y="830" skinName="BaseGoodsSkin"/>
+
+	<e:Image width="229" height="36" x="15" y="153" source="common_title_wordBg_png" scale9Grid="50,0,116,36" anchorOffsetX="0"/>
+
+
+	<e:Image id="_jiaImg" x="46" y="154" source="suit_jiaImg_png"/>
+	<ns1:Label id="_suitName" text="攻击套装" x="80" y="161" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_suitAmount" text="(未打造)" x="170" y="161" size="22" fontFamily="Microsoft YaHei" textColor="0xff0000"/>
+	<ns1:Label id="_equipName" text="头  衣  手  鞋  符" x="41" y="199" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center"/>
+	<e:Image width="200" height="3" x="25" y="239" source="common_line_png" scale9Grid="331,0,17,3"/>
+	<e:Image width="200" height="3" x="25" y="285" source="common_line_png" scale9Grid="331,0,17,3"/>
+	<ns1:Label text="套装效果" x="79" y="251" textColor="0xffa800" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:BaseVScrollerList id="_scroller" width="250" height="400" x="0" y="300" anchorOffsetY="0"/>
+	<ns1:Button id="_suitBtn1" label="" x="21" y="725">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="suit_btnImg1_png" source.down="suit_btnImg1_png"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<ns1:Button id="_suitBtn2" label="" x="142" y="725">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="suit_btnImg2_png" source.down="suit_btnImg2_png"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<ns1:Button id="_btn2" label="" x="76" y="1008">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			<e:Image x="28" y="26" source="suit_chaijie_png"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<ns1:Button id="_btn1" label="" x="407" y="1008">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			<e:Image x="29" y="26" source="suit_dazao_png"/>
+			</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+</e:Skin>

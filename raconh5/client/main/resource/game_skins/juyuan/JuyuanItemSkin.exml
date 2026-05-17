@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JuyuanItemSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin"/>
+	<e:Image width="100" height="100" x="320" y="410" source="juyuan_ball_png"/>
+	<e:Image id="_ballImg" width="100" height="100" x="320" y="410"/>
+	<e:Image width="115" height="57" x="238" y="516" source="common_zhanli_png"/>
+	<ns1:Label id="_text01" text="Label" x="180" y="585" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_text02" text="Label" x="480" y="585" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_text03" text="Label" x="180" y="625" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_text04" text="Label" x="480" y="625" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="当前元魂激活属性" x="248" y="714" textColor="0x00ff00" fontFamily="Microsoft YaHei"/>
+</e:Skin>

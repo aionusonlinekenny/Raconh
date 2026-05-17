@@ -1,0 +1,64 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var BaseVScrollerList = /** @class */ (function (_super) {
+    __extends(BaseVScrollerList, _super);
+    function BaseVScrollerList() {
+        var _this = _super.call(this) || this;
+        _this.isInit = false;
+        _this.skinName = Manager.path.getSkinName("common", "BaseVScrollerListSkin");
+        _this.touchChildren = true;
+        return _this;
+    }
+    /**
+     * clz:对象类
+     * data:对象数据
+     * canMove:是否允许滚动
+     */
+    BaseVScrollerList.prototype.initBtnListData = function (clz, data, canMove) {
+        if (canMove === void 0) { canMove = false; }
+        if (this.itemList) {
+            this.itemList.dataProvider = new eui.ArrayCollection(data);
+            this.itemList.itemRenderer = clz;
+            this.itemList.allowMultipleSelection = false;
+            this.itemList.width = this.width;
+            this.itemList.height = this.height;
+        }
+        if (this.scroller) {
+            this.scroller.scrollPolicyH = eui.ScrollPolicy.OFF;
+            if (canMove)
+                this.scroller.scrollPolicyV = eui.ScrollPolicy.ON;
+            else
+                this.scroller.scrollPolicyV = eui.ScrollPolicy.OFF;
+        }
+        this.isInit = true;
+    };
+    BaseVScrollerList.prototype.dataProvider = function (data) {
+        this.itemList.dataProvider = new eui.ArrayCollection(data);
+    };
+    BaseVScrollerList.prototype.dispose = function () {
+        if (this.scroller) {
+            this.scroller.stopAnimation();
+            this.scroller.dispose();
+        }
+        this.scroller = null;
+        if (this.itemList) {
+            var len = this.itemList.numChildren;
+            for (var i = 0; i < len; i++) {
+                ObjectUtil.dispose(this.itemList.getChildAt(0));
+            }
+            this.itemList.dispose();
+            this.itemList = null;
+        }
+        _super.prototype.dispose.call(this);
+    };
+    return BaseVScrollerList;
+}(UIComponent));
+//# sourceMappingURL=BaseVScrollerList.js.map

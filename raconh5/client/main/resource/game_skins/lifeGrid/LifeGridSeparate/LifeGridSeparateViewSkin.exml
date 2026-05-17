@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridSeparateViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_bg1_normal_png" scale9Grid="29,11,181,69" x="3" y="895" anchorOffsetX="0" width="713" anchorOffsetY="0" height="136"/>
+	<ns1:Button id="_splerBtn" label="Button" y="1032" horizontalCenter="0">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="lifeGrid_yjfj_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Group id="_bosGroup" x="51" y="942">
+		<ns1:CheckBox id="_checkBox3" label="红色" x="0" y="0">
+			<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
+			<e:Image source="common_cb_rect_png" x="0" y="0"/>
+			<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>
+			<e:Label id="labelDisplay" size="24" textColor="0x7B6D61" fontFamily="Microsoft YaHei" text="" x="48" y="8"/>
+			</e:Skin>
+		</ns1:CheckBox>
+		<ns1:CheckBox id="_checkBox2" label="蓝色" x="518" y="0">
+			<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
+			<e:Image source="common_cb_rect_png" x="0" y="0"/>
+			<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>
+			<e:Label id="labelDisplay" size="24" textColor="0x7B6D61" fontFamily="Microsoft YaHei" text="" x="48" y="8"/>
+			</e:Skin>
+		</ns1:CheckBox>
+		<ns1:CheckBox id="_checkBox1" label="紫色" x="345" y="0">
+			<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
+			<e:Image source="common_cb_rect_png" x="0" y="0"/>
+			<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>
+			<e:Label id="labelDisplay" size="24" textColor="0x7B6D61" fontFamily="Microsoft YaHei" text="" x="48" y="8"/>
+			</e:Skin>
+		</ns1:CheckBox>
+		<ns1:CheckBox id="_checkBox0" label="橙色" x="173" y="0">
+			<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
+			<e:Image source="common_cb_rect_png" x="0" y="0"/>
+			<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>
+			<e:Label id="labelDisplay" size="24" textColor="0x7B6D61" fontFamily="Microsoft YaHei" text="" x="48" y="8"/>
+			</e:Skin>
+		</ns1:CheckBox>
+	</e:Group>
+	<e:Image source="playRes_destiny_54_png" x="457" y="1057"/>
+	<ns1:Label id="_soulTxt" text="Label" x="504" y="1072.5" anchorOffsetX="0" width="108" textAlign="left" textColor="0xfcebde"/>
+	<ns1:Label id="_sepatateTxt" text="Label" x="615" y="1072.5" anchorOffsetX="0" width="104" textAlign="left" textColor="0xa1d33b"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="435" y="1041" visible="false"/>
+</e:Skin>

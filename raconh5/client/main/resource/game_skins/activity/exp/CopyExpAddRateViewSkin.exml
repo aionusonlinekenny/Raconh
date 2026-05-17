@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopyExpAddRateViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+
+
+
+
+	<e:Image source="panel_bg3_png" scale9Grid="5,114,4,687" width="720" x="0" height="327" y="245" anchorOffsetY="0"/>
+	<e:Image source="border1_png" scale9Grid="90,10,540,5" height="32" y="227" x="0"/>
+	<e:Image source="common_titleBg2_png" height="69" y="210" x="0"/>
+	<e:Image source="copy_exp_label_2_png" y="216" x="270"/>
+
+	<e:Image source="border2_png" scale9Grid="90,4,540,25" height="32" y="656" anchorOffsetY="0" width="720" x="0"/>
+	<e:Image source="main_mapIcon1_png" x="377" y="419"/>
+	<e:Image x="377" y="481" source="playRes_gold_54_png"/>
+
+
+
+
+	<ns1:Label id="_txt0" text="每次成功提升都可增加人物10%的经验收益" y="314" fontFamily="Microsoft YaHei" size="28" textColor="0x7b6d61" x="105"/>
+	<ns1:Label id="_txt1" text="当前提升       经验+10%" y="364" fontFamily="Microsoft YaHei" size="28" textColor="0x37b700" x="219"/>
+	<!--<ns1:Label id="_txt2" text="银币提升" y="430" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="261"/>
+	<ns1:Label id="_txt3" text="元宝提升" y="492" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="261"/>-->
+	<ns1:Label id="_txt4" text="20万/次" y="430" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="430"/>
+	<ns1:Label id="_txt5" text="20万/次" y="492" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="430"/>
+	<ns1:RadioButton id="_cbCoin" x="206" y="422" groupName="copyExpAddRate" label="银币提升">
+		<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
+		<e:Image source="common_cb_rect_png" x="0" y="0"/>
+		<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>
+        <e:Label id="labelDisplay" size="28" textColor="0x7b6d61" fontFamily="Microsoft YaHei" x="55" y="8"/>
+		</e:Skin>
+	</ns1:RadioButton>
+	<ns1:RadioButton id="_cbGold" x="206" y="484" groupName="copyExpAddRate" label="元宝提升">
+		<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
+		<e:Image source="common_cb_rect_png" x="0" y="0"/>
+		<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>
+		<e:Label id="labelDisplay" size="28" textColor="0x7b6d61" fontFamily="Microsoft YaHei" x="55" y="8"/>
+		</e:Skin>
+	</ns1:RadioButton>
+	<ns1:Button id="_btnClose" label="Button" x="622" y="204" width="82">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+			<e:Image width="100%" height="100%" source="common_closeImg_png"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_btn" label="Button" y="556" x="241">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+	        <e:Image source="common_label_tisheng_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="436" y="563" touchEnabled="false" visible="false"/>
+
+
+
+
+
+</e:Skin>

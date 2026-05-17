@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DailyViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BaseVScrollerList id="_list" width="671" height="814" x="26" y="120"/>
+
+	<ns1:BitmapRemote id="_back0" width="676" height="157" x="22" y="935" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:BitmapRemote id="_back1" width="593" height="71" x="45" y="989" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image source="activity_label_0_png" x="48" y="944"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

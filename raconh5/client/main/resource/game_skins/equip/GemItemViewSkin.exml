@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GemItemViewSkin" width="138" height="165" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="15fe6b07589" ></w:Config>
+
+	<ns1:Label id="_itemName" text="" y="123" size="22" fontFamily="Microsoft YaHei" textColor="0xfefbeb" horizontalCenter="0"/>
+	<e:Image id="_kuang0" width="100" height="100" x="18" y="13" source="equip_gem_kuang0_png"/>
+	<e:Image id="_kuang1" width="100" height="100" x="18" y="13" source="equip_gem_kuang1_png" visible="false"/>
+	<e:Image id="_kuang2" width="100" height="100" x="18" y="13" source="equip_gem_kuang2_png" visible="false"/>
+	<e:Image id="_kuang3" width="100" height="100" x="18" y="13" source="equip_gem_kuang3_png" visible="false"/>
+	<e:Image id="_kuang4" width="100" height="100" x="18" y="13" source="equip_gem_kuang4_png" visible="false"/>
+	<e:Image id="_itemBgImg" width="138" height="165" x="0" y="0" source="equip_gem_openBg_png"/>
+	<ns1:Label id="_itemLv" text="" y="20" size="20" fontFamily="Microsoft YaHei" textColor="0xfaf3e2" horizontalCenter="0"/>
+	<e:Image id="_addImg" width="64" height="64" y="33" horizontalCenter="0" source="equip_gem_add_png"/>
+	<e:Image id="_gemImg" width="70" height="70" source="" y="31" horizontalCenter="-1"/>
+	<e:Image id="_redImg" width="23" height="23" x="90" y="5" source="common_red_icon_png" visible="false"/>
+	<ns1:Label id="_itemTips" text="" y="89" size="20" fontFamily="Microsoft YaHei" textColor="0xfaf3e2" horizontalCenter="0"/>
+	<e:Image id="_upgradeImg" width="75" height="36" y="80" source="equip_gem_canUpgrade_png" horizontalCenter="0" visible="false"/>
+	<e:Image id="_changeImg" width="75" height="36" y="80" source="equip_gem_canChange_png" horizontalCenter="0" visible="false"/>
+</e:Skin>

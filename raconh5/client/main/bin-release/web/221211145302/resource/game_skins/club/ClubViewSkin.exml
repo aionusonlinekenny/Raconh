@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<ns1:BasePopUpView id="_basePopView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+	<e:Image width="140" height="140" x="39" y="202" source="common_itemBg_png" scale9Grid="53,62,34,19"/>
+	<ns1:Label id="_clubName" text="名称" x="192" y="224" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="现任掌门：" x="192" y="262" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_masterName" text="虚位以待" x="312" y="262" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<e:Label text="盟会战力：" x="192" y="294" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_allFight" text="9999亿" x="312" y="295" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<e:Image width="658" height="3" y="353" source="common_line_png" horizontalCenter="0"/>
+	<e:Image width="209" height="36" y="365" source="common_title_wordBg_png" horizontalCenter="0.5"/>
+	<ns1:Label text="门派成员" y="370" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" horizontalCenter="0"/>
+	<e:Image width="66" height="44" x="118" y="404" source="club_career_png"/>
+	<e:Image x="326" y="404" source="common_label_name_png"/>
+	<e:Image x="566" y="404" source="common_fight_rank_png"/>
+	<ns1:BaseVScrollerList id="_memberList" width="655" height="222" y="454" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5"/>
+	<e:Image width="655" height="55" y="676" scale9Grid="10,10,63,65" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5" source="common_wordBg_normal_png"/>
+	<ns1:Label id="_clubCareer" text="" x="121" y="690" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+	<ns1:Label id="_nickName" text="" y="690" fontFamily="Microsoft YaHei" size="24" horizontalCenter="3.5" textColor="0x38b800"/>
+	<ns1:Label id="_fighting" text="" x="567" y="690" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+
+	<e:Image width="498" height="36" y="743" source="common_title_wordBg_png" anchorOffsetX="0" scale9Grid="54,4,108,28" horizontalCenter="0"/>
+	<ns1:Label text="盟会贡献：" x="196" y="749" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<e:Image width="45" height="46" x="326" y="738" source="playRes_donate_54_png"/>
+	<ns1:Label id="_gongxian" text="0/0" x="376" y="750" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<e:Image width="655" height="126" y="788" source="common_bg1_normal_png" scale9Grid="29,11,181,69" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5"/>
+	<e:Image width="169" height="116" x="39" y="793" source="club_gxIm1_png"/>
+	<e:Image width="122" height="43" x="299" y="805" source="club_gx_word1_png"/>
+	<ns1:Label text="盟会贡献：" x="267" y="860" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_gongxianValue1" text="0" x="406" y="861" textColor="0xfd7100" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_timeValue1" text="剩余次数5次" x="520" y="795" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei" textAlign="center"/>
+	<ns1:Button id="_btn1" label="" x="495" y="811" anchorOffsetX="0" width="171" anchorOffsetY="0" height="75.44">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_btnImg1" width="144" height="42" x="508" y="827" source="club_jx_png" anchorOffsetX="0" anchorOffsetY="0"/>
+
+	<e:Image width="655" height="126" y="925" source="common_bg1_normal_png" scale9Grid="29,11,181,69" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5"/>
+	<e:Image width="169" height="116" x="39" y="928" source="club_gxIm2_png"/>
+	<e:Image width="122" height="43" x="299" y="940" source="club_gx_word2_png"/>
+	<ns1:Label text="盟会贡献：" x="267" y="995" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_gongxianValue2" text="0" x="406" y="996" textColor="0xfd7100" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_timeValue2" text="剩余次数5次" x="520" y="932" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei" textAlign="center"/>
+	<ns1:Button id="_btn2" label="" x="495" y="947" anchorOffsetX="0" width="171" anchorOffsetY="0" height="75.44">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_btnImg2" width="144" height="42" x="508" y="963" source="club_jx_png" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image id="_icon1" width="54" height="54" x="509" y="867" source="playRes_coin_54_png" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image id="_icon2" width="54" height="54" x="535" y="1003" source="playRes_gold_54_png" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:Label id="_coinValue" text="200000" x="558" y="881" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_goldValue" text="100" x="584" y="1018" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+
+	<e:Image id="_masterIcon" width="86" height="86" x="66" y="230" source="club_headIcon_png"/>
+	<e:Image id="_red1" width="35" height="35" x="638" y="807" source="common_red_icon_png" visible="false"/>
+
+</e:Skin>

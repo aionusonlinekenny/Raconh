@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JuexueViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_bitimg" width="710" height="595" x="5" y="429"/>
+	<e:Image source="common_name_back_png" x="26" y="117"/>
+	<e:Image source="juexue_exp3_png" x="119" y="113"/>
+	<e:Image source="juexue_exp2_png" x="118" y="113"/>
+	<e:Image id="_cirImg" source="juexue_exp1_png" x="117" y="114"/>
+	<e:Image source="juexue_juexueqizi_png" x="391" y="144"/>
+	<e:Image source="juexue_jingjie_png" x="451" y="171"/>
+	<e:Image source="juexue_di_png" x="50" y="256"/>
+	<ns1:BaseHScrollerList id="_hScroller" width="578" height="64" y="428" anchorOffsetX="0" anchorOffsetY="0" x="71"/>
+	<ns1:Label id="_shuexiTxt0" text="Label" x="466" y="234" anchorOffsetX="0" width="182" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_shuexiTxt1" text="Label" x="466" y="270" anchorOffsetX="0" width="181" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_shuexiTxt2" text="Label" x="466" y="305" anchorOffsetX="0" width="182" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_shuexiTxt3" text="Label" x="464" y="341" anchorOffsetX="0" width="181" fontFamily="Microsoft YaHei"/>
+	<e:Group id="_fightgroup" x="180" y="1051">
+		<e:Image source="common_fighting_png" y="0" x="0"/>
+		<e:Image source="common_zhanli2_png" x="16" y="3"/>
+	</e:Group>
+	<ns1:JuexueJuanzouTweenItem id="_juanzouItem" width="640" height="528" x="36" y="495" anchorOffsetX="0" anchorOffsetY="0" skinName="JuexueJuanzouTweenItemSkin"/>
+
+	<e:Group id="_btnGroup" x="70" y="1032" visible="false">
+		<ns1:Button id="_xinfuBtn" label="Button" x="0" y="0">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<e:Image width="181" height="52" source="juexue_huoquxinfa_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:Button id="_actBtn" label="Button" x="343" y="0">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_actImg" source="common_active_png" x="371" y="27"/>
+		<e:Image id="_actRedIcon" source="common_red_icon_png" x="537" y="7" visible="false"/>
+	</e:Group>
+	<e:Image source="juexue_huawen1_png" x="5" y="430"/>
+	<e:Image source="juexue_huawen1_png" x="715" y="430" scaleX="-1"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="298" y="180" visible="false"/>
+	<ns1:JuexueJuanzouAttrTweenItem id="_attrItem" width="640" height="528" x="40" y="487" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

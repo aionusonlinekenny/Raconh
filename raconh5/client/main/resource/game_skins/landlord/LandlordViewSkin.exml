@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LandlordViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1610c3aecd8" ></w:Config>
+
+	<ns1:BaseHScrollerList id="_funList" width="615" height="160" y="126" x="54"/>
+
+	<e:Image width="209" height="36" x="25" y="300" source="common_title_wordBg_png"/>
+	<e:Image width="106" height="39" x="77" y="301" source="common_newDynamic_png"/>
+	<ns1:BaseVScrollerList id="_historyList" width="248" height="792" y="346" x="5" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

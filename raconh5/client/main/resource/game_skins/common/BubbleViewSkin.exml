@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BubbleViewSkin" width="43" height="44" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="back" source="friends_bubble_png"/>
+	<ns1:Label id="numTxt" text="99" x="0" y="0" width="44" height="44" size="18" fontFamily="Microsoft YaHei" textAlign="center" verticalAlign="middle" textColor="0xfefefe"/>
+</e:Skin>

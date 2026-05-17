@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ArenaLogViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BasePopUpView id="_popupView" width="100%" height="100%" skinName="BasePopUpSkin"/>
+	<ns1:BaseVScrollerList id="_list" width="712" height="885" x="5" y="212"/>
+	<e:Image id="_title" x="278" y="149" source="arenaTitle3_png"/>
+</e:Skin>

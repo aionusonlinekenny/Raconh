@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SkillGridSkin" width="111" height="111" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_back" source="common_itemBg_png" y="-15" x="-15"/>
+	<ns1:BitmapRemote id="_img" width="86" height="86" x="12.5" y="12.5"/>
+</e:Skin>

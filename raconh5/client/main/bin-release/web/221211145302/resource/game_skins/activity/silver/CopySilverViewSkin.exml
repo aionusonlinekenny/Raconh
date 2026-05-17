@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CopySilverViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_back" width="720" height="738" x="0" y="112"/>
+	<e:Image scale9Grid="29,11,181,69" x="5" y="848" anchorOffsetX="0" width="710" anchorOffsetY="0" height="138" source="common_bg1_normal_png"/>
+	<e:Image source="copy_exp_label_0_png" x="30" y="893"/>
+	<e:Image source="clubBF_flag_png" x="0" y="116"/>
+	<e:Image id="_btnAdd" source="main_addImg_png" x="637" y="878"/>
+	<e:Image id="_imgHardLvl" source="copy_exp_lv_1_png" y="224" x="104" anchorOffsetX="60" anchorOffsetY="37"/>
+	<e:Group x="241" y="993">
+		<ns1:Button id="_btnEnter" label="Button" y="22" x="0">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image source="common_label_tiaozhan_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_redIcon" source="common_red_icon_png" x="194" y="30" visible="false"/>
+		<ns1:Label id="_txtCooling" text="" y="120" fontFamily="Microsoft YaHei" size="24" textAlign="center" textColor="0xFFF7E6" horizontalCenter="0"/>
+	</e:Group>
+	<ns1:Label id="_txtCount" text="剩余次数：2/2" x="456" y="887" fontFamily="Microsoft YaHei" size="24" textColor="0x7B6D61"/>
+	<ns1:Label id="_txtTips" text="VIP" x="456" y="924" fontFamily="Microsoft YaHei" size="24" textColor="0x7B6D61"/>
+	<ns1:Label id="_txtHardName" text="下一难度\n下一难度" y="263" fontFamily="Microsoft YaHei" size="22" textAlign="center" textColor="0xFFF7E6" anchorOffsetX="0" width="150" anchorOffsetY="0" height="52" verticalAlign="middle" horizontalCenter="-257" lineSpacing="5"/>
+	<ns1:Label id="_txtDesc" text="下一难度：盟会职位达到{0}、当前难度sss通关" x="58" y="993" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="605" textAlign="center" textColor="0xfff7e6"/>
+
+</e:Skin>

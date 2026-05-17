@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SelectRoleBtnSkin" width="174" height="174" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" states="up,down" >
+	<w:Config id="15f6d14601b" ></w:Config>
+	<e:Image source="{data.bgImgNormal}" includeIn="up" x="0" y="0"/>
+	<e:Image source="{data.bgImgClick}" includeIn="down" x="0" y="0"/>
+	<e:Image id="lockImg" source="{data.lockImg}" width="100" height="100" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="roleImg" source="{data.roleImg}" width="100" height="100" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="roleCareer" width="50" height="40" top="0" right="0"/>
+	<e:Label id="conditionTxt" text="四转" right="0" top="0"/>
+</e:Skin>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LandlordHistoryItemSkin" width="248" height="155" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="16122374572" ></w:Config>
+	<ns1:Label id="_time" text="2018-12-31 23:59:59" y="4" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" horizontalCenter="0.5"/>
+	<ns1:Label id="_content" text="[抢夺]你抢夺连月林的奴隶成功获得了TA的奴隶龙登峰。" lineSpacing="5" y="29" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei" width="220" horizontalCenter="0"/>
+	<e:Image id="_line" width="230" height="3" y="142" source="common_line_png" scale9Grid="344,0,9,3" horizontalCenter="0"/>
+</e:Skin>

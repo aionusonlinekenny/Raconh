@@ -1,0 +1,10 @@
+{"mc":{"mainMochong1001":{"frameRate":24,"events":[],"frames":[
+  {"res":"mainMochong1001_00000","x":354,"y":354},
+  {"res":"mainMochong1001_00001","x":355,"y":354},
+  {"res":"mainMochong1001_00002","x":356,"y":357},
+  {"res":"mainMochong1001_00003","x":356,"y":357}]}},
+"res":{
+  "mainMochong1001_00000":{"x":0,"y":0,"w":105,"h":112},
+  "mainMochong1001_00001":{"x":105,"y":0,"w":101,"h":112},
+  "mainMochong1001_00002":{"x":206,"y":0,"w":101,"h":109},
+  "mainMochong1001_00003":{"x":307,"y":0,"w":103,"h":109}}}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubEditNoticeViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1606ec4c182" ></w:Config>
+	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_tipBaseView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<e:TextInput id="_input" width="508" height="220" y="407" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseTextInputSkin" horizontalCenter="0"/>
+		<ns1:Button id="_btn" label="" y="672" horizontalCenter="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+		<e:Image id="_btnImg" width="181" height="52" x="269.5" y="698.5" source="confirm_png"/>
+	</e:Group>
+</e:Skin>

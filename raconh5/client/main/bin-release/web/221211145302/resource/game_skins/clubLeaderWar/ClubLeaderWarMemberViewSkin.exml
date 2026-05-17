@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubLeaderWarMemberViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1615599b084" ></w:Config>
+	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_basePopView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<e:Image width="120" height="44" x="132" y="375" source="clubLeaderWar_member_png"/>
+		<e:Image width="66" height="44" x="512" y="375" source="clubLeaderWar_renming_png"/>
+		<ns1:BaseVScrollerList id="_scrollerList" width="645" height="440" anchorOffsetX="0" anchorOffsetY="0" y="426" horizontalCenter="-3.5"/>
+		<ns1:Label id="_tips" text="还有0个入室弟子名额未任命" y="890" size="24" fontFamily="Microsoft YaHei" horizontalCenter="14.5" textColor="0x7c6e62"/>
+		<e:Label text="盟主可任命盟会成员为入室弟子" y="972" x="205" size="24" fontFamily="Microsoft YaHei" textColor="0x4eff00"/>
+	</e:Group>
+</e:Skin>

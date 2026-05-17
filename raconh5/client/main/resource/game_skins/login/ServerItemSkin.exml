@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ServerItemSkin" width="498" height="73" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_back" source="common_wordBg_normal_png" x="0" width="498" height="73"/>
+	<e:Image id="_icon" source="login_iconHot_png" x="445" y="3"/>
+	<e:Label id="_txtServer" text="服服服服" x="15" y="22" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<e:Label id="_txtPlayer" text="名名名名名 5转999级" x="150" y="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei"/>
+
+
+
+
+
+
+
+
+
+
+</e:Skin>

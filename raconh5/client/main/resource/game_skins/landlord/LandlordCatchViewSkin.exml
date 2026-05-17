@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LandlordCatchViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="16126da1ed2" ></w:Config>
+	<e:Image width="461" height="845" x="253" y="296" source="common_pnl_back1_png" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="28,29,25,15"/>
+	<e:Group id="_bg" width="461" height="845" x="255" y="296">
+	</e:Group>
+	<e:Image width="459" height="45" x="255" y="294" source="common_back5_png" scale9Grid="104,5,10,35" anchorOffsetX="0"/>
+	<e:Label text="抓捕次数：" x="405" y="305" fontFamily="Microsoft YaHei" size="22"/>
+	<ns1:Label id="_catchValue" text="6/6" x="525" y="306" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+	<ns1:Button id="_enterBtn" label="" x="398" y="593">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="landlord_lunjian_png" source.down="landlord_lunjian_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</ns1:Button>
+	<ns1:Label id="_tips" text="暂时没有手下败将" y="758" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" x="398"/>
+	<ns1:BaseVScrollerList id="_playerList" width="447" height="792" y="340" x="260" anchorOffsetX="0" anchorOffsetY="0"/>
+</e:Skin>

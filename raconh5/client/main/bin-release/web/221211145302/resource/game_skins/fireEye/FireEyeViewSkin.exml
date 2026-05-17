@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FireEyeViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Button id="_btn" label="" x="241" y="1015">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="common_label_tiaozhan_png" x="29" y="27"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Label text="活动为限时挑战，请尽量在良好网络环境的安全区开始挑战" x="47" y="990" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
+</e:Skin>

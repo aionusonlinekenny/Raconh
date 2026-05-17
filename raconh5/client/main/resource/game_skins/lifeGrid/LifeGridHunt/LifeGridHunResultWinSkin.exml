@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LifeGridHunResultWinSkin" width="715" height="631" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:ResultWinBack id="_back" x="0" y="0" skinName="ResultWinBackSkin"/>
+	<e:Group id="_group" x="417" y="489">
+
+		<ns1:Button id="_hontTenBtn" label="Button" x="0" y="27">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled" xmlns:w="http://ns.egret.com/wing">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image width="181" height="52" source="lifeGrid_zailaishici_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Group y="-7" horizontalCenter="0">
+			<e:Image id="_resImg0" source="playRes_gold_54_png" x="-8" y="0"/>
+			<ns1:Label id="_lossTxt0" text="Label" x="42" y="15" anchorOffsetX="0" width="156" fontFamily="Microsoft YaHei"/>
+		</e:Group>
+	</e:Group>
+	<e:Group id="_itemGroup" x="181" verticalCenter="22.5">
+		<ns1:LifeGridHunResultItem id="_item1" width="205" height="212" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridHunResultItemSkin"/>
+		<ns1:LifeGridHunResultItem id="_item2" width="205" height="212" x="166.5" y="0" anchorOffsetX="0" anchorOffsetY="0" skinName="LifeGridHunResultItemSkin"/>
+	</e:Group>
+</e:Skin>

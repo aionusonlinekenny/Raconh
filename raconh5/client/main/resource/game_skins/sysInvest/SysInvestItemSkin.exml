@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SysInvestItemSkin" width="690" height="158" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_wordBg_normal_png" scale9Grid="37,30,43,35" x="0" y="0" anchorOffsetX="0" width="690" anchorOffsetY="0" height="158"/>
+	<ns1:Button id="_rewardBtn" label="Button" x="486" y="34" anchorOffsetX="0" width="189" anchorOffsetY="0" height="96">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			<e:Image width="181" height="52" source="common_label_fetch_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Label id="_descTxt" text=" " x="31" y="11" anchorOffsetX="0" width="650" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<ns1:BaseGoods id="_item0" width="141" height="141" x="9" y="22" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item1" width="141" height="141" x="126" y="22" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item2" width="141" height="141" x="242" y="22" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<ns1:BaseGoods id="_item3" width="141" height="141" x="357" y="22" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<e:Image id="_ilingquImg" source="commony_ilingqu_png" x="518" y="39" visible="false"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="647" y="42" visible="false"/>
+</e:Skin>

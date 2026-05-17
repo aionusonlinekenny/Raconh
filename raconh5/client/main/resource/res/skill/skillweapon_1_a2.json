@@ -1,0 +1,16 @@
+{"mc":{"skillweapon_1_a2":{"frameRate":24,"events":[],"frames":[
+  {"res":"skillweapon_1_a2_00000","x":230,"y":216},
+  {"res":"skillweapon_1_a2_00001","x":291,"y":0},
+  {"res":"skillweapon_1_a2_00002","x":196,"y":9},
+  {"res":"skillweapon_1_a2_00003","x":201,"y":41},
+  {"res":"skillweapon_1_a2_00004","x":236,"y":32},
+  {"res":"skillweapon_1_a2_00005","x":229,"y":46},
+  {"res":"skillweapon_1_a2_00006","x":380,"y":165}]}},
+"res":{
+  "skillweapon_1_a2_00001":{"x":0,"y":0,"w":395,"h":450},
+  "skillweapon_1_a2_00002":{"x":395,"y":0,"w":485,"h":443},
+  "skillweapon_1_a2_00003":{"x":0,"y":450,"w":462,"h":402},
+  "skillweapon_1_a2_00004":{"x":462,"y":450,"w":525,"h":394},
+  "skillweapon_1_a2_00005":{"x":0,"y":852,"w":447,"h":379},
+  "skillweapon_1_a2_00006":{"x":447,"y":852,"w":240,"h":287},
+  "skillweapon_1_a2_00000":{"x":687,"y":852,"w":245,"h":226}}}

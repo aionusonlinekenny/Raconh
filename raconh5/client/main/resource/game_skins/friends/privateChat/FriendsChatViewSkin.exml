@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FriendsChatViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="panel_bg3_png" scale9Grid="5,114,4,687" left="0" right="0" top="90" height="1043" locked="true"/>
+	<e:Image source="border1_png" scale9Grid="90,10,540,5" left="0" right="0" top="66" height="32" locked="true"/>
+
+	<e:Image source="border2_png" scale9Grid="90,4,540,25" left="0" right="0" height="32" y="1115"/>
+	<e:Image source="panel_bgKuang2_png" x="0" y="67" width="720" anchorOffsetY="0" height="1073" scale9Grid="7,6,43,40"/>
+	<e:Image source="common_titleBg2_png" left="0" right="0" top="49" height="69" locked="true"/>
+	<e:Button id="_closeBtn" label="" x="622" y="43">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_closeImg_png" source.down="common_closeImg_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<ns1:Label id="_nameTxt" text="与XXX私聊中" x="0" y="70" width="100%" textAlign="center" bold="true" touchEnabled="false"/>
+	<ns1:Scroller id="_scroll" width="666" height="870" x="26" y="125" scrollPolicyH="off">
+		<e:Group id="_group"/>
+	</ns1:Scroller>
+	<ns1:Button id="_backBtn" label="" x="7" y="1036">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="friends_backBtn_png" source.down="按下状态资源名"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:TextInput id="_input" width="327" height="62" x="137" y="1039" skinName="BaseTextInputSkin" maxChars="200" prompt="聊天发送信息输入区域"/>
+	<ns1:Button id="_faceBtn" label="" x="467" y="1035">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="friends_face_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_sendBtn" label="" x="524" y="1026" width="195" height="90">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="friends_sendBtn_png" x="7" y="19"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

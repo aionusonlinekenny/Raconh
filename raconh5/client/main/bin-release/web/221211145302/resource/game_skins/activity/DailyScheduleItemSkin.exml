@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DailyScheduleItemSkin" width="170" height="130" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="_bar" source="activity_jindu_png" x="2" y="37" width="80" scale9Grid="6,2,40,19"/>
+	<e:Image id="_circle" source="activity_yuan_png" x="76" y="2"/>
+	<e:Image id="_box" source="activity_xiangzi_1_png" x="74" y="3"/>
+	<ns1:Label id="_txt" text="000" x="96" y="94" fontFamily="Microsoft YaHei" textColor="0x7C6E62" textAlign="center"/>
+	<e:Image id="_label" source="common_label_yilingqu_1_png" x="77" y="21"/>
+</e:Skin>

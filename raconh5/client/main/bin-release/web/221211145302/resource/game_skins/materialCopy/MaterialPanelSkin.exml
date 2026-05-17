@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MaterialPanelSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="162235011fd" ></w:Config>
+	<e:Group id="_mapGroup" width="720" height="1280" x="0" y="0"/>
+	<e:Group id="_itemGroup" width="720" height="1280" x="0" y="0"/>
+	<e:Group id="_boxGroup" width="149" height="133" x="554" y="127" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Image width="100" height="100" x="22" y="5" source="common_head_back_png" scaleX="1" scaleY="1"/>
+		<e:Image width="140" height="42" x="4" y="89" source="common_back2_png" scaleX="1" scaleY="1"/>
+		<e:Image width="20" height="20" x="17" y="99" source="common_star_bright_png"/>
+		<e:Image id="_box" width="82" height="82" x="32" y="16" source="arenaHistoryBox_png" scaleX="1" scaleY="1"/>
+		<e:Image id="_getAll" width="87" height="59" x="29" y="32" source="common_label_yilingqu_1_png" visible="false"/>
+		<ns1:Label id="_star" text="10/10" x="37" y="98" fontFamily="Microsoft YaHei" size="24" textAlign="center" width="80"/>
+		<e:Image id="_redIcon" source="mainsheet.main_red_icon_png" x="90" y="10" visible="false"/>
+	</e:Group>
+</e:Skin>

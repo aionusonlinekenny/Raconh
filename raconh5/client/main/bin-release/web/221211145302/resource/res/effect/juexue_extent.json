@@ -1,0 +1,14 @@
+{"mc":{"juexue_extent":{"frameRate":24,"events":[],"frames":[
+  {"res":"juexue_extent_00000","x":15,"y":43},
+  {"res":"juexue_extent_00001","x":40,"y":22},
+  {"res":"juexue_extent_00002","x":41,"y":0},
+  {"res":"juexue_extent_00003","x":20,"y":0},
+  {"res":"juexue_extent_00004","x":6,"y":0},
+  {"res":"juexue_extent_00005","x":7,"y":10}]}},
+"res":{
+  "juexue_extent_00005":{"x":0,"y":0,"w":201,"h":245},
+  "juexue_extent_00004":{"x":201,"y":0,"w":203,"h":237},
+  "juexue_extent_00001":{"x":404,"y":0,"w":216,"h":234},
+  "juexue_extent_00002":{"x":620,"y":0,"w":207,"h":233},
+  "juexue_extent_00000":{"x":0,"y":245,"w":241,"h":213},
+  "juexue_extent_00003":{"x":241,"y":245,"w":210,"h":207}}}

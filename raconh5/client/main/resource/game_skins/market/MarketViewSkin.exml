@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MarketViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_friendsImg" source="market_jiaweihaoy_png" x="13" y="628"/>
+	<e:Image id="_kuanImg" source="marketsheet.market_qipao_png" x="437" y="434" visible="false"/>
+	<ns1:Label id="_npcTxt" text=" " x="442" y="439" anchorOffsetX="0" width="215" anchorOffsetY="0" height="59" fontFamily="Microsoft YaHei"/>
+	<ns1:BaseHScrollerList id="_hScroll" width="647" height="327" x="37" y="114" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:MarketGoodsItem id="_item0" width="128" height="138" x="35" y="815" anchorOffsetX="0" anchorOffsetY="0" skinName="MarketGoodsItemSkin" visible="false"/>
+	<ns1:MarketGoodsItem width="128" height="138" x="203" y="815" anchorOffsetX="0" anchorOffsetY="0" skinName="MarketGoodsItemSkin" id="_item1" visible="false"/>
+	<ns1:MarketGoodsItem width="128" height="138" x="370" y="815" anchorOffsetX="0" anchorOffsetY="0" skinName="MarketGoodsItemSkin" id="_item2" visible="false"/>
+	<ns1:MarketGoodsItem width="128" height="138" x="538" y="815" anchorOffsetX="0" anchorOffsetY="0" skinName="MarketGoodsItemSkin" id="_item3" visible="false"/>
+	<ns1:MarketGoodsItem width="128" height="138" x="36" y="989" anchorOffsetX="0" anchorOffsetY="0" skinName="MarketGoodsItemSkin" id="_item4" visible="false"/>
+	<ns1:MarketGoodsItem width="128" height="138" x="204" y="989" anchorOffsetX="0" anchorOffsetY="0" skinName="MarketGoodsItemSkin" id="_item5" visible="false"/>
+	<ns1:MarketGoodsItem width="128" height="138" x="371" y="989" anchorOffsetX="0" anchorOffsetY="0" skinName="MarketGoodsItemSkin" id="_item6" visible="false"/>
+	<ns1:MarketGoodsItem width="128" height="138" x="539" y="989" anchorOffsetX="0" anchorOffsetY="0" skinName="MarketGoodsItemSkin" id="_item7" visible="false"/>
+</e:Skin>

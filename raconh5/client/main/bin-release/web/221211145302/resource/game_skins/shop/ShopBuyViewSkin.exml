@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ShopBuyViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_popupView" width="100%" height="100%" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<e:Group id="_huoqutujGroup" y="789" anchorOffsetX="0" width="694" x="13" anchorOffsetY="0" height="193">
+			<e:Image source="tips_items_huoqutuj_png" y="13" horizontalCenter="0"/>
+
+
+
+			<e:Image y="0" anchorOffsetX="0" width="575" anchorOffsetY="0" height="3" source="common_line_png" scaleX="1" scaleY="1" x="60"/>
+		</e:Group>
+		<ns1:Label id="_placeTxt" text="Label" x="405" y="463" rotation="0.35" anchorOffsetX="0" width="183.03" anchorOffsetY="0" height="38" textColor="0x7c6e62" textAlign="left" scaleX="1" scaleY="1"/>
+		<ns1:Goods id="_goods" width="141" height="140" y="368" skinName="BaseGoodsSkin" x="269" scaleX="1" scaleY="1"/>
+
+		<e:Image source="shop_goumaizongjia_png" x="123" y="508" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_nameTxt" text="Label" x="405" y="415" rotation="0.35" anchorOffsetX="0" width="203.02" anchorOffsetY="0" height="38" textAlign="left" scaleX="1" scaleY="1"/>
+		<ns1:Button id="_jina10Btn" label="Button" x="67" y="574" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="shop_anniu1_png"/>
+				<e:Image width="26" height="36" source="shop_-_png" x="30" y="18"/>
+				<e:Image width="28" height="36" source="shop_1_png" x="50" y="18"/>
+				<e:Image width="28" height="36" source="shop_0_png" x="70" y="18"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:Button id="_jia10Btn" label="Button" x="531.63" y="574" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="shop_anniu1_png"/>
+				<e:Image width="26" height="36" source="shop_+_png" x="30" y="18"/>
+				<e:Image width="28" height="36" source="shop_1_png" x="50" y="18"/>
+				<e:Image width="28" height="36" source="shop_0_png" x="70" y="18"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:Button id="_buyBtn" label="Button" y="674" horizontalCenter="0" x="241" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<e:Image width="181" height="52" source="shop_goumai_png" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:Button id="_jianBtn" label="Button" x="209" y="574" width="70" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common__jian_png"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<ns1:Button id="_jiaBtn" label="Button" x="447.63" y="573" width="70" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_jia_png"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="293" y="585" anchorOffsetX="0" width="144" anchorOffsetY="0" height="45" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_numTxt" text="Label" x="299" y="589" anchorOffsetX="0" width="131" anchorOffsetY="0" height="37" textAlign="center" verticalAlign="middle" scaleX="1" scaleY="1"/>
+		<ns1:PlayerResItems id="_res1" width="173" height="54" x="292" y="507" anchorOffsetX="0" anchorOffsetY="0" skinName="PlayerResItemsSkin" scaleX="1" scaleY="1"/>
+	</e:Group>
+
+</e:Skin>

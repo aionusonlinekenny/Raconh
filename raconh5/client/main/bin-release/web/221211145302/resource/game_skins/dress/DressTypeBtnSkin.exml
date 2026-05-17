@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DressTypeBtnSkin" width="144" height="144" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" states="up,down" >
+    <e:Image source="common_roleKuang_normal_png" includeIn="up" x="-15" y="-15"/>
+	<e:Image source="common_roleKuang_selected_png" includeIn="down" x="-15" y="-15"/>
+    <e:Image source="{data.typeImg}" width="120" height="120" horizontalCenter="0" verticalCenter="-3"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="91" y="17" visible="false"/>
+</e:Skin>

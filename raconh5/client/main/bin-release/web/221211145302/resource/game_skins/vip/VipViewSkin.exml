@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="VipViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+
+	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="80" y="204" width="560" height="33"/>
+	<ns1:BitmapRemote id="_rightsBg" width="717" height="432" x="3" y="409" alpha="0.08"/>
+
+	<ns1:BitmapRemote id="_rewardsBg" width="684" height="368" x="18" y="756"/>
+	<ns1:BaseVScrollerList id="_list" width="550" height="272" x="85" y="436"/>
+	<e:Image source="split_line_png" x="26" y="729" width="668"/>
+	<e:Image id="_curImg" source="vip_title_png" x="15" y="140"/>
+	<e:Image id="_nextImg" source="vip_title_png" x="490" y="140"/>
+	<e:Image source="common_arrow_png" x="342" y="129"/>
+	<ns1:Label id="_nextTxt" text="在充值100元宝成为VIP1" x="115" y="255" size="28" textColor="0x7b6d61" fontFamily="Microsoft YaHei" height="37" textAlign="left" verticalAlign="middle" width="395" anchorOffsetX="0"/>
+	<ns1:Button id="_rechargeBtn" label="" x="503" y="231" width="197" height="90">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="common_label_recharge_png" x="8" y="19"/>
+
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image source="vip_title_back_png" x="169" y="356"/>
+	<e:Image id="_titleImg" source="vip_label_right_png" x="276" y="371"/>
+	<ns1:Button id="_preBtn" label="" x="66" y="537" width="37" height="70">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_page_arrow_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_nextBtn" label="" x="658" y="537" scaleX="-1" width="37" height="70">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_page_arrow_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_fetchBtn" label="" x="378" y="1020" width="197" height="90">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="common_label_fetch_png" x="8" y="19"/>
+
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_fetchedImg" source="commony_ilingqu_png" x="407" y="1022"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="537" y="1024"/>
+</e:Skin>

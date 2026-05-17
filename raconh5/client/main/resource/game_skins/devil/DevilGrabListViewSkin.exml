@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DevilGrabListViewSkin" width="123" height="852" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Button id="_grabBtn" label="" width="123" height="64">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn3_1_png" source.down="common_btn3_1_png"/>
+            <e:Image source="common_label_reset_png" x="-29" y="6"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image source="common_back5_png" y="59" width="123" height="38"/>
+	<ns1:Label id="_cdTxt" text="666" y="59" width="123" height="38" verticalAlign="middle" textAlign="center" fontFamily="Microsoft YaHei" size="20"/>
+	<ns1:BaseVScrollerList id="_grabList" width="123" height="750" y="102"/>
+</e:Skin>

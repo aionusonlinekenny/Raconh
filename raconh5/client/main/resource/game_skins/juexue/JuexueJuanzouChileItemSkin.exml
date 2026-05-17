@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="JuexueJuanzouChileItemSkin" width="120" height="519" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image id="_bgImg" source="juexue_juanzou3_png" y="0" horizontalCenter="-5.5"/>
+	<e:Image id="_nameImg" source="juexue_name_101_png" x="41" y="171"/>
+
+
+	<e:Group id="_lvGroup" x="-14" y="66">
+		<e:Image source="juexue_dengji_png" x="0" y="0"/>
+		<ns1:Label id="_levTxt" text="99" x="13" y="24" anchorOffsetX="0" width="36" anchorOffsetY="0" height="35" fontFamily="Microsoft YaHei" textAlign="center"/>
+		<ns1:Label id="_jeTxt" text="级" x="14" y="56" anchorOffsetX="0" width="36" anchorOffsetY="0" height="35" fontFamily="Microsoft YaHei" textAlign="center"/>
+		<e:Image id="_actImg" source="juexue_weijihuo_png" x="19" y="20" visible="false"/>
+	</e:Group>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="83" y="52" visible="false"/>
+</e:Skin>

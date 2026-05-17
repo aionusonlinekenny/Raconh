@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DevilViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:Button id="_ruleBtn" label="" x="12" y="46">
+		<ns1:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="clubBF_wenhao_png" source.down="clubBF_wenhao_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image source="devil_head_bg_png" x="535" y="114"/>
+	<e:Image source="common_back2_png" scale9Grid="1,10,137,20" x="527" y="242" width="184" height="81"/>
+	<e:Image source="devil_king_title_png" x="529" y="243"/>
+	<ns1:Label id="_nameTxt" text="666" x="529" y="280" width="181" height="37" size="28" fontFamily="Microsoft YaHei" textAlign="center" verticalAlign="bottom"/>
+	<e:Image source="common_bg1_normal_png" scale9Grid="29,11,181,69" x="5" y="848" width="710" height="138"/>
+	<e:Image source="devil_label_rewards_preview_png" x="35" y="898"/>
+	<ns1:Label id="_timeTxt" text="666" x="0" y="995" width="100%" textAlign="center" textColor="0xfff7e6" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Button id="_goBtn" label="" x="241" y="1014">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+            <e:Image source="activity_copy_label_tiaozhan_png" x="29" y="27"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+</e:Skin>

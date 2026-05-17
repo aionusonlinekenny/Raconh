@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameMoneyViewSkin" width="129" height="41" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Image id="_icon" x="-4" y="-5" source="playRes_gold_54_png"/>
+	<ns1:Label id="_txt" text="" left="45" top="0" bottom="0" verticalAlign="middle" fontFamily="Microsoft YaHei" size="18" textAlign="left" textColor="0xfffade"/>
+</e:Skin>

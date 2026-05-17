@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="uiRadioButtonSkin" states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+    <e:Group width="100%" height="100%">
+        <e:layout>
+            <e:HorizontalLayout verticalAlign="middle"/>
+        </e:layout>
+        <e:Image fillMode="scale" alpha="1" alpha.disabled="0" alpha.down="0.7"
+                 source="common_radioBtn_normal_png"
+                 source.upAndSelected="common_radioBtn_select_png"
+                 source.downAndSelected="common_radioBtn_select_png"
+                 source.disabledAndSelected="common_radioBtn_select_png"/>
+    </e:Group>
+
+	<w:Config id="15f4e51ad90" ></w:Config>
+</e:Skin>

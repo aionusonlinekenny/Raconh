@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MaterialBallItemSkin" width="568" height="620" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="16229129b7e" ></w:Config>
+	<e:Group id="_monsterGroup" width="568" height="620" x="0" y="0"/>
+	<e:Image id="_kill1" width="140" height="86" x="131" y="215" source="common_label_killed_png" visible="false"/>
+	<e:Image id="_kill2" width="140" height="86" x="289" y="215" source="common_label_killed_png" visible="false"/>
+	<e:Image id="_kill3" width="140" height="86" y="320" source="common_label_killed_png" horizontalCenter="0" visible="false"/>
+	<e:Image id="_fightImg" width="141" height="42" x="134" y="480" source="material_tuijianzhanli_png"/>
+</e:Skin>

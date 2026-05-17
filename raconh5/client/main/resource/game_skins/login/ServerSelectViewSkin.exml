@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ServerSelectViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="panel_bg3_png" scale9Grid="5,114,4,687" width="720" height="910" y="111" anchorOffsetY="0" horizontalCenter="0"/>
+	<e:Image source="border1_png" scale9Grid="90,10,540,5" height="32" y="93" horizontalCenter="0"/>
+	<e:Image source="common_titleBg2_png" height="69" y="76" horizontalCenter="0"/>
+	<e:Image source="border2_png" scale9Grid="90,4,540,25" height="32" y="1002" anchorOffsetY="0" width="720" horizontalCenter="0"/>
+	<e:Image source="login_serverTitle_png" y="83" horizontalCenter="0.5"/>
+	<e:Image source="common_pnl_back1_png" x="200" y="136" width="520" height="860" scale9Grid="29,25,24,20"/>
+	<ns1:BaseVScrollerList id="_groupList" width="186" height="810" x="9" y="159" anchorOffsetX="0" anchorOffsetY="0"/>
+	<ns1:BaseVScrollerList id="_itemList" width="498" height="810" x="209" y="159" anchorOffsetY="0" anchorOffsetX="0"/>
+	<e:Image id="_btnClose" source="common_closeImg_png" x="622" y="70"/>
+</e:Skin>

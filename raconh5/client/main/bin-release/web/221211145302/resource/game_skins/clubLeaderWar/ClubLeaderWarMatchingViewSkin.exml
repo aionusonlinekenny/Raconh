@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubLeaderWarMatchingViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="16155ecfe9a" ></w:Config>
+	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
+		<e:Image width="538" height="348" source="clubLeaderWar_kuang_png" horizontalCenter="0" verticalCenter="0" x="91" y="466" scaleX="1" scaleY="1"/>
+		<e:Image width="181" height="52" y="471" source="clubLeaderWar_pipei_png" horizontalCenter="0.5" x="270" scaleX="1" scaleY="1"/>
+		<e:Group id="_items" width="492" height="242" x="114" y="523"/>
+		<e:Image width="46" height="36" x="99" source="clubLeaderWar_left_png" verticalCenter="6" y="622" scaleX="1" scaleY="1"/>
+		<e:Image width="46" height="36" x="575" source="clubLeaderWar_right_png" verticalCenter="6" y="622" scaleX="1" scaleY="1"/>
+	</e:Group>
+</e:Skin>

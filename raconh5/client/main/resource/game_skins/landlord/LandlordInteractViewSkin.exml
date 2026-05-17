@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LandlordInteractViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1612c632b8e" ></w:Config>
+	<ns1:BasePopUpView id="_base" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin"/>
+	<e:Image width="90" height="48" x="173" y="414" source="landlord_anfu_png"/>
+	<e:Image width="90" height="48" x="449" y="414" source="landlord_niedai_png"/>
+	<e:Image id="_btn1" width="94" height="90" x="108" y="490" source="landlord_interactIcon1_png"/>
+	<e:Image id="_btn2" width="94" height="90" x="235" y="490" source="landlord_interactIcon2_png"/>
+	<e:Image id="_btn3" width="94" height="90" x="384" y="490" source="landlord_interactIcon3_png"/>
+	<e:Image id="_btn4" width="94" height="90" x="519" y="490" source="landlord_interactIcon4_png"/>
+	<ns1:Label id="_name1" text="倒酒" x="133" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name2" text="贿赂" x="260" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name3" text="鞭打" x="408" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name4" text="流放" x="544" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="获得奖励：" x="237" y="693" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="冷却时间：" x="237" y="734" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_itemName" text="道具名称X1" x="358" y="693" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_time" text="00:00:00" x="358" y="736" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+</e:Skin>

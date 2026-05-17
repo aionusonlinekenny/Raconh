@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CloakItemSkin" width="242" height="142" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_diImg" source="common_bg1_normal_png" scale9Grid="29,11,181,69" x="2" y="2" anchorOffsetX="0" width="238" anchorOffsetY="0" height="136"/>
+	<e:Group id="_effGup" x="1" y="0">
+		<e:Image source="common_xuanzhong1_png" scale9Grid="11,12,22,17" x="1" y="2" anchorOffsetX="0" width="238" anchorOffsetY="0" height="136"/>
+		<e:Image source="common_di_png" scale9Grid="13,13,84,84" x="0" y="0" anchorOffsetX="0" width="240" anchorOffsetY="0" height="139"/>
+	</e:Group>
+	<ns1:Goods id="_goods" width="141" height="141" x="-6" y="-3" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
+	<e:Group id="_starGup" x="123" y="79">
+		<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="0" y="0"/>
+		<e:Image source="common_star_grey_png" x="3" y="0"/>
+		<e:Image id="_star1" source="common_star_bright_png" x="3" y="0"/>
+		<e:Image source="common_star_grey_png" x="33" y="0"/>
+		<e:Image id="_star2" source="common_star_bright_png" x="34" y="0"/>
+		<e:Image source="common_star_grey_png" x="66" y="0"/>
+		<e:Image id="_star3" source="common_star_bright_png" x="67" y="0"/>
+	</e:Group>
+	<ns1:Label id="_nameTxt" text="Label" x="122" y="34" anchorOffsetX="0" width="116" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_condTxt" text="Label" x="122" y="79" anchorOffsetX="0" width="116" anchorOffsetY="0" height="33" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<e:Image id="_dangqianImg" source="common_dangqian_png" x="1" y="2"/>
+	<e:Image id="_redImg" source="common_red_icon_png" x="202" y="2" visible="false"/>
+</e:Skin>

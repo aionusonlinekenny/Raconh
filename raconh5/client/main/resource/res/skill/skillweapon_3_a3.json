@@ -1,0 +1,12 @@
+{"mc":{"skillweapon_3_a3":{"frameRate":24,"events":[],"frames":[
+  {"res":"skillweapon_3_a3_00000","x":317,"y":146},
+  {"res":"skillweapon_3_a3_00001","x":310,"y":140},
+  {"res":"skillweapon_3_a3_00002","x":294,"y":139},
+  {"res":"skillweapon_3_a3_00003","x":355,"y":152},
+  {"res":"skillweapon_3_a3_00004","x":361,"y":352}]}},
+"res":{
+  "skillweapon_3_a3_00002":{"x":0,"y":0,"w":323,"h":404},
+  "skillweapon_3_a3_00001":{"x":323,"y":0,"w":285,"h":402},
+  "skillweapon_3_a3_00003":{"x":608,"y":0,"w":289,"h":390},
+  "skillweapon_3_a3_00000":{"x":0,"y":404,"w":230,"h":178},
+  "skillweapon_3_a3_00004":{"x":230,"y":404,"w":298,"h":173}}}

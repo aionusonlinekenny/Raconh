@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubLeaderWarRankItemSkin" width="645" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1615a6262ba" ></w:Config>
+	<e:Image width="645" height="100" x="0" y="0" source="common_wordBg_normal_png" scale9Grid="14,12,89,72" anchorOffsetY="0"/>
+	<ns1:Label id="_rank" text="10" x="43" y="37" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_nickName" text="s40.盟主大神" x="139" y="36" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24"/>
+	<ns1:Label id="_countWin" text="12" x="325" y="37" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+
+</e:Skin>

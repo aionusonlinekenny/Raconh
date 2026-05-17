@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MarketSaleNotesViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*">
+	<ns1:BasePopUpView id="_popupView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin"/>
+	<ns1:BaseVScrollerList id="_scroller" width="700" height="605" x="10" y="348" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image source="marketsheet.market_shijian_png" x="544" y="293"/>
+	<e:Image source="marketsheet.market_shouzhi_png" x="352" y="293"/>
+	<e:Image source="marketsheet.market_zhuangtai_png" x="34" y="293"/>
+	<e:Image source="marketsheet.market_daoju_png" x="196" y="294"/>
+</e:Skin>

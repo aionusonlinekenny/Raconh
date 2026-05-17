@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="Sysprivilege_ExperienceViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*">
+	<e:Image source="sysprivilegesheet.sysprivilege_chengwei_png" x="243" y="381"/>
+	<e:Image source="commonsheet.common_btn1_1_png" x="389" y="706"/>
+	<e:Image source="sysprivilegesheet.sysprivilege_gengduotequan_png" x="248" y="651"/>
+	<e:Image source="commonsheet.common_point_png" x="272" y="436"/>
+	<e:Image source="commonsheet.common_point_png" x="272" y="475"/>
+	<e:Image source="commonsheet.common_point_png" x="272" y="514"/>
+	<e:Image source="commonsheet.common_point_png" x="272" y="553"/>
+	<e:Image source="commonsheet.common_point_png" x="272" y="592"/>
+	<e:Image source="sysprivilegesheet.sysprivilege_jihuotequan_png" x="418" y="733"/>
+	<ns1:Label text="Label" x="295" y="432" anchorOffsetX="0" width="369"/>
+	<ns1:Label text="Label" x="295" y="471" anchorOffsetX="0" width="369"/>
+	<ns1:Label text="Label" x="295" y="510" anchorOffsetX="0" width="369"/>
+	<ns1:Label text="Label" x="295" y="549" anchorOffsetX="0" width="369"/>
+	<ns1:Label text="Label" x="295" y="588" anchorOffsetX="0" width="369"/>
+</e:Skin>

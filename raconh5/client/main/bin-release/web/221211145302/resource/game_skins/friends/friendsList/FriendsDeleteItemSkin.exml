@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="FriendsDeleteItemSkin" width="671" height="73" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_wordBg_normal_png" left="0" right="0" top="0" bottom="0"/>
+	<ns1:Label id="_nameTxt" text="角色名字七个字" x="19" y="25" fontFamily="Microsoft YaHei" size="24" textColor="0x7c6e62"/>
+	<ns1:Label id="_lvlTxt" text="99转999级" x="293" y="25" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_offTxt" text="离线7天以上" x="465" y="25" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:CheckBox id="_cb" label="" x="604" y="12">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="friends_checkbox_normal_png" source.down="friends_checkbox_selected_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:CheckBox>
+</e:Skin>

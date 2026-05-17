@@ -1,0 +1,10 @@
+{"mc":{"lifeGriddazuo":{"frameRate":24,"events":[],"frames":[
+  {"res":"lifeGriddazuo_00000","x":61,"y":30},
+  {"res":"lifeGriddazuo_00001","x":53,"y":29},
+  {"res":"lifeGriddazuo_00002","x":52,"y":26},
+  {"res":"lifeGriddazuo_00003","x":56,"y":29}]}},
+"res":{
+  "lifeGriddazuo_00000":{"x":0,"y":0,"w":181,"h":270},
+  "lifeGriddazuo_00001":{"x":181,"y":0,"w":194,"h":271},
+  "lifeGriddazuo_00002":{"x":375,"y":0,"w":194,"h":274},
+  "lifeGriddazuo_00003":{"x":569,"y":0,"w":185,"h":271}}}

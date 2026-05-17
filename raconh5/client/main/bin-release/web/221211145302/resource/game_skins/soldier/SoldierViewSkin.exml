@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SoldierViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1606e10b6bc" ></w:Config>
+
+	<ns1:BaseVScrollerList id="_scroller" width="242" height="845" x="8" y="127" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image source="common_pnl_back1_png" x="250" y="124" anchorOffsetY="0" height="853" width="465" anchorOffsetX="0" scale9Grid="32,27,19,15"/>
+	<e:Group id="_diGroup" width="454" height="629" x="255" y="127"/>
+	<e:Image source="common_name_back_png" x="256" y="158"/>
+	<ns1:Label id="_nameTxt" text="" x="280" y="197" anchorOffsetX="0" width="37" anchorOffsetY="0" height="210" size="33" fontFamily="Microsoft YaHei" textAlign="center" verticalAlign="middle" visible="false"/>
+	<e:Image id="_nameImg" width="52" height="170" x="273" y="211"/>
+	<e:Image source="common_fighting_png" x="264" y="669"/>
+	<e:Image id="_fightImg" source="common_zhanli_png" x="327" y="677"/>
+	<e:Image source="common_di2_png" scale9Grid="10,10,63,65" x="255" y="760" anchorOffsetX="0" width="226" anchorOffsetY="0" height="190"/>
+	<e:Image source="cloak_shuxingjc_png" x="269" y="767"/>
+	<ns1:Label id="_attrTxt1" text="" x="275" y="823" anchorOffsetX="0" width="205" anchorOffsetY="0" height="34" textColor="0x7c6e62" textAlign="left"/>
+	<ns1:Label id="_attrTxt2" text="" x="275" y="860" anchorOffsetX="0" width="207" anchorOffsetY="0" height="34" textColor="0x7c6e62" textAlign="left"/>
+	<ns1:Label id="_attrTxt3" text="" x="275" y="897" anchorOffsetX="0" width="207" anchorOffsetY="0" height="34" textColor="0x7c6e62" textAlign="left"/>
+	<e:Image source="common_di2_png" scale9Grid="10,10,63,65" x="484.36" y="760" anchorOffsetX="0" width="226" anchorOffsetY="0" height="190"/>
+	<e:Image source="cloak_suoxucl_png" x="500" y="768"/>
+	<ns1:BaseGoods id="_goods" width="141" height="141" x="530" y="807" skinName="BaseGoodsSkin"/>
+
+	<ns1:Label id="_numTxt" text="" x="576" y="893" anchorOffsetY="0" height="25" textAlign="right" anchorOffsetX="0" width="63"/>
+	<ns1:Button id="_putonBtn" label="Button" x="73" y="1010">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<ns1:Button id="_activeBtn" label="Button" x="420" y="1013">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Image id="_actImg" source="common_active_png" x="449" y="1038"/>
+	<e:Image id="_putonImg" source="common_label_png" x="101" y="1037"/>
+	<e:Image id="_takeoffImg" source="common_takeoff_label_png" x="102" y="1038"/>
+	<e:Image id="_upgradeImg" source="common_upgrade_label_png" x="450" y="1039"/>
+</e:Skin>

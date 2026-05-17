@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubBFRankRewardsItemSkin" width="703" height="148" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="common_wordBg_normal_png" scale9Grid="37,30,43,35" x="0" y="0" anchorOffsetX="0" width="703" height="148"/>
+	<ns1:Label id="_txt" text="盟内积分排名第1" x="497" y="61" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei"/>
+</e:Skin>

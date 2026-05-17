@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TowerCopyWinViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="_back" source="result_bg_png" x="2" y="213" scale9Grid="89,38,535,7" height="636"/>
+
+	<e:Image source="result_title_win_png" x="124" y="143"/>
+	<ns1:Button id="_confirmBtn" label="" y="732" width="238" height="105" x="94">
+		<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+            <e:Image source="confirm_png" x="29" y="27"/>
+			</e:Skin>
+		</ns1:skinName>
+	</ns1:Button>
+	<e:Group x="392" y="709">
+		<ns1:Label id="_txt" text="倒计时3s退出" y="0" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" horizontalCenter="0" textAlign="center"/>
+		<ns1:Button id="_nextBtn" label="" y="23" width="238" height="105" x="0">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Image source="commony_label_next_png" x="29" y="27"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+	</e:Group>
+	<e:Image id="_btnClose" source="common_tip_close_png" x="639" y="231"/>
+</e:Skin>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="BaseHScrollerListSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15f5cb7188c" ></w:Config>
+	<ns1:Scroller id="scroller" x="0" anchorOffsetX="0" anchorOffsetY="0" y="0">
+		<ns1:List id="itemList" x="0" y="0">
+			<e:layout>
+				<e:HorizontalLayout horizontalAlign="center" verticalAlign="middle"/>
+			</e:layout>
+		</ns1:List>
+	</ns1:Scroller>
+</e:Skin>

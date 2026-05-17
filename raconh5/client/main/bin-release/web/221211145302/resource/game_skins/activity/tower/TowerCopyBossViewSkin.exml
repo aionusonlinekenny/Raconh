@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="TowerCopyBossViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+	<ns1:BitmapRemote id="_back" width="720" height="420" x="0" y="280"/>
+	<ns1:BitmapRemote id="_word" width="473" height="180" x="246" y="520"/>
+
+
+</e:Skin>

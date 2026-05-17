@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MaterialCheckPointItemSkin" width="125" height="180" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<w:Config id="16224a5bc03" ></w:Config>
+	<e:Image id="btn" width="60" height="152" x="22" y="25" source="material_checkPointItemBg_png"/>
+	<e:Image id="_tuijian" width="73" height="50" x="48" y="1" source="material_tuijian_png" visible="false"/>
+	<ns1:Label id="_name" text="高富帅" x="37" y="62" fontFamily="Microsoft YaHei" size="24" textAlign="center" width="30" verticalAlign="justify"/>
+	<e:Image id="_star1" width="22" height="20" x="5" y="46" source="common_star_bright_png" visible="false"/>
+	<e:Image id="_star2" width="22" height="20" x="5" y="66" source="common_star_bright_png" visible="false"/>
+	<e:Image id="_star3" width="22" height="20" x="5" y="86" source="common_star_bright_png" visible="false"/>
+	<e:Image id="_star4" width="22" height="20" x="5" y="106" source="common_star_bright_png" visible="false"/>
+	<e:Image id="_star5" width="22" height="20" x="5" y="126" source="common_star_bright_png" visible="false"/>
+	<e:Image id="_redIcon" width="35" height="35" x="56" y="36" source="common_red_icon_png" visible="false"/>
+</e:Skin>

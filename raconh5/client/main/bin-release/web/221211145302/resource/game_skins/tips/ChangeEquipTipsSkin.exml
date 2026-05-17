@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ChangeEquipTipsSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<e:Group width="238" height="334" verticalCenter="0" horizontalCenter="0">
+		<e:Image source="common_tipsBg_png" x="0" y="0" width="238" height="334" scaleX="1" scaleY="1" scale9Grid="48,48,21,17"/>
+		<e:Image source="common_title_wordBg_png" y="16" scale9Grid="55,17,103,0" width="160" horizontalCenter="0" x="39" scaleX="1" scaleY="1"/>
+		<ns1:Label text="提示" y="19" size="28" textColor="0x7c6e62" fontFamily="Microsoft YaHei" horizontalCenter="0" x="91" scaleX="1" scaleY="1"/>
+		<ns1:EquipItem id="_item" width="141" height="141" y="56" skinName="BaseGoodsSkin" horizontalCenter="0" x="67" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_itemName" text="物品名称物品" y="191" textAlign="center" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="28" horizontalCenter="0" x="35" scaleX="1" scaleY="1"/>
+		<ns1:Button id="_btn" label="" y="230" width="197" height="90" horizontalCenter="0" x="25" scaleX="1" scaleY="1">
+			<ns1:skinName>
+			<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+		<e:Image id="_img" source="tips_change_equip_png" y="248" horizontalCenter="0" x="41" scaleX="1" scaleY="1" touchEnabled="false"/>
+		<ns1:Button id="_closeBtn" label="" x="200" y="2">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_tip_close_png" source.down="common_tip_close_png"/>
+				<ns1:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+	</e:Group>
+</e:Skin>

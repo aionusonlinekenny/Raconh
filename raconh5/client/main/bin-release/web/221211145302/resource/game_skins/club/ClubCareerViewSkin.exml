@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ClubCareerViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="1605831e548" ></w:Config>
+	<e:Group id="_group" width="720" height="1280" y="0" horizontalCenter="0">
+		<ns1:BasePopUpView id="_basePopView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
+		<e:Image width="181" height="52" x="212" y="196" source="club_curCareer_png"/>
+		<ns1:Label id="_curCareer" text="无职位" x="393" y="209" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei"/>
+		<e:Image width="658" height="3" y="263" source="common_line_png" horizontalCenter="0"/>
+		<e:Image width="181" height="52" y="275" source="club_changeLife_png" horizontalCenter="0.5"/>
+		<e:Image width="22" height="22" x="203" y="342" source="common_point_png"/>
+		<e:Image width="22" height="22" x="203" y="386" source="common_point_png"/>
+		<e:Image width="22" height="22" x="203" y="430" source="common_point_png"/>
+		<ns1:Label id="_tiaojian1" text="" x="237" y="339" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_tiaojian2" text="" x="237" y="383" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_tiaojian3" text="" x="237" y="427" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+		<e:Image width="658" height="3" y="471" source="common_line_png" horizontalCenter="0"/>
+		<e:Image width="230" height="190" x="61" y="501" source="common_di2_png" scale9Grid="10,10,63,65" anchorOffsetX="0" anchorOffsetY="0"/>
+		<e:Image width="181" height="52" x="73.5" y="513" source="club_curAttr_png"/>
+		<ns1:Label id="_curAttr1" text="" x="90" y="574" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+		<ns1:Label id="_curAttr2" text="" x="90" y="609" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+		<ns1:Label id="_curAttr3" text="" x="90" y="644" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+		<e:Image width="230" height="190" x="424" y="501" source="common_di2_png" scale9Grid="10,10,63,65" anchorOffsetX="0" anchorOffsetY="0"/>
+		<e:Image width="181" height="52" x="437.5" y="513" source="club_nextAttr_png"/>
+		<ns1:Label id="_nextAttr1" text="" x="453" y="574" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+		<ns1:Label id="_nextAttr2" text="" x="453" y="609" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+		<ns1:Label id="_nextAttr3" text="" x="453" y="644" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+		<e:Image width="658" height="3" y="712" source="common_line_png" horizontalCenter="0"/>
+		<e:Image width="181" height="52" y="730" source="club_fenglu_png" horizontalCenter="0"/>
+		<ns1:Button id="_btn" label="" y="928" horizontalCenter="0">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image x="29" y="27" source="common_label_lingqu_0_png"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+
+		<e:Image width="53" height="58" y="571" source="common_arrow_png" horizontalCenter="0"/>
+		<ns1:Button id="_upgradeBtn" label="" y="928" horizontalCenter="0" visible="false">
+			<e:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image x="29" y="26" source="club_upgrade_png"/>
+				</e:Skin>
+			</e:skinName>
+		</ns1:Button>
+		<ns1:Button id="_btnGo" label="" x="470" y="355" width="191" height="85">
+			<ns1:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
+				<e:Image x="5" y="16" source="common_label_qianwang_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</ns1:skinName>
+		</ns1:Button>
+	</e:Group>
+</e:Skin>

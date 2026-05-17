@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="depotViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
+	<w:Config id="15f38d631b9" ></w:Config>
+	<e:Group x="271" y="1077">
+		<ns1:Label id="_contentTxt" text="Label" y="3" stroke="3"  strokeColor="0x5b554a" anchorOffsetX="0" width="158" anchorOffsetY="0" height="33" fontFamily="Microsoft YaHei" size="31" verticalAlign="middle" textAlign="left" x="88" textColor="0xfffade"/>
+		<e:Image source="bag_rongliang_png" x="0" y="0"/>
+	</e:Group>
+
+
+
+</e:Skin>
