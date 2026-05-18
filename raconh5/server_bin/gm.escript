@@ -89,10 +89,13 @@ main(["online"]) ->
     end;
 
 %% vip_lev is nested: role_data -> element(5)=role_ext -> element(38)=role_vip -> element(3)=level
+%% Also set vip_exp (element 4) large enough that the server won't recalculate lev back to 0.
+%% Use 100000 * Level as vip_exp so VIP10 = 1,000,000 exp.
 main(["set", RoleIdStr, "vip_lev", ValueStr]) ->
     connect(),
     RoleId = list_to_integer(RoleIdStr),
     Value  = list_to_integer(ValueStr),
+    VipExp = Value * 100000,
     case rpc:call(?NODE, ets, lookup, [role_online, RoleId]) of
         [_|_] ->
             io:format("error|player_must_be_offline~n");
@@ -100,9 +103,10 @@ main(["set", RoleIdStr, "vip_lev", ValueStr]) ->
             case rpc:call(?NODE, mnesia, dirty_read, [role_data, RoleId]) of
                 [RD] ->
                     RE    = element(5, RD),
-                    RV    = element(38, RE),
-                    NewRV = setelement(3, RV, Value),
-                    NewRE = setelement(38, RE, NewRV),
+                    RV0   = element(38, RE),
+                    RV1   = setelement(3, RV0, Value),
+                    RV2   = setelement(4, RV1, VipExp),
+                    NewRE = setelement(38, RE, RV2),
                     NewRD = setelement(5, RD, NewRE),
                     rpc:call(?NODE, mnesia, dirty_write, [NewRD]),
                     io:format("ok~n");
