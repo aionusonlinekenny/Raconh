@@ -169,7 +169,7 @@ if ($action === 'setup') {
     if ($rid && $field) {
         $out = gmSet($rid, $field, $val);
         if ($out === 'ok') {
-            $flash = ['type'=>'success','msg'=>"Updated $field = $val for RoleID $rid. Player must be offline."];
+            $flash = ['type'=>'success','msg'=>"Saved: $field = ".number_format($val)];
         } else {
             $p = explode('|', $out);
             $reason = $p[1] ?? $out;
@@ -181,7 +181,7 @@ if ($action === 'setup') {
                 $flash = ['type'=>'error','msg'=>'GM error: '.$reason];
         }
     }
-    header('Location: admin.php?tab=player'); exit;
+    header('Location: admin.php?tab=player&rid='.$rid); exit;
 
 } elseif ($action === 'update_role_field') {
     requireLogin();
