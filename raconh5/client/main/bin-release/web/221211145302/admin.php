@@ -11,6 +11,45 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'cw02_game1');
 
+// ── Erlang GM bridge ─────────────────────────────────────────────────────────
+// Path to escript.exe — adjust if Erlang is installed elsewhere
+define('ESCRIPT_EXE',  'C:\\Program Files\\erl9.0\\bin\\escript.exe');
+define('GM_ESCRIPT',   'C:\\raconh5\\server_bin\\gm.escript');
+
+function gmExec(array $args) {
+    $escript = ESCRIPT_EXE;
+    $script  = GM_ESCRIPT;
+    if (!file_exists($script)) return 'error|escript_not_found';
+    $safe = array_map('escapeshellarg', $args);
+    $cmd  = "\"$escript\" \"$script\" " . implode(' ', $safe) . ' 2>&1';
+    $out  = shell_exec($cmd);
+    return trim($out ?? '');
+}
+
+function gmGet($roleId) {
+    $out = gmExec(['get', (string)(int)$roleId]);
+    if (strpos($out, 'ok|') === 0) {
+        $p = explode('|', $out);
+        return ['lev'=>$p[1],'exp'=>$p[2],'gold'=>$p[3],'gold_bind'=>$p[4],'coin'=>$p[5],'online'=>$p[6]];
+    }
+    return null;
+}
+
+function gmFind($account) {
+    $out = gmExec(['find', $account]);
+    if (strpos($out, 'ok|') === 0) {
+        $p = explode('|', $out);
+        return ['id'=>$p[1],'name'=>$p[2],'lev'=>$p[3]];
+    }
+    return null;
+}
+
+function gmSet($roleId, $field, $value) {
+    $allowed = ['lev','exp','gold','gold_bind','coin'];
+    if (!in_array($field, $allowed)) return 'error|invalid_field';
+    return gmExec(['set', (string)(int)$roleId, $field, (string)(int)$value]);
+}
+
 // ── DB ───────────────────────────────────────────────────────────────────────
 
 function getDB() {
@@ -121,6 +160,28 @@ if ($action === 'setup') {
         $flash=['type'=>'error','msg'=>'Cannot delete the last admin.'];
     else { getDB()->prepare('DELETE FROM web_admins WHERE id=?')->execute([$id]);
            header('Location: admin.php?tab=admins&ok=deleted'); exit; }
+
+} elseif ($action === 'gm_set_stat') {
+    requireLogin();
+    $rid   = (int)($_POST['rid']   ?? 0);
+    $field = $_POST['field'] ?? '';
+    $val   = (int)($_POST['value'] ?? 0);
+    if ($rid && $field) {
+        $out = gmSet($rid, $field, $val);
+        if ($out === 'ok') {
+            $flash = ['type'=>'success','msg'=>"Updated $field = $val for RoleID $rid. Player must be offline."];
+        } else {
+            $p = explode('|', $out);
+            $reason = $p[1] ?? $out;
+            if ($reason === 'player_must_be_offline')
+                $flash = ['type'=>'error','msg'=>'Player is currently online — log out first, then edit.'];
+            elseif ($reason === 'escript_not_found')
+                $flash = ['type'=>'error','msg'=>'gm.escript not found. Copy it to C:\\raconh5\\server_bin\\'];
+            else
+                $flash = ['type'=>'error','msg'=>'GM error: '.$reason];
+        }
+    }
+    header('Location: admin.php?tab=player'); exit;
 
 } elseif ($action === 'update_role_field') {
     requireLogin();
@@ -247,6 +308,21 @@ if (isLoggedIn()) {
             }
         }
 
+        // ── GM stat editor (lookup by account or direct role ID) ──
+        $gmRoleId   = (int)($_GET['rid'] ?? 0);
+        $gmStats    = null;
+        $gmFoundRole = null;
+        if ($gmRoleId) {
+            $gmStats = gmGet($gmRoleId);
+        } elseif ($playerSearch) {
+            // Try to find role ID by account name via escript
+            $found = gmFind($playerSearch);
+            if ($found) {
+                $gmFoundRole = $found;
+                $gmRoleId    = (int)$found['id'];
+                $gmStats     = gmGet($gmRoleId);
+            }
+        }
     }
 
     // ── Game DB tab ──
@@ -489,143 +565,116 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
     <!-- ══ PLAYER STATS ══ -->
     <div class="tab-panel <?=$activeTab==='player'?'active':''?>">
       <div class="page-title">⚔ Player Stats</div>
-      <div class="page-sub">View player activity from game logs. Search by account or character name.</div>
-
-      <div class="alert alert-info" style="margin-bottom:18px">
-        <strong>Architecture note:</strong> This game stores live player data in <strong>Erlang Mnesia</strong> (in-memory database),
-        not in MySQL columns. Direct SQL editing of stats (gold, VIP, level) is not possible here.
-        Use the <strong>GM Console</strong> section below to modify stats via Erlang commands.
-      </div>
+      <div class="page-sub">Search by account name to view and edit Mnesia stats. Player must be <strong>offline</strong> to save changes.</div>
 
       <!-- Search form -->
-      <form method="GET" class="search-box">
+      <form method="GET" class="search-box" style="margin-bottom:20px">
         <input type="hidden" name="tab" value="player">
         <input type="search" name="search" value="<?=htmlspecialchars($playerSearch)?>"
-               placeholder="Search account or character name..." autofocus style="flex:1;max-width:400px">
-        <button type="submit" class="btn btn-gold">Search</button>
-        <?php if($playerSearch): ?>
-          <a href="admin.php?tab=player" class="btn btn-gray">Clear</a>
-        <?php endif; ?>
+               placeholder="Account name (e.g. Kenny, clientName)…" autofocus style="flex:1;max-width:380px">
+        <button type="submit" class="btn btn-gold">Load Stats</button>
+        <?php if($playerSearch): ?><a href="admin.php?tab=player" class="btn btn-gray">Clear</a><?php endif; ?>
       </form>
 
-      <!-- Registration log table -->
-      <?php if(!$hasLogReg): ?>
-        <p style="color:#806040;font-size:13px">Table <code>t_log_register</code> not found — start the game server and have at least one player log in.</p>
-      <?php elseif(empty($logRegRows)): ?>
-        <p style="color:#506080;font-size:13px">No registration records found<?=$playerSearch?' for "'.htmlspecialchars($playerSearch).'"':''?>.</p>
-      <?php else: ?>
-        <div style="font-size:13px;font-weight:600;color:#c0c8e0;margin-bottom:8px">
-          <?=$playerSearch?'Search results in':'Recent registrations from'?> <code style="color:#d0a040">t_log_register</code>
-          <span style="font-size:11px;color:#506080;font-weight:400;margin-left:8px">(<?=count($logRegRows)?> row<?=count($logRegRows)!=1?'s':''?>)</span>
+      <!-- ── Stat editor (shown when gmStats loaded) ── -->
+      <?php if($gmStats): ?>
+        <?php $online = (int)$gmStats['online']; ?>
+        <div class="player-card" style="margin-bottom:20px">
+          <div class="player-name">
+            <?=htmlspecialchars($gmFoundRole['name'] ?? $playerSearch)?>
+            <?php if($online): ?>
+              <span style="font-size:12px;background:rgba(60,200,80,.15);border:1px solid rgba(60,200,80,.4);color:#60d070;padding:2px 9px;border-radius:10px;margin-left:8px">● Online</span>
+            <?php else: ?>
+              <span style="font-size:12px;background:rgba(100,100,100,.2);border:1px solid rgba(160,160,160,.3);color:#8090a0;padding:2px 9px;border-radius:10px;margin-left:8px">○ Offline</span>
+            <?php endif; ?>
+          </div>
+          <div class="player-meta">
+            Account: <strong><?=htmlspecialchars($playerSearch)?></strong>
+            &nbsp;|&nbsp; Role ID: <code><?=$gmRoleId?></code>
+            &nbsp;|&nbsp; Level: <?=$gmStats['lev']?>
+            &nbsp;|&nbsp; EXP: <?=number_format($gmStats['exp'])?>
+          </div>
+
+          <?php if($online): ?>
+            <div class="alert alert-error" style="margin-top:14px;margin-bottom:0">
+              ⚠ Player is currently <strong>online</strong>. Have them log out first, then reload this page to edit stats.
+            </div>
+          <?php else: ?>
+          <!-- Stat edit grid -->
+          <div class="stat-grid" style="margin-top:16px">
+            <?php
+              $fields = [
+                'lev'       => ['Level',        $gmStats['lev']],
+                'exp'       => ['EXP',           $gmStats['exp']],
+                'gold'      => ['Gold (元宝)',    $gmStats['gold']],
+                'gold_bind' => ['Bound Gold (绑元)', $gmStats['gold_bind']],
+                'coin'      => ['Coin (铜钱)',    $gmStats['coin']],
+              ];
+            ?>
+            <?php foreach($fields as $fkey => [$flabel, $fval]): ?>
+            <div class="stat-item editable">
+              <div class="stat-label"><?=htmlspecialchars($flabel)?></div>
+              <div class="stat-value"><?=number_format((int)$fval)?></div>
+              <form method="POST" class="edit-row-inline">
+                <input type="hidden" name="action" value="gm_set_stat">
+                <input type="hidden" name="rid"   value="<?=$gmRoleId?>">
+                <input type="hidden" name="field" value="<?=$fkey?>">
+                <input type="number" name="value" value="<?=(int)$fval?>" min="0" style="width:100%">
+                <button type="submit" class="btn btn-green btn-sm">Save</button>
+              </form>
+            </div>
+            <?php endforeach; ?>
+          </div>
+          <?php endif; ?>
         </div>
-        <div class="table-wrap" style="margin-bottom:20px">
+
+      <?php elseif($playerSearch): ?>
+        <?php if(!file_exists('C:\\raconh5\\server_bin\\gm.escript')): ?>
+          <div class="alert alert-error">
+            <strong>gm.escript not found.</strong> Copy <code>gm.escript</code> from the repo to <code>C:\raconh5\server_bin\gm.escript</code> and make sure escript.exe path in admin.php is correct.
+          </div>
+        <?php else: ?>
+          <p style="color:#806040;font-size:13px">Account "<strong><?=htmlspecialchars($playerSearch)?></strong>" not found in Mnesia. Check the account name spelling.</p>
+        <?php endif; ?>
+      <?php else: ?>
+        <p style="color:#506080;font-size:13px">Enter an account name above to load live stats from Mnesia.</p>
+      <?php endif; ?>
+
+      <!-- ── Registration log ── -->
+      <?php if(!empty($logRegRows)): ?>
+      <details style="margin-top:18px">
+        <summary style="font-size:13px;color:#6070a0;cursor:pointer;padding:8px 0">
+          📋 Recent registrations (t_log_register) — <?=count($logRegRows)?> rows
+        </summary>
+        <div class="table-wrap" style="margin-top:8px">
           <table>
             <thead><tr><?php foreach($logRegCols as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
             <tbody>
             <?php foreach($logRegRows as $lr): ?>
-              <tr>
-                <?php foreach($lr as $v): ?>
-                  <td style="font-size:12px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"
-                      title="<?=htmlspecialchars((string)$v)?>">
-                    <?=htmlspecialchars(strlen((string)$v)>30?substr((string)$v,0,28).'…':(string)$v)?>
-                  </td>
-                <?php endforeach; ?>
-              </tr>
+              <tr><?php foreach($lr as $v): ?>
+                <td style="font-size:12px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"
+                    title="<?=htmlspecialchars((string)$v)?>"><?=htmlspecialchars(strlen((string)$v)>28?substr((string)$v,0,26).'…':(string)$v)?></td>
+              <?php endforeach; ?></tr>
             <?php endforeach; ?>
             </tbody>
           </table>
         </div>
+      </details>
       <?php endif; ?>
 
-      <!-- Level activity log (only shown when searching) -->
-      <?php if($playerSearch && $hasLogLv && !empty($logLvlRows)): ?>
-        <div style="font-size:13px;font-weight:600;color:#c0c8e0;margin-bottom:8px">
-          Recent level-ups from <code style="color:#d0a040">t_log_level</code>
+      <!-- ── Setup instructions ── -->
+      <details style="margin-top:18px">
+        <summary style="font-size:13px;color:#507050;cursor:pointer;padding:8px 0">🖥 Setup: enable the stat editor (gm.escript)</summary>
+        <div style="background:rgba(20,40,20,.4);border:1px solid rgba(60,160,80,.2);border-radius:8px;padding:16px;margin-top:8px;font-size:12px;color:#7a9070">
+          <strong>1.</strong> Copy <code>gm.escript</code> (from repo <code>raconh5/server_bin/</code>) to <code>C:\raconh5\server_bin\gm.escript</code><br><br>
+          <strong>2.</strong> Find your <code>escript.exe</code> — usually at:<br>
+          <code>C:\Program Files\erl9.0\bin\escript.exe</code><br><br>
+          <strong>3.</strong> Edit the two constants at the top of <code>admin.php</code>:<br>
+          <code>define('ESCRIPT_EXE', 'C:\\Program Files\\erl9.0\\bin\\escript.exe');</code><br>
+          <code>define('GM_ESCRIPT',  'C:\\raconh5\\server_bin\\gm.escript');</code><br><br>
+          <strong>4.</strong> Make sure PHP's <code>shell_exec</code> is not disabled in <code>php.ini</code> (check <code>disable_functions</code>).
         </div>
-        <div class="table-wrap" style="margin-bottom:20px">
-          <table>
-            <thead><tr><?php foreach(array_keys($logLvlRows[0]) as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
-            <tbody>
-            <?php foreach($logLvlRows as $lr): ?>
-              <tr><?php foreach($lr as $v): ?><td style="font-size:12px"><?=htmlspecialchars(strlen((string)$v)>28?substr((string)$v,0,26).'…':(string)$v)?></td><?php endforeach; ?></tr>
-            <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-      <?php endif; ?>
-
-      <!-- Gold activity log (only shown when searching) -->
-      <?php if($playerSearch && $hasLogGold && !empty($logGoldRows)): ?>
-        <div style="font-size:13px;font-weight:600;color:#c0c8e0;margin-bottom:8px">
-          Recent gold gains from <code style="color:#d0a040">t_log_gold_add</code>
-        </div>
-        <div class="table-wrap" style="margin-bottom:20px">
-          <table>
-            <thead><tr><?php foreach(array_keys($logGoldRows[0]) as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
-            <tbody>
-            <?php foreach($logGoldRows as $lr): ?>
-              <tr><?php foreach($lr as $v): ?><td style="font-size:12px"><?=htmlspecialchars(strlen((string)$v)>28?substr((string)$v,0,26).'…':(string)$v)?></td><?php endforeach; ?></tr>
-            <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-      <?php endif; ?>
-
-      <!-- GM Console section -->
-      <div style="background:rgba(20,40,20,.4);border:1px solid rgba(60,160,80,.25);border-radius:10px;padding:20px;margin-top:10px">
-        <div style="font-size:15px;font-weight:700;color:#80d090;margin-bottom:6px">🖥 GM Console — Modify Player Stats</div>
-        <p style="font-size:12px;color:#6a8070;margin-bottom:14px">
-          Since player data lives in Erlang Mnesia, use the Erlang remote shell to run GM commands.
-          The server node is <code style="color:#a0d0a0">newserver@127.0.0.1</code> with cookie <code style="color:#a0d0a0">stupidcat</code>.
-        </p>
-
-        <div style="margin-bottom:14px">
-          <div style="font-size:12px;color:#80a080;margin-bottom:6px">1. Open <strong>CMD</strong> and connect to the running game server:</div>
-          <pre style="background:rgba(0,0,0,.5);border:1px solid rgba(60,160,80,.2);border-radius:6px;padding:10px 14px;font-size:12px;color:#b0e0b0;overflow-x:auto">werl.exe -name admin@127.0.0.1 -setcookie stupidcat -remsh newserver@127.0.0.1</pre>
-          <div style="font-size:11px;color:#506050;margin-top:4px">Run from: <code>C:\raconh5\server_bin\</code> &nbsp;(where erl.exe / werl.exe lives)</div>
-        </div>
-
-        <div style="margin-bottom:14px">
-          <div style="font-size:12px;color:#80a080;margin-bottom:6px">2. Useful commands in the Erlang shell:</div>
-          <pre style="background:rgba(0,0,0,.5);border:1px solid rgba(60,160,80,.2);border-radius:6px;padding:10px 14px;font-size:12px;color:#b0e0b0;overflow-x:auto">%% List all online players (returns list of role records)
-role_online_mgr:tab2list().
-
-%% Get role base info by account name
-web_role:get_base_by_acc(&lt;&lt;"AccountName"&gt;&gt;).
-
-%% Get role base info by character name
-web_role:get_base_by_name(&lt;&lt;"CharName"&gt;&gt;).
-
-%% Get role base info by role ID
-web_role:get_base_by_id(RoleId).
-
-%% Set player level  (RoleId = integer, Level = integer)
-cmd_role:fun_set_lev(RoleId, Level).
-
-%% Set gold (bound diamond)
-cmd_role:fun_set_gold(RoleId, Amount).
-
-%% Set bound gold
-cmd_role:fun_set_bind_gold(RoleId, Amount).
-
-%% Set silver coins
-cmd_role:fun_set_coin(RoleId, Amount).
-
-%% Set honor points
-cmd_role:fun_set_honor(RoleId, Amount).
-
-%% List all available GM command modules
-admin_rpc:get_cmds().
-
-%% Kick a player offline
-admin_role:kickoff(RoleId).</pre>
-        </div>
-
-        <div style="font-size:11px;color:#507050;padding:8px 12px;background:rgba(0,0,0,.3);border-radius:5px">
-          <strong>Note:</strong> GM commands require <code>{is_gm_cmd, true}</code> in <code>game.app</code> — already enabled in your config.
-          RoleId is the numeric ID shown in the logs above. Type <code>q().</code> to exit the shell.
-        </div>
-      </div>
+      </details>
     </div>
 
     <!-- ══ ADMINS ══ -->
