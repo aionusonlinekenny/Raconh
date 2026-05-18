@@ -586,27 +586,39 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
         </div>
 
         <div style="margin-bottom:14px">
-          <div style="font-size:12px;color:#80a080;margin-bottom:6px">2. Useful GM commands in the Erlang shell:</div>
-          <pre style="background:rgba(0,0,0,.5);border:1px solid rgba(60,160,80,.2);border-radius:6px;padding:10px 14px;font-size:12px;color:#b0e0b0;overflow-x:auto">%% List all online players
-role_mgr:get_all_online_role().
+          <div style="font-size:12px;color:#80a080;margin-bottom:6px">2. Useful commands in the Erlang shell:</div>
+          <pre style="background:rgba(0,0,0,.5);border:1px solid rgba(60,160,80,.2);border-radius:6px;padding:10px 14px;font-size:12px;color:#b0e0b0;overflow-x:auto">%% List all online players (returns list of role records)
+role_online_mgr:tab2list().
 
-%% Add gold to player (by RoleId)
-gm_cmd:add_gold(RoleId, Amount).
+%% Get role base info by account name
+web_role:get_base_by_acc(&lt;&lt;"AccountName"&gt;&gt;).
 
-%% Add VIP EXP / set VIP level
-gm_cmd:add_vip_exp(RoleId, Amount).
+%% Get role base info by character name
+web_role:get_base_by_name(&lt;&lt;"CharName"&gt;&gt;).
 
-%% Set player level
-gm_cmd:set_level(RoleId, Level).
+%% Get role base info by role ID
+web_role:get_base_by_id(RoleId).
 
-%% Add bound diamond
-gm_cmd:add_bind_money(RoleId, Amount).
+%% Set player level  (RoleId = integer, Level = integer)
+cmd_role:fun_set_lev(RoleId, Level).
 
-%% Reload server config (no restart needed)
-config_server:reload().
+%% Set gold (bound diamond)
+cmd_role:fun_set_gold(RoleId, Amount).
 
-%% Get role info by account name
-role_mgr:get_role_by_account(&lt;&lt;"AccountName"&gt;&gt;).</pre>
+%% Set bound gold
+cmd_role:fun_set_bind_gold(RoleId, Amount).
+
+%% Set silver coins
+cmd_role:fun_set_coin(RoleId, Amount).
+
+%% Set honor points
+cmd_role:fun_set_honor(RoleId, Amount).
+
+%% List all available GM command modules
+admin_rpc:get_cmds().
+
+%% Kick a player offline
+admin_role:kickoff(RoleId).</pre>
         </div>
 
         <div style="font-size:11px;color:#507050;padding:8px 12px;background:rgba(0,0,0,.3);border-radius:5px">
