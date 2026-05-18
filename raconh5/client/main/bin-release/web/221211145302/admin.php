@@ -213,47 +213,40 @@ if (isLoggedIn()) {
 
     // ── Player tab ──
     if ($activeTab === 'player') {
-        // Auto-detect the role table: try common names, pick the first with 'account' or 'name' column
-        $roleTableCandidates = ['t_role','role','t_roles','roles','player','t_player','game_role'];
-        $roleTable = $_GET['rtbl'] ?? '';
-        $roleTable = safeName($roleTable);
+        try {
+            $allTables = $db->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
+        } catch (PDOException $e) { $allTables = []; }
+
+        // Auto-detect role table: scan all tables for useful columns
+        $roleTableCandidates = ['t_role','role','t_roles','roles','player','t_player','game_role','t_role_data'];
+        $roleTable = safeName($_GET['rtbl'] ?? '');
+        $rolePK    = 'rid';
 
         if (!$roleTable) {
-            // Scan all tables for the one that has columns: account OR name + level
-            try {
-                $allTables = $db->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
-            } catch (PDOException $e) { $allTables = []; }
-
+            // First try known candidate names
             foreach ($roleTableCandidates as $candidate) {
-                if (in_array($candidate, $allTables)) {
-                    $desc = safeQuery("DESCRIBE `$candidate`");
-                    if (!isset($desc['__error__'])) {
-                        $flds = array_column($desc, 'Field');
-                        if (in_array('account', $flds) || in_array('name', $flds)) {
-                            $roleTable = $candidate;
-                            break;
-                        }
-                    }
+                if (!in_array($candidate, $allTables)) continue;
+                $desc = safeQuery("DESCRIBE `$candidate`");
+                if (isset($desc['__error__'])) continue;
+                $flds = array_column($desc, 'Field');
+                if (in_array('account', $flds) || in_array('name', $flds)) {
+                    $roleTable = $candidate; break;
                 }
             }
-            // If still not found, scan all tables for account column
+            // Fallback: scan every non-log table for account+name
             if (!$roleTable) {
                 foreach ($allTables as $tbl) {
-                    if (strpos($tbl, 'log') !== false) continue; // skip log tables
+                    if (stripos($tbl, 'log') !== false || stripos($tbl, 'web_') === 0) continue;
                     $desc = safeQuery("DESCRIBE `$tbl`");
-                    if (!isset($desc['__error__'])) {
-                        $flds = array_column($desc, 'Field');
-                        if (in_array('account', $flds) && in_array('name', $flds)) {
-                            $roleTable = $tbl;
-                            break;
-                        }
+                    if (isset($desc['__error__'])) continue;
+                    $flds = array_column($desc, 'Field');
+                    if (in_array('account', $flds) || in_array('name', $flds)) {
+                        $roleTable = $tbl; break;
                     }
                 }
             }
         }
 
-        // Find PK for the role table
-        $rolePK = 'rid';
         if ($roleTable) {
             $cols = safeQuery("DESCRIBE `$roleTable`");
             if (!isset($cols['__error__'])) {
@@ -264,26 +257,40 @@ if (isLoggedIn()) {
             }
         }
 
-        if ($playerSearch !== '' && $roleTable) {
-            // Build WHERE based on available columns
-            $whereParts = []; $wParams = [];
-            foreach (['account','name','nick_name','nickname'] as $wc) {
-                if (in_array($wc, $playerColumns)) {
-                    $whereParts[] = "`$wc`=?";
-                    $wParams[] = $playerSearch;
+        // ── Registered accounts from log tables ──────────────────────────────
+        // t_log_register has account info even before t_role is flushed
+        $logRegCols   = [];
+        $logRegRows   = [];
+        $hasLogReg    = in_array('t_log_register', $allTables);
+        $hasLogLogin  = in_array('t_log_login', $allTables);
+        if ($hasLogReg) {
+            $lrc = safeQuery("DESCRIBE `t_log_register`");
+            if (!isset($lrc['__error__'])) $logRegCols = array_column($lrc, 'Field');
+            if ($playerSearch !== '') {
+                $parts=[]; $prms=[];
+                foreach (['account','name','nick_name','role_name'] as $c) {
+                    if(in_array($c,$logRegCols)){$parts[]="`$c`=?";$prms[]=$playerSearch;}
                 }
+                if($parts) $logRegRows = safeQuery("SELECT * FROM t_log_register WHERE ".implode(' OR ',$parts)." LIMIT 10",$prms);
+                else       $logRegRows = safeQuery("SELECT * FROM t_log_register ORDER BY id DESC LIMIT 10");
+            } else {
+                $logRegRows = safeQuery("SELECT * FROM t_log_register ORDER BY id DESC LIMIT 20");
+            }
+            if (isset($logRegRows['__error__'])) $logRegRows = [];
+        }
+
+        // ── t_role search (only when table exists) ────────────────────────────
+        if ($playerSearch !== '' && $roleTable && $playerColumns) {
+            $whereParts=[]; $wParams=[];
+            foreach (['account','name','nick_name','nickname'] as $wc) {
+                if(in_array($wc,$playerColumns)){$whereParts[]="`$wc`=?";$wParams[]=$playerSearch;}
             }
             if ($whereParts) {
-                $playerResults = safeQuery(
-                    "SELECT * FROM `$roleTable` WHERE ".implode(' OR ', $whereParts)." LIMIT 20",
-                    $wParams
-                );
-            } else {
-                $playerResults = safeQuery("SELECT * FROM `$roleTable` LIMIT 20");
+                $playerResults = safeQuery("SELECT * FROM `$roleTable` WHERE ".implode(' OR ',$whereParts)." LIMIT 20",$wParams);
             }
             if (isset($playerResults['__error__'])) {
-                $flash = ['type'=>'error', 'msg'=>'Query error: '.$playerResults['__error__']];
-                $playerResults = [];
+                $flash=['type'=>'error','msg'=>'Query error: '.$playerResults['__error__']];
+                $playerResults=[];
             }
         }
         if ($playerEditRid > 0 && $roleTable) {
@@ -561,12 +568,33 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           <?php endforeach; ?>
         </div>
         <?php else: ?>
-        <p style="color:#804040;font-size:13px">No tables found in <code><?=DB_NAME?></code>. Is the game server running?</p>
+        <p style="color:#804040;font-size:13px">No tables found in <code><?=DB_NAME?></code>. Is MySQL running?</p>
         <?php endif; ?>
+
+        <!-- ── Log Register table: always show even when t_role missing ── -->
+        <?php if($hasLogReg && !empty($logRegRows)): ?>
+        <div style="margin-top:20px">
+          <div style="font-size:14px;font-weight:600;color:#c8d0e0;margin-bottom:8px">
+            📋 Recent registrations from <code>t_log_register</code>
+            <span style="font-size:11px;color:#506080;font-weight:400;margin-left:8px">
+              (t_role will appear after server restart / player saves)
+            </span>
+          </div>
+          <div class="table-wrap"><table>
+            <thead><tr><?php foreach($logRegCols as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
+            <tbody>
+            <?php foreach($logRegRows as $lr): ?>
+            <tr><?php foreach($lr as $v): ?><td style="font-size:12px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="<?=htmlspecialchars((string)$v)?>"><?=htmlspecialchars(strlen((string)$v)>30?substr((string)$v,0,28).'…':(string)$v)?></td><?php endforeach; ?></tr>
+            <?php endforeach; ?>
+            </tbody>
+          </table></div>
+        </div>
+        <?php endif; ?>
+
       <?php else: ?>
       <div style="font-size:12px;color:#507090;margin-bottom:14px">
         Using table: <code style="color:#d0a040"><?=htmlspecialchars($roleTable)?></code>
-        (<?=count($playerColumns)?> columns)
+        (<?=count($playerColumns)?> columns, PK: <code><?=htmlspecialchars($rolePK)?></code>)
         &nbsp;<a href="admin.php?tab=player" style="color:#406080;font-size:11px">auto-detect again</a>
       </div>
       <form method="GET" class="search-box">
@@ -579,6 +607,17 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
 
       <?php if($playerSearch && empty($playerResults)): ?>
         <p style="color:#506080">No player found for "<?=htmlspecialchars($playerSearch)?>".</p>
+      <?php endif; ?>
+
+      <!-- log register sidebar -->
+      <?php if($hasLogReg && !empty($logRegRows) && empty($playerResults)): ?>
+      <div style="margin-top:16px;padding:14px;background:rgba(40,60,20,.2);border:1px solid rgba(100,160,60,.2);border-radius:8px">
+        <div style="font-size:12px;color:#80a060;margin-bottom:8px">📋 Recent registrations (from <code>t_log_register</code>):</div>
+        <div class="table-wrap" style="max-height:200px"><table>
+          <thead><tr><?php foreach($logRegCols as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
+          <tbody><?php foreach($logRegRows as $lr): ?><tr><?php foreach($lr as $v): ?><td style="font-size:12px"><?=htmlspecialchars(strlen((string)$v)>25?substr((string)$v,0,23).'…':(string)$v)?></td><?php endforeach; ?></tr><?php endforeach; ?></tbody>
+        </table></div>
+      </div>
       <?php endif; ?>
 
       <?php foreach($playerResults as $role): ?>
