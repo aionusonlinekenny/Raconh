@@ -568,13 +568,27 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
       <div class="page-sub">Search by account name to view and edit Mnesia stats. Player must be <strong>offline</strong> to save changes.</div>
 
       <!-- Search form -->
-      <form method="GET" class="search-box" style="margin-bottom:20px">
-        <input type="hidden" name="tab" value="player">
-        <input type="search" name="search" value="<?=htmlspecialchars($playerSearch)?>"
-               placeholder="Account name (e.g. Kenny, clientName)…" autofocus style="flex:1;max-width:380px">
-        <button type="submit" class="btn btn-gold">Load Stats</button>
-        <?php if($playerSearch): ?><a href="admin.php?tab=player" class="btn btn-gray">Clear</a><?php endif; ?>
-      </form>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;align-items:flex-end">
+        <form method="GET" style="display:flex;gap:8px;align-items:center">
+          <input type="hidden" name="tab" value="player">
+          <div>
+            <div style="font-size:11px;color:#6070a0;margin-bottom:4px">Account name</div>
+            <input type="search" name="search" value="<?=htmlspecialchars($playerSearch)?>"
+                   placeholder="e.g. clientName, Kenny…" style="width:220px;padding:9px 12px;font-size:13px">
+          </div>
+          <button type="submit" class="btn btn-gold" style="margin-top:14px">Load</button>
+          <?php if($playerSearch): ?><a href="admin.php?tab=player" class="btn btn-gray" style="margin-top:14px">✕</a><?php endif; ?>
+        </form>
+        <form method="GET" style="display:flex;gap:8px;align-items:center">
+          <input type="hidden" name="tab" value="player">
+          <div>
+            <div style="font-size:11px;color:#6070a0;margin-bottom:4px">Role ID (direct)</div>
+            <input type="number" name="rid" value="<?=$gmRoleId?:''?>"
+                   placeholder="e.g. 100010000012" style="width:200px;padding:9px 12px;font-size:13px">
+          </div>
+          <button type="submit" class="btn btn-blue" style="margin-top:14px">Load</button>
+        </form>
+      </div>
 
       <!-- ── Stat editor (shown when gmStats loaded) ── -->
       <?php if($gmStats): ?>

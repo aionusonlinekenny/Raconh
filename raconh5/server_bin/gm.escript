@@ -47,18 +47,25 @@ main(["get", RoleIdStr]) ->
 main(["find", AccountStr]) ->
     connect(),
     Account = list_to_binary(AccountStr),
-    All = rpc:call(?NODE, mnesia, dirty_match_object, [
-        role_base, {role_base,'_','_','_',Account,'_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'}
+    Res = rpc:call(?NODE, mnesia, dirty_foldl, [
+        fun(RB, Acc) ->
+            case element(5, RB) =:= Account of
+                true  -> [RB | Acc];
+                false -> Acc
+            end
+        end,
+        [],
+        role_base
     ]),
-    case All of
-        [RB|_] ->
+    case Res of
+        [RB|_] when is_tuple(RB) ->
             Id   = element(2, RB),
             Name = element(6, RB),
             Lev  = element(12, RB),
             io:format("ok|~B|~ts|~B~n", [Id, Name, Lev]);
         [] ->
             io:format("error|not_found~n");
-        {badrpc, _} ->
+        _ ->
             io:format("error|rpc_failed~n")
     end;
 
@@ -107,6 +114,22 @@ main(["set", RoleIdStr, Field, ValueStr]) ->
             {error, Reason} -> io:format("error|~p~n", [Reason]);
             _               -> io:format("error|rpc_failed~n")
         end
+    end;
+
+main(["fields", RoleIdStr]) ->
+    %% Dump all field values of role_base with positions — helps find VIP etc.
+    connect(),
+    RoleId = list_to_integer(RoleIdStr),
+    case rpc:call(?NODE, mnesia, dirty_read, [role_data, RoleId]) of
+        [RD] ->
+            RB = element(4, RD),
+            Size = tuple_size(RB),
+            lists:foreach(fun(I) ->
+                Val = element(I, RB),
+                io:format("~B|~p~n", [I, Val])
+            end, lists:seq(1, Size));
+        _ ->
+            io:format("error|not_found~n")
     end;
 
 main(_) ->
