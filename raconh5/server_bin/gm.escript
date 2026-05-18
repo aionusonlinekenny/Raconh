@@ -14,6 +14,7 @@ field_pos("exp")       -> 23;
 field_pos("gold")      -> 24;
 field_pos("gold_bind") -> 25;
 field_pos("coin")      -> 28;
+field_pos("vip_lev")   -> 39;
 field_pos(_)           -> 0.
 
 connect() ->
@@ -31,13 +32,14 @@ main(["get", RoleIdStr]) ->
             Online = case rpc:call(?NODE, ets, lookup, [role_online, RoleId]) of
                 [] -> 0; _ -> 1
             end,
-            %% ok|lev|exp|gold|gold_bind|coin|is_online
-            io:format("ok|~B|~B|~B|~B|~B|~B~n", [
+            %% ok|lev|exp|gold|gold_bind|coin|vip_lev|is_online
+            io:format("ok|~B|~B|~B|~B|~B|~B|~B~n", [
                 element(12, RB),
                 element(23, RB),
                 element(24, RB),
                 element(25, RB),
                 element(28, RB),
+                element(39, RB),
                 Online
             ]);
         _ ->

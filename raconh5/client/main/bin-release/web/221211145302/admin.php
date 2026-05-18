@@ -37,7 +37,7 @@ function gmGet($roleId) {
     $out = gmExec(['get', (string)(int)$roleId]);
     if (strpos($out, 'ok|') === 0) {
         $p = explode('|', $out);
-        return ['lev'=>$p[1],'exp'=>$p[2],'gold'=>$p[3],'gold_bind'=>$p[4],'coin'=>$p[5],'online'=>$p[6]];
+        return ['lev'=>$p[1],'exp'=>$p[2],'gold'=>$p[3],'gold_bind'=>$p[4],'coin'=>$p[5],'vip_lev'=>$p[6],'online'=>$p[7]];
     }
     return null;
 }
@@ -52,7 +52,7 @@ function gmFind($account) {
 }
 
 function gmSet($roleId, $field, $value) {
-    $allowed = ['lev','exp','gold','gold_bind','coin'];
+    $allowed = ['lev','exp','gold','gold_bind','coin','vip_lev'];
     if (!in_array($field, $allowed)) return 'error|invalid_field';
     return gmExec(['set', (string)(int)$roleId, $field, (string)(int)$value]);
 }
@@ -626,11 +626,12 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           <div class="stat-grid" style="margin-top:16px">
             <?php
               $fields = [
-                'lev'       => ['Level',        $gmStats['lev']],
-                'exp'       => ['EXP',           $gmStats['exp']],
-                'gold'      => ['Gold (元宝)',    $gmStats['gold']],
-                'gold_bind' => ['Bound Gold (绑元)', $gmStats['gold_bind']],
-                'coin'      => ['Coin (铜钱)',    $gmStats['coin']],
+                'lev'       => ['Level',             $gmStats['lev']],
+                'exp'       => ['EXP',                $gmStats['exp']],
+                'gold'      => ['Gold (元宝)',         $gmStats['gold']],
+                'gold_bind' => ['Bound Gold (绑元)',   $gmStats['gold_bind']],
+                'coin'      => ['Coin (铜钱)',         $gmStats['coin']],
+                'vip_lev'   => ['VIP Level',           $gmStats['vip_lev']],
               ];
             ?>
             <?php foreach($fields as $fkey => [$flabel, $fval]): ?>
