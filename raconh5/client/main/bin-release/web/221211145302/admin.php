@@ -174,33 +174,7 @@ $dbSearch=trim($_GET['search']??'');
 $dbSelTbl=safeName($_GET['tbl']??'');
 
 // Player tab
-$playerSearch   = trim($_GET['search'] ?? '');
-$playerResults  = [];
-$playerColumns  = [];
-$playerEditRow  = null;
-$playerEditRid  = (int)($_GET['rid'] ?? 0);
-
-// Known stat columns for t_role — labels for humans
-$STAT_LABELS = [
-    'level'     => 'Level',
-    'exp'       => 'EXP',
-    'career'    => 'Class (1=Sword 2=Archer 3=Mage)',
-    'gold'      => 'Gold (bound diamond)',
-    'coin'      => 'Silver Coins',
-    'charge'    => 'Charged Diamond',
-    'bind'      => 'Bound Currency',
-    'vip'       => 'VIP Level',
-    'vip_exp'   => 'VIP EXP',
-    'power'     => 'Battle Power',
-    'hp'        => 'HP',
-    'fight_power'=> 'Fight Power',
-    'status'    => 'Status (0=normal 1=banned)',
-    'stamina'   => 'Stamina',
-    'score'     => 'Score',
-    'point'     => 'Points',
-    'rank'      => 'Rank',
-    'ban'       => 'Ban (0=no 1=yes)',
-];
+$playerSearch = trim($_GET['search'] ?? '');
 
 if (isLoggedIn()) {
     $db = getDB();
@@ -217,86 +191,62 @@ if (isLoggedIn()) {
             $allTables = $db->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
         } catch (PDOException $e) { $allTables = []; }
 
-        // Auto-detect role table: scan all tables for useful columns
-        $roleTableCandidates = ['t_role','role','t_roles','roles','player','t_player','game_role','t_role_data'];
-        $roleTable = safeName($_GET['rtbl'] ?? '');
-        $rolePK    = 'rid';
+        // Player data is in Mnesia (memory), not MySQL columns.
+        // Read-only info available from t_log_register + activity logs.
+        $logRegCols  = [];
+        $logRegRows  = [];
+        $logLvlRows  = [];   // recent level-ups
+        $logGoldRows = [];   // recent gold gains
+        $hasLogReg   = in_array('t_log_register', $allTables);
+        $hasLogLv    = in_array('t_log_level',    $allTables);
+        $hasLogGold  = in_array('t_log_gold_add', $allTables);
 
-        if (!$roleTable) {
-            // First try known candidate names
-            foreach ($roleTableCandidates as $candidate) {
-                if (!in_array($candidate, $allTables)) continue;
-                $desc = safeQuery("DESCRIBE `$candidate`");
-                if (isset($desc['__error__'])) continue;
-                $flds = array_column($desc, 'Field');
-                if (in_array('account', $flds) || in_array('name', $flds)) {
-                    $roleTable = $candidate; break;
-                }
-            }
-            // Fallback: scan every non-log table for account+name
-            if (!$roleTable) {
-                foreach ($allTables as $tbl) {
-                    if (stripos($tbl, 'log') !== false || stripos($tbl, 'web_') === 0) continue;
-                    $desc = safeQuery("DESCRIBE `$tbl`");
-                    if (isset($desc['__error__'])) continue;
-                    $flds = array_column($desc, 'Field');
-                    if (in_array('account', $flds) || in_array('name', $flds)) {
-                        $roleTable = $tbl; break;
-                    }
-                }
-            }
-        }
-
-        if ($roleTable) {
-            $cols = safeQuery("DESCRIBE `$roleTable`");
-            if (!isset($cols['__error__'])) {
-                $playerColumns = array_column($cols, 'Field');
-                foreach ($cols as $c) {
-                    if ($c['Key'] === 'PRI') { $rolePK = $c['Field']; break; }
-                }
-            }
-        }
-
-        // ── Registered accounts from log tables ──────────────────────────────
-        // t_log_register has account info even before t_role is flushed
-        $logRegCols   = [];
-        $logRegRows   = [];
-        $hasLogReg    = in_array('t_log_register', $allTables);
-        $hasLogLogin  = in_array('t_log_login', $allTables);
         if ($hasLogReg) {
             $lrc = safeQuery("DESCRIBE `t_log_register`");
             if (!isset($lrc['__error__'])) $logRegCols = array_column($lrc, 'Field');
+
             if ($playerSearch !== '') {
                 $parts=[]; $prms=[];
                 foreach (['account','name','nick_name','role_name'] as $c) {
-                    if(in_array($c,$logRegCols)){$parts[]="`$c`=?";$prms[]=$playerSearch;}
+                    if (in_array($c,$logRegCols)) { $parts[]="`$c` LIKE ?"; $prms[]='%'.$playerSearch.'%'; }
                 }
-                if($parts) $logRegRows = safeQuery("SELECT * FROM t_log_register WHERE ".implode(' OR ',$parts)." LIMIT 10",$prms);
-                else       $logRegRows = safeQuery("SELECT * FROM t_log_register ORDER BY id DESC LIMIT 10");
+                $logRegRows = $parts
+                    ? safeQuery("SELECT * FROM t_log_register WHERE ".implode(' OR ',$parts)." ORDER BY id DESC LIMIT 20",$prms)
+                    : safeQuery("SELECT * FROM t_log_register ORDER BY id DESC LIMIT 20");
             } else {
-                $logRegRows = safeQuery("SELECT * FROM t_log_register ORDER BY id DESC LIMIT 20");
+                $logRegRows = safeQuery("SELECT * FROM t_log_register ORDER BY id DESC LIMIT 50");
             }
             if (isset($logRegRows['__error__'])) $logRegRows = [];
+
+            // For searched player, get latest level-up and gold activity
+            if ($playerSearch && $hasLogLv) {
+                $ridField = in_array('rid',$logRegCols) ? 'rid' : null;
+                $accField = in_array('account',$logRegCols) ? 'account' : null;
+                $lvCols = safeQuery("DESCRIBE `t_log_level`");
+                if (!isset($lvCols['__error__'])) {
+                    $lvColNames = array_column($lvCols, 'Field');
+                    $wp=[]; $wv=[];
+                    foreach (['account','name'] as $c) {
+                        if(in_array($c,$lvColNames)){$wp[]="`$c` LIKE ?";$wv[]='%'.$playerSearch.'%';}
+                    }
+                    if ($wp) $logLvlRows = safeQuery("SELECT * FROM t_log_level WHERE ".implode(' OR ',$wp)." ORDER BY id DESC LIMIT 10",$wv);
+                    if (isset($logLvlRows['__error__'])) $logLvlRows = [];
+                }
+            }
+            if ($playerSearch && $hasLogGold) {
+                $goldCols = safeQuery("DESCRIBE `t_log_gold_add`");
+                if (!isset($goldCols['__error__'])) {
+                    $gcns = array_column($goldCols,'Field');
+                    $wp=[]; $wv=[];
+                    foreach (['account','name'] as $c) {
+                        if(in_array($c,$gcns)){$wp[]="`$c` LIKE ?";$wv[]='%'.$playerSearch.'%';}
+                    }
+                    if ($wp) $logGoldRows = safeQuery("SELECT * FROM t_log_gold_add WHERE ".implode(' OR ',$wp)." ORDER BY id DESC LIMIT 10",$wv);
+                    if (isset($logGoldRows['__error__'])) $logGoldRows = [];
+                }
+            }
         }
 
-        // ── t_role search (only when table exists) ────────────────────────────
-        if ($playerSearch !== '' && $roleTable && $playerColumns) {
-            $whereParts=[]; $wParams=[];
-            foreach (['account','name','nick_name','nickname'] as $wc) {
-                if(in_array($wc,$playerColumns)){$whereParts[]="`$wc`=?";$wParams[]=$playerSearch;}
-            }
-            if ($whereParts) {
-                $playerResults = safeQuery("SELECT * FROM `$roleTable` WHERE ".implode(' OR ',$whereParts)." LIMIT 20",$wParams);
-            }
-            if (isset($playerResults['__error__'])) {
-                $flash=['type'=>'error','msg'=>'Query error: '.$playerResults['__error__']];
-                $playerResults=[];
-            }
-        }
-        if ($playerEditRid > 0 && $roleTable) {
-            $r = safeQuery("SELECT * FROM `$roleTable` WHERE `$rolePK`=? LIMIT 1", [$playerEditRid]);
-            if (!empty($r) && !isset($r['__error__'])) $playerEditRow = $r[0];
-        }
     }
 
     // ── Game DB tab ──
@@ -539,173 +489,131 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
     <!-- ══ PLAYER STATS ══ -->
     <div class="tab-panel <?=$activeTab==='player'?'active':''?>">
       <div class="page-title">⚔ Player Stats</div>
-      <div class="page-sub">Search by <strong>account name</strong> (login username) or <strong>character name</strong> to view and edit player data.</div>
+      <div class="page-sub">View player activity from game logs. Search by account or character name.</div>
 
-      <?php if(empty($playerColumns)): ?>
-        <div class="alert alert-info" style="margin-bottom:16px">
-          ⚠ Could not find a role table automatically. Possible reasons:<br>
-          &nbsp;&nbsp;1. Game server has never been started (no player tables created yet)<br>
-          &nbsp;&nbsp;2. At least one player needs to have logged in for <code>t_role</code> to be populated<br>
-          &nbsp;&nbsp;3. The table exists under a different name in your database
-        </div>
-        <?php
-          // Show all tables so admin can identify the right one
-          try { $allTbls = $db->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN); }
-          catch(PDOException $e) { $allTbls = []; }
-        ?>
-        <?php if($allTbls): ?>
-        <p style="font-size:13px;color:#8090a8;margin-bottom:10px">
-          Tables found in <code><?=DB_NAME?></code> — click one that looks like a player/role table:
-        </p>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px">
-          <?php foreach($allTbls as $t): ?>
-            <?php $isLikely = preg_match('/role|player|account|char/i',$t); ?>
-            <a href="admin.php?tab=player&rtbl=<?=urlencode($t)?>"
-               style="padding:5px 13px;border-radius:5px;font-size:12px;text-decoration:none;
-               background:<?=$isLikely?'rgba(240,180,60,.2)':'rgba(40,60,100,.5)'?>;
-               border:1px solid <?=$isLikely?'rgba(240,180,60,.4)':'rgba(100,140,200,.2)'?>;
-               color:<?=$isLikely?'#f0c060':'#90a8d0'?>"><?=htmlspecialchars($t)?></a>
-          <?php endforeach; ?>
-        </div>
-        <?php else: ?>
-        <p style="color:#804040;font-size:13px">No tables found in <code><?=DB_NAME?></code>. Is MySQL running?</p>
+      <div class="alert alert-info" style="margin-bottom:18px">
+        <strong>Architecture note:</strong> This game stores live player data in <strong>Erlang Mnesia</strong> (in-memory database),
+        not in MySQL columns. Direct SQL editing of stats (gold, VIP, level) is not possible here.
+        Use the <strong>GM Console</strong> section below to modify stats via Erlang commands.
+      </div>
+
+      <!-- Search form -->
+      <form method="GET" class="search-box">
+        <input type="hidden" name="tab" value="player">
+        <input type="search" name="search" value="<?=htmlspecialchars($playerSearch)?>"
+               placeholder="Search account or character name..." autofocus style="flex:1;max-width:400px">
+        <button type="submit" class="btn btn-gold">Search</button>
+        <?php if($playerSearch): ?>
+          <a href="admin.php?tab=player" class="btn btn-gray">Clear</a>
         <?php endif; ?>
+      </form>
 
-        <!-- ── Log Register table: always show even when t_role missing ── -->
-        <?php if($hasLogReg && !empty($logRegRows)): ?>
-        <div style="margin-top:20px">
-          <div style="font-size:14px;font-weight:600;color:#c8d0e0;margin-bottom:8px">
-            📋 Recent registrations from <code>t_log_register</code>
-            <span style="font-size:11px;color:#506080;font-weight:400;margin-left:8px">
-              (t_role will appear after server restart / player saves)
-            </span>
-          </div>
-          <div class="table-wrap"><table>
+      <!-- Registration log table -->
+      <?php if(!$hasLogReg): ?>
+        <p style="color:#806040;font-size:13px">Table <code>t_log_register</code> not found — start the game server and have at least one player log in.</p>
+      <?php elseif(empty($logRegRows)): ?>
+        <p style="color:#506080;font-size:13px">No registration records found<?=$playerSearch?' for "'.htmlspecialchars($playerSearch).'"':''?>.</p>
+      <?php else: ?>
+        <div style="font-size:13px;font-weight:600;color:#c0c8e0;margin-bottom:8px">
+          <?=$playerSearch?'Search results in':'Recent registrations from'?> <code style="color:#d0a040">t_log_register</code>
+          <span style="font-size:11px;color:#506080;font-weight:400;margin-left:8px">(<?=count($logRegRows)?> row<?=count($logRegRows)!=1?'s':''?>)</span>
+        </div>
+        <div class="table-wrap" style="margin-bottom:20px">
+          <table>
             <thead><tr><?php foreach($logRegCols as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
             <tbody>
             <?php foreach($logRegRows as $lr): ?>
-            <tr><?php foreach($lr as $v): ?><td style="font-size:12px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="<?=htmlspecialchars((string)$v)?>"><?=htmlspecialchars(strlen((string)$v)>30?substr((string)$v,0,28).'…':(string)$v)?></td><?php endforeach; ?></tr>
+              <tr>
+                <?php foreach($lr as $v): ?>
+                  <td style="font-size:12px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"
+                      title="<?=htmlspecialchars((string)$v)?>">
+                    <?=htmlspecialchars(strlen((string)$v)>30?substr((string)$v,0,28).'…':(string)$v)?>
+                  </td>
+                <?php endforeach; ?>
+              </tr>
             <?php endforeach; ?>
             </tbody>
-          </table></div>
+          </table>
         </div>
-        <?php endif; ?>
-
-      <?php else: ?>
-      <div style="font-size:12px;color:#507090;margin-bottom:14px">
-        Using table: <code style="color:#d0a040"><?=htmlspecialchars($roleTable)?></code>
-        (<?=count($playerColumns)?> columns, PK: <code><?=htmlspecialchars($rolePK)?></code>)
-        &nbsp;<a href="admin.php?tab=player" style="color:#406080;font-size:11px">auto-detect again</a>
-      </div>
-      <form method="GET" class="search-box">
-        <input type="hidden" name="tab" value="player">
-        <input type="hidden" name="rtbl" value="<?=htmlspecialchars($roleTable)?>">
-        <input type="search" name="search" value="<?=htmlspecialchars($playerSearch)?>" placeholder="Account name or character name..." autofocus>
-        <button type="submit" class="btn btn-gold">Search</button>
-        <?php if($playerSearch): ?><a href="admin.php?tab=player&rtbl=<?=urlencode($roleTable)?>" class="btn btn-gray">Clear</a><?php endif; ?>
-      </form>
-
-      <?php if($playerSearch && empty($playerResults)): ?>
-        <p style="color:#506080">No player found for "<?=htmlspecialchars($playerSearch)?>".</p>
       <?php endif; ?>
 
-      <!-- log register sidebar -->
-      <?php if($hasLogReg && !empty($logRegRows) && empty($playerResults)): ?>
-      <div style="margin-top:16px;padding:14px;background:rgba(40,60,20,.2);border:1px solid rgba(100,160,60,.2);border-radius:8px">
-        <div style="font-size:12px;color:#80a060;margin-bottom:8px">📋 Recent registrations (from <code>t_log_register</code>):</div>
-        <div class="table-wrap" style="max-height:200px"><table>
-          <thead><tr><?php foreach($logRegCols as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
-          <tbody><?php foreach($logRegRows as $lr): ?><tr><?php foreach($lr as $v): ?><td style="font-size:12px"><?=htmlspecialchars(strlen((string)$v)>25?substr((string)$v,0,23).'…':(string)$v)?></td><?php endforeach; ?></tr><?php endforeach; ?></tbody>
-        </table></div>
-      </div>
-      <?php endif; ?>
-
-      <?php foreach($playerResults as $role): ?>
-        <?php
-          $rid  = $role['rid'] ?? ($role['id'] ?? 0);
-          $rname= $role['name'] ?? '?';
-          $racct= $role['account'] ?? '?';
-          $rlv  = $role['level'] ?? '?';
-          $rcar = $role['career'] ?? '?';
-          $rpower = $role['power'] ?? ($role['fight_power'] ?? '');
-          $isEditing = ($playerEditRid == $rid);
-        ?>
-        <div class="player-card">
-          <div class="player-name"><?=htmlspecialchars($rname)?></div>
-          <div class="player-meta">
-            Account: <strong><?=htmlspecialchars($racct)?></strong> &nbsp;|&nbsp;
-            RID: <code><?=$rid?></code> &nbsp;|&nbsp;
-            Class: <?=$rcar?> &nbsp;|&nbsp;
-            <?php if($rpower): ?>Power: <?=number_format($rpower)?><?php endif; ?>
-            &nbsp; <a href="admin.php?tab=player&rtbl=<?=urlencode($roleTable)?>&search=<?=urlencode($playerSearch)?>&rid=<?=$rid?>" class="btn btn-blue btn-sm" style="margin-left:8px"><?=$isEditing?'▲ Collapse':'✏ Edit Stats'?></a>
-          </div>
-
-          <?php if($isEditing && $playerEditRow): ?>
-          <!-- Quick-edit panel for known stat fields -->
-          <div class="stat-grid">
-            <?php
-              $editableStats = [];
-              foreach ($STAT_LABELS as $col => $label) {
-                  if (array_key_exists($col, $playerEditRow)) {
-                      $editableStats[$col] = $label;
-                  }
-              }
-              // Also include any numeric columns not already listed
-              foreach ($playerEditRow as $col => $val) {
-                  if (!isset($editableStats[$col]) && is_numeric($val)
-                      && !in_array($col, ['rid','id','server_id','create_time','last_online','last_offline'])) {
-                      $editableStats[$col] = $col;
-                  }
-              }
-            ?>
-            <?php foreach($editableStats as $col => $label): ?>
-            <?php $curVal = $playerEditRow[$col] ?? ''; ?>
-            <div class="stat-item editable">
-              <div class="stat-label"><?=htmlspecialchars($label)?></div>
-              <div class="stat-value"><?=htmlspecialchars($curVal)?></div>
-              <form method="POST" class="edit-row-inline">
-                <input type="hidden" name="action" value="update_role_field">
-                <input type="hidden" name="rid"    value="<?=$rid?>">
-                <input type="hidden" name="col"    value="<?=htmlspecialchars($col)?>">
-                <input type="hidden" name="search" value="<?=htmlspecialchars($playerSearch)?>">
-                <input type="hidden" name="rtbl"   value="<?=htmlspecialchars($roleTable)?>">
-                <input type="hidden" name="rpk"    value="<?=htmlspecialchars($rolePK)?>">
-                <input type="text" name="val" value="<?=htmlspecialchars($curVal)?>" style="width:100%">
-                <button type="submit" class="btn btn-green btn-sm">Save</button>
-              </form>
-            </div>
-            <?php endforeach; ?>
-          </div>
-
-          <!-- All other fields read-only -->
-          <details class="all-fields">
-            <summary>▶ All raw fields (<?=count($playerEditRow)?>)</summary>
-            <div class="all-fields-grid">
-              <?php foreach($playerEditRow as $k=>$v): ?>
-              <div class="field-pair">
-                <span class="fn"><?=htmlspecialchars($k)?></span>
-                <span class="fv" title="<?=htmlspecialchars((string)$v)?>"><?=htmlspecialchars(strlen((string)$v)>40?substr((string)$v,0,38).'…':(string)$v)?></span>
-              </div>
-              <?php endforeach; ?>
-            </div>
-          </details>
-
-          <?php elseif(!$isEditing): ?>
-          <!-- Summary view (not editing) -->
-          <div class="stat-grid">
-            <?php foreach($STAT_LABELS as $col=>$label): ?>
-              <?php if(array_key_exists($col,$role)): ?>
-              <div class="stat-item">
-                <div class="stat-label"><?=htmlspecialchars($label)?></div>
-                <div class="stat-value"><?=htmlspecialchars((string)$role[$col])?></div>
-              </div>
-              <?php endif; ?>
-            <?php endforeach; ?>
-          </div>
-          <?php endif; ?>
+      <!-- Level activity log (only shown when searching) -->
+      <?php if($playerSearch && $hasLogLv && !empty($logLvlRows)): ?>
+        <div style="font-size:13px;font-weight:600;color:#c0c8e0;margin-bottom:8px">
+          Recent level-ups from <code style="color:#d0a040">t_log_level</code>
         </div>
-      <?php endforeach; ?>
+        <div class="table-wrap" style="margin-bottom:20px">
+          <table>
+            <thead><tr><?php foreach(array_keys($logLvlRows[0]) as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
+            <tbody>
+            <?php foreach($logLvlRows as $lr): ?>
+              <tr><?php foreach($lr as $v): ?><td style="font-size:12px"><?=htmlspecialchars(strlen((string)$v)>28?substr((string)$v,0,26).'…':(string)$v)?></td><?php endforeach; ?></tr>
+            <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
       <?php endif; ?>
+
+      <!-- Gold activity log (only shown when searching) -->
+      <?php if($playerSearch && $hasLogGold && !empty($logGoldRows)): ?>
+        <div style="font-size:13px;font-weight:600;color:#c0c8e0;margin-bottom:8px">
+          Recent gold gains from <code style="color:#d0a040">t_log_gold_add</code>
+        </div>
+        <div class="table-wrap" style="margin-bottom:20px">
+          <table>
+            <thead><tr><?php foreach(array_keys($logGoldRows[0]) as $c): ?><th><?=htmlspecialchars($c)?></th><?php endforeach; ?></tr></thead>
+            <tbody>
+            <?php foreach($logGoldRows as $lr): ?>
+              <tr><?php foreach($lr as $v): ?><td style="font-size:12px"><?=htmlspecialchars(strlen((string)$v)>28?substr((string)$v,0,26).'…':(string)$v)?></td><?php endforeach; ?></tr>
+            <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php endif; ?>
+
+      <!-- GM Console section -->
+      <div style="background:rgba(20,40,20,.4);border:1px solid rgba(60,160,80,.25);border-radius:10px;padding:20px;margin-top:10px">
+        <div style="font-size:15px;font-weight:700;color:#80d090;margin-bottom:6px">🖥 GM Console — Modify Player Stats</div>
+        <p style="font-size:12px;color:#6a8070;margin-bottom:14px">
+          Since player data lives in Erlang Mnesia, use the Erlang remote shell to run GM commands.
+          The server node is <code style="color:#a0d0a0">newserver@127.0.0.1</code> with cookie <code style="color:#a0d0a0">stupidcat</code>.
+        </p>
+
+        <div style="margin-bottom:14px">
+          <div style="font-size:12px;color:#80a080;margin-bottom:6px">1. Open <strong>CMD</strong> and connect to the running game server:</div>
+          <pre style="background:rgba(0,0,0,.5);border:1px solid rgba(60,160,80,.2);border-radius:6px;padding:10px 14px;font-size:12px;color:#b0e0b0;overflow-x:auto">werl.exe -name admin@127.0.0.1 -setcookie stupidcat -remsh newserver@127.0.0.1</pre>
+          <div style="font-size:11px;color:#506050;margin-top:4px">Run from: <code>C:\raconh5\server_bin\</code> &nbsp;(where erl.exe / werl.exe lives)</div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <div style="font-size:12px;color:#80a080;margin-bottom:6px">2. Useful GM commands in the Erlang shell:</div>
+          <pre style="background:rgba(0,0,0,.5);border:1px solid rgba(60,160,80,.2);border-radius:6px;padding:10px 14px;font-size:12px;color:#b0e0b0;overflow-x:auto">%% List all online players
+role_mgr:get_all_online_role().
+
+%% Add gold to player (by RoleId)
+gm_cmd:add_gold(RoleId, Amount).
+
+%% Add VIP EXP / set VIP level
+gm_cmd:add_vip_exp(RoleId, Amount).
+
+%% Set player level
+gm_cmd:set_level(RoleId, Level).
+
+%% Add bound diamond
+gm_cmd:add_bind_money(RoleId, Amount).
+
+%% Reload server config (no restart needed)
+config_server:reload().
+
+%% Get role info by account name
+role_mgr:get_role_by_account(&lt;&lt;"AccountName"&gt;&gt;).</pre>
+        </div>
+
+        <div style="font-size:11px;color:#507050;padding:8px 12px;background:rgba(0,0,0,.3);border-radius:5px">
+          <strong>Note:</strong> GM commands require <code>{is_gm_cmd, true}</code> in <code>game.app</code> — already enabled in your config.
+          RoleId is the numeric ID shown in the logs above. Type <code>q().</code> to exit the shell.
+        </div>
+      </div>
     </div>
 
     <!-- ══ ADMINS ══ -->
