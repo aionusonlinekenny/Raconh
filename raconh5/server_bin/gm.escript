@@ -91,28 +91,25 @@ main(["set", RoleIdStr, Field, ValueStr]) ->
     if Pos =:= 0 ->
         io:format("error|unknown_field~n");
     true ->
-        Res = rpc:call(?NODE, erlang, apply, [fun() ->
-            case ets:lookup(role_online, RoleId) of
-                [_|_] ->
-                    {error, player_must_be_offline};
-                [] ->
-                    case mnesia:dirty_read(role_data, RoleId) of
-                        [RD] ->
-                            RB    = element(4, RD),
-                            NewRB = setelement(Pos, RB, Value),
-                            NewRD = setelement(4, RD, NewRB),
-                            mnesia:dirty_write(NewRD),
-                            mnesia:dirty_write(NewRB),
-                            ok;
-                        [] ->
-                            {error, not_found}
-                    end
-            end
-        end, []]),
-        case Res of
-            ok              -> io:format("ok~n");
-            {error, Reason} -> io:format("error|~p~n", [Reason]);
-            _               -> io:format("error|rpc_failed~n")
+        case rpc:call(?NODE, ets, lookup, [role_online, RoleId]) of
+            [_|_] ->
+                io:format("error|player_must_be_offline~n");
+            [] ->
+                case rpc:call(?NODE, mnesia, dirty_read, [role_data, RoleId]) of
+                    [RD] ->
+                        RB    = element(4, RD),
+                        NewRB = setelement(Pos, RB, Value),
+                        NewRD = setelement(4, RD, NewRB),
+                        rpc:call(?NODE, mnesia, dirty_write, [NewRD]),
+                        rpc:call(?NODE, mnesia, dirty_write, [NewRB]),
+                        io:format("ok~n");
+                    [] ->
+                        io:format("error|not_found~n");
+                    _ ->
+                        io:format("error|rpc_failed_read~n")
+                end;
+            _ ->
+                io:format("error|rpc_failed_ets~n")
         end
     end;
 
