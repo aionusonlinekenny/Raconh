@@ -9,7 +9,22 @@
 
 -define(NODE, 'newserver@127.0.0.1').
 
-%% role_base tuple positions
+%% Minimum vip_exp required for each VIP level (from vip_data:get_vip/1 probing).
+%% VIP11 threshold is estimated at 300000 (between VIP10=200000 and VIP12=500000).
+vip_exp_for_lev(0)  -> 0;
+vip_exp_for_lev(1)  -> 100;
+vip_exp_for_lev(2)  -> 500;
+vip_exp_for_lev(3)  -> 1000;
+vip_exp_for_lev(4)  -> 2000;
+vip_exp_for_lev(5)  -> 5000;
+vip_exp_for_lev(6)  -> 10000;
+vip_exp_for_lev(7)  -> 20000;
+vip_exp_for_lev(8)  -> 50000;
+vip_exp_for_lev(9)  -> 100000;
+vip_exp_for_lev(10) -> 200000;
+vip_exp_for_lev(11) -> 300000;
+vip_exp_for_lev(12) -> 500000;
+vip_exp_for_lev(_)  -> 500000.
 field_pos("lev")       -> 12;
 field_pos("exp")       -> 23;
 field_pos("gold")      -> 24;
@@ -95,7 +110,7 @@ main(["set", RoleIdStr, "vip_lev", ValueStr]) ->
     connect(),
     RoleId = list_to_integer(RoleIdStr),
     Value  = list_to_integer(ValueStr),
-    VipExp = Value * 100000,
+    VipExp = vip_exp_for_lev(Value),
     case rpc:call(?NODE, ets, lookup, [role_online, RoleId]) of
         [_|_] ->
             io:format("error|player_must_be_offline~n");
