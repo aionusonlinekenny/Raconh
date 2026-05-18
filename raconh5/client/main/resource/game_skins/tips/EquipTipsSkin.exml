@@ -15,9 +15,9 @@
 		<e:Image source="common_title_wordBg_png" y="15" scaleX="1" scaleY="1" x="105"/>
 		<e:Image source="common_line_png" y="169" scale9Grid="153,0,359,0" width="370" x="19" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_nameTxt" text="" y="15" textColor="0x7c6e62" textAlign="center" size="28" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetX="0" width="310" horizontalCenter="0.5" anchorOffsetY="0" height="32" verticalAlign="middle"/>
-		<ns1:Label text="战力：" x="160" y="62" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label text="等级：" x="160" y="100.5" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label text="职业：" x="160" y="137" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Power:" x="160" y="62" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Level:" x="160" y="100.5" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Class:" x="160" y="137" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_fighting" text="0" x="244" y="62" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="142"/>
 		<ns1:Label id="_level" text="0" x="244" y="100.5" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="127"/>
 		<ns1:Label id="_career" text="无" x="244" y="137" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="116"/>

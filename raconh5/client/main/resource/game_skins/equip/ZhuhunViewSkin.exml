@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ZhuhunViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
 	<w:Config id="15fc3d7b4e8" ></w:Config>
-	<ns1:Label text="更换装备铸魂等级将完美继承" y="994" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="192" scaleX="1" scaleY="1" textColor="0xdfccbe"/>
+	<ns1:Label text="Soul cast level is kept when switching equipment" y="994" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="192" scaleX="1" scaleY="1" textColor="0xdfccbe"/>
 	<ns1:Button id="_btn" label="" y="1019" horizontalCenter="0" x="241" scaleX="1" scaleY="1">
 		<e:skinName>
 		<e:Skin states="up,down,disabled">

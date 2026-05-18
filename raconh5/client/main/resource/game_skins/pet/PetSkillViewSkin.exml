@@ -4,7 +4,7 @@
 	<ns1:PetSkillGrid id="_grid" x="81" y="377" skinName="PetSkillGridSkin"/>
 
 	<ns1:Label id="_nameTxt" text="英雄Lv.1" x="203" y="396" fontFamily="Microsoft YaHei" size="28" textColor="0x7e6c62"/>
-	<ns1:Label id="_statusTxt" text="（未激活）" x="187" y="446" fontFamily="Microsoft YaHei" size="28" textColor="0xff2400"/>
+	<ns1:Label id="_statusTxt" text="(Not Activated)" x="187" y="446" fontFamily="Microsoft YaHei" size="28" textColor="0xff2400"/>
 	<e:Image source="split_line_png" x="26" y="494" width="668"/>
 	<e:Image source="split_line_png" x="26" y="598" width="668"/>
 	<e:Image id="_descImg" source="common_label_skillEff_png" x="82" y="506"/>

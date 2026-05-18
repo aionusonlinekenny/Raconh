@@ -5,7 +5,7 @@
 	<ns1:Label id="_clubName" text="名称" x="192" y="224" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei"/>
 	<ns1:Label text="现任掌门：" x="192" y="262" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 	<ns1:Label id="_masterName" text="虚位以待" x="312" y="262" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
-	<e:Label text="盟会战力：" x="192" y="294" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<e:Label text="Guild Power:" x="192" y="294" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_allFight" text="9999亿" x="312" y="295" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<e:Image width="658" height="3" y="353" source="common_line_png" horizontalCenter="0"/>
 	<e:Image width="209" height="36" y="365" source="common_title_wordBg_png" horizontalCenter="0.5"/>

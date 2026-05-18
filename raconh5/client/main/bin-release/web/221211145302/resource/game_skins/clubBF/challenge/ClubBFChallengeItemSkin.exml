@@ -5,6 +5,6 @@
 	<ns1:BitmapRemote id="_head" width="86" height="86" x="30" y="30" anchorOffsetX="0" anchorOffsetY="0"/>
 	<e:Image id="_flag" source="arenaLogFsIcon_png" x="19" y="19"/>
 	<ns1:Label id="_txtName" text="玩家名" y="22" size="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" x="137" anchorOffsetX="0" textAlign="left" anchorOffsetY="0" lineSpacing="15"/>
-	<ns1:Label id="_txtPower" text="战力：0" y="60" size="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" x="137" anchorOffsetX="0" textAlign="left" anchorOffsetY="0" lineSpacing="15"/>
+	<ns1:Label id="_txtPower" text="Power: 0" y="60" size="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" x="137" anchorOffsetX="0" textAlign="left" anchorOffsetY="0" lineSpacing="15"/>
 	<ns1:Label id="_txtWin" text="连胜：0" y="98" size="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" x="137" anchorOffsetX="0" textAlign="left" anchorOffsetY="0" lineSpacing="15"/>
 </e:Skin>

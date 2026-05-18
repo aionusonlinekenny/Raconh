@@ -4,7 +4,7 @@
 	<e:Group id="_strengthen" width="720" height="1280" x="0" y="0" anchorOffsetY="0">
 
 
-		<ns1:Label text="更换装备强化等级将完美继承" y="994" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="192" scaleX="1" scaleY="1" textColor="0xdfccbe"/>
+		<ns1:Label text="Enhancement level is kept when switching equipment" y="994" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="192" scaleX="1" scaleY="1" textColor="0xdfccbe"/>
 		<ns1:Button id="_btn" label="" y="1019" horizontalCenter="0" x="241" scaleX="1" scaleY="1">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">

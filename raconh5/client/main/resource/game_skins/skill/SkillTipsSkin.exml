@@ -4,7 +4,7 @@
 	<e:Image source="common_title_wordBg_png" x="279" y="485"/>
 	<ns1:Label id="_titleTxt" text="绝命风华" x="180" y="491" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24" width="406" textAlign="center"/>
 	<ns1:BaseGoods id="_lossItem" width="141" height="141" x="200" y="510" skinName="BaseGoodsSkin"/>
-	<ns1:Label id="_fightTxt" text="战力：" x="330" y="530" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22" width="230"/>
+	<ns1:Label id="_fightTxt" text="Power:" x="330" y="530" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22" width="230"/>
 	<ns1:Label id="_awakeTxt" text="觉醒：" x="330" y="565" size="22" textColor="0x7c6e62" width="230" fontFamily="Microsoft YaHei"/>
 	<e:Image source="split_line_png" x="183" y="637" width="400"/>
 	<ns1:Label id="_descTxt" text="" x="217" y="644" fontFamily="Microsoft YaHei" size="20" textColor="0x7c6e62" width="333"/>

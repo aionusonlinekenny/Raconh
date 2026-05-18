@@ -5,7 +5,7 @@
 	<ns1:Label id="_conentTxt" text="Label" y="893" anchorOffsetX="0" width="433" fontFamily="Microsoft YaHei" textAlign="center" x="144"/>
 	<ns1:Label id="_vipNumTxt" text="Label" x="167" y="946" anchorOffsetX="0" width="324" fontFamily="Microsoft YaHei" textAlign="right"/>
 	<ns1:Label id="_timeTxt" text="Label" y="1006" anchorOffsetX="0" width="462" fontFamily="Microsoft YaHei" textAlign="center" x="129"/>
-	<ns1:Label id="_vipTxt" text="提升vip等级" x="494" y="946" anchorOffsetX="0" width="170" fontFamily="Microsoft YaHei" textAlign="center" textColor="0x34d31b"/>
+	<ns1:Label id="_vipTxt" text="Upgrade VIP Level" x="494" y="946" anchorOffsetX="0" width="170" fontFamily="Microsoft YaHei" textAlign="center" textColor="0x34d31b"/>
 	<ns1:Button id="_rewardBtn" label="Button" y="1026" x="241">
 		<ns1:skinName>
 		<e:Skin states="up,down,disabled">

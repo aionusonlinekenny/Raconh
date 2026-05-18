@@ -5,5 +5,5 @@
 	<e:Image source="common_num_back_png" x="46" y="31" width="47" height="47"/>
 	<ns1:Label id="_txtRank" text="4" x="50" y="39" fontFamily="Microsoft YaHei" textAlign="center" size="30" textColor="0x7c6e62" anchorOffsetX="0" width="38"/>
 	<ns1:Label id="_txtName" text="名字" x="130" y="39" fontFamily="Microsoft YaHei" size="30" textColor="0x7c6e62"/>
-	<ns1:Label id="_txtValue" text="战力：0" x="408" y="39" fontFamily="Microsoft YaHei" size="30" textColor="0x7c6e62"/>
+	<ns1:Label id="_txtValue" text="Power: 0" x="408" y="39" fontFamily="Microsoft YaHei" size="30" textColor="0x7c6e62"/>
 </e:Skin>
