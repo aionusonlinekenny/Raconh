@@ -45,8 +45,9 @@ main(["get", RoleIdStr]) ->
         [RD] ->
             RB = element(4, RD),
             RE = element(5, RD),
-            %% role_vip is at position 38 of role_ext; vip level is element(3) of role_vip
-            VipLev = element(3, element(38, RE)),
+            %% Server recalculates VIP level from vip_exp on login; use get_vip/1 for accuracy
+            VipExp = element(4, element(38, RE)),
+            VipLev = rpc:call(?NODE, vip_data, get_vip, [VipExp]),
             Online = case rpc:call(?NODE, ets, lookup, [role_online, RoleId]) of
                 [] -> 0; _ -> 1
             end,
