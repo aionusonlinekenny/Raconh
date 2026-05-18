@@ -8,7 +8,7 @@
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', 'Eban0815@');
+define('DB_PASS', '');
 define('DB_NAME', 'cw02_game1');
 
 // ── DB connection ─────────────────────────────────────────────────────────────
