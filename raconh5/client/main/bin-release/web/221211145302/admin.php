@@ -6,6 +6,10 @@
 
 session_start();
 
+// Restore flash from session (survives redirects)
+$flash = ['type'=>'','msg'=>''];
+if (!empty($_SESSION['flash'])) { $flash=$_SESSION['flash']; unset($_SESSION['flash']); }
+
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
@@ -17,13 +21,16 @@ define('ESCRIPT_EXE',  'C:\\Program Files\\erl9.0\\bin\\escript.exe');
 define('GM_ESCRIPT',   'C:\\raconh5\\server_bin\\gm.escript');
 
 function gmExec(array $args) {
+    if (!function_exists('shell_exec')) return 'error|shell_exec_disabled';
     $escript = ESCRIPT_EXE;
     $script  = GM_ESCRIPT;
-    if (!file_exists($script)) return 'error|escript_not_found';
+    if (!file_exists($escript)) return 'error|escript_exe_not_found:'.ESCRIPT_EXE;
+    if (!file_exists($script))  return 'error|gm_escript_not_found:'.GM_ESCRIPT;
     $safe = array_map('escapeshellarg', $args);
     $cmd  = "\"$escript\" \"$script\" " . implode(' ', $safe) . ' 2>&1';
     $out  = shell_exec($cmd);
-    return trim($out ?? '');
+    if ($out === null) return 'error|shell_exec_returned_null';
+    return trim($out);
 }
 
 function gmGet($roleId) {
@@ -95,7 +102,7 @@ function safeQuery($sql, $params = []) {
 
 // ── POST handler ──────────────────────────────────────────────────────────────
 
-$flash = ['type' => '', 'msg' => ''];
+if (empty($flash['msg'])) $flash = ['type' => '', 'msg' => ''];
 $action = $_POST['action'] ?? '';
 
 if ($action === 'setup') {
@@ -181,6 +188,7 @@ if ($action === 'setup') {
                 $flash = ['type'=>'error','msg'=>'GM error: '.$reason];
         }
     }
+    $_SESSION['flash'] = $flash;
     header('Location: admin.php?tab=player&rid='.$rid); exit;
 
 } elseif ($action === 'update_role_field') {
