@@ -123,21 +123,22 @@ if ($action === 'setup') {
            header('Location: admin.php?tab=admins&ok=deleted'); exit; }
 
 } elseif ($action === 'update_role_field') {
-    // Update a single field in t_role
     requireLogin();
-    $rid = (int)($_POST['rid'] ?? 0);
-    $col = safeName($_POST['col'] ?? '');
-    $val = $_POST['val'] ?? '';
-    if ($rid && $col) {
+    $rid  = (int)($_POST['rid'] ?? 0);
+    $col  = safeName($_POST['col'] ?? '');
+    $val  = $_POST['val'] ?? '';
+    $rtbl = safeName($_POST['rtbl'] ?? 't_role');
+    $rpk  = safeName($_POST['rpk']  ?? 'rid');
+    if ($rid && $col && $rtbl) {
         try {
-            getDB()->prepare("UPDATE t_role SET `$col`=? WHERE rid=?")
+            getDB()->prepare("UPDATE `$rtbl` SET `$col`=? WHERE `$rpk`=?")
                    ->execute([$val, $rid]);
-            $flash = ['type'=>'success', 'msg'=>"Updated `$col` for role #$rid"];
+            $flash = ['type'=>'success', 'msg'=>"Updated `$col` for $rpk=$rid"];
         } catch (PDOException $e) {
             $flash = ['type'=>'error', 'msg'=>'Update failed: '.$e->getMessage()];
         }
     }
-    header('Location: admin.php?tab=player&search='.urlencode($_POST['search']??'').'&ok_field=1');
+    header('Location: admin.php?tab=player&rtbl='.urlencode($rtbl).'&search='.urlencode($_POST['search']??'').'&ok_field=1');
     exit;
 
 } elseif ($action === 'db_update_row') {
@@ -212,23 +213,81 @@ if (isLoggedIn()) {
 
     // ── Player tab ──
     if ($activeTab === 'player') {
-        // Get t_role columns (to know what's available)
-        $cols = safeQuery("DESCRIBE `t_role`");
-        if (!isset($cols['__error__'])) {
-            $playerColumns = array_column($cols, 'Field');
+        // Auto-detect the role table: try common names, pick the first with 'account' or 'name' column
+        $roleTableCandidates = ['t_role','role','t_roles','roles','player','t_player','game_role'];
+        $roleTable = $_GET['rtbl'] ?? '';
+        $roleTable = safeName($roleTable);
+
+        if (!$roleTable) {
+            // Scan all tables for the one that has columns: account OR name + level
+            try {
+                $allTables = $db->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
+            } catch (PDOException $e) { $allTables = []; }
+
+            foreach ($roleTableCandidates as $candidate) {
+                if (in_array($candidate, $allTables)) {
+                    $desc = safeQuery("DESCRIBE `$candidate`");
+                    if (!isset($desc['__error__'])) {
+                        $flds = array_column($desc, 'Field');
+                        if (in_array('account', $flds) || in_array('name', $flds)) {
+                            $roleTable = $candidate;
+                            break;
+                        }
+                    }
+                }
+            }
+            // If still not found, scan all tables for account column
+            if (!$roleTable) {
+                foreach ($allTables as $tbl) {
+                    if (strpos($tbl, 'log') !== false) continue; // skip log tables
+                    $desc = safeQuery("DESCRIBE `$tbl`");
+                    if (!isset($desc['__error__'])) {
+                        $flds = array_column($desc, 'Field');
+                        if (in_array('account', $flds) && in_array('name', $flds)) {
+                            $roleTable = $tbl;
+                            break;
+                        }
+                    }
+                }
+            }
         }
-        if ($playerSearch !== '') {
-            $playerResults = safeQuery(
-                "SELECT * FROM t_role WHERE account=? OR name=? LIMIT 20",
-                [$playerSearch, $playerSearch]
-            );
+
+        // Find PK for the role table
+        $rolePK = 'rid';
+        if ($roleTable) {
+            $cols = safeQuery("DESCRIBE `$roleTable`");
+            if (!isset($cols['__error__'])) {
+                $playerColumns = array_column($cols, 'Field');
+                foreach ($cols as $c) {
+                    if ($c['Key'] === 'PRI') { $rolePK = $c['Field']; break; }
+                }
+            }
+        }
+
+        if ($playerSearch !== '' && $roleTable) {
+            // Build WHERE based on available columns
+            $whereParts = []; $wParams = [];
+            foreach (['account','name','nick_name','nickname'] as $wc) {
+                if (in_array($wc, $playerColumns)) {
+                    $whereParts[] = "`$wc`=?";
+                    $wParams[] = $playerSearch;
+                }
+            }
+            if ($whereParts) {
+                $playerResults = safeQuery(
+                    "SELECT * FROM `$roleTable` WHERE ".implode(' OR ', $whereParts)." LIMIT 20",
+                    $wParams
+                );
+            } else {
+                $playerResults = safeQuery("SELECT * FROM `$roleTable` LIMIT 20");
+            }
             if (isset($playerResults['__error__'])) {
                 $flash = ['type'=>'error', 'msg'=>'Query error: '.$playerResults['__error__']];
                 $playerResults = [];
             }
         }
-        if ($playerEditRid > 0) {
-            $r = safeQuery("SELECT * FROM t_role WHERE rid=? LIMIT 1", [$playerEditRid]);
+        if ($playerEditRid > 0 && $roleTable) {
+            $r = safeQuery("SELECT * FROM `$roleTable` WHERE `$rolePK`=? LIMIT 1", [$playerEditRid]);
             if (!empty($r) && !isset($r['__error__'])) $playerEditRow = $r[0];
         }
     }
@@ -476,13 +535,46 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
       <div class="page-sub">Search by <strong>account name</strong> (login username) or <strong>character name</strong> to view and edit player data.</div>
 
       <?php if(empty($playerColumns)): ?>
-        <div class="alert alert-info">⚠ Table <code>t_role</code> not found or empty. Make sure the game server has been started at least once so player data is created.</div>
+        <div class="alert alert-info" style="margin-bottom:16px">
+          ⚠ Could not find a role table automatically. Possible reasons:<br>
+          &nbsp;&nbsp;1. Game server has never been started (no player tables created yet)<br>
+          &nbsp;&nbsp;2. At least one player needs to have logged in for <code>t_role</code> to be populated<br>
+          &nbsp;&nbsp;3. The table exists under a different name in your database
+        </div>
+        <?php
+          // Show all tables so admin can identify the right one
+          try { $allTbls = $db->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN); }
+          catch(PDOException $e) { $allTbls = []; }
+        ?>
+        <?php if($allTbls): ?>
+        <p style="font-size:13px;color:#8090a8;margin-bottom:10px">
+          Tables found in <code><?=DB_NAME?></code> — click one that looks like a player/role table:
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px">
+          <?php foreach($allTbls as $t): ?>
+            <?php $isLikely = preg_match('/role|player|account|char/i',$t); ?>
+            <a href="admin.php?tab=player&rtbl=<?=urlencode($t)?>"
+               style="padding:5px 13px;border-radius:5px;font-size:12px;text-decoration:none;
+               background:<?=$isLikely?'rgba(240,180,60,.2)':'rgba(40,60,100,.5)'?>;
+               border:1px solid <?=$isLikely?'rgba(240,180,60,.4)':'rgba(100,140,200,.2)'?>;
+               color:<?=$isLikely?'#f0c060':'#90a8d0'?>"><?=htmlspecialchars($t)?></a>
+          <?php endforeach; ?>
+        </div>
+        <?php else: ?>
+        <p style="color:#804040;font-size:13px">No tables found in <code><?=DB_NAME?></code>. Is the game server running?</p>
+        <?php endif; ?>
       <?php else: ?>
+      <div style="font-size:12px;color:#507090;margin-bottom:14px">
+        Using table: <code style="color:#d0a040"><?=htmlspecialchars($roleTable)?></code>
+        (<?=count($playerColumns)?> columns)
+        &nbsp;<a href="admin.php?tab=player" style="color:#406080;font-size:11px">auto-detect again</a>
+      </div>
       <form method="GET" class="search-box">
         <input type="hidden" name="tab" value="player">
+        <input type="hidden" name="rtbl" value="<?=htmlspecialchars($roleTable)?>">
         <input type="search" name="search" value="<?=htmlspecialchars($playerSearch)?>" placeholder="Account name or character name..." autofocus>
         <button type="submit" class="btn btn-gold">Search</button>
-        <?php if($playerSearch): ?><a href="admin.php?tab=player" class="btn btn-gray">Clear</a><?php endif; ?>
+        <?php if($playerSearch): ?><a href="admin.php?tab=player&rtbl=<?=urlencode($roleTable)?>" class="btn btn-gray">Clear</a><?php endif; ?>
       </form>
 
       <?php if($playerSearch && empty($playerResults)): ?>
@@ -506,7 +598,7 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
             RID: <code><?=$rid?></code> &nbsp;|&nbsp;
             Class: <?=$rcar?> &nbsp;|&nbsp;
             <?php if($rpower): ?>Power: <?=number_format($rpower)?><?php endif; ?>
-            &nbsp; <a href="admin.php?tab=player&search=<?=urlencode($playerSearch)?>&rid=<?=$rid?>" class="btn btn-blue btn-sm" style="margin-left:8px"><?=$isEditing?'▲ Collapse':'✏ Edit Stats'?></a>
+            &nbsp; <a href="admin.php?tab=player&rtbl=<?=urlencode($roleTable)?>&search=<?=urlencode($playerSearch)?>&rid=<?=$rid?>" class="btn btn-blue btn-sm" style="margin-left:8px"><?=$isEditing?'▲ Collapse':'✏ Edit Stats'?></a>
           </div>
 
           <?php if($isEditing && $playerEditRow): ?>
@@ -534,9 +626,11 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
               <div class="stat-value"><?=htmlspecialchars($curVal)?></div>
               <form method="POST" class="edit-row-inline">
                 <input type="hidden" name="action" value="update_role_field">
-                <input type="hidden" name="rid" value="<?=$rid?>">
-                <input type="hidden" name="col" value="<?=htmlspecialchars($col)?>">
+                <input type="hidden" name="rid"    value="<?=$rid?>">
+                <input type="hidden" name="col"    value="<?=htmlspecialchars($col)?>">
                 <input type="hidden" name="search" value="<?=htmlspecialchars($playerSearch)?>">
+                <input type="hidden" name="rtbl"   value="<?=htmlspecialchars($roleTable)?>">
+                <input type="hidden" name="rpk"    value="<?=htmlspecialchars($rolePK)?>">
                 <input type="text" name="val" value="<?=htmlspecialchars($curVal)?>" style="width:100%">
                 <button type="submit" class="btn btn-green btn-sm">Save</button>
               </form>
