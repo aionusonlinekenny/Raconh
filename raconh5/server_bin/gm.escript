@@ -22,7 +22,7 @@ vip_exp_for_lev(7)  -> 20000;
 vip_exp_for_lev(8)  -> 50000;
 vip_exp_for_lev(9)  -> 100000;
 vip_exp_for_lev(10) -> 200000;
-vip_exp_for_lev(11) -> 300000;
+vip_exp_for_lev(11) -> 250000;
 vip_exp_for_lev(12) -> 500000;
 vip_exp_for_lev(_)  -> 500000.
 field_pos("lev")       -> 12;
