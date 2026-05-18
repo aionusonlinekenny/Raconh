@@ -122,12 +122,20 @@ function applyTranslations(buf, translations) {
         const origLen = Buffer.byteLength(original, 'utf8');
         const transLen = Buffer.byteLength(translated, 'utf8');
 
-        // Copy bytes before this string (including its length prefix)
-        chunks.push(buf.slice(cursor, offset + 2)); // copy up to & incl length prefix pos
-        // Overwrite length prefix with new length
+        // Skip if offset is behind cursor (overlap from a previous replacement)
+        if (offset < cursor) continue;
+
+        // Verify the content at this offset still matches the original Chinese.
+        // If the file was already translated, the Chinese won't be there → skip safely.
+        if (offset + 2 + origLen > buf.length) continue;
+        const storedLen = buf.readUInt16BE(offset);
+        if (storedLen !== origLen) continue;
+        const storedStr = buf.toString('utf8', offset + 2, offset + 2 + origLen);
+        if (storedStr !== original) continue;
+
+        chunks.push(buf.slice(cursor, offset));                 // bytes before prefix
         const lenBuf = Buffer.alloc(2);
         lenBuf.writeUInt16BE(transLen);
-        chunks[chunks.length - 1] = buf.slice(cursor, offset); // bytes before prefix
         chunks.push(lenBuf);                                    // new length prefix
         chunks.push(Buffer.from(translated, 'utf8'));           // translated content
         cursor = offset + 2 + origLen;                         // skip original content
