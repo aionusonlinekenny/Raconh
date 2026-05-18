@@ -40,7 +40,7 @@ var LoginView = (function (_super) {
             this._groupDebug.visible = true;
             var str = egret.localStorage.getItem("username");
             if (str == null)
-                str = new Date().getTime().toString();
+                str = "player1";
             if (str && str != "")
                 this._inputClient.text = str;
         }
