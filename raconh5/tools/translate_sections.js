@@ -187,6 +187,8 @@ function repack() {
     let unchangedTotal = 0;
 
     const newSections = sections.map(({ name, data }) => {
+        // language section is handled entirely by repack_lang.js — skip it here
+        if (name === 'language') return { name, data };
         // Collect translations for this section
         const trans = [];
         for (const key of Object.keys(enMap)) {
