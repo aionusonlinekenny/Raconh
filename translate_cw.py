@@ -457,14 +457,14 @@ ATTR_NAMES_IN_SECTION = {
     '暴伤减免': 'CritDMG-', # 12 → 8 bytes ✓
     '命中几率': 'Hit%',     # 12 → 4 bytes ✓
     '闪避几率': 'Eva%',     # 12 → 4 bytes ✓
-    '气血增加': 'HP+%',     # 12 → 4 bytes ✓
-    '攻击增加': 'ATK+%',    # 12 → 5 bytes ✓
-    '防御增加': 'DEF+%',    # 12 → 5 bytes ✓
-    '破甲增加': 'Pen+%',    # 12 → 5 bytes ✓
-    '命中增加': 'Hit+',     # 12 → 4 bytes ✓
-    '闪避增加': 'Eva+',     # 12 → 4 bytes ✓
-    '暴击增加': 'Crit+',    # 12 → 5 bytes ✓
-    '坚韧增加': 'TEN+',     # 12 → 4 bytes ✓
+    '气血增加': 'HP',        # 12 → 2 bytes ✓ (display: "HP +N%" via AttrVoInfo)
+    '攻击增加': 'ATK',      # 12 → 3 bytes ✓ (display: "ATK +N%")
+    '防御增加': 'DEF',      # 12 → 3 bytes ✓
+    '破甲增加': 'Pen',      # 12 → 3 bytes ✓
+    '命中增加': 'Hit',      # 12 → 3 bytes ✓
+    '闪避增加': 'Eva',      # 12 → 3 bytes ✓
+    '暴击增加': 'Crit',     # 12 → 4 bytes ✓
+    '坚韧增加': 'TEN',      # 12 → 3 bytes ✓
     '每5级气血': 'HP/5Lv',  # 13 → 6 bytes ✓
     '每5级攻击': 'ATK/5Lv', # 13 → 7 bytes ✓
     '每5级防御': 'DEF/5Lv', # 13 → 7 bytes ✓
@@ -850,7 +850,63 @@ ATTR_JS_OVERRIDE = r"""
 
 JS_PATCHES = [
     ('（强化+', '(Enh+'),
+    ('）","#38b800"', ')","#38b800"'),  # fix full-width closing paren after Enh+N
 ]
+
+# Runtime text replacement for server-sent Chinese strings (added to end of main.min.js)
+RUNTIME_TEXT_HOOK = r"""
+// Runtime Chinese→English text replacement hook
+(function(){
+    var _m={
+        '极品属性':'Bonus Stats','铸魂属性':'Soul Stats','套装效果':'Set Effect',
+        '强化':'Enh','强化石':'Enh Stone',
+        '攻击增加':'ATK','防御增加':'DEF','破甲增加':'Pen','命中增加':'Hit',
+        '闪避增加':'Eva','暴击增加':'Crit','坚韧增加':'TEN','气血增加':'HP',
+        '每5级攻击':'ATK/5Lv','每5级气血':'HP/5Lv','每5级防御':'DEF/5Lv',
+        '每5级破甲':'Pen/5Lv','每5级命中':'Hit/5Lv','每5级闪避':'Eva/5Lv',
+        '每5级暴击':'Crt/5Lv','每5级坚韧':'TEN/5Lv',
+        '蓝冥石(1级)':'Sapphire Lv.1','蓝冥石(2级)':'Sapphire Lv.2',
+        '蓝冥石(3级)':'Sapphire Lv.3','蓝冥石(4级)':'Sapphire Lv.4',
+        '蓝冥石(5级)':'Sapphire Lv.5','蓝冥石(6级)':'Sapphire Lv.6',
+        '蓝冥石(7级)':'Sapphire Lv.7','蓝冥石(8级)':'Sapphire Lv.8',
+        '蓝冥石(9级)':'Sapphire Lv.9','蓝冥石(10级)':'Sapphire Lv.10',
+        '血精石(1级)':'Blood Crystal Lv.1','血精石(2级)':'Blood Crystal Lv.2',
+        '血精石(3级)':'Blood Crystal Lv.3','血精石(4级)':'Blood Crystal Lv.4',
+        '血精石(5级)':'Blood Crystal Lv.5',
+        '气血':'HP','攻击':'ATK','防御':'DEF','破甲':'Pen',
+        '命中':'Hit','闪避':'Eva','暴击':'Crit','坚韧':'TEN',
+        '战力':'Power','等级':'Level',
+        '未激活':'Inactive','已激活':'Active',
+        '普通':'Normal','精英':'Elite','史诗':'Epic',
+        '次数不足':'Insufficient attempts','银币不足':'Insufficient silver',
+    };
+    function _rep(s){
+        if(typeof s!=='string')return s;
+        for(var k in _m)if(s.indexOf(k)>=0)s=s.split(k).join(_m[k]);
+        return s;
+    }
+    // Patch HtmlUtil.addColorTag to translate text before adding color
+    if(typeof HtmlUtil!=='undefined'&&HtmlUtil.addColorTag){
+        var _orig=HtmlUtil.addColorTag;
+        HtmlUtil.addColorTag=function(t,c){return _orig.call(this,_rep(t),c);};
+    }
+    // Patch via global setter hook - runs after egret loads
+    var _patch=function(){
+        if(typeof egret==='undefined'||!egret.TextField||!egret.TextField.prototype)return;
+        var p=egret.TextField.prototype;
+        // Try defineProperty approach
+        var _d=null;
+        try{_d=Object.getOwnPropertyDescriptor(p,'text');}catch(e){}
+        if(_d&&_d.set&&!p.__cwPatched){
+            p.__cwPatched=true;
+            Object.defineProperty(p,'text',{get:_d.get,set:function(v){_d.set.call(this,_rep(v));},configurable:true,enumerable:_d.enumerable});
+        }
+    };
+    if(typeof setTimeout!=='undefined')setTimeout(_patch,50);
+    if(typeof setTimeout!=='undefined')setTimeout(_patch,500);
+    if(typeof setTimeout!=='undefined')setTimeout(_patch,2000);
+})();
+"""
 
 
 def patch_js(path):
@@ -892,6 +948,12 @@ def patch_js(path):
             content = content[:end_idx+1] + ATTR_JS_OVERRIDE + content[end_idx+1:]
             count += 1
             print('  Injected corrected AttrCVO English override')
+
+    # Inject runtime text replacement hook at end of file (once)
+    if 'RUNTIME_TEXT_HOOK' not in content and '__cwPatched' not in content:
+        content = content + RUNTIME_TEXT_HOOK
+        count += 1
+        print('  Injected runtime text replacement hook')
 
     with open(path, 'w', encoding='utf-8', errors='replace') as f:
         f.write(content)
