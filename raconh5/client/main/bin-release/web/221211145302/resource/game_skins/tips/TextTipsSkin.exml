@@ -3,7 +3,7 @@
 	<e:Group y="331" horizontalCenter="0">
 		<e:Image id="_back" source="common_tipsBg_png" x="0" y="2" width="446" height="313" scale9Grid="50,52,17,14"/>
 		<e:Image source="common_title_wordBg_png" x="111" y="13" scale9Grid="46,4,118,28" width="225"/>
-		<ns1:Label id="_title" xmlns:ns1="*" text="提示" x="131" y="16" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetX="0" width="184" verticalAlign="middle" textAlign="center"/>
+		<ns1:Label id="_title" xmlns:ns1="*" text="Tip" x="131" y="16" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetX="0" width="184" verticalAlign="middle" textAlign="center"/>
 		<ns1:Label id="_content" xmlns:ns1="*" text="" x="30" y="63" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetX="0" width="386" anchorOffsetY="0" height="124" size="24" lineSpacing="8"/>
 		<e:Image id="_btnClose" source="common_tip_close_png" x="419" y="0"/>
 	</e:Group>

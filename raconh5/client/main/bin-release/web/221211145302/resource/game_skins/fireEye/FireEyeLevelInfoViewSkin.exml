@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="FireEyeLevelInfoViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
-	<ns1:Label id="_levelTxt" text="第1/10 关" x="166" y="135" textColor="0xfff7e6" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_levelTxt" text="Stage 1/10" x="166" y="135" textColor="0xfff7e6" size="24" fontFamily="Microsoft YaHei"/>
 	<e:Image source="fireEye_shalou_png" x="448" y="124"/>
 	<ns1:Label id="_timeTxt" text="00:30" x="490" y="135" size="24" fontFamily="Microsoft YaHei" textColor="0x4dff00"/>
 	<e:Image source="fireEye_vs_title_png" x="32" y="209"/>
@@ -12,7 +12,7 @@
 	<e:Image id="_doubleSign" source="fireEye_sign_double_png" x="481" y="376"/>
 	<e:Image id="_levelImg" source="arenaRankLabel1_png" x="295" y="475"/>
 	<e:Image source="fireEye_label_level_png" x="395" y="475"/>
-	<ns1:Label text="请找到以下物品" x="0" y="523" textColor="0x7b6d61" size="26" fontFamily="Microsoft YaHei" left="0" right="0" textAlign="center"/>
+	<ns1:Label text="Find the following items" x="0" y="523" textColor="0x7b6d61" size="26" fontFamily="Microsoft YaHei" left="0" right="0" textAlign="center"/>
 	<e:Image id="_cdLabel" source="fireEye_label_enter_png" x="272" y="846"/>
 	<e:Image x="45" y="1005" source="fireEye_cat_goodBig_png"/>
 	<e:Image x="578" y="1005" source="fireEye_cat_badBig_png"/>

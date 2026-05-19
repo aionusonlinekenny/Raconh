@@ -3,15 +3,15 @@
 	<ns1:BasePopUpView id="_baseView" width="100%" height="100%" x="0" y="0" skinName="BasePopUpSkin"/>
 	<ns1:PetSkillGrid id="_grid" x="81" y="377" skinName="PetSkillGridSkin"/>
 
-	<ns1:Label id="_nameTxt" text="英雄Lv.1" x="203" y="396" fontFamily="Microsoft YaHei" size="28" textColor="0x7e6c62"/>
+	<ns1:Label id="_nameTxt" text="Hero Lv.1" x="203" y="396" fontFamily="Microsoft YaHei" size="28" textColor="0x7e6c62"/>
 	<ns1:Label id="_statusTxt" text="(Not Activated)" x="187" y="446" fontFamily="Microsoft YaHei" size="28" textColor="0xff2400"/>
 	<e:Image source="split_line_png" x="26" y="494" width="668"/>
 	<e:Image source="split_line_png" x="26" y="598" width="668"/>
 	<e:Image id="_descImg" source="common_label_skillEff_png" x="82" y="506"/>
-	<ns1:Label id="_descTxt" text="战斗中有一定几率提升宠物自身攻击力10%" x="86" y="551" textColor="0x7e6c62" size="28" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_descTxt" text="In battle, chance to boost pet ATK by 10%" x="86" y="551" textColor="0x7e6c62" size="28" fontFamily="Microsoft YaHei"/>
 	<e:Image id="_condImg" source="common_label_act_cond_png" x="82" y="611"/>
 	<e:Image id="_upgradeImg" x="82" y="611" source="common_label_upgrade2_png"/>
-	<ns1:Label id="_condTxt" text="宠物达到3阶" x="86" y="656" textColor="0x7e6c62" fontFamily="Microsoft YaHei" size="28"/>
+	<ns1:Label id="_condTxt" text="Pet reaches Stage 3" x="86" y="656" textColor="0x7e6c62" fontFamily="Microsoft YaHei" size="28"/>
 	<ns1:Button id="_upgradeBtn" label="" x="487" y="622" width="197" height="90">
 		<ns1:skinName>
 			<e:Skin states="up,down,disabled">

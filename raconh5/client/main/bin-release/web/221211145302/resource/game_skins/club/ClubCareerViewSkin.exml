@@ -4,7 +4,7 @@
 	<e:Group id="_group" width="720" height="1280" y="0" horizontalCenter="0">
 		<ns1:BasePopUpView id="_basePopView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
 		<e:Image width="181" height="52" x="212" y="196" source="club_curCareer_png"/>
-		<ns1:Label id="_curCareer" text="无职位" x="393" y="209" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_curCareer" text="No Position" x="393" y="209" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei"/>
 		<e:Image width="658" height="3" y="263" source="common_line_png" horizontalCenter="0"/>
 		<e:Image width="181" height="52" y="275" source="club_changeLife_png" horizontalCenter="0.5"/>
 		<e:Image width="22" height="22" x="203" y="342" source="common_point_png"/>

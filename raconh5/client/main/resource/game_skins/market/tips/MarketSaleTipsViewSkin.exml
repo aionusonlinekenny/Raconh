@@ -44,15 +44,15 @@
 	<e:Image source="marketsheet.market_di_png" y="777" horizontalCenter="0"/>
 	<e:Image source="commonsheet.panel_gold_54_png" y="783" horizontalCenter="-30"/>
 
-	<ns1:Label text="数量" x="93" y="528" size="30" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="Quantity" x="93" y="528" size="30" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 
 
 
 
 
-	<ns1:Label text="单价" x="93" y="653" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
-	<ns1:Label id="_taxrateTxt" text="数量" y="708" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="312" textAlign="center" horizontalCenter="0"/>
-	<ns1:Label id="_recommendTxt" text="数量" y="592" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="312" textAlign="center" horizontalCenter="0"/>
+	<ns1:Label text="Price" x="93" y="653" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
+	<ns1:Label id="_taxrateTxt" text="Quantity" y="708" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="312" textAlign="center" horizontalCenter="0"/>
+	<ns1:Label id="_recommendTxt" text="Quantity" y="592" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="312" textAlign="center" horizontalCenter="0"/>
 
 	<ns1:Label id="_nameTxt" text="Label" y="463" rotation="0" anchorOffsetX="0" width="203.02" anchorOffsetY="0" height="38" textAlign="center" scaleX="1" scaleY="1" x="259" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_goldTxt" text="123" y="794" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="187" textAlign="left" x="353"/>

@@ -16,20 +16,20 @@
 
 
 
-	<ns1:Label id="_txt0" text="每次成功提升都可增加人物10%的经验收益" y="314" fontFamily="Microsoft YaHei" size="28" textColor="0x7b6d61" x="105"/>
-	<ns1:Label id="_txt1" text="当前提升       经验+10%" y="364" fontFamily="Microsoft YaHei" size="28" textColor="0x37b700" x="219"/>
-	<!--<ns1:Label id="_txt2" text="银币提升" y="430" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="261"/>
-	<ns1:Label id="_txt3" text="元宝提升" y="492" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="261"/>-->
-	<ns1:Label id="_txt4" text="20万/次" y="430" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="430"/>
-	<ns1:Label id="_txt5" text="20万/次" y="492" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="430"/>
-	<ns1:RadioButton id="_cbCoin" x="206" y="422" groupName="copyExpAddRate" label="银币提升">
+	<ns1:Label id="_txt0" text="Each successful boost adds 10% EXP income" y="314" fontFamily="Microsoft YaHei" size="28" textColor="0x7b6d61" x="105"/>
+	<ns1:Label id="_txt1" text="Current Boost: EXP+10%" y="364" fontFamily="Microsoft YaHei" size="28" textColor="0x37b700" x="219"/>
+	<!--<ns1:Label id="_txt2" text="Silver Boost" y="430" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="261"/>
+	<ns1:Label id="_txt3" text="Gold Boost" y="492" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="261"/>-->
+	<ns1:Label id="_txt4" text="200K/use" y="430" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="430"/>
+	<ns1:Label id="_txt5" text="200K/use" y="492" fontFamily="Microsoft YaHei" size="28" textColor="0x7B6D61" x="430"/>
+	<ns1:RadioButton id="_cbCoin" x="206" y="422" groupName="copyExpAddRate" label="Silver Boost">
 		<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
 		<e:Image source="common_cb_rect_png" x="0" y="0"/>
 		<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>
         <e:Label id="labelDisplay" size="28" textColor="0x7b6d61" fontFamily="Microsoft YaHei" x="55" y="8"/>
 		</e:Skin>
 	</ns1:RadioButton>
-	<ns1:RadioButton id="_cbGold" x="206" y="484" groupName="copyExpAddRate" label="元宝提升">
+	<ns1:RadioButton id="_cbGold" x="206" y="484" groupName="copyExpAddRate" label="Gold Boost">
 		<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
 		<e:Image source="common_cb_rect_png" x="0" y="0"/>
 		<e:Image source.upAndSelected="common_cb_selected_png" source.downAndSelected="" source.disabledAndSelected="" source="" x="0" y="0"/>

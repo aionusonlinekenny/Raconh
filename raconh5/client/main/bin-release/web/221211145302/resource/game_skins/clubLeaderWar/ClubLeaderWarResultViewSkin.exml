@@ -6,7 +6,7 @@
 	<e:Image id="_btnClose" source="common_tip_close_png" x="639" y="88"/>
 	<e:Image id="_picFail" source="result_fail_words_png" x="224" y="179"/>
 
-	<ns1:Label id="_txt1" text="恭喜你挑战胜利！" y="153" textColor="0xfff7e6" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" x="245" size="30"/>
+	<ns1:Label id="_txt1" text="Challenge Cleared!" y="153" textColor="0xfff7e6" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" x="245" size="30"/>
 	<ns1:Label id="_txt2" text="Label" y="203" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="center" size="30" width="600" horizontalCenter="0"/>
 	<ns1:Label id="_txt3" text="Label" y="254" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="center" size="30" width="600" horizontalCenter="0"/>
 	<e:Image source="result_line_png" y="340" x="113"/>
@@ -19,5 +19,5 @@
 		</e:Skin>
 		</ns1:skinName>
 	</ns1:Button>
-	<ns1:Label id="_txtTime" text="倒计时3s退出" x="475" y="556" textColor="0xFFF7E6" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_txtTime" text="Exit in 3s" x="475" y="556" textColor="0xFFF7E6" fontFamily="Microsoft YaHei"/>
 </e:Skin>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="DevilResultViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="common_name_back_png" x="102" y="289"/>
-	<ns1:Label id="_nameTxt" text="玩家名字啊" x="128" y="373" textColor="0xfff7e6" size="26" fontFamily="Microsoft YaHei" maxWidth="26"/>
+	<ns1:Label id="_nameTxt" text="Player Name" x="128" y="373" textColor="0xfff7e6" size="26" fontFamily="Microsoft YaHei" maxWidth="26"/>
 	<e:Image id="_fightImg" source="common_fighting_png" x="173" y="782"/>
 	<e:Image width="102" height="57" x="215" y="789" source="common_zhanli_png"/>
 	<e:Image source="arenaResultAwardLabel_png" x="287" y="845"/>

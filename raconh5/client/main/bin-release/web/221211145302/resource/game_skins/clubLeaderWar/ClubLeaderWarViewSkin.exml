@@ -20,11 +20,11 @@
 	<ns1:ClubLeaderWarFightInfoItem id="_item1" width="250" height="165" x="230" y="772" skinName="ClubLeaderWarFightInfoItemSkin"/>
 	<ns1:ClubLeaderWarFightInfoItem id="_item3" width="250" height="165" x="463" y="642" skinName="ClubLeaderWarFightInfoItemSkin"/>
 	<e:Group id="_playing" width="720" height="1280" x="0" y="0">
-		<e:Label text="我的排名：" x="30" y="142" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" scaleX="1" scaleY="1"/>
+		<e:Label text="My Rank:" x="30" y="142" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_rank" text="999" x="144" y="144" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4eff00"/>
 		<e:Image width="720" height="45" x="0" y="938" source="common_back5_png" scale9Grid="103,21,13,0" anchorOffsetX="0"/>
 		<e:Group id="_timeGroup" width="230" height="40" x="32" y="942">
-			<e:Label text="挑战次数：" x="0" y="7" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+			<e:Label text="Attempts:" x="0" y="7" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 			<ns1:Label id="_playTimes" text="10/10" x="115" y="8" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4eff00"/>
 			<ns1:Button id="_addTimeBtn" label="" x="184" y="0" scaleX="1" scaleY="1">
 				<e:skinName>
@@ -38,7 +38,7 @@
 
 
 
-		<ns1:Label id="_numCountdownTips" text="00:00:00后回复1次" x="493" y="950" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4eff00"/>
+		<ns1:Label id="_numCountdownTips" text="Restore 1 use in 00:00:00" x="493" y="950" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4eff00"/>
 		<ns1:Button id="_playBtn" label="" y="1026" horizontalCenter="0" x="241" scaleX="1" scaleY="1">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">
@@ -50,9 +50,9 @@
 		</ns1:Button>
 	</e:Group>
 	<e:Group id="_played" width="720" height="1280" x="0" y="0">
-		<e:Label text="膜拜次数：" x="30" y="142" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" scaleX="1" scaleY="1"/>
+		<e:Label text="Worship Count:" x="30" y="142" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_mobaiTime" text="3/3" x="144" y="144" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x4eff00"/>
-	<ns1:Label id="_nextTimeTips" text="下一轮盟主争夺战00:00:00后开启" y="994" fontFamily="Microsoft YaHei" size="22" horizontalCenter="0"/>
+	<ns1:Label id="_nextTimeTips" text="Next Guild War opens in 00:00:00" y="994" fontFamily="Microsoft YaHei" size="22" horizontalCenter="0"/>
 	<ns1:Button id="_btn1" label="" x="204" y="1027" width="113" height="108">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">

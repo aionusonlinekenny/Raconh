@@ -12,7 +12,7 @@
 			</e:Skin>
 		</ns1:skinName>
 	</ns1:Button>
-	<ns1:Label text="全选" x="561" y="707" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Select All" x="561" y="707" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:CheckBox id="_allCB" label="" x="625" y="699">
 		<ns1:skinName>
 			<e:Skin states="up,down,disabled">

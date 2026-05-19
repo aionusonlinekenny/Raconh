@@ -8,12 +8,12 @@
 	<e:Image id="_btn2" width="94" height="90" x="235" y="490" source="landlord_interactIcon2_png"/>
 	<e:Image id="_btn3" width="94" height="90" x="384" y="490" source="landlord_interactIcon3_png"/>
 	<e:Image id="_btn4" width="94" height="90" x="519" y="490" source="landlord_interactIcon4_png"/>
-	<ns1:Label id="_name1" text="倒酒" x="133" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_name2" text="贿赂" x="260" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_name3" text="鞭打" x="408" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_name4" text="流放" x="544" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label text="获得奖励：" x="237" y="693" size="22" fontFamily="Microsoft YaHei"/>
-	<ns1:Label text="冷却时间：" x="237" y="734" size="22" fontFamily="Microsoft YaHei"/>
-	<ns1:Label id="_itemName" text="道具名称X1" x="358" y="693" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_name1" text="Pour Wine" x="133" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name2" text="Bribe" x="260" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name3" text="Whip" x="408" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name4" text="Exile" x="544" y="591" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="Reward Obtained:" x="237" y="693" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Cooldown:" x="237" y="734" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_itemName" text="Item Name x1" x="358" y="693" size="22" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_time" text="00:00:00" x="358" y="736" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
 </e:Skin>

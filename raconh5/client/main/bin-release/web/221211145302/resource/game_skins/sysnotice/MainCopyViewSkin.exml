@@ -9,7 +9,7 @@
 	<e:Image source="activity_copy_label_2_png" x="34" y="893"/>
 	<e:Image source="activity_copy_rank_title_png" x="13" y="124"/>
 	<e:Image source="common_name_back_png" x="517" y="142.5"/>
-	<ns1:Label id="_txtBoss" text="怪" x="550" y="234" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" anchorOffsetY="0" height="182" anchorOffsetX="0" width="27" lineSpacing="8"/>
+	<ns1:Label id="_txtBoss" text="Monster" x="550" y="234" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" anchorOffsetY="0" height="182" anchorOffsetX="0" width="27" lineSpacing="8"/>
 	<e:Group id="_groupPre" x="535" y="605">
 		<e:Image source="common_rect_1_png" y="0" width="164" height="188" scale9Grid="6,6,38,38" x="0"/>
 		<e:Group id="_groupUnlock" y="11" horizontalCenter="0">
@@ -30,10 +30,10 @@
 
 
 
-	<ns1:Label id="_txtName" text="排名：未上榜" x="280" y="134" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" width="160" textAlign="center"/>
+	<ns1:Label id="_txtName" text="Rank: Unranked" x="280" y="134" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" width="160" textAlign="center"/>
 
 	<ns1:Label id="_txtRank" text="" x="15" y="164" fontFamily="Microsoft YaHei" textColor="0xFFF7E6" size="22" anchorOffsetX="0" width="220" anchorOffsetY="0" height="95" lineSpacing="12"/>
-	<ns1:Label id="_txtLink" text="查看排名" x="132" y="130" fontFamily="Microsoft YaHei" size="22" textColor="0x37b700"/>
+	<ns1:Label id="_txtLink" text="Rankings" x="132" y="130" fontFamily="Microsoft YaHei" size="22" textColor="0x37b700"/>
 	<ns1:Button id="_btn" label="" y="1014" horizontalCenter="0">
 		<ns1:skinName>
 		<e:Skin states="up,down,disabled">

@@ -31,7 +31,7 @@
 			</e:Skin>
 			</ns1:skinName>
 		</ns1:Button>
-		<ns1:Label text="高品质命格将与底品质命格融合底品质命格消失，保留最高属性" x="-124" y="216" anchorOffsetX="0" width="347" anchorOffsetY="0" height="67" fontFamily="Microsoft YaHei" textAlign="center" scaleX="1" scaleY="1" textColor="0x38b800"/>
+		<ns1:Label text="High-quality fate merges with low-quality; low disappears, highest stats kept" x="-124" y="216" anchorOffsetX="0" width="347" anchorOffsetY="0" height="67" fontFamily="Microsoft YaHei" textAlign="center" scaleX="1" scaleY="1" textColor="0x38b800"/>
 	</e:Group>
 	<e:Group id="_group1" x="106" y="613" locked="true">
 		<ns1:Label id="_losseTxt" text="Label" y="0" anchorOffsetX="0" width="509" textAlign="center" textColor="0x7c6e62" x="0"/>

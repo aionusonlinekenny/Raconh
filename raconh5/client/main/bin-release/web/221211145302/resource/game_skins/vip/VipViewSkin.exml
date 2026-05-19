@@ -10,7 +10,7 @@
 	<e:Image id="_curImg" source="vip_title_png" x="15" y="140"/>
 	<e:Image id="_nextImg" source="vip_title_png" x="490" y="140"/>
 	<e:Image source="common_arrow_png" x="342" y="129"/>
-	<ns1:Label id="_nextTxt" text="在充值100元宝成为VIP1" x="115" y="255" size="28" textColor="0x7b6d61" fontFamily="Microsoft YaHei" height="37" textAlign="left" verticalAlign="middle" width="395" anchorOffsetX="0"/>
+	<ns1:Label id="_nextTxt" text="Recharge 100 Gold to become VIP1" x="115" y="255" size="28" textColor="0x7b6d61" fontFamily="Microsoft YaHei" height="37" textAlign="left" verticalAlign="middle" width="395" anchorOffsetX="0"/>
 	<ns1:Button id="_rechargeBtn" label="" x="503" y="231" width="197" height="90">
 		<ns1:skinName>
 			<e:Skin states="up,down,disabled">

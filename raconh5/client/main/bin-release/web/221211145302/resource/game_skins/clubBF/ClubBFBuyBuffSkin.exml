@@ -5,10 +5,10 @@
 		<ns1:BitmapRemote id="_icon" width="206" height="208" x="121" y="44"/>
 
 		<e:Image source="common_title_wordBg_png" y="12" scale9Grid="55,17,103,0" width="246" scaleX="1" scaleY="1" horizontalCenter="0"/>
-		<ns1:Label text="提 示" y="16" size="28" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetX="0" width="171" textAlign="center" horizontalCenter="0"/>
+		<ns1:Label text="Notice" y="16" size="28" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetX="0" width="171" textAlign="center" horizontalCenter="0"/>
 		<e:Group x="38" y="240">
 			<e:Image source="playRes_gold_54_png" y="0" left="38"/>
-			<ns1:Label id="_txt" text="花费      {0}鼓舞，全盟成员攻击+10%" y="14" size="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetX="0" textAlign="left" anchorOffsetY="0" x="0"/>
+			<ns1:Label id="_txt" text="Spend {0} Morale, all guild ATK+10%" y="14" size="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" anchorOffsetX="0" textAlign="left" anchorOffsetY="0" x="0"/>
 		</e:Group>
 	</e:Group>
 	<ns1:Button id="_btnConfirm" label="" y="278" width="197" height="90" x="237" scaleX="1" scaleY="1">

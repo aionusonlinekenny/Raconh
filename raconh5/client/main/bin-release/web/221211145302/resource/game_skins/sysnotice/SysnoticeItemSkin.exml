@@ -14,6 +14,6 @@
 
 	<e:Group id="_buIcon" x="30.4" y="46.8" visible="false">
 		<e:Image width="47" height="25" x="0" y="0" source="common_tips_num_back_png"/>
-		<ns1:Label text="补" x="13.6" y="0.2" textColor="0xfffcfa" size="22" fontFamily="Microsoft YaHei"/>
+		<ns1:Label text="Replenish" x="13.6" y="0.2" textColor="0xfffcfa" size="22" fontFamily="Microsoft YaHei"/>
 	</e:Group>
 </e:Skin>

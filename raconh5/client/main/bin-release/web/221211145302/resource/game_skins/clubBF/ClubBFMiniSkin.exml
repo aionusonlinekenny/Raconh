@@ -2,10 +2,10 @@
 <e:Skin class="ClubBFMiniSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Group y="774" left="3">
 		<e:Image width="264" height="116" x="21" y="59" scaleX="1" scaleY="1" source="task_guangBg_png"/>
-		<ns1:Label id="_txtName" text="玄元剑" x="47" y="72" anchorOffsetX="0" size="22" textAlign="center" anchorOffsetY="0" fontFamily="Microsoft YaHei" textColor="0xFFF7E7"/>
-		<ns1:Label id="_txtScore" text="积分：0" x="47" y="110" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" textColor="0xFFF7E7"/>
-		<ns1:Label id="_txtRank" text="排名：0" x="179" y="110" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" textColor="0xFFF7E7"/>
-		<ns1:Label id="_txtNum" text="防守进攻人数：0/0" x="47" y="140" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" textColor="0xFFF7E7"/>
+		<ns1:Label id="_txtName" text="Xuanyuan Sword" x="47" y="72" anchorOffsetX="0" size="22" textAlign="center" anchorOffsetY="0" fontFamily="Microsoft YaHei" textColor="0xFFF7E7"/>
+		<ns1:Label id="_txtScore" text="Points: 0" x="47" y="110" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" textColor="0xFFF7E7"/>
+		<ns1:Label id="_txtRank" text="Rank: 0" x="179" y="110" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" textColor="0xFFF7E7"/>
+		<ns1:Label id="_txtNum" text="Defenders/Attackers: 0/0" x="47" y="140" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" textColor="0xFFF7E7"/>
         <ns1:ProgressBar id="_bar" width="151" height="20" x="117" y="73">
             <e:Skin>
                 <e:Image width="100%" height="100%" source="task_jinduBg_png"/>
@@ -14,7 +14,7 @@
             </e:Skin>
 	    </ns1:ProgressBar>
 		<e:Image id="_back" width="42" height="89" x="1" y="43" scaleX="1" scaleY="1" source="task_guang_png"/>
-		<ns1:Label id="_title" text="防守" x="9" y="67" anchorOffsetX="0" width="25" anchorOffsetY="0" fontFamily="Microsoft YaHei" size="22" textColor="0x7C6E62" textAlign="center" verticalAlign="top" lineSpacing="5"/>
+		<ns1:Label id="_title" text="Defense" x="9" y="67" anchorOffsetX="0" width="25" anchorOffsetY="0" fontFamily="Microsoft YaHei" size="22" textColor="0x7C6E62" textAlign="center" verticalAlign="top" lineSpacing="5"/>
 		<ns1:Button id="_btnAuto" label="Button" x="0" y="0">
 			<ns1:skinName>
 				<e:Skin states="up,down,disabled">
@@ -31,9 +31,9 @@
 
 		<e:Image id="_btnGet" source="clubBF_btn_box_png" y="234" horizontalCenter="0"/>
 		<e:Image id="_btnClubScore" source="clubBF_btn_score_png" y="365" horizontalCenter="0"/>
-		<ns1:Label id="_txtClubBuff" text="攻击+10%" y="220" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" touchEnabled="false" textAlign="center" horizontalCenter="0" textColor="0x4eff00"/>
-		<ns1:Label id="_txtGet" text="999分可领\n（5/6）" y="334" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" textAlign="center" touchEnabled="false" horizontalCenter="0" textColor="0x4eff00"/>
-		<ns1:Label id="_txtClubScore" text="友：9999" y="468" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" touchEnabled="false" textAlign="left" horizontalCenter="0" textColor="0x4eff00"/>
+		<ns1:Label id="_txtClubBuff" text="ATK+10%" y="220" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" touchEnabled="false" textAlign="center" horizontalCenter="0" textColor="0x4eff00"/>
+		<ns1:Label id="_txtGet" text="999pts claimable\n(5/6)" y="334" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" textAlign="center" touchEnabled="false" horizontalCenter="0" textColor="0x4eff00"/>
+		<ns1:Label id="_txtClubScore" text="Friend: 9999" y="468" anchorOffsetX="0" anchorOffsetY="0" size="22" fontFamily="Microsoft YaHei" touchEnabled="false" textAlign="left" horizontalCenter="0" textColor="0x4eff00"/>
 		<e:Image id="_redIcon" source="common_red_icon_png" x="68" y="247" touchEnabled="false"/>
 	</e:Group>
 

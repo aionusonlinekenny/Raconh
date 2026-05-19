@@ -17,8 +17,8 @@
 		</e:Skin>
 		</ns1:skinName>
 	</ns1:Button>
-	<ns1:Label id="_nextTxt" text="再充" x="457" y="334" anchorOffsetX="0" width="63" anchorOffsetY="0" height="32" fontFamily="Microsoft YaHei"/>
-	<ns1:Label id="_vipTxt" text="成为VIP1" x="589" y="335" anchorOffsetX="0" width="144" anchorOffsetY="0" height="32" fontFamily="Microsoft YaHei" textAlign="left"/>
+	<ns1:Label id="_nextTxt" text="Recharge" x="457" y="334" anchorOffsetX="0" width="63" anchorOffsetY="0" height="32" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_vipTxt" text="Become VIP1" x="589" y="335" anchorOffsetX="0" width="144" anchorOffsetY="0" height="32" fontFamily="Microsoft YaHei" textAlign="left"/>
 	<e:Image id="_yuanImg" source="sysCharge_yuan_png" x="553" y="331"/>
 	<ns1:Label id="_maxVipTxt" text="" x="501" y="335" anchorOffsetX="0" width="202" anchorOffsetY="0" height="32" fontFamily="Microsoft YaHei" textAlign="center"/>
 	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="162" y="281" anchorOffsetX="0" width="312"/>

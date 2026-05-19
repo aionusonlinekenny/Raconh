@@ -45,7 +45,7 @@
 		</e:Group>
 		<e:Group x="0" y="0">
 		<e:Image source="artifact_zhe_png" x="0" y="0"/>
-		<ns1:Label text="9折" x="7" y="16" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="49" anchorOffsetY="0" height="34" size="28"/>
+		<ns1:Label text="10% Off" x="7" y="16" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="49" anchorOffsetY="0" height="34" size="28"/>
 		</e:Group>
 	</e:Group>
 	<ns1:Label id="_descTxt" text="  " y="1196" anchorOffsetX="0" width="618" anchorOffsetY="0" height="66" textColor="0x4EFF00" textAlign="center" fontFamily="Microsoft YaHei" x="51"/>

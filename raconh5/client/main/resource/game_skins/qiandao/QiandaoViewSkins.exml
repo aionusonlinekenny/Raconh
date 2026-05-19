@@ -4,14 +4,14 @@
 		<e:Image width="710" height="159" x="5" y="970" source="common_tipsBg_png" scale9Grid="47,50,22,19" visible="false"/>
 	</e:Panel>
 	<e:Image id="_back" width="693" height="128" x="13.5" y="125" source="qiandao_back_png"/>
-	<ns1:Label text="累计签到次数：" x="40" y="150" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e7"/>
-	<ns1:Label text="可补签到次数：" x="40" y="202" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e7"/>
+	<ns1:Label text="Total Sign-ins:" x="40" y="150" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e7"/>
+	<ns1:Label text="Make-up Sign-ins:" x="40" y="202" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e7"/>
 	<ns1:Label id="_totalNum" text="16" x="211" y="150" fontFamily="Microsoft YaHei" size="24" textColor="0x38b800"/>
 	<ns1:Label id="_repairNum" text="16" x="211" y="202" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
 	<e:Image id="_bottomBack" width="693" height="187" x="13.5" y="940" source="qiandao_bottom_back_png"/>
 	<e:Group x="48.12" y="958" visible="false">
-		<ns1:Label text="激活                ，可以再领一次奖励，收益提升         元宝" x="0" y="0" fontFamily="Microsoft YaHei" size="24"/>
-		<ns1:Label text="钻石卡特权" x="48.08" y="0" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+		<ns1:Label text="Activate to claim reward again and earn extra Gold" x="0" y="0" fontFamily="Microsoft YaHei" size="24"/>
+		<ns1:Label text="Diamond Card Privilege" x="48.08" y="0" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
 		<ns1:Label text="100%" x="496.79" y="0" textColor="0xffe130" size="24" fontFamily="Microsoft YaHei"/>
 	</e:Group>
 	<e:Image id="_bottomBack2" width="636" height="97" x="40" y="994" source="qiandao_bottom_back2_png"/>

@@ -12,8 +12,8 @@
 			</e:skinName>
 		</ns1:Button>
 		<e:Image id="_okBtnImg" y="703" source="confirm_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="157.5"/>
-		<ns1:Label id="_tips1" text="是否确定加入雄霸天下世家？（选择后无法更改）" y="401" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24" horizontalCenter="0"/>
-		<ns1:Label id="_tips2" text="加入推荐的世家可获得推荐好礼一份！" y="475" textColor="0xff0000" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0"/>
+		<ns1:Label id="_tips1" text="Join this guild? (Cannot be changed)" y="401" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24" horizontalCenter="0"/>
+		<ns1:Label id="_tips2" text="Join a recommended guild for bonus rewards!" y="475" textColor="0xff0000" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0"/>
 		<ns1:Button id="_cancelBtn" label="" x="95" y="675">
 			<e:skinName>
 				<e:Skin states="up,down,disabled">

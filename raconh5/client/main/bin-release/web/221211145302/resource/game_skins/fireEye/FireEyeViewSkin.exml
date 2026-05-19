@@ -9,5 +9,5 @@
 			</e:Skin>
 		</ns1:skinName>
 	</ns1:Button>
-	<ns1:Label text="活动为限时挑战，请尽量在良好网络环境的安全区开始挑战" x="47" y="990" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
+	<ns1:Label text="Limited-time challenge — start in a safe area with good connection" x="47" y="990" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
 </e:Skin>

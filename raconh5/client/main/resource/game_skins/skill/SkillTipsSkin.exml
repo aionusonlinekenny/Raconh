@@ -2,10 +2,10 @@
 <e:Skin class="SkillTipsSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<e:Image id="_back" source="common_tipsBg_png" x="180" y="463" width="406" height="484" scale9Grid="47,49,20,18"/>
 	<e:Image source="common_title_wordBg_png" x="279" y="485"/>
-	<ns1:Label id="_titleTxt" text="绝命风华" x="180" y="491" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24" width="406" textAlign="center"/>
+	<ns1:Label id="_titleTxt" text="Deadly Grace" x="180" y="491" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24" width="406" textAlign="center"/>
 	<ns1:BaseGoods id="_lossItem" width="141" height="141" x="200" y="510" skinName="BaseGoodsSkin"/>
 	<ns1:Label id="_fightTxt" text="Power:" x="330" y="530" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22" width="230"/>
-	<ns1:Label id="_awakeTxt" text="觉醒：" x="330" y="565" size="22" textColor="0x7c6e62" width="230" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_awakeTxt" text="Awakening:" x="330" y="565" size="22" textColor="0x7c6e62" width="230" fontFamily="Microsoft YaHei"/>
 	<e:Image source="split_line_png" x="183" y="637" width="400"/>
 	<ns1:Label id="_descTxt" text="" x="217" y="644" fontFamily="Microsoft YaHei" size="20" textColor="0x7c6e62" width="333"/>
 	<e:Image source="split_line_png" x="183" y="704" width="400"/>

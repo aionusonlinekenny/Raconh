@@ -2,9 +2,9 @@
 <e:Skin class="ClubBFClearCDSkin" width="471" height="315" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="common_tipsBg_png" y="1" width="447" height="314" scaleX="1" scaleY="1" x="0" scale9Grid="49,50,18,17"/>
 	<e:Image source="common_title_wordBg_png" y="13" scale9Grid="55,17,103,0" width="246" x="99" scaleX="1" scaleY="1"/>
-	<ns1:Label text="提 示" y="17" size="28" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" x="137" anchorOffsetX="0" width="171" textAlign="center"/>
+	<ns1:Label text="Notice" y="17" size="28" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" x="137" anchorOffsetX="0" width="171" textAlign="center"/>
 	<e:Image source="playRes_gold_54_png" x="161" y="74"/>
-	<ns1:Label id="_txt" text="确定花费      100清除CD吗？" y="87" size="28" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" x="48" anchorOffsetX="0" textAlign="left" anchorOffsetY="0"/>
+	<ns1:Label id="_txt" text="Spend 100 to clear cooldown?" y="87" size="28" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" x="48" anchorOffsetX="0" textAlign="left" anchorOffsetY="0"/>
 	<ns1:CheckBox id="_checkBox" label="不再提示" x="149" y="144">
 		<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
 		<e:Image source="common_cb_rect_png" x="0" y="0"/>

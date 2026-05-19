@@ -6,7 +6,7 @@
 		<e:Image width="120" height="44" x="132" y="375" source="clubLeaderWar_member_png"/>
 		<e:Image width="66" height="44" x="512" y="375" source="clubLeaderWar_renming_png"/>
 		<ns1:BaseVScrollerList id="_scrollerList" width="645" height="440" anchorOffsetX="0" anchorOffsetY="0" y="426" horizontalCenter="-3.5"/>
-		<ns1:Label id="_tips" text="还有0个入室弟子名额未任命" y="890" size="24" fontFamily="Microsoft YaHei" horizontalCenter="14.5" textColor="0x7c6e62"/>
-		<e:Label text="盟主可任命盟会成员为入室弟子" y="972" x="205" size="24" fontFamily="Microsoft YaHei" textColor="0x4eff00"/>
+		<ns1:Label id="_tips" text="0 disciple slots remaining" y="890" size="24" fontFamily="Microsoft YaHei" horizontalCenter="14.5" textColor="0x7c6e62"/>
+		<e:Label text="Guild Master can appoint members as disciples" y="972" x="205" size="24" fontFamily="Microsoft YaHei" textColor="0x4eff00"/>
 	</e:Group>
 </e:Skin>

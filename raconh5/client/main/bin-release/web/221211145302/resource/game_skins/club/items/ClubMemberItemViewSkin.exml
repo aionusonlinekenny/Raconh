@@ -2,7 +2,7 @@
 <e:Skin class="ClubMemberItemViewSkin" width="655" height="55" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
 	<w:Config id="1605534d622" ></w:Config>
 	<e:Image width="655" height="55" y="0" scale9Grid="10,10,63,65" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" source="common_wordBg_normal_png"/>
-	<ns1:Label id="_career" text="大神" x="90" y="14" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center"/>
-	<ns1:Label id="_nickName" text="大神大神大神" y="14" fontFamily="Microsoft YaHei" size="24" textColor="0x7c6e62" horizontalCenter="0" textAlign="center"/>
-	<ns1:Label id="_fighting" text="大神" x="537" y="14" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" textAlign="center"/>
+	<ns1:Label id="_career" text="Master" x="90" y="14" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center"/>
+	<ns1:Label id="_nickName" text="Master" y="14" fontFamily="Microsoft YaHei" size="24" textColor="0x7c6e62" horizontalCenter="0" textAlign="center"/>
+	<ns1:Label id="_fighting" text="Master" x="537" y="14" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" textAlign="center"/>
 </e:Skin>

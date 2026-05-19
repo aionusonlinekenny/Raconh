@@ -3,20 +3,20 @@
 	<w:Config id="161211b4002" ></w:Config>
 	<e:Group id="_back" width="456" height="845" x="257" y="296">
 	</e:Group>
-	<ns1:Label text="你的身份：" x="379" y="887" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22"/>
+	<ns1:Label text="Your Status:" x="379" y="887" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22"/>
 	<e:Group id="_status0" width="429" height="200" x="270" y="858" anchorOffsetX="0" anchorOffsetY="0">
 		<e:Image width="111" height="46" x="235" y="15" source="landlord_freeLife_png"/>
-		<ns1:Label text="抓捕次数：" x="111" y="74" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
-		<ns1:Label text="解救次数：" x="111" y="114" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Capture Attempts:" x="111" y="74" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Rescue Attempts:" x="111" y="114" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_value11" text="6/6" x="246" y="75" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_value12" text="6/6" x="246" y="116" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1"/>
 	</e:Group>
 	<e:Group id="_status1" width="429" height="200" x="270" y="858" anchorOffsetX="0" anchorOffsetY="0" visible="false">
 		<e:Image width="111" height="46" x="221" y="15" source="landlord_dizhu_png"/>
-		<ns1:Label text="抓捕次数：" x="110" y="63" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
-		<ns1:Label text="互动次数：" x="110" y="96" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
-		<ns1:Label text="解救次数：" x="110" y="128" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
-		<ns1:Label text="获得经验：" x="110" y="160" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Capture Attempts:" x="110" y="63" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Interactions:" x="110" y="96" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Rescue Attempts:" x="110" y="128" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
+		<ns1:Label text="EXP Gained:" x="110" y="160" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_value21" text="6/6" x="246" y="65" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x38b800"/>
 		<ns1:Label id="_value22" text="6/6" x="246" y="98" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_value23" text="6/6" x="246" y="130" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1"/>
@@ -24,8 +24,8 @@
 	</e:Group>
 	<e:Group id="_status2" width="429" height="200" x="270" y="858" anchorOffsetX="0" anchorOffsetY="0" visible="false">
 		<e:Image width="111" height="46" x="218" y="15" source="landlord_kugong_png"/>
-		<ns1:Label text="互动次数：" x="109" y="71" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
-		<ns1:Label text="求救次数：" x="109" y="110" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Interactions:" x="109" y="71" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
+		<ns1:Label text="SOS Count:" x="109" y="110" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_value31" text="6/6" x="242" y="72" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_value32" text="6/6" x="242" y="112" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1"/>
 		<ns1:Button id="_btn1" label="" x="59" y="132" width="164" height="72" anchorOffsetX="0" anchorOffsetY="0">
@@ -48,5 +48,5 @@
 		</ns1:Button>
 	</e:Group>
 	<e:Image width="430" height="77" x="273" y="1061" scale9Grid="69,20,6,4" anchorOffsetY="0" source="common_back2_png"/>
-	<ns1:Label id="_desc" text="你的身份为自由身。可以抓捕苦工、解救盟友，获得大量经验。" lineSpacing="5" x="279" y="1073" size="22" fontFamily="Microsoft YaHei" width="420" textColor="0xffffff"/>
+	<ns1:Label id="_desc" text="You are Free. Capture serfs or rescue allies for great EXP." lineSpacing="5" x="279" y="1073" size="22" fontFamily="Microsoft YaHei" width="420" textColor="0xffffff"/>
 </e:Skin>

@@ -3,7 +3,7 @@
 	<e:Image scale9Grid="29,11,181,69" width="100%" height="142" source="{data.normalImg}" includeIn="up" y="3"/>
 	<e:Image scale9Grid="29,11,181,69" width="100%" height="142" source="{data.clickImg}" includeIn="down" y="3"/>
 	<ns1:SkillGrid id="grid" width="111" height="111" x="15" y="18" skinName="SkillGridSkin"/>
-	<e:Label id="_nameTxt" text="绝代风华" x="130" y="31" textColor="0x7c6e62" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="100" textAlign="left" size="22"/>
+	<e:Label id="_nameTxt" text="Peerless Beauty" x="130" y="31" textColor="0x7c6e62" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="100" textAlign="left" size="22"/>
 	<e:Label id="_lvlTxt" text="Lv：140" x="130" y="88" textAlign="left" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="22"/>
 	<e:Image id="_upgradeIcon" source="common_red_icon_png" x="210" y="0"/>
 </e:Skin>

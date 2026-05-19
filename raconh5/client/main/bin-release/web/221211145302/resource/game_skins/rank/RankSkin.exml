@@ -3,7 +3,7 @@
 	<e:Group id="_content" x="0" y="16">
 		<ns1:RankItem0 id="_item0" width="720" height="459" x="0" y="89" anchorOffsetX="0" anchorOffsetY="0"/>
 		<ns1:BaseVScrollerList id="_list" width="670" height="486" x="26" y="549" anchorOffsetY="0"/>
-		<ns1:Label id="_txtMyRank" text="我的排行：未入榜" x="65" y="1067" fontFamily="Microsoft YaHei" size="30" textColor="0xdfcbbd"/>
+		<ns1:Label id="_txtMyRank" text="My Rank: Unranked" x="65" y="1067" fontFamily="Microsoft YaHei" size="30" textColor="0xdfcbbd"/>
 		<ns1:Label id="_txtMyValue" text="My Power: 0" x="419" y="1067" fontFamily="Microsoft YaHei" size="30" textColor="0xdfcbbd"/>
 	</e:Group>
 

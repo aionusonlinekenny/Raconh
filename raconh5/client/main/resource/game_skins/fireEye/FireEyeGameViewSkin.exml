@@ -7,7 +7,7 @@
 
 	<e:Image source="fire_eye_kuang_png" x="115" y="1177" width="512"/>
 	<e:Image source="fireEye_glass_png" x="76" y="1178"/>
-	<ns1:Label id="_levelTxt" text="第1/10 关" x="166" y="1197" textColor="0xFFF7E6" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_levelTxt" text="Stage 1/10" x="166" y="1197" textColor="0xFFF7E6" size="24" fontFamily="Microsoft YaHei"/>
 	<e:Image source="fireEye_shalou_png" x="465" y="1185"/>
 	<ns1:Label id="_timeTxt" text="00:30" x="515" y="1197" size="24" fontFamily="Microsoft YaHei" textColor="0x4DFF00"/>
 

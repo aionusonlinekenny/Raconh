@@ -1,14 +1,14 @@
 <e:Skin class="ArtifactItemSkin" width="720" height="294" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 <e:Image source="common_back2_png" scale9Grid="1,10,137,20" x="0" y="0" anchorOffsetX="0" width="720" anchorOffsetY="0" height="265" locked="true"/>
 	<e:Group id="_group" x="0" y="0" width="720">
-		<ns1:Label id="_label0" text="【1角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="5" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_label1" text="【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="38" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_label2" text="【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="70" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_label3" text="【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="103" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_label4" text="【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="135" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_label5" text="【5角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="168" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_label6" text="【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="200" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_label7" text="【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="233" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="0" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_label8" text="【角色名字】在凌烟阁中获得【珍稀道具】，真是羡煞旁人" y="265" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label0" text="[Player1] obtained [Rare Item] in Hall of Fame!" y="5" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label1" text="[Player] obtained [Rare Item] in Hall of Fame!" y="38" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label2" text="[Player] obtained [Rare Item] in Hall of Fame!" y="70" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label3" text="[Player] obtained [Rare Item] in Hall of Fame!" y="103" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label4" text="[Player] obtained [Rare Item] in Hall of Fame!" y="135" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label5" text="[Player5] obtained [Rare Item] in Hall of Fame!" y="168" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label6" text="[Player] obtained [Rare Item] in Hall of Fame!" y="200" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label7" text="[Player] obtained [Rare Item] in Hall of Fame!" y="233" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="0" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_label8" text="[Player] obtained [Rare Item] in Hall of Fame!" y="265" anchorOffsetX="0" width="700" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="28" size="24" textAlign="center" x="10" scaleX="1" scaleY="1"/>
 	</e:Group>
 </e:Skin>

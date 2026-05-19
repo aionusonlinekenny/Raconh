@@ -10,5 +10,5 @@
 	<e:Image id="_redIcon" source="common_red_icon_png" right="4" top="5" visible="false"/>
 	<e:Image id="_jieImg" x="20.85" y="24.15" source="suit_qizi_png"/>
 	<ns1:Label id="_jieTxt" text="" x="22" y="24" anchorOffsetX="0" width="30" anchorOffsetY="0" height="21" size="18" fontFamily="Microsoft YaHei" textAlign="center"/>
-	<ns1:Label id="_jiaLabel" text="阶" x="28" y="42" fontFamily="Microsoft YaHei" size="18"/>
+	<ns1:Label id="_jiaLabel" text="Stage" x="28" y="42" fontFamily="Microsoft YaHei" size="18"/>
 </e:Skin>

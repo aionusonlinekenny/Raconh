@@ -32,5 +32,5 @@
 		</e:skinName>
 	</ns1:Button>
 
-	<e:Label text="一次可熔炼50件装备" y="796" horizontalCenter="0" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e7"/>
+	<e:Label text="Smelt up to 50 items at once" y="796" horizontalCenter="0" size="24" fontFamily="Microsoft YaHei" textColor="0xfff7e7"/>
 </e:Skin>

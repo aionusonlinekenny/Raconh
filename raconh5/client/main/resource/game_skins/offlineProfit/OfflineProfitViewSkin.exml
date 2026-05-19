@@ -44,8 +44,8 @@
 		<ns1:Label id="_txt10" text="Label" x="206" y="172" anchorOffsetX="0" width="175" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="center" textColor="0x38b800"/>
 		<ns1:Label id="_txt11" text="Label" x="413" y="172" anchorOffsetX="0" width="175" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textAlign="center" textColor="0x38b800"/>
 	</e:Group>
-	<ns1:Label id="_txt1" text="00小时00分（最多累计24小时收益）" x="202" y="390" anchorOffsetX="0" width="514" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-	<ns1:Label id="_txt2" text="离线超过8小时，只能获得80%收益" x="202" y="443" anchorOffsetX="0" width="517" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+	<ns1:Label id="_txt1" text="00h 00m (Max 24h income)" x="202" y="390" anchorOffsetX="0" width="514" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+	<ns1:Label id="_txt2" text="Offline 8+ hours: only 80% income" x="202" y="443" anchorOffsetX="0" width="517" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 
 
 

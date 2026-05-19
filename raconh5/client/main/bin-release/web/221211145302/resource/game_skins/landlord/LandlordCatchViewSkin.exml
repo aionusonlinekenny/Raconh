@@ -5,7 +5,7 @@
 	<e:Group id="_bg" width="461" height="845" x="255" y="296">
 	</e:Group>
 	<e:Image width="459" height="45" x="255" y="294" source="common_back5_png" scale9Grid="104,5,10,35" anchorOffsetX="0"/>
-	<e:Label text="抓捕次数：" x="405" y="305" fontFamily="Microsoft YaHei" size="22"/>
+	<e:Label text="Capture Attempts:" x="405" y="305" fontFamily="Microsoft YaHei" size="22"/>
 	<ns1:Label id="_catchValue" text="6/6" x="525" y="306" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
 	<ns1:Button id="_enterBtn" label="" x="398" y="593">
 		<e:skinName>
@@ -15,6 +15,6 @@
 		</e:Skin>
 		</e:skinName>
 	</ns1:Button>
-	<ns1:Label id="_tips" text="暂时没有手下败将" y="758" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" x="398"/>
+	<ns1:Label id="_tips" text="No defeated rivals yet" y="758" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" x="398"/>
 	<ns1:BaseVScrollerList id="_playerList" width="447" height="792" y="340" x="260" anchorOffsetX="0" anchorOffsetY="0"/>
 </e:Skin>

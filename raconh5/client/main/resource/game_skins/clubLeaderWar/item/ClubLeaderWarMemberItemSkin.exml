@@ -2,7 +2,7 @@
 <e:Skin class="ClubLeaderWarMemberItemSkin" width="645" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
 	<w:Config id="16155d1bda0" ></w:Config>
 	<e:Image width="645" height="100" x="0" y="0" source="common_wordBg_normal_png" scale9Grid="14,12,89,72" anchorOffsetY="0"/>
-	<ns1:Label id="_name" text="[逍遥11阶]盟主大神" x="45" y="38" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name" text="[Free Stage 11] Guild Master" x="45" y="38" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 
 	<ns1:Button id="_btn" label="" x="419" y="10">
 		<e:skinName>

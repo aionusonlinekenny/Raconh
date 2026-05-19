@@ -14,7 +14,7 @@
 		</e:Skin>
 		</e:skinName>
 	</e:Button>
-	<ns1:Label id="_nameTxt" text="与XXX私聊中" x="0" y="70" width="100%" textAlign="center" bold="true" touchEnabled="false"/>
+	<ns1:Label id="_nameTxt" text="Private chat with XXX" x="0" y="70" width="100%" textAlign="center" bold="true" touchEnabled="false"/>
 	<ns1:Scroller id="_scroll" width="666" height="870" x="26" y="125" scrollPolicyH="off">
 		<e:Group id="_group"/>
 	</ns1:Scroller>

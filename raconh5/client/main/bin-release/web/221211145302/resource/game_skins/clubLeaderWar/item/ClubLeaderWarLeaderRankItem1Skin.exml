@@ -8,5 +8,5 @@
 	<e:Image id="_powerBack" x="351" y="265" source="common_fighting_png"/>
 	<e:Image width="102" height="57" x="393" y="271" source="common_zhanli_png"/>
 	<e:Image source="common_back5_png" x="426" y="216"/>
-	<ns1:Label id="_txtName" text="虚位以待" x="436" y="222" textAlign="center" width="200" fontFamily="Microsoft YaHei" size="30"/>
+	<ns1:Label id="_txtName" text="Vacancy" x="436" y="222" textAlign="center" width="200" fontFamily="Microsoft YaHei" size="30"/>
 </e:Skin>

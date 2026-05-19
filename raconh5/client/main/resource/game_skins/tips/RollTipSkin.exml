@@ -2,5 +2,5 @@
 <e:Skin class="RollTipSkin" width="205" height="145" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="_bgImg" source="common_rect_1_png" scale9Grid="6,6,38,38" x="2" y="75" anchorOffsetX="0" width="202" anchorOffsetY="0" height="63"/>
 	<e:Image source="common_jiantou_png" x="3" y="77" scaleY="-1"/>
-	<ns1:Label id="_descTxt" text="最强群攻 全屏大招" x="12" y="95" anchorOffsetX="0" width="198" anchorOffsetY="0" height="31" fontFamily="Microsoft YaHei" size="22" textColor="0xffba00"/>
+	<ns1:Label id="_descTxt" text="Ultimate AoE — Full Screen Strike" x="12" y="95" anchorOffsetX="0" width="198" anchorOffsetY="0" height="31" fontFamily="Microsoft YaHei" size="22" textColor="0xffba00"/>
 </e:Skin>

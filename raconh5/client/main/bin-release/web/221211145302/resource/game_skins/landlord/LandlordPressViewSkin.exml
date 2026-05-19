@@ -4,12 +4,12 @@
 	<ns1:BasePopUpView id="_base" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin"/>
 
 
-	<ns1:Label text="苦工名称：" x="264" y="406" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label text="苦工等级：" x="264" y="446" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label text="干活时间：" x="264" y="486" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label text="干活经验：" x="264" y="526" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label text="提取经验：" x="264" y="566" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_nickName" text="玩家名字" x="380" y="406" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="Serf Name:" x="264" y="406" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="Serf Level:" x="264" y="446" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="Work Time:" x="264" y="486" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="Work EXP:" x="264" y="526" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="Extract EXP:" x="264" y="566" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_nickName" text="Player Name" x="380" y="406" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 	<ns1:Label id="_level" text="Lv.40" x="380" y="446" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 	<ns1:Label id="_workTime" text="00:00:00" x="380" y="487" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
 	<ns1:Label id="_exp" text="99" x="380" y="527" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
@@ -39,6 +39,6 @@
 	<e:Image width="22" height="22" x="235" y="486" source="common_point_png"/>
 	<e:Image width="22" height="22" x="235" y="526" source="common_point_png"/>
 	<e:Image width="22" height="22" x="235" y="566" source="common_point_png"/>
-	<ns1:Label id="_done" text="(已抽干)" x="414" y="566" textColor="0xff0000" size="22" fontFamily="Microsoft YaHei" visible="false"/>
-	<e:Label text="苦工干活时间满释放会自动提取经验" y="616" fontFamily="Microsoft YaHei" size="22" textColor="0x7c6e62" horizontalCenter="0"/>
+	<ns1:Label id="_done" text="(Drained)" x="414" y="566" textColor="0xff0000" size="22" fontFamily="Microsoft YaHei" visible="false"/>
+	<e:Label text="EXP auto-collected when serf work time is full" y="616" fontFamily="Microsoft YaHei" size="22" textColor="0x7c6e62" horizontalCenter="0"/>
 </e:Skin>

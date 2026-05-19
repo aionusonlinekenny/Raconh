@@ -13,7 +13,7 @@
 		<e:Image width="100" height="100" x="0" y="0" source="equip_gem_kuang0_png"/>
 		<e:Image width="65" height="65" x="18" y="18" source="role_add_png"/>
 	</e:Group>
-	<ns1:Label id="_success" text="成功率：70%" x="280" y="688" size="24" fontFamily="Microsoft YaHei" textColor="0x37b700"/>
+	<ns1:Label id="_success" text="Success Rate: 70%" x="280" y="688" size="24" fontFamily="Microsoft YaHei" textColor="0x37b700"/>
 	<e:Group id="_oldAttr" x="69" y="667">
 		<e:Image width="205" height="175" x="0" y="0" source="common_di2_png"/>
 		<e:Image width="164" height="41" x="23" y="15" source="starUp_jpsx_png"/>

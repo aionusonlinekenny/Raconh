@@ -6,10 +6,10 @@
 	<e:Image source="mail_content_title_png" x="282" y="314"/>
 
 	<e:Image y="381" source="common_title_wordBg_png" horizontalCenter="0.5"/>
-	<ns1:Label id="_titleTxt" text="新手礼包" y="383" fontFamily="Microsoft YaHei" textColor="0x7c6e62" width="710" size="28" anchorOffsetX="0" x="5" textAlign="center"/>
-	<ns1:Label id="_contentTxt" text="亲爱的玩家" x="20" y="429" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24" textAlign="left" wordWrap="true" anchorOffsetX="0" width="674"/>
+	<ns1:Label id="_titleTxt" text="Starter Pack" y="383" fontFamily="Microsoft YaHei" textColor="0x7c6e62" width="710" size="28" anchorOffsetX="0" x="5" textAlign="center"/>
+	<ns1:Label id="_contentTxt" text="Dear Player" x="20" y="429" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24" textAlign="left" wordWrap="true" anchorOffsetX="0" width="674"/>
 	<e:Image source="split_line_png" x="31" y="522"/>
-	<ns1:Label text="附件：" x="20" y="527" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Attachment:" x="20" y="527" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 
 	<ns1:Button id="_fetchBtn" label="" x="262" y="680" width="197" height="90">
 		<ns1:skinName>

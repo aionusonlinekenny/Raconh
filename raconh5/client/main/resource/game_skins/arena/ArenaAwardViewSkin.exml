@@ -8,8 +8,8 @@
 	<ns1:BaseVScrollerList id="_listV" width="671" height="591" x="25" y="242"/>
 	<e:Image x="2" y="836" width="718" height="4" source="common_line_png"/>
 	<e:Image x="115" y="851" width="490" height="36" source="common_title_wordBg_png" scale9Grid="50,4,113,28"/>
-	<ns1:Label id="_txtRank" y="854" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="310" text="我的排名：" size="28" textColor="0x7B6D61" textAlign="center" horizontalCenter="0"/>
-	<ns1:Label id="_txt1" y="905" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="326" text="每日排名奖励00:00邮件发送" size="24" textColor="0x7B6D61" textAlign="right" x="365"/>
+	<ns1:Label id="_txtRank" y="854" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="310" text="My Rank:" size="28" textColor="0x7B6D61" textAlign="center" horizontalCenter="0"/>
+	<ns1:Label id="_txt1" y="905" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="326" text="Daily rank rewards sent by mail at 00:00" size="24" textColor="0x7B6D61" textAlign="right" x="365"/>
 
 	<e:Image x="15" y="899" source="arenaHistoryLabel_png"/>
 </e:Skin>

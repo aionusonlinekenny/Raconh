@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="CopyRankItemSkin" width="671" height="73" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="common_wordBg_normal_png" x="0" width="671" height="73"/>
-	<ns1:Label id="_txtRank" text="第1名" x="15" y="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" textAlign="center" width="100"/>
-	<ns1:Label id="_txtName" text="名字名字名字名字" x="120" y="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" textAlign="center" width="250"/>
+	<ns1:Label id="_txtRank" text="Rank #1" x="15" y="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" textAlign="center" width="100"/>
+	<ns1:Label id="_txtName" text="Name Name Name" x="120" y="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" textAlign="center" width="250"/>
 	<ns1:Label id="_txtPower" text="5000000" x="370" y="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" textAlign="center" width="140"/>
 	<ns1:Label id="_txtValue" text="2000" x="537" y="22" textColor="0x7C6E62" fontFamily="Microsoft YaHei" textAlign="center" width="100"/>
 </e:Skin>

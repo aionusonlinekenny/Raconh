@@ -7,11 +7,11 @@
 		<e:Image x="194" y="375" source="common_label_name_png"/>
 		<ns1:BaseVScrollerList id="_scrollerList" width="645" height="440" anchorOffsetX="0" anchorOffsetY="0" y="426" horizontalCenter="-3.5"/>
 		<e:Image width="710" height="65" x="5" y="870" source="common_bg1_normal_png" scale9Grid="21,18,204,57"/>
-		<ns1:Label text="我的排名：" y="890" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" x="75"/>
-		<e:Label text="盟主争夺战结束后，第一名将获得盟主之位" y="972" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" textColor="0x4eff00"/>
+		<ns1:Label text="My Rank:" y="890" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" x="75"/>
+		<e:Label text="After Guild War ends, #1 becomes Guild Master" y="972" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" textColor="0x4eff00"/>
 		<e:Image width="92" height="43" x="318" y="375" source="clubLeaderWar_countWin_png"/>
 		<ns1:Label id="_myRank" text="0" x="196" y="891" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
-		<e:Label text="我的净胜场：" x="453" y="890" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+		<e:Label text="My Net Wins:" x="453" y="890" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 		<ns1:Label id="_myWinCount" text="0" x="600" y="890" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 		<e:Image width="65" height="43" x="505" y="375" source="common_label_award_png"/>
 	</e:Group>

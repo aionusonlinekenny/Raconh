@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="FriendsDialogSkin" width="500" height="69" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="_back" scale9Grid="41,40,34,12" left="0" right="0" top="0" bottom="0" x="0" y="0" scaleX="1" scaleY="1" source="friends_chat_others_png"/>
-	<ns1:Label id="_txt" text="测试测试" top="10" bottom="10" scaleX="1" scaleY="1" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24" verticalAlign="middle" x="20" maxWidth="456"/>
+	<ns1:Label id="_txt" text="Test" top="10" bottom="10" scaleX="1" scaleY="1" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="24" verticalAlign="middle" x="20" maxWidth="456"/>
 </e:Skin>

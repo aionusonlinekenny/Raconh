@@ -5,9 +5,9 @@
 	<e:Group id="_bg" width="461" height="845" x="253" y="296">
 	</e:Group>
 	<e:Image width="459" height="45" x="255" y="294" source="common_back5_png" scale9Grid="104,5,10,35" anchorOffsetX="0"/>
-	<e:Label text="你的身份：" x="270" y="305" fontFamily="Microsoft YaHei" size="22"/>
-	<ns1:Label id="_status" text="自由身" x="390" y="305" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
-	<ns1:Label id="_label1" text="今日解救次数：" x="482" y="305" size="22" fontFamily="Microsoft YaHei"/>
+	<e:Label text="Your Status:" x="270" y="305" fontFamily="Microsoft YaHei" size="22"/>
+	<ns1:Label id="_status" text="Free" x="390" y="305" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+	<ns1:Label id="_label1" text="Today's Rescues:" x="482" y="305" size="22" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_saveTime" text="6/6" x="648" y="306" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
 	<ns1:BaseVScrollerList id="_playerList" width="447" height="792" y="340" x="260" anchorOffsetX="0" anchorOffsetY="0"/>
 </e:Skin>

@@ -16,7 +16,7 @@
 	<ns1:Label id="_attrValue2" text="Label" x="406" y="615" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 	<ns1:Label id="_name3" text="Label" x="258" y="647" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 	<ns1:Label id="_attrValue3" text="Label" x="406" y="647" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label text="更换装备不影响所镶嵌的宝石" y="994" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="192" scaleX="1" scaleY="1" textColor="0xdfccbe"/>
+	<ns1:Label text="Swapping gear keeps gems intact" y="994" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="192" scaleX="1" scaleY="1" textColor="0xdfccbe"/>
 	<ns1:Button id="_btn" label="" y="1019" horizontalCenter="0" x="241" scaleX="1" scaleY="1">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">

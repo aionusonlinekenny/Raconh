@@ -54,7 +54,7 @@
 		</ns1:skinName>
 	</ns1:Button>
 	<e:Image id="_redIconMax" x="660" y="1012" source="common_red_icon_png"/>
-	<ns1:Label id="_txtRenew" text="每日0点结算" x="570" y="1109" size="22" fontFamily="Microsoft YaHei" width="131" anchorOffsetX="0" textAlign="center" textColor="0x37b700"/>
+	<ns1:Label id="_txtRenew" text="Daily reset at 00:00" x="570" y="1109" size="22" fontFamily="Microsoft YaHei" width="131" anchorOffsetX="0" textAlign="center" textColor="0x37b700"/>
 	<ns1:ArenaRankHeadView id="_item1" x="120" y="175" skinName="ArenaRankHeadViewSkin"/>
 	<ns1:ArenaRankHeadView id="_item2" x="444" y="415" skinName="ArenaRankHeadViewSkin"/>
 	<ns1:ArenaRankHeadView id="_item3" x="70" y="652" skinName="ArenaRankHeadViewSkin"/>

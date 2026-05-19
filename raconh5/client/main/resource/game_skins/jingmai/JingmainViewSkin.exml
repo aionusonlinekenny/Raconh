@@ -32,14 +32,14 @@
 		<e:Image source="jingmai_heidi_png" x="250" y="0"/>
 		<e:Image source="jingmai_heidi_png" x="0" y="56"/>
 		<e:Image source="jingmai_heidi_png" x="250" y="56"/>
-		<ns1:Label text="攻击" x="14" y="9" anchorOffsetX="0" width="62" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24"/>
+		<ns1:Label text="Attack" x="14" y="9" anchorOffsetX="0" width="62" fontFamily="Microsoft YaHei" textColor="0x7c6e62" size="24"/>
 		<ns1:Label id="_attackTxt" text="+123456" x="71" y="9" anchorOffsetX="0" width="118" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
-		<ns1:Label text="生命" x="265" y="9" anchorOffsetX="0" width="65" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label text="HP" x="265" y="9" anchorOffsetX="0" width="65" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
 		<ns1:Label id="_hpTxt" text="+123456" x="320" y="9" anchorOffsetX="0" width="119" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetY="0" height="26" size="24"/>
-		<ns1:Label text="破甲" x="14" y="66" anchorOffsetX="0" width="64" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
-		<ns1:Label id="_armorTxt" text="攻击" x="71" y="66" anchorOffsetX="0" width="118" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
-		<ns1:Label text="防御" x="265" y="66" anchorOffsetX="0" width="55" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
-		<ns1:Label id="_defenseTxt" text="攻击" x="320" y="66" anchorOffsetX="0" width="118" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label text="Armor Break" x="14" y="66" anchorOffsetX="0" width="64" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label id="_armorTxt" text="Attack" x="71" y="66" anchorOffsetX="0" width="118" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label text="Defense" x="265" y="66" anchorOffsetX="0" width="55" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
+		<ns1:Label id="_defenseTxt" text="Attack" x="320" y="66" anchorOffsetX="0" width="118" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="24"/>
 		<e:Image id="_arrorw1" source="common_upgrade_png" x="195" y="4"/>
 		<e:Image id="_arrorw2" source="common_upgrade_png" x="448" y="4"/>
 		<e:Image id="_arrorw3" source="common_upgrade_png" x="195" y="59"/>
@@ -50,7 +50,7 @@
 		<e:Image source="common_name_back_png" x="0" y="0"/>
 		<e:Image id="_dumaiImg" x="20" y="64"/>
 	</e:Group>
-	<ns1:Label id="_resistTxt" text="攻击+" x="597" y="251" anchorOffsetX="0" width="121" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="22" textAlign="center"/>
+	<ns1:Label id="_resistTxt" text="ATK+" x="597" y="251" anchorOffsetX="0" width="121" fontFamily="Microsoft YaHei" textColor="0x7C6E62" size="22" textAlign="center"/>
 	<e:Image id="_chongtianImg" source="jingmai_6chongtian_png" x="624" y="219"/>
 
 	<e:Image source="common_fighting_png" x="140" y="764"/>

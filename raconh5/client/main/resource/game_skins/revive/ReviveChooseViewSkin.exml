@@ -3,10 +3,10 @@
 	<ns1:BasePopUpView id="_baseView" width="20" height="20" x="0" y="0" skinName="BasePopUpSkin"/>
 	<ns1:BitmapRemote id="_imageBg1" width="720" height="328" x="0" y="366"/>
 	<e:Image source="revive_title_png" x="270" y="314"/>
-	<ns1:Label id="_killerTxt" text="您被摩羯伊妮击杀了" x="0" y="396" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" left="0" right="0" textAlign="center"/>
+	<ns1:Label id="_killerTxt" text="You were killed by MoJieYiNi" x="0" y="396" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" left="0" right="0" textAlign="center"/>
 	<e:Image id="_arrowImg" source="revive_less_fight_png" x="203" y="551"/>
 	<e:Image id="_differImg" source="revive_label_png" x="248" y="544"/>
-	<ns1:Label id="_stateTxt" text="倒计时后将在中立地区安全区自动复活" x="0" y="611" textColor="0x7C6E62" size="24" fontFamily="Microsoft YaHei" left="0" right="0" textAlign="center"/>
+	<ns1:Label id="_stateTxt" text="Auto-revive in neutral safe zone after countdown" x="0" y="611" textColor="0x7C6E62" size="24" fontFamily="Microsoft YaHei" left="0" right="0" textAlign="center"/>
 	<ns1:Button id="_freeBtn" label="" x="100" y="680" width="197" height="90">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">

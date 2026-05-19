@@ -41,14 +41,14 @@
 	<e:Image source="commonsheet.panel_gold_54_png" y="722" x="303"/>
 	<e:Image source="marketsheet.market_di_png" y="520" horizontalCenter="0"/>
 	<e:Image source="commonsheet.panel_gold_54_png" y="522" x="303"/>
-	<ns1:Label id="_goldTxt" text="数量" y="733" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="169" textAlign="left" x="353"/>
+	<ns1:Label id="_goldTxt" text="Quantity" y="733" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="169" textAlign="left" x="353"/>
 
 
-	<ns1:Label id="_priceTxt" text="数量" y="534" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="187" textAlign="left" x="353"/>
-	<ns1:Label text="单价" x="93" y="536" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
-	<ns1:Label text="总价" x="93" y="733" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
+	<ns1:Label id="_priceTxt" text="Quantity" y="534" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="187" textAlign="left" x="353"/>
+	<ns1:Label text="Price" x="93" y="536" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
+	<ns1:Label text="Total" x="93" y="733" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
 
-	<ns1:Label text="数量" x="93" y="633" size="30" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label text="Quantity" x="93" y="633" size="30" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 	<ns1:Label id="_nameTxt" text="Label" y="463" rotation="0" anchorOffsetX="0" width="203" anchorOffsetY="0" height="38" textAlign="center" scaleX="1" scaleY="1" x="259" fontFamily="Microsoft YaHei"/>
 
 

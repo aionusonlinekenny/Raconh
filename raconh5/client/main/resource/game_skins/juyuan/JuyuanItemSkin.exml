@@ -8,5 +8,5 @@
 	<ns1:Label id="_text02" text="Label" x="480" y="585" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_text03" text="Label" x="180" y="625" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_text04" text="Label" x="480" y="625" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
-	<ns1:Label text="当前元魂激活属性" x="248" y="714" textColor="0x00ff00" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Active Soul Stats" x="248" y="714" textColor="0x00ff00" fontFamily="Microsoft YaHei"/>
 </e:Skin>

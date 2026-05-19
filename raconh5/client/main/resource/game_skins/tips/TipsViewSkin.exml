@@ -4,7 +4,7 @@
 		<e:Image id="_back" source="common_tipsBg_png" x="0" y="2" width="446" height="313" scale9Grid="50,54,19,13"/>
 		<e:Image source="common_title_wordBg_png" x="111" y="13" scale9Grid="46,4,118,28" width="225"/>
 		<e:Image id="_line" source="common_line_png" x="23" y="180" width="400"/>
-		<ns1:Label id="_title" text="提示" x="131" y="16" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetX="0" width="184" verticalAlign="middle" textAlign="center"/>
+		<ns1:Label id="_title" text="Tip" x="131" y="16" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetX="0" width="184" verticalAlign="middle" textAlign="center"/>
 		<ns1:Label id="_content" text="content" x="30" y="53" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetX="0" width="386" anchorOffsetY="0" height="124" textAlign="center" verticalAlign="middle" size="24"/>
 		<ns1:Button id="_btnCancel" label="" x="6" y="201" width="192" height="86">
 			<ns1:skinName>

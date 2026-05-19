@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="BossPublicViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
-	<ns1:Label id="_txtCount" text="挑战次数：8/10" x="70" y="128" fontFamily="Microsoft YaHei" size="22" textColor="0x7b6d61"/>
-	<ns1:Label id="_txtTime" text="恢复倒计时：00：28：00" x="400" y="128" textColor="0x7B6D61" fontFamily="Microsoft YaHei" size="22"/>
-	<ns1:Label id="_txtTips" text="伤害第一的玩家可获得击杀大奖，其他玩家可获得参与奖励" y="1112" textColor="0x7B6D61" fontFamily="Microsoft YaHei" size="22" textAlign="center" width="680" x="20"/>
+	<ns1:Label id="_txtCount" text="Attempts: 8/10" x="70" y="128" fontFamily="Microsoft YaHei" size="22" textColor="0x7b6d61"/>
+	<ns1:Label id="_txtTime" text="Recovery: 00:28:00" x="400" y="128" textColor="0x7B6D61" fontFamily="Microsoft YaHei" size="22"/>
+	<ns1:Label id="_txtTips" text="Top damage player gets kill reward, others get participation reward" y="1112" textColor="0x7B6D61" fontFamily="Microsoft YaHei" size="22" textAlign="center" width="680" x="20"/>
 	<ns1:BaseVScrollerList id="_list" width="710" height="948" x="5" y="155" anchorOffsetY="0"/>
 </e:Skin>

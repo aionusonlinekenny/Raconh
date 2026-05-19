@@ -5,7 +5,7 @@
 		<e:Image source="common_title_wordBg_png" y="9" x="182"/>
 		<e:Image id="_closeImg" source="common_tip_close_png" x="539" y="0"/>
 		<ns1:BaseVScrollerList id="_scroll" width="540" height="551" y="51" anchorOffsetX="0" anchorOffsetY="0" x="16"/>
-		<ns1:Label text="寻宝记录" y="15" anchorOffsetX="0" width="138" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center" x="217"/>
+		<ns1:Label text="Treasure Log" y="15" anchorOffsetX="0" width="138" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center" x="217"/>
 	</e:Group>
 
 </e:Skin>

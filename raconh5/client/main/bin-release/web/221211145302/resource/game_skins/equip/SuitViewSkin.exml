@@ -25,12 +25,12 @@
 
 
 	<e:Image id="_jiaImg" x="46" y="154" source="suit_jiaImg_png"/>
-	<ns1:Label id="_suitName" text="攻击套装" x="80" y="161" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_suitAmount" text="(未打造)" x="170" y="161" size="22" fontFamily="Microsoft YaHei" textColor="0xff0000"/>
-	<ns1:Label id="_equipName" text="头  衣  手  鞋  符" x="41" y="199" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center"/>
+	<ns1:Label id="_suitName" text="Attack Set" x="80" y="161" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_suitAmount" text="(Unforged)" x="170" y="161" size="22" fontFamily="Microsoft YaHei" textColor="0xff0000"/>
+	<ns1:Label id="_equipName" text="Head  Body  Hands  Feet  Rune" x="41" y="199" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center"/>
 	<e:Image width="200" height="3" x="25" y="239" source="common_line_png" scale9Grid="331,0,17,3"/>
 	<e:Image width="200" height="3" x="25" y="285" source="common_line_png" scale9Grid="331,0,17,3"/>
-	<ns1:Label text="套装效果" x="79" y="251" textColor="0xffa800" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Set Effect" x="79" y="251" textColor="0xffa800" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:BaseVScrollerList id="_scroller" width="250" height="400" x="0" y="300" anchorOffsetY="0"/>
 	<ns1:Button id="_suitBtn1" label="" x="21" y="725">
 		<e:skinName>

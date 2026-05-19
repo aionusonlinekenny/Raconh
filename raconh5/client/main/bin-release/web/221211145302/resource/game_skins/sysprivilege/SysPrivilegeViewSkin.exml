@@ -21,7 +21,7 @@
 
 	<e:Image id="_ilingquImg" source="commony_ilingqu_png" x="296" y="1050" visible="false"/>
 	<e:Image id="_redIcon" source="common_red_icon_png" x="435" y="1047" visible="false"/>
-	<ns1:Label text="（特权卡效果可叠加）" x="471" y="1080" anchorOffsetX="0" width="245" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="25" size="24" textColor="0xfff7e7"/>
-	<ns1:Label id="_timeDescTxt" text="体验卡剩余时间：" x="37" y="1061" anchorOffsetX="0" width="195" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="25" size="24" textColor="0xFFF7E7"/>
+	<ns1:Label text="(Privilege effects stack)" x="471" y="1080" anchorOffsetX="0" width="245" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="25" size="24" textColor="0xfff7e7"/>
+	<ns1:Label id="_timeDescTxt" text="Trial Card Time Left:" x="37" y="1061" anchorOffsetX="0" width="195" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="25" size="24" textColor="0xFFF7E7"/>
 	<ns1:Label id="_timeTxt" text="1" x="37" y="1098" anchorOffsetX="0" width="195" fontFamily="Microsoft YaHei" anchorOffsetY="0" height="25" size="24" textColor="0xFFF7E7" textAlign="center"/>
 </e:Skin>

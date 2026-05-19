@@ -3,7 +3,7 @@
 	<e:Group x="0" y="0" width="715" height="637">
 		<e:Image id="_back" source="result_bg_png" x="0" y="70" scale9Grid="89,38,535,7" height="567"/>
 		<e:Image id="titleImg" source="result_title_win_png" x="122" y="0"/>
-		<ns1:Label id="_txt" text="倒计时3s退出" x="475" y="556" textColor="0xFFF7E6" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_txt" text="Exit in 3s" x="475" y="556" textColor="0xFFF7E6" fontFamily="Microsoft YaHei"/>
 
 		<ns1:Button id="btn" label="" y="516" width="238" height="105" x="237">
 			<ns1:skinName>

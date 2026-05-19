@@ -11,7 +11,7 @@
 	<ns1:Label id="_attrTxt4" text="Label" x="461" y="705" anchorOffsetX="0" width="116" textColor="0x7C6E62" textAlign="left" fontFamily="Microsoft YaHei"/>
 	<e:Group id="_leupGroup" x="258" y="757" anchorOffsetX="0" width="244" anchorOffsetY="0" height="38">
 		<e:Image source="common_title_wordBg_png" x="0" y="0"/>
-		<ns1:Label text="升级条件" x="15.5" y="6" anchorOffsetX="0" width="178" textColor="0x7C6E62" textAlign="center" fontFamily="Microsoft YaHei"/>
+		<ns1:Label text="Upgrade Requirements" x="15.5" y="6" anchorOffsetX="0" width="178" textColor="0x7C6E62" textAlign="center" fontFamily="Microsoft YaHei"/>
 	</e:Group>
 	<e:Image id="_fightImg" source="main_fighting_png" x="256" y="693"/>
 	<e:Group id="_resGroup" y="803.5" x="209">

@@ -2,11 +2,11 @@
 <e:Skin class="LandlordMsgItemSkin" width="443" height="125" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
 	<w:Config id="161270b2601" ></w:Config>
 	<e:Image width="443" height="125" x="0" y="0" source="common_bg1_normal_png" scale9Grid="29,11,181,69" anchorOffsetX="0" anchorOffsetY="0"/>
-	<ns1:Label id="_nickName" text="Lv.40 玩家名字" x="20" y="17" fontFamily="Microsoft YaHei" size="22" textColor="0x7c6e62"/>
-	<ns1:Label id="_idType" text="身份：" x="20" y="50" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22"/>
-	<ns1:Label id="_label3" text="状态：" x="20" y="83" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_status1" text="自由" x="92" y="50" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_status2" text="向你求救" x="92" y="83" size="22" fontFamily="Microsoft YaHei" textColor="0xff2400"/>
+	<ns1:Label id="_nickName" text="Lv.40 Player" x="20" y="17" fontFamily="Microsoft YaHei" size="22" textColor="0x7c6e62"/>
+	<ns1:Label id="_idType" text="Status:" x="20" y="50" textColor="0x7c6e62" fontFamily="Microsoft YaHei" size="22"/>
+	<ns1:Label id="_label3" text="Status:" x="20" y="83" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_status1" text="Free" x="92" y="50" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_status2" text="Calling for help" x="92" y="83" size="22" fontFamily="Microsoft YaHei" textColor="0xff2400"/>
 	<ns1:Button id="_btn" label="" x="254" y="29" anchorOffsetX="0" width="181" anchorOffsetY="0" height="79.85">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
@@ -16,5 +16,5 @@
 		</e:skinName>
 	</ns1:Button>
 	<e:Image id="_btnImg" x="263" y="46" source="landlord_jiejiu_png" anchorOffsetX="0" width="164.25" anchorOffsetY="0" height="46.45"/>
-	<ns1:Label id="_helpTips" text="向您求救" x="301" y="12" fontFamily="Microsoft YaHei" size="22" textColor="0xff2400" visible="false"/>
+	<ns1:Label id="_helpTips" text="Calling for your help" x="301" y="12" fontFamily="Microsoft YaHei" size="22" textColor="0xff2400" visible="false"/>
 </e:Skin>

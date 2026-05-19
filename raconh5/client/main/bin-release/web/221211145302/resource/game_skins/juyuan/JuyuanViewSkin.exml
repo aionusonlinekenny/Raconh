@@ -23,7 +23,7 @@
 		<e:Image width="54" height="54" x="225" y="0" source="playRes_coin_54_png"/>
 		<ns1:Label id="_cailiao" text="10/20" x="122" y="16" textColor="0xfff7e7" size="24" fontFamily="Microsoft YaHei"/>
 		<ns1:Label id="_yinbi" text="123456" x="275" y="15" textColor="0xfff7e7" size="24" fontFamily="Microsoft YaHei"/>
-		<ns1:Label text="聚元丹：" x="25" y="15"/>
+		<ns1:Label text="Energy Pill:" x="25" y="15"/>
 	</e:Group>
 	<e:Image id="_jieduanBack" width="80" height="394" x="608" y="128" source="common_name_back_png"/>
 	<e:Image id="_zhanliBack" width="441" height="65" x="176" y="780" source="common_fighting_png"/>

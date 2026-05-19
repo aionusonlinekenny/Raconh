@@ -4,42 +4,42 @@
 	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
 		<ns1:BasePopUpView id="_baseView" width="720" height="1280" x="0" y="0" scaleX="1" scaleY="1"/>
 		<e:Image width="209" height="36" y="370" source="common_title_wordBg_png" horizontalCenter="0" x="256" scaleX="1" scaleY="1"/>
-		<ns1:Label text="详细属性" y="372" fontFamily="Microsoft YaHei" textColor="0x7c6e62" horizontalCenter="0" size="30" x="300" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrName1" text="攻击" x="109" y="427" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Detailed Stats" y="372" fontFamily="Microsoft YaHei" textColor="0x7c6e62" horizontalCenter="0" size="30" x="300" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrName1" text="Attack" x="109" y="427" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrValue1" text="123456789" x="236" y="427" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrName2" text="攻击" x="416" y="427" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrName2" text="Attack" x="416" y="427" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrValue2" text="123456789" x="545" y="427" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrName3" text="攻击" x="110" y="463" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrName3" text="Attack" x="110" y="463" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrValue3" text="123456789" x="237" y="464" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrName4" text="攻击" x="416" y="464" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrName4" text="Attack" x="416" y="464" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrValue4" text="123456789" x="545" y="464" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrName5" text="攻击" x="110" y="500" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrName5" text="Attack" x="110" y="500" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrValue5" text="123456789" x="237" y="500" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrName6" text="攻击" x="416" y="500" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrName6" text="Attack" x="416" y="500" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrValue6" text="123456789" x="545" y="501" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrName7" text="攻击" x="110" y="537" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrName7" text="Attack" x="110" y="537" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrValue7" text="123456789" x="237" y="537" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrName8" text="攻击" x="416" y="537" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrName8" text="Attack" x="416" y="537" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrValue8" text="123456789" x="545" y="537" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName1" text="攻击" x="110" y="579" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName1" text="Attack" x="110" y="579" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue1" text="123456789" x="236" y="579" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName2" text="攻击" x="416" y="579" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName2" text="Attack" x="416" y="579" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue2" text="123456789" x="545" y="579" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName3" text="攻击" x="109" y="614" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName3" text="Attack" x="109" y="614" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue3" text="123456789" x="236" y="613" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName4" text="攻击" x="416" y="614" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName4" text="Attack" x="416" y="614" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue4" text="123456789" x="545" y="614" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName5" text="攻击" x="110" y="650" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName5" text="Attack" x="110" y="650" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue5" text="123456789" x="237" y="650" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName6" text="攻击" x="416" y="650" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName6" text="Attack" x="416" y="650" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue6" text="123456789" x="545" y="650" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName7" text="攻击" x="110" y="686" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName7" text="Attack" x="110" y="686" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue7" text="123456789" x="237" y="686" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName8" text="攻击" x="417" y="686" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName8" text="Attack" x="417" y="686" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue8" text="123456789" x="545" y="686" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName9" text="攻击" x="109" y="719" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName9" text="Attack" x="109" y="719" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue9" text="123456789" x="236" y="719" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrAddName10" text="攻击" x="417" y="719" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrAddName10" text="Attack" x="417" y="719" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_attrAddValue10" text="123456789" x="545" y="720" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<e:Image width="658" height="3" y="569" source="common_line_png" horizontalCenter="0" x="31" scaleX="1" scaleY="1"/>
 	</e:Group>

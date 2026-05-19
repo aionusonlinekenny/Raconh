@@ -2,5 +2,5 @@
 <e:Skin class="MarketPlayerNameItemSkin" width="87" height="327" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="_di1Img" source="market_shenzi1_png" x="0" y="-10" visible="false"/>
 	<e:Image id="_di2Img" source="market_shenzi2_png" x="0" y="-10"/>
-	<ns1:Label id="_name" text="高峰期d d" x="28" y="60" anchorOffsetY="0" height="156" anchorOffsetX="0" width="33" textAlign="center" verticalAlign="top" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_name" text="Peak Hours" x="28" y="60" anchorOffsetY="0" height="156" anchorOffsetX="0" width="33" textAlign="center" verticalAlign="top" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
 </e:Skin>

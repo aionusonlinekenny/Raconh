@@ -13,7 +13,7 @@
 			</ns1:skinName>
 		</ns1:Button>
 		<e:Image id="_label" source="clubBF_label_9_png" x="30" y="543"/>
-		<e:Label id="_txtTips" size="24" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" text="点击敌对玩家头像即可挑战" y="1124" horizontalCenter="0"/>
+		<e:Label id="_txtTips" size="24" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" text="Tap enemy avatar to challenge" y="1124" horizontalCenter="0"/>
 		<ns1:CheckBox id="_checkBox" label="按连胜高到低" x="40" y="1182">
 			<e:Skin states="up,down,disabled,upAndSelected,downAndSelected,disabledAndSelected">
 			<e:Image source="common_cb_rect_png" x="0" y="0"/>

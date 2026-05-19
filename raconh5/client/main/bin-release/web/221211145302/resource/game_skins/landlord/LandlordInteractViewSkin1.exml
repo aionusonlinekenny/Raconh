@@ -2,10 +2,10 @@
 <e:Skin class="LandlordInteractViewSkin1" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
 	<w:Config id="16122ea0cb9" ></w:Config>
 	<e:Image width="459" height="45" x="255" y="296" source="common_back5_png" scale9Grid="104,5,10,35" anchorOffsetX="0"/>
-	<e:Label text="今日互动：" x="267" y="306" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+	<e:Label text="Today's Interactions:" x="267" y="306" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
 	<ns1:Label id="_value1" text="6/6" x="386" y="307" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
-	<e:Label text="苦工经验：" x="436" y="306" size="22" fontFamily="Microsoft YaHei"/>
-	<ns1:Label id="_value2" text="9999亿/9999亿" x="553" y="307" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
+	<e:Label text="Serf EXP:" x="436" y="306" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_value2" text="999.9B/999.9B" x="553" y="307" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
 	<ns1:LandlordInteractItem id="_item1" x="260" y="342" skinName="LandlordInteractItemSkin"/>
 	<ns1:LandlordInteractItem id="_item2" x="260" y="742" skinName="LandlordInteractItemSkin"/>
 </e:Skin>

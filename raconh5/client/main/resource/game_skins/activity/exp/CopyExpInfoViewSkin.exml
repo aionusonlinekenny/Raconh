@@ -12,7 +12,7 @@
 		<e:Image id="_btnKillUp" source="copy_exp_efficiency_btn_1_png" x="7" y="97"/>
 		<e:Image id="_expUpRedIcon" source="common_red_icon_png" x="59" y="-5" touchEnabled="false" visible="false"/>
 		<e:Image id="_killUpRedIcon" source="common_red_icon_png" x="59" y="92" touchEnabled="false" visible="false"/>
-		<ns1:Label id="_txtExpRate" text="经验+100%" y="-21" fontFamily="Microsoft YaHei" size="20" textColor="0x4eff00" width="120" textAlign="center" x="-7"/>
+		<ns1:Label id="_txtExpRate" text="EXP+100%" y="-21" fontFamily="Microsoft YaHei" size="20" textColor="0x4eff00" width="120" textAlign="center" x="-7"/>
 
 	</e:Group>
 

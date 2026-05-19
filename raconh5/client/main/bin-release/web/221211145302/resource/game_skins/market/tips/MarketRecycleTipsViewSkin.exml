@@ -17,12 +17,12 @@
 	<e:Image source="marketsheet.market_di_png" y="644" horizontalCenter="0"/>
 	<e:Image source="commonsheet.panel_gold_54_png" y="538" horizontalCenter="-30"/>
 	<ns1:Label id="_nameTxt" text="Label" y="463" rotation="0" anchorOffsetX="0" width="203.02" anchorOffsetY="0" height="38" textAlign="center" scaleX="1" scaleY="1" x="259" fontFamily="Microsoft YaHei"/>
-	<ns1:Label id="_goldTxt" text="数量" y="771" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="187" textAlign="left" x="353"/>
-	<ns1:Label id="_numTxt" text="数量" y="659" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="247" textAlign="center" horizontalCenter="0"/>
-	<ns1:Label id="_priceTxt" text="数量" y="549" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="187" textAlign="left" x="353"/>
-	<ns1:Label text="数量" x="93" y="660" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
-	<ns1:Label text="单价" x="93" y="550" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
-	<ns1:Label text="总价" x="93" y="770" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
+	<ns1:Label id="_goldTxt" text="Quantity" y="771" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="187" textAlign="left" x="353"/>
+	<ns1:Label id="_numTxt" text="Quantity" y="659" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="247" textAlign="center" horizontalCenter="0"/>
+	<ns1:Label id="_priceTxt" text="Quantity" y="549" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62" scaleX="1" scaleY="1" anchorOffsetX="0" width="187" textAlign="left" x="353"/>
+	<ns1:Label text="Quantity" x="93" y="660" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
+	<ns1:Label text="Price" x="93" y="550" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
+	<ns1:Label text="Total" x="93" y="770" size="30" fontFamily="Microsoft YaHei" textColor="0x7C6E62"/>
 
 
 </e:Skin>

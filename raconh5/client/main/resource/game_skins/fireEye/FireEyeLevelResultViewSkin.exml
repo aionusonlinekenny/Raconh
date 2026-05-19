@@ -8,13 +8,13 @@
 	<e:Image source="fireEye_label_over_png" x="312" y="495"/>
 	<e:Image source="fireEye_label_current_png" x="310" y="668"/>
 	<ns1:Label id="_levelInfo" text="" x="176" y="545" width="380" height="106" textColor="0x7b6d61" fontFamily="Microsoft YaHei" size="28" lineSpacing="10"/>
-	<ns1:Label text="数据" x="177" y="713" width="57" height="32" fontFamily="Microsoft YaHei" size="24" textColor="0xfd7100"/>
-	<ns1:Label id="_myName" text="我" x="308" y="713" width="28" height="32" fontFamily="Microsoft YaHei" size="24" textColor="0xFD7100" anchorOffsetX="0"/>
+	<ns1:Label text="Stats" x="177" y="713" width="57" height="32" fontFamily="Microsoft YaHei" size="24" textColor="0xfd7100"/>
+	<ns1:Label id="_myName" text="Me" x="308" y="713" width="28" height="32" fontFamily="Microsoft YaHei" size="24" textColor="0xFD7100" anchorOffsetX="0"/>
 	<ns1:Label id="_otherName" text="6666" x="420" y="713" fontFamily="Microsoft YaHei" size="24" textColor="0xFD7100" width="150" textAlign="left" verticalAlign="middle"/>
-	<ns1:Label text="积分" x="177" y="766" width="57" height="32" fontFamily="Microsoft YaHei" size="24" textColor="0x7b6d61"/>
+	<ns1:Label text="Points" x="177" y="766" width="57" height="32" fontFamily="Microsoft YaHei" size="24" textColor="0x7b6d61"/>
 	<ns1:Label id="_myScore" text="6666" x="270" y="766" fontFamily="Microsoft YaHei" size="24" width="150" textAlign="left" verticalAlign="middle" textColor="0x7b6d61"/>
 	<ns1:Label id="_otherScore" text="6666" x="420" y="766" fontFamily="Microsoft YaHei" size="24" width="150" textAlign="left" verticalAlign="middle" textColor="0x7b6d61"/>
-	<ns1:Label text="用时" x="177" y="817" width="57" height="32" fontFamily="Microsoft YaHei" size="24" textColor="0x7b6d61"/>
+	<ns1:Label text="Time Used" x="177" y="817" width="57" height="32" fontFamily="Microsoft YaHei" size="24" textColor="0x7b6d61"/>
 	<ns1:Label id="_myTime" text="6666" y="817" fontFamily="Microsoft YaHei" size="24" x="270" width="150" verticalAlign="middle" textAlign="left" textColor="0x7b6d61"/>
 	<ns1:Label id="_otherTime" text="6666" x="420" y="817" fontFamily="Microsoft YaHei" size="24" width="150" verticalAlign="middle" textAlign="left" textColor="0x7b6d61"/>
 	<ns1:Label id="_countDown" text="6666" x="285" y="914" size="22" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>

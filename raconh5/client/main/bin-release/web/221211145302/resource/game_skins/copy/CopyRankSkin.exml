@@ -13,8 +13,8 @@
 	<e:Image source="common_fight_rank_png" x="433" y="331"/>
 	<e:Image id="_labelValue" source="activity_copy_rank_label_3_png" x="562" y="331"/>
 	<ns1:BaseVScrollerList id="_list" width="672" height="382" x="25" y="386" anchorOffsetX="0" anchorOffsetY="0"/>
-	<ns1:Label id="_txtRank" text="排名：未上榜" x="246" y="820" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
-	<ns1:Label id="_txtValue" text="当前：11关" x="491" y="820" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
+	<ns1:Label id="_txtRank" text="Rank: Unranked" x="246" y="820" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
+	<ns1:Label id="_txtValue" text="Current: Stage 11" x="491" y="820" fontFamily="Microsoft YaHei" textColor="0xfff7e6"/>
 	<ns1:Button id="_btnClose" label="Button" x="622" y="253" width="82">
 		<ns1:skinName>
 		<e:Skin states="up,down,disabled">

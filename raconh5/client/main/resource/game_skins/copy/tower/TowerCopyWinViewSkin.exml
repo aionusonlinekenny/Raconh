@@ -12,7 +12,7 @@
 		</ns1:skinName>
 	</ns1:Button>
 	<e:Group x="392" y="709">
-		<ns1:Label id="_txt" text="倒计时3s退出" y="0" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" horizontalCenter="0" textAlign="center"/>
+		<ns1:Label id="_txt" text="Exit in 3s" y="0" textColor="0xFFF7E6" fontFamily="Microsoft YaHei" horizontalCenter="0" textAlign="center"/>
 		<ns1:Button id="_nextBtn" label="" y="23" width="238" height="105" x="0">
 			<ns1:skinName>
 			<e:Skin states="up,down,disabled">

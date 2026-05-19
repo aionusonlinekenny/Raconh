@@ -9,7 +9,7 @@
 			</e:Skin>
 		</ns1:skinName>
 	</ns1:Button>
-	<ns1:Label id="_txt" text="请输入新名字：" x="113.5" y="439" anchorOffsetX="0" width="255" anchorOffsetY="0" height="30" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
+	<ns1:Label id="_txt" text="Enter new name:" x="113.5" y="439" anchorOffsetX="0" width="255" anchorOffsetY="0" height="30" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
 	<e:Image source="rename_gaiming_png" x="278" y="317"/>
 	<ns1:TextInput id="_inputTxt" width="352" height="66" x="182" y="517" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseTextInputSkin"/>
 	<ns1:Label id="_loginTxt" text="Label" x="154" y="498" anchorOffsetX="0" width="429" anchorOffsetY="0" height="120" textColor="0x7c6e62" verticalAlign="top" textAlign="center" fontFamily="Microsoft YaHei"/>

@@ -12,7 +12,7 @@
 	</ns1:Button>
 	<e:Image id="_btnImg" source="equip_sure_png" y="1046" horizontalCenter="0" x="280" scaleX="1" scaleY="1"/>
 	<e:Image width="56" height="70" y="413" horizontalCenter="0" x="332" scaleX="1" scaleY="1" source="common_strengthen_jiantou_png"/>
-	<ns1:Label text="所需材料" y="632" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="300" scaleX="1" scaleY="1"/>
+	<ns1:Label text="Required Materials" y="632" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="300" scaleX="1" scaleY="1"/>
 	<ns1:Label id="_attrValue1" text="" x="165" y="414" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 	<ns1:Label id="_attrValue2" text="" x="165" y="467" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 	<ns1:Label id="_nextAttrValue1" text="" x="408" y="414" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>

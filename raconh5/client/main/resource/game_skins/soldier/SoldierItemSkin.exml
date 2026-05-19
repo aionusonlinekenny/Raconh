@@ -9,7 +9,7 @@
 	<ns1:Goods id="_goods" width="141" height="141" x="-6" y="-3" anchorOffsetX="0" anchorOffsetY="0" skinName="BaseGoodsSkin"/>
 	<e:Group id="_starGup" x="123" y="79">
 		<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="-4" y="0" width="115"/>
-		<ns1:Label id="_starTxt" text="星数：10" x="4" y="4" fontFamily="Microsoft YaHei" size="24" textColor="0xfff7e7"/>
+		<ns1:Label id="_starTxt" text="Stars: 10" x="4" y="4" fontFamily="Microsoft YaHei" size="24" textColor="0xfff7e7"/>
 	</e:Group>
 	<ns1:Label id="_nameTxt" text="" x="122" y="34" anchorOffsetX="0" width="116" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_condTxt" text="" x="120" y="79" anchorOffsetX="0" width="116" anchorOffsetY="0" height="33" textColor="0x7c6e62" fontFamily="Microsoft YaHei"/>

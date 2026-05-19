@@ -6,11 +6,11 @@
 	<e:Image id="_btnEnter" source="login_btnStart_png" x="296" y="1027" width="292" height="93"/>
 
 
-	<ns1:Label id="_txtServer" text="测试服" x="242" y="911" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="272" textAlign="center" touchEnabled="false"/>
-	<ns1:Label id="_txtClick" text="点击换服" x="514" y="911" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="122" textAlign="left" touchEnabled="false"/>
+	<ns1:Label id="_txtServer" text="Test Server" x="242" y="911" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="272" textAlign="center" touchEnabled="false"/>
+	<ns1:Label id="_txtClick" text="Switch Server" x="514" y="911" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="122" textAlign="left" touchEnabled="false"/>
 	<e:Group id="_groupDebug" x="200" y="849">
 		<e:Image scale9Grid="6,6,38,38" x="118" y="0" anchorOffsetX="0" width="231" anchorOffsetY="0" height="34" source="login_rect_1_png"/>
-		<ns1:Label text="账号：" x="0" y="0" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="122" textAlign="left"/>
+		<ns1:Label text="Account:" x="0" y="0" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="122" textAlign="left"/>
 		<ns1:Label id="_inputClient" text="clientName" x="123" y="1" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" touchEnabled="false" type="input" width="225"/>
 	</e:Group>
 

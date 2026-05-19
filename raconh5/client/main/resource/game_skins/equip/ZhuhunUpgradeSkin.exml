@@ -17,7 +17,7 @@
 		<e:Image id="_upgradeImg" width="431" height="46" x="112" y="415" source="equip_zhuhun_upgradeLevel1_png"/>
 		<e:Image id="_ji" width="38" height="46" x="585" y="416" source="equip_zhuhun_upgradeLevel2_png"/>
 		<e:Image width="209" height="36" y="520" source="common_title_wordBg_png" horizontalCenter="0" x="256" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_attrValue" text="攻击+99 防御+99" y="594" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="263" scaleX="1" scaleY="1"/>
-		<ns1:Label text="阶段奖励属性" y="526" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" horizontalCenter="0" x="288" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_attrValue" text="ATK+99 DEF+99" y="594" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" horizontalCenter="0" x="263" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Stage Reward Stats" y="526" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" horizontalCenter="0" x="288" scaleX="1" scaleY="1"/>
 	</e:Group>
 </e:Skin>

@@ -3,6 +3,6 @@
 	<w:Config id="1612818dcc5" ></w:Config>
 	<e:Group width="715" height="637" horizontalCenter="0" verticalCenter="0">
 		<ns1:ResultWinBack id="_base" width="715" height="637" skinName="ResultWinBackSkin" x="0" y="0" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_content" text="你击败了XXXX，成功抢夺了TA的苦工！" y="283" fontFamily="Microsoft YaHei" size="28" horizontalCenter="0" width="680" textAlign="center" x="18" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_content" text="You defeated XXXX and captured their serf!" y="283" fontFamily="Microsoft YaHei" size="28" horizontalCenter="0" width="680" textAlign="center" x="18" scaleX="1" scaleY="1"/>
 	</e:Group>
 </e:Skin>

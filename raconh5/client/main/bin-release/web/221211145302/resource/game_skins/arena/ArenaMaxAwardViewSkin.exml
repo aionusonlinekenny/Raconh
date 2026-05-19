@@ -4,7 +4,7 @@
 		<e:Image source="common_tipsBg_png" x="0" y="2" width="446" height="313" scale9Grid="49,52,20,14"/>
 		<e:Image source="common_title_wordBg_png" x="111" y="13" scale9Grid="46,4,118,28" width="225"/>
 		<e:Image source="common_line_png" x="23" y="199" width="400"/>
-		<ns1:Label id="_txtTitle" text="奖励预览" x="131" y="15" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetX="0" width="184" verticalAlign="middle" textAlign="center"/>
+		<ns1:Label id="_txtTitle" text="Reward Preview" x="131" y="15" fontFamily="Microsoft YaHei" textColor="0x7C6E62" anchorOffsetX="0" width="184" verticalAlign="middle" textAlign="center"/>
 		<ns1:Button id="_btnOk" label="" y="210" width="192" height="86" horizontalCenter="-10.5">
 			<ns1:skinName>
 			<e:Skin states="up,down,disabled">

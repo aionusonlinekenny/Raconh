@@ -34,9 +34,9 @@
 			</e:skinName>
 		</ns1:Button>
 		<e:Image width="448" height="140" x="-1" y="267" source="landlord_kuang2_png" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_timeName" text="互动保护：" x="127" y="321" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_timeName" text="Interaction Protection:" x="127" y="321" size="22" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_timeValue" text="00:00:00" x="239" y="322" textColor="0x38b800" scaleX="1" scaleY="1" fontFamily="Microsoft YaHei" size="22"/>
-		<e:Label text="互动保护时间内不可反抗或解救" x="76" y="350" fontFamily="Microsoft YaHei" size="22" scaleX="1" scaleY="1"/>
+		<e:Label text="Cannot resist or rescue during interaction protection" x="76" y="350" fontFamily="Microsoft YaHei" size="22" scaleX="1" scaleY="1"/>
 		<e:Image id="_redIcon1" width="35" height="35" x="83" y="207" source="common_red_icon_png" scaleX="1" scaleY="1" visible="false"/>
 		<e:Image id="_redIcon2" width="35" height="35" x="392" y="207" source="common_red_icon_png" scaleX="1" scaleY="1" visible="false"/>
 	</e:Group>

@@ -23,6 +23,6 @@
 			</e:skinName>
 		</ns1:Button>
 		<e:Image id="_redIcon" width="35" height="35" x="444" y="973" source="common_red_icon_png" visible="false"/>
-		<ns1:Label id="_needLevel" text="30级可挑战" x="505" y="1029" fontFamily="Microsoft YaHei" size="24" textColor="0xffffff"/>
+		<ns1:Label id="_needLevel" text="Unlocks at Lv.30" x="505" y="1029" fontFamily="Microsoft YaHei" size="24" textColor="0xffffff"/>
 	</e:Group>
 </e:Skin>

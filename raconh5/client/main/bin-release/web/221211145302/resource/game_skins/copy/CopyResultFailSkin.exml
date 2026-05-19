@@ -28,6 +28,6 @@
 			<e:Image id="_btnJieXue" source="juexue_bouttmIcon_png" x="391" y="0"/>
 		</e:Group>
 		<e:Image id="_btnShenQi" source="relicStuff_shenbingxiao_png" x="297" y="363" visible="false"/>
-		<ns1:Label id="_txt" text="倒计时3s退出" x="475" y="556" textColor="0xfff7e6" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_txt" text="Exit in 3s" x="475" y="556" textColor="0xfff7e6" fontFamily="Microsoft YaHei"/>
 	</e:Group>
 </e:Skin>

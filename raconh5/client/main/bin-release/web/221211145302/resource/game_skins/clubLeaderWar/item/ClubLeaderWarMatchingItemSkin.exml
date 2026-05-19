@@ -2,5 +2,5 @@
 <e:Skin class="ClubLeaderWarMatchingItemSkin" width="492" height="50" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" >
 	<w:Config id="16155f608a7" ></w:Config>
 	<e:Image width="492" height="50" x="0" y="0" source="common_wordBg_normal_png" scale9Grid="14,12,89,72"/>
-	<ns1:Label id="_name" text="名称名称名称" y="13" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center" horizontalCenter="0"/>
+	<ns1:Label id="_name" text="Name Name Name" y="13" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" textAlign="center" horizontalCenter="0"/>
 </e:Skin>

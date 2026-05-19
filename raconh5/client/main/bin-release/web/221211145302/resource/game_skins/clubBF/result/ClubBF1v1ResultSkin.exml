@@ -5,7 +5,7 @@
 		<e:Image id="_title" source="result_title_fail_png" x="122" y="0"/>
 		<e:Image source="result_line_png" y="313" x="115"/>
 		<e:Image y="294" source="common_label_huodejiangli_png" x="285"/>
-		<ns1:Label id="_txtTime" text="倒计时3s退出" x="475" y="556" textColor="0xFFF7E6" fontFamily="Microsoft YaHei"/>
+		<ns1:Label id="_txtTime" text="Exit in 3s" x="475" y="556" textColor="0xFFF7E6" fontFamily="Microsoft YaHei"/>
 		<ns1:Button id="_btn" label="" y="516" width="238" height="105" x="237">
 			<ns1:skinName>
 			<e:Skin states="up,down,disabled">
@@ -15,8 +15,8 @@
 			</ns1:skinName>
 		</ns1:Button>
 		<e:Image id="_btnClose" source="common_tip_close_png" x="639" y="88"/>
-		<ns1:Label id="_txt0" text="你被XXX击败了" y="178" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
-		<ns1:Label id="_txt1" text="你被XXX击败了" y="230" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
+		<ns1:Label id="_txt0" text="You were defeated by XXX" y="178" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
+		<ns1:Label id="_txt1" text="You were defeated by XXX" y="230" fontFamily="Microsoft YaHei" size="24" textAlign="left" textColor="0xFFF7E6" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
 		<e:Group id="_gPower" y="225" x="208">
 			<e:Image source="revive_label_png" x="37" y="0"/>
 			<e:Image source="revive_less_fight_png" x="0" y="10"/>

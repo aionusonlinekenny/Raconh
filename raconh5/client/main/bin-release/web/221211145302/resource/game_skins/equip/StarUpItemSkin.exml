@@ -2,6 +2,6 @@
 <e:Skin class="StarUpItemSkin" width="141" height="141" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Group id="_yichuandai" x="67" y="107" visible="false">
 		<e:Image width="82" height="84" x="58" y="18" rotation="180.43" source="commonsheet.common_itemRecommend3_png"/>
-		<ns1:Label text="已穿戴" x="0" y="0" size="20" fontFamily="Microsoft YaHei" rotation="313.29"/>
+		<ns1:Label text="Equipped" x="0" y="0" size="20" fontFamily="Microsoft YaHei" rotation="313.29"/>
 	</e:Group>
 </e:Skin>

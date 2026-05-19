@@ -4,14 +4,14 @@
 	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
 		<e:Image id="_tipsBg" width="345" height="229" source="common_tipsBg_png" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" x="188" y="322" scaleX="1" scaleY="1" scale9Grid="48,50,21,15"/>
 		<e:Image width="209" height="36" y="336" source="common_title_wordBg_png" horizontalCenter="0" x="256" scaleX="1" scaleY="1"/>
-		<ns1:Label text="铸魂阶段属性" y="339" size="28" textColor="0x7c6e62" fontFamily="Microsoft YaHei" horizontalCenter="0" x="288" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_curLevel" text="全身铸魂+30" x="210" y="382" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_curStatus" text="（已激活）" x="349" y="381" fontFamily="Microsoft YaHei" size="24" textColor="0x38b800" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_curValue" text="攻击+100 生命+1000" x="210" y="416" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1"/>
+		<ns1:Label text="Soul Stage Stats" y="339" size="28" textColor="0x7c6e62" fontFamily="Microsoft YaHei" horizontalCenter="0" x="288" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_curLevel" text="All Soul Slots +30" x="210" y="382" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_curStatus" text="(Activated)" x="349" y="381" fontFamily="Microsoft YaHei" size="24" textColor="0x38b800" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_curValue" text="ATK+100 HP+1000" x="210" y="416" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1"/>
 		<e:Image width="260" height="3" x="206" y="451" source="common_line_png" scale9Grid="297,1,100,0" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_nextLevel" text="全身铸魂+30" x="210" y="464" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_nextStatus" text="（下级效果）" x="349" y="463" fontFamily="Microsoft YaHei" size="24" scaleX="1" scaleY="1" textColor="0x7c6e62"/>
-		<ns1:Label id="_nextValue" text="攻击+100 生命+1000" x="210" y="498" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x38b800"/>
+		<ns1:Label id="_nextLevel" text="All Soul Slots +30" x="210" y="464" size="24" textColor="0x7c6e62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+		<ns1:Label id="_nextStatus" text="(Lower Effect)" x="349" y="463" fontFamily="Microsoft YaHei" size="24" scaleX="1" scaleY="1" textColor="0x7c6e62"/>
+		<ns1:Label id="_nextValue" text="ATK+100 HP+1000" x="210" y="498" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" textColor="0x38b800"/>
 		<ns1:Button id="_closeBtn" label="" x="501" y="321" scaleX="1" scaleY="1">
 			<e:skinName>
 			<e:Skin states="up,down,disabled">

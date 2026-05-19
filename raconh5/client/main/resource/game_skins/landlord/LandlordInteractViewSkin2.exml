@@ -4,23 +4,23 @@
 	<e:Group id="_back" width="456" height="845" x="257" y="296">
 	</e:Group>
 	<e:Image width="459" height="45" x="255" y="298" source="common_back5_png" scale9Grid="104,5,10,35" anchorOffsetX="0"/>
-	<e:Label text="今日互动：" x="280" y="308" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+	<e:Label text="Today's Interactions:" x="280" y="308" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
 	<ns1:Label id="_value1" text="6/6" x="399" y="309" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
-	<ns1:Label id="_name" text="Lv.21 玩家名字" x="375" y="356" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" width="220" textAlign="center" scaleX="1" scaleY="1"/>
-	<ns1:Label id="_clubName" text="盟会：盟会名字" x="385" y="386" fontFamily="Microsoft YaHei" size="22" textAlign="center" width="200" scaleX="1" scaleY="1"/>
+	<ns1:Label id="_name" text="Lv.21 Player" x="375" y="356" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff" width="220" textAlign="center" scaleX="1" scaleY="1"/>
+	<ns1:Label id="_clubName" text="Guild: Guild Name" x="385" y="386" fontFamily="Microsoft YaHei" size="22" textAlign="center" width="200" scaleX="1" scaleY="1"/>
 	<e:Image width="88" height="46" x="342" y="870" source="landlord_taohao_png"/>
 	<e:Image width="88" height="46" x="549" y="871" source="landlord_zhenggu_png"/>
 	<e:Image id="_btn1" width="94" height="90" x="285" y="920" source="landlord_interactIcon1_png"/>
 	<e:Image id="_btn2" width="94" height="90" x="392" y="920" source="landlord_interactIcon2_png"/>
 	<e:Image id="_btn3" width="94" height="90" x="495" y="920" source="landlord_interactIcon3_png"/>
 	<e:Image id="_btn4" width="94" height="90" x="599" y="920" source="landlord_interactIcon4_png"/>
-	<ns1:Label id="_name1" text="倒酒" x="308" y="1023" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_name2" text="贿赂" x="417" y="1023" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_name3" text="鞭打" x="521" y="1023" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_name4" text="流放" x="625" y="1023" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name1" text="Pour Wine" x="308" y="1023" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name2" text="Bribe" x="417" y="1023" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name3" text="Whip" x="521" y="1023" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_name4" text="Exile" x="625" y="1023" size="22" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
 	<e:Image width="430" height="77" x="273" y="1061" scale9Grid="69,20,6,4" anchorOffsetY="0" source="common_back2_png"/>
-	<ns1:Label text="获得奖励：" lineSpacing="5" x="283" y="1073" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
-	<ns1:Label id="_itemName" text="道具名称X1" x="411" y="1073" size="22" fontFamily="Microsoft YaHei"/>
-	<e:Label text="冷却时间：" x="283" y="1103" size="22" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Reward Obtained:" lineSpacing="5" x="283" y="1073" size="22" fontFamily="Microsoft YaHei" textColor="0xffffff"/>
+	<ns1:Label id="_itemName" text="Item Name x1" x="411" y="1073" size="22" fontFamily="Microsoft YaHei"/>
+	<e:Label text="Cooldown:" x="283" y="1103" size="22" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_time" text="00:00:00" x="411" y="1105" size="22" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
 </e:Skin>

@@ -10,7 +10,7 @@
 	<e:Group y="473" x="241">
 		<e:Image source="common_tipsBg_png" y="0" width="238" height="334" scaleX="1" scaleY="1" x="0" scale9Grid="51,53,16,13"/>
 		<e:Image source="common_title_wordBg_png" y="16" scale9Grid="55,17,103,0" width="207" x="16" scaleX="1" scaleY="1"/>
-		<ns1:Label id="_name" text="BOSS名" y="19" size="28" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" horizontalCenter="0.5"/>
+		<ns1:Label id="_name" text="Boss Name" y="19" size="28" textColor="0x7C6E62" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1" horizontalCenter="0.5"/>
 		<e:Image source="boss_label_revive_png" y="197" x="72"/>
 		<e:Image source="common_head_back1_png" x="60" y="72"/>
 		<ns1:BitmapRemote id="_head" width="101" height="125" x="69" y="58"/>

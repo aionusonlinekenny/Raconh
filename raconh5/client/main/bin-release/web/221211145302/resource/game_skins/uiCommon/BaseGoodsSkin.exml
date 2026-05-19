@@ -14,5 +14,5 @@
 	<e:Image id="_star2" source="common_star_bright_png" x="92" y="48" width="20" height="20" visible="false"/>
 	<e:Image id="_star3" source="common_star_bright_png" x="92" y="68" width="20" height="20" visible="false"/>
 	<e:Image id="_jieImg" source="common_tips_num_back_png" x="20.85" y="21.15" visible="false"/>
-	<ns1:Label id="_jieTxt" text="1阶" x="27" y="23" anchorOffsetX="0" width="42" anchorOffsetY="0" height="21" size="24" visible="false"/>
+	<ns1:Label id="_jieTxt" text="Stage 1" x="27" y="23" anchorOffsetX="0" width="42" anchorOffsetY="0" height="21" size="24" visible="false"/>
 </e:Skin>

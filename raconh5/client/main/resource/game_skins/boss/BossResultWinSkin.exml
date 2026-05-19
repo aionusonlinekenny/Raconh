@@ -3,5 +3,5 @@
 	<ns1:ResultWinBack id="_back" x="0" y="0" skinName="ResultWinBackSkin"/>
 	<e:Image source="result_line_png" y="236" x="115"/>
 	<e:Image source="common_label_huodejiangli_png" x="285" y="217"/>
-	<ns1:Label id="_txtRank" text="排名：1" x="60" y="157" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="596"/>
+	<ns1:Label id="_txtRank" text="Rank: 1" x="60" y="157" textAlign="center" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="596"/>
 </e:Skin>

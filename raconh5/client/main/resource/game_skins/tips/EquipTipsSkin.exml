@@ -20,22 +20,22 @@
 		<ns1:Label text="Class:" x="160" y="137" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		<ns1:Label id="_fighting" text="0" x="244" y="62" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="142"/>
 		<ns1:Label id="_level" text="0" x="244" y="100.5" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="127"/>
-		<ns1:Label id="_career" text="无" x="244" y="137" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="116"/>
+		<ns1:Label id="_career" text="None" x="244" y="137" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="116"/>
 
-		<ns1:Label id="_attText1" text="攻击：" x="37" y="181" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="169"/>
-		<ns1:Label id="_attText2" text="破甲：" x="37" y="216" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="169"/>
+		<ns1:Label id="_attText1" text="ATK:" x="37" y="181" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="169"/>
+		<ns1:Label id="_attText2" text="Armor Break:" x="37" y="216" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" scaleX="1" scaleY="1" anchorOffsetX="0" width="169"/>
 
 
-		<ns1:Label id="_attAddValue1" text="(强化+0)" x="198" y="181" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1" anchorOffsetX="0" width="207"/>
-		<ns1:Label id="_attAddValue2" text="(强化+0)" x="198" y="216" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1" anchorOffsetX="0" width="207"/>
+		<ns1:Label id="_attAddValue1" text="(Enhance+0)" x="198" y="181" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1" anchorOffsetX="0" width="207"/>
+		<ns1:Label id="_attAddValue2" text="(Enhance+0)" x="198" y="216" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800" scaleX="1" scaleY="1" anchorOffsetX="0" width="207"/>
 
 		<e:Group id="_jipinGup" x="19" y="248">
 			<e:Image source="common_line_png" y="0" width="370" x="0" scaleX="1" scaleY="1"/>
-			<ns1:Label text="极品属性" x="18.5" y="12" textColor="0xffa800" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+			<ns1:Label text="Epic Stats" x="18.5" y="12" textColor="0xffa800" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		</e:Group>
 		<e:Group id="_zhuhunGup" x="19" y="248">
 			<e:Image source="common_line_png" y="0" width="370" x="0" scaleX="1" scaleY="1"/>
-			<ns1:Label text="铸魂属性" x="18.5" y="12" textColor="0xffa800" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
+			<ns1:Label text="Soul Stats" x="18.5" y="12" textColor="0xffa800" size="24" fontFamily="Microsoft YaHei" scaleX="1" scaleY="1"/>
 		</e:Group>
 
 

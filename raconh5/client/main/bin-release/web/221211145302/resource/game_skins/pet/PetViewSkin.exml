@@ -78,6 +78,6 @@
 	</ns1:Button>
 	<e:Image id="_upgradeIcon" source="common_red_icon_png" x="625" y="1015" visible="false"/>
 
-	<ns1:Label id="_lossTxt" text="宠物进阶丹：10/20" x="423" y="993" textColor="0xfff7e6" size="22" fontFamily="Microsoft YaHei" width="233" height="29" verticalAlign="middle" textAlign="center"/>
+	<ns1:Label id="_lossTxt" text="Pet Advance Pill: 10/20" x="423" y="993" textColor="0xfff7e6" size="22" fontFamily="Microsoft YaHei" width="233" height="29" verticalAlign="middle" textAlign="center"/>
 	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="91" y="908" width="564" height="32"/>
 </e:Skin>
