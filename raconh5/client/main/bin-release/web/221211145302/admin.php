@@ -20,6 +20,13 @@ define('DB_NAME', 'cw02_game1');
 define('ESCRIPT_EXE',  'C:\\Program Files\\erl9.0\\bin\\escript.exe');
 define('GM_ESCRIPT',   'C:\\raconh5\\server_bin\\gm.escript');
 
+// ── Translation file paths ────────────────────────────────────────────────────
+define('CW_FILE',    __DIR__ . '/resource/res/cw.txt');
+define('CW_ORIG',    __DIR__ . '/resource/res/cw.txt.original');
+define('THM_FILE',   __DIR__ . '/resource/default.thm.json');
+define('THM_ORIG',   __DIR__ . '/resource/default.thm.json.original');
+define('TRANS_FILE', __DIR__ . '/cw_translations.json');
+
 function gmExec(array $args) {
     if (!function_exists('shell_exec')) return 'error|shell_exec_disabled';
     $escript = ESCRIPT_EXE;
@@ -98,6 +105,162 @@ function safeQuery($sql, $params = []) {
     } catch (PDOException $e) {
         return ['__error__' => $e->getMessage()];
     }
+}
+
+// ── Translation binary helpers ────────────────────────────────────────────────
+
+function trRu8($buf,&$pos){return ord($buf[$pos++]);}
+function trRu16($buf,&$pos){$v=unpack('n',substr($buf,$pos,2))[1];$pos+=2;return $v;}
+function trRu32($buf,&$pos){$v=unpack('N',substr($buf,$pos,4))[1];$pos+=4;return $v;}
+function trRstr($buf,&$pos,$len){$s=substr($buf,$pos,$len);$pos+=$len;return $s;}
+
+function cwParse($data){
+    $pos=0;$cnt=trRu8($data,$pos);$secs=[];
+    for($i=0;$i<$cnt;$i++){
+        $nl=trRu16($data,$pos);$nm=trRstr($data,$pos,$nl);
+        $dl=trRu32($data,$pos);$sd=trRstr($data,$pos,$dl);
+        $secs[]=[$nm,$sd];
+    }
+    return $secs;
+}
+
+function cwBuild($secs){
+    $out=chr(count($secs));
+    foreach($secs as[$nm,$sd]){$out.=pack('n',strlen($nm)).$nm.pack('N',strlen($sd)).$sd;}
+    return $out;
+}
+
+function langParse($sec){
+    $pos=0;$tc=trRu8($sec,$pos);$tbls=[];
+    for($i=0;$i<$tc;$i++){
+        $nl=trRu16($sec,$pos);$tn=trRstr($sec,$pos,$nl);
+        $ec=trRu16($sec,$pos);$ents=[];
+        for($j=0;$j<$ec;$j++){
+            $sid=trRu16($sec,$pos);$sl=trRu16($sec,$pos);$sv=trRstr($sec,$pos,$sl);
+            $ents[]=[$sid,$sv];
+        }
+        $tbls[]=[$tn,$ents];
+    }
+    return $tbls;
+}
+
+function langBuild($tbls){
+    $out=chr(count($tbls));
+    foreach($tbls as[$tn,$ents]){
+        $out.=pack('n',strlen($tn)).$tn.pack('n',count($ents));
+        foreach($ents as[$sid,$sv]){$out.=pack('n',$sid).pack('n',strlen($sv)).$sv;}
+    }
+    return $out;
+}
+
+function hasCJK($s){return(bool)preg_match('/[\x{4e00}-\x{9fff}\x{3400}-\x{4dbf}]/u',$s);}
+
+function scanCJK($sec){
+    $found=[];$len=strlen($sec);$i=0;
+    while($i<$len-2){
+        $sl=unpack('n',substr($sec,$i,2))[1];
+        if($sl>=1&&$sl<=512&&$i+2+$sl<=$len){
+            $s=substr($sec,$i+2,$sl);
+            if(mb_check_encoding($s,'UTF-8')&&strlen($s)===$sl&&hasCJK($s)){
+                $found[]=[$i,$s];$i+=2+$sl;continue;
+            }
+        }
+        $i++;
+    }
+    return $found;
+}
+
+function loadTrans(){
+    if(!file_exists(TRANS_FILE))return[];
+    $j=json_decode(file_get_contents(TRANS_FILE),true);
+    return is_array($j)?$j:[];
+}
+
+function saveTrans($t){
+    file_put_contents(TRANS_FILE,json_encode($t,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
+}
+
+function extractCW(){
+    $src=file_exists(CW_ORIG)?CW_ORIG:CW_FILE;
+    if(!file_exists($src))return['error'=>'cw.txt not found at '.$src];
+    $data=file_get_contents($src);
+    $secs=cwParse($data);
+    $result=[];
+    foreach($secs as[$nm,$sd]){
+        if($nm==='language'){
+            foreach(langParse($sd)as[$tn,$ents]){
+                foreach($ents as[$sid,$sv]){
+                    if(hasCJK($sv)){
+                        $result["lang|$tn|$sid"]=['cn'=>$sv,'en'=>'','section'=>'language','table'=>$tn,'id'=>$sid];
+                    }
+                }
+            }
+        }else{
+            foreach(scanCJK($sd)as[$off,$txt]){
+                $result["$nm|$off"]=['cn'=>$txt,'en'=>'','section'=>$nm,'offset'=>$off];
+            }
+        }
+    }
+    return $result;
+}
+
+function applyAllCW($trans){
+    $src=file_exists(CW_ORIG)?CW_ORIG:CW_FILE;
+    if(!file_exists($src))return'cw.txt not found';
+    if(!file_exists(CW_ORIG))copy(CW_FILE,CW_ORIG);
+    $secs=cwParse(file_get_contents($src));
+    $newSecs=[];$cnt=0;
+    foreach($secs as[$nm,$sd]){
+        if($nm==='language'){
+            $nTbls=[];
+            foreach(langParse($sd)as[$tn,$ents]){
+                $nEnts=[];
+                foreach($ents as[$sid,$sv]){
+                    $k="lang|$tn|$sid";
+                    if(isset($trans[$k])&&$trans[$k]['en']!==''){$nEnts[]=[$sid,$trans[$k]['en']];$cnt++;}
+                    else $nEnts[]=[$sid,$sv];
+                }
+                $nTbls[]=[$tn,$nEnts];
+            }
+            $sd=langBuild($nTbls);
+        }else{
+            $tmap=[];
+            foreach(scanCJK($sd)as[$off,$txt]){
+                $k="$nm|$off";
+                if(isset($trans[$k])&&$trans[$k]['en']!==''&&$trans[$k]['en']!==$txt)
+                    $tmap[$off]=[$txt,$trans[$k]['en']];
+            }
+            if($tmap){
+                ksort($tmap);$nd='';$cur=0;
+                foreach($tmap as$off=>[$ot,$et]){
+                    $sl=unpack('n',substr($sd,$off,2))[1];
+                    if($sl!==strlen($ot))continue;
+                    $nd.=substr($sd,$cur,$off-$cur).pack('n',strlen($et)).$et;
+                    $cur=$off+2+strlen($ot);$cnt++;
+                }
+                $sd=$nd.substr($sd,$cur);
+            }
+        }
+        $newSecs[]=[$nm,$sd];
+    }
+    $out=cwBuild($newSecs);
+    file_put_contents(CW_FILE,$out);
+    return"Applied $cnt translations. New size: ".number_format(strlen($out))." bytes.";
+}
+
+function applyThmTrans($trans){
+    $src=file_exists(THM_ORIG)?THM_ORIG:THM_FILE;
+    if(!file_exists($src))return'thm.json not found';
+    if(!file_exists(THM_ORIG))copy(THM_FILE,THM_ORIG);
+    $data=json_decode(file_get_contents($src),true);
+    if(!is_array($data))return'Invalid thm.json';
+    $cnt=0;
+    foreach($data as$k=>$v){
+        $tk="thm|$k";
+        if(isset($trans[$tk])&&$trans[$tk]['en']!==''){$data[$k]=$trans[$tk]['en'];$cnt++;}
+    }
+    file_put_contents(THM_FILE,json_encode($data,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
+    return"Applied $cnt thm.json translations.";
 }
 
 // ── POST handler ──────────────────────────────────────────────────────────────
@@ -220,6 +383,68 @@ if ($action === 'setup') {
         } catch (PDOException $e) { $flash=['type'=>'error','msg'=>'Update failed: '.$e->getMessage()]; }
     }
     header('Location: admin.php?tab=gamedb&tbl='.$tbl.'&pk='.$pk.'&search='.urlencode($pkv)); exit;
+
+} elseif ($action === 'tr_extract') {
+    requireLogin();
+    $extracted = extractCW();
+    if (isset($extracted['error'])) {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>$extracted['error']];
+    } else {
+        $existing = loadTrans();
+        $added = 0;
+        foreach ($extracted as $k => $v) {
+            if (!isset($existing[$k])) { $existing[$k] = $v; $added++; }
+        }
+        saveTrans($existing);
+        $total = count($extracted);
+        $_SESSION['flash'] = ['type'=>'success','msg'=>"Extracted $total strings ($added new). Ready to translate."];
+    }
+    header('Location: admin.php?tab=translation'); exit;
+
+} elseif ($action === 'tr_save') {
+    requireLogin();
+    $trans = loadTrans();
+    $edits = $_POST['tr'] ?? [];
+    $saved = 0;
+    foreach ($edits as $k => $en) {
+        $k = base64_decode($k);
+        if (isset($trans[$k])) { $trans[$k]['en'] = trim($en); $saved++; }
+    }
+    saveTrans($trans);
+    $_SESSION['flash'] = ['type'=>'success','msg'=>"Saved $saved translations."];
+    $redir = 'admin.php?tab=translation';
+    if (!empty($_POST['tsec']))    $redir .= '&tsec='.urlencode($_POST['tsec']);
+    if (!empty($_POST['tsearch'])) $redir .= '&tsearch='.urlencode($_POST['tsearch']);
+    if (!empty($_POST['tpage']))   $redir .= '&tpage='.intval($_POST['tpage']);
+    header('Location: '.$redir); exit;
+
+} elseif ($action === 'tr_apply') {
+    requireLogin();
+    $msg = applyAllCW(loadTrans());
+    $_SESSION['flash'] = ['type'=>'success','msg'=>$msg];
+    header('Location: admin.php?tab=translation'); exit;
+
+} elseif ($action === 'tr_applythm') {
+    requireLogin();
+    $msg = applyThmTrans(loadTrans());
+    $_SESSION['flash'] = ['type'=>'success','msg'=>$msg];
+    header('Location: admin.php?tab=translation'); exit;
+
+} elseif ($action === 'tr_restore') {
+    requireLogin();
+    if (file_exists(CW_ORIG)) {
+        copy(CW_ORIG, CW_FILE);
+        $_SESSION['flash'] = ['type'=>'success','msg'=>'cw.txt restored from original backup.'];
+    } else {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'No backup found (cw.txt.original missing).'];
+    }
+    header('Location: admin.php?tab=translation'); exit;
+
+} elseif ($action === 'tr_clear') {
+    requireLogin();
+    if (file_exists(TRANS_FILE)) unlink(TRANS_FILE);
+    $_SESSION['flash'] = ['type'=>'success','msg'=>'Translation data cleared.'];
+    header('Location: admin.php?tab=translation'); exit;
 }
 
 // URL flash
@@ -234,6 +459,9 @@ if (empty($flash['msg'])&&isset($_GET['ok_field'])) {
 // ── Page data ─────────────────────────────────────────────────────────────────
 
 $activeTab = $_GET['tab'] ?? 'players';
+$trTrans = []; $trSections = []; $trRows = []; $trFilter = ''; $trSearch = '';
+$trPage = 1; $trTotal = 0; $trDone = 0; $trPageCount = 1;
+$trCwExists = file_exists(CW_FILE); $trOrigExists = file_exists(CW_ORIG);
 $setupMode = noAdmins();
 
 $players=$admins=$stats=[];
@@ -331,6 +559,37 @@ if (isLoggedIn()) {
                 $gmStats     = gmGet($gmRoleId);
             }
         }
+    }
+
+    // ── Translation tab ──
+    if ($activeTab === 'translation') {
+        $trTrans  = loadTrans();
+        $trFilter = $_GET['tsec']    ?? '';
+        $trSearch = trim($_GET['tsearch'] ?? '');
+        $trPage   = max(1, (int)($_GET['tpage'] ?? 1));
+        $perPage  = 100;
+
+        $secMap = [];
+        foreach ($trTrans as $k => $v) {
+            $s = $v['section'];
+            if (!isset($secMap[$s])) $secMap[$s] = ['total'=>0,'done'=>0];
+            $secMap[$s]['total']++;
+            if ($v['en'] !== '') $secMap[$s]['done']++;
+        }
+        ksort($secMap);
+        $trSections = $secMap;
+        $trTotal    = count($trTrans);
+        $trDone     = count(array_filter($trTrans, fn($r)=>$r['en']!==''));
+
+        $filtered = [];
+        foreach ($trTrans as $k => $v) {
+            if ($trFilter && $v['section'] !== $trFilter) continue;
+            if ($trSearch !== '' && stripos($v['cn'],$trSearch)===false && stripos($v['en'],$trSearch)===false) continue;
+            $filtered[$k] = $v;
+        }
+        $trPageCount = max(1, (int)ceil(count($filtered)/$perPage));
+        $trPage = min($trPage, $trPageCount);
+        $trRows = array_slice($filtered, ($trPage-1)*$perPage, $perPage, true);
     }
 
     // ── Game DB tab ──
@@ -486,6 +745,33 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
 .ef{display:flex;flex-direction:column;gap:3px}
 .ef label{font-size:11px;color:#6070a0}
 .ef input{font-size:12px;padding:5px 8px}
+
+/* ── Translation tab ── */
+.tr-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.tr-sec-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tr-sec-btn{padding:4px 11px;background:rgba(40,60,100,.5);border:1px solid rgba(100,140,200,.2);
+  border-radius:14px;color:#90a8d0;font-size:12px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.tr-sec-btn:hover,.tr-sec-btn.sel{background:rgba(240,180,60,.15);border-color:rgba(240,180,60,.4);color:#f0c060}
+.tr-progress{height:6px;background:rgba(255,255,255,.07);border-radius:3px;margin-bottom:14px}
+.tr-progress-bar{height:100%;background:linear-gradient(90deg,#a06818,#d09828);border-radius:3px;transition:width .3s}
+.tr-table td{padding:6px 8px;vertical-align:top}
+.tr-cn{color:#a0b0c0;font-size:12px;max-width:280px;word-break:break-all}
+.tr-key{color:#405060;font-size:10px;font-family:monospace;max-width:140px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.tr-input{width:100%;min-width:200px;padding:5px 8px;font-size:12px;background:rgba(0,0,10,.5);
+  border:1px solid rgba(240,180,60,.2);border-radius:4px;color:#dde0e8}
+.tr-input:focus{border-color:#f0c060;outline:none}
+.tr-input.has-val{border-color:rgba(60,180,80,.4);color:#b0e8b0}
+.tr-stats{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.tr-stat{background:rgba(255,255,255,.04);border:1px solid rgba(240,180,60,.12);
+  border-radius:6px;padding:10px 16px}
+.tr-stat .v{font-size:22px;font-weight:700;color:#f0c060}
+.tr-stat .l{font-size:11px;color:#607090}
+.tr-pager{display:flex;gap:6px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.tr-pager a,.tr-pager span{padding:4px 10px;background:rgba(40,60,100,.4);border:1px solid rgba(100,140,200,.2);
+  border-radius:4px;color:#90a8d0;font-size:12px;text-decoration:none}
+.tr-pager a:hover{border-color:rgba(240,180,60,.4);color:#f0c060}
+.tr-pager span.cur{background:rgba(240,180,60,.15);border-color:rgba(240,180,60,.4);color:#f0c060}
 </style>
 </head>
 <body>
@@ -522,7 +808,8 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
     <a href="admin.php?tab=players" class="nav-item <?=$activeTab==='players'?'active':''?>">👥 Player Accounts</a>
     <a href="admin.php?tab=player"  class="nav-item <?=$activeTab==='player' ?'active':''?>">⚔ Player Stats</a>
     <a href="admin.php?tab=admins"  class="nav-item <?=$activeTab==='admins' ?'active':''?>">🛡 Admin Accounts</a>
-    <a href="admin.php?tab=gamedb"  class="nav-item <?=$activeTab==='gamedb' ?'active':''?>">🗄 Game Database</a>
+    <a href="admin.php?tab=gamedb"       class="nav-item <?=$activeTab==='gamedb'      ?'active':''?>">🗄 Game Database</a>
+    <a href="admin.php?tab=translation"  class="nav-item <?=$activeTab==='translation' ?'active':''?>">🌐 Translation</a>
     <div class="sidebar-footer">
       <a href="login.php" class="nav-item" style="border-left:none;font-size:12px;padding:8px 0">🎮 Player Login</a>
       <form method="POST" style="margin-top:6px"><input type="hidden" name="action" value="logout">
@@ -818,6 +1105,183 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
         </table></div>
         <?php endif; ?>
       <?php endif; ?>
+    </div>
+
+    <!-- ══ TRANSLATION ══ -->
+    <div class="tab-panel <?=$activeTab==='translation'?'active':''?>">
+      <div class="page-title">🌐 Translation Editor</div>
+      <div class="page-sub">Extract Chinese strings from cw.txt / thm.json, add English translations, then apply.</div>
+
+      <!-- File status -->
+      <div style="margin-bottom:14px;font-size:12px;color:#6070a0">
+        <span style="color:<?=$trCwExists?'#60d070':'#d06060'?>"><?=$trCwExists?'✔':'✘'?> cw.txt</span>
+        &nbsp;&nbsp;
+        <span style="color:<?=$trOrigExists?'#60d070':'#a07040'?>"><?=$trOrigExists?'✔':'⚠'?> cw.txt.original<?=$trOrigExists?'':' (will be created on first apply)'?></span>
+        &nbsp;&nbsp;
+        <span style="color:<?=file_exists(TRANS_FILE)?'#60d070':'#a07040'?>"><?=file_exists(TRANS_FILE)?'✔':'⚠'?> cw_translations.json<?=file_exists(TRANS_FILE)?'':' (run Extract first)'?></span>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="tr-toolbar">
+        <form method="POST" style="display:inline">
+          <input type="hidden" name="action" value="tr_extract">
+          <button type="submit" class="btn btn-gold">⬇ Extract Strings</button>
+        </form>
+        <form method="POST" style="display:inline" onsubmit="return confirm('Apply translations to cw.txt now?')">
+          <input type="hidden" name="action" value="tr_apply">
+          <button type="submit" class="btn btn-green">✔ Apply to cw.txt</button>
+        </form>
+        <form method="POST" style="display:inline" onsubmit="return confirm('Apply translations to thm.json now?')">
+          <input type="hidden" name="action" value="tr_applythm">
+          <button type="submit" class="btn btn-blue">🎨 Apply to thm.json</button>
+        </form>
+        <?php if($trOrigExists): ?>
+        <form method="POST" style="display:inline" onsubmit="return confirm('Restore original cw.txt? This undoes Apply.')">
+          <input type="hidden" name="action" value="tr_restore">
+          <button type="submit" class="btn btn-gray">↩ Restore Original</button>
+        </form>
+        <?php endif; ?>
+        <?php if(file_exists(TRANS_FILE)): ?>
+        <form method="POST" style="display:inline" onsubmit="return confirm('Clear ALL translation data? This cannot be undone.')">
+          <input type="hidden" name="action" value="tr_clear">
+          <button type="submit" class="btn btn-red btn-sm">🗑 Clear</button>
+        </form>
+        <?php endif; ?>
+      </div>
+
+      <?php if($trTotal > 0): ?>
+      <!-- Stats -->
+      <div class="tr-stats">
+        <div class="tr-stat"><div class="v"><?=number_format($trTotal)?></div><div class="l">Total strings</div></div>
+        <div class="tr-stat"><div class="v"><?=number_format($trDone)?></div><div class="l">Translated</div></div>
+        <div class="tr-stat"><div class="v"><?=number_format($trTotal-$trDone)?></div><div class="l">Remaining</div></div>
+        <div class="tr-stat"><div class="v"><?=count($trSections)?></div><div class="l">Sections</div></div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="tr-progress" title="<?=$trDone?>/<?=$trTotal?>">
+        <div class="tr-progress-bar" style="width:<?=$trTotal?round(100*$trDone/$trTotal):0?>%"></div>
+      </div>
+
+      <!-- Filter form -->
+      <form method="GET" style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
+        <input type="hidden" name="tab" value="translation">
+        <input type="search" name="tsearch" value="<?=htmlspecialchars($trSearch)?>"
+               placeholder="Search strings…" style="max-width:220px;font-size:13px">
+        <button type="submit" class="btn btn-blue btn-sm">Search</button>
+        <?php if($trSearch||$trFilter): ?>
+          <a href="admin.php?tab=translation" class="btn btn-gray btn-sm">✕ Clear</a>
+        <?php endif; ?>
+      </form>
+
+      <!-- Section filter buttons -->
+      <div class="tr-sec-list">
+        <a href="admin.php?tab=translation<?=$trSearch?'&tsearch='.urlencode($trSearch):''?>"
+           class="tr-sec-btn <?=$trFilter===''?'sel':''?>">All (<?=$trTotal?>)</a>
+        <?php foreach($trSections as $sn=>$si): ?>
+          <a href="admin.php?tab=translation&tsec=<?=urlencode($sn)?><?=$trSearch?'&tsearch='.urlencode($trSearch):''?>"
+             class="tr-sec-btn <?=$trFilter===$sn?'sel':''?>">
+            <?=htmlspecialchars($sn)?> (<?=$si['done']?>/<?=$si['total']?>)
+          </a>
+        <?php endforeach; ?>
+      </div>
+
+      <!-- Translation form -->
+      <?php if(!empty($trRows)): ?>
+      <form method="POST">
+        <input type="hidden" name="action" value="tr_save">
+        <input type="hidden" name="tsec"    value="<?=htmlspecialchars($trFilter)?>">
+        <input type="hidden" name="tsearch" value="<?=htmlspecialchars($trSearch)?>">
+        <input type="hidden" name="tpage"   value="<?=$trPage?>">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span style="font-size:12px;color:#607090">
+            Showing <?=count($trRows)?> strings (page <?=$trPage?>/<?=$trPageCount?>)
+          </span>
+          <button type="submit" class="btn btn-gold btn-sm">💾 Save Page</button>
+        </div>
+
+        <div class="table-wrap" style="max-height:600px">
+        <table class="tr-table">
+          <thead><tr>
+            <th style="min-width:100px">Section</th>
+            <th style="min-width:200px">Chinese (source)</th>
+            <th style="min-width:240px">English translation</th>
+          </tr></thead>
+          <tbody>
+          <?php foreach($trRows as $key => $row): ?>
+          <tr>
+            <td><div style="color:#8090a0;font-size:11px"><?=htmlspecialchars($row['section'])?></div>
+                <?php if(isset($row['table'])): ?>
+                  <div style="color:#506070;font-size:10px;font-family:monospace"><?=htmlspecialchars($row['table'])?>·<?=$row['id']?></div>
+                <?php elseif(isset($row['offset'])): ?>
+                  <div class="tr-key">@<?=$row['offset']?></div>
+                <?php endif; ?>
+            </td>
+            <td><div class="tr-cn"><?=htmlspecialchars($row['cn'])?></div></td>
+            <td>
+              <input type="text" name="tr[<?=base64_encode($key)?>]"
+                     value="<?=htmlspecialchars($row['en'])?>"
+                     class="tr-input<?=$row['en']!==''?' has-val':''?>"
+                     placeholder="Enter English…">
+            </td>
+          </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        </div>
+
+        <!-- Pager -->
+        <?php if($trPageCount > 1): ?>
+        <div class="tr-pager" style="margin-top:10px">
+          <?php
+            $pBase = 'admin.php?tab=translation';
+            if ($trFilter) $pBase .= '&tsec='.urlencode($trFilter);
+            if ($trSearch) $pBase .= '&tsearch='.urlencode($trSearch);
+          ?>
+          <?php if($trPage>1): ?>
+            <a href="<?=$pBase?>&tpage=<?=$trPage-1?>">‹ Prev</a>
+          <?php endif; ?>
+          <?php for($p=max(1,$trPage-3);$p<=min($trPageCount,$trPage+3);$p++): ?>
+            <?php if($p===$trPage): ?>
+              <span class="cur"><?=$p?></span>
+            <?php else: ?>
+              <a href="<?=$pBase?>&tpage=<?=$p?>"><?=$p?></a>
+            <?php endif; ?>
+          <?php endfor; ?>
+          <?php if($trPage<$trPageCount): ?>
+            <a href="<?=$pBase?>&tpage=<?=$trPage+1?>">Next ›</a>
+          <?php endif; ?>
+          <span style="color:#506070;font-size:11px">&nbsp;<?=count(array_filter($trTrans,fn($r)=>($trFilter?$r['section']===$trFilter:true)&&$r['en']!==''))?> / <?=count(array_filter($trTrans,fn($r)=>$trFilter?$r['section']===$trFilter:true))?> translated</span>
+        </div>
+        <?php endif; ?>
+
+        <div style="margin-top:12px">
+          <button type="submit" class="btn btn-gold">💾 Save Page</button>
+        </div>
+      </form>
+
+      <?php elseif($trTotal > 0): ?>
+        <p style="color:#607090;font-size:13px">No strings match the current filter.</p>
+      <?php endif; ?>
+
+      <?php else: ?>
+      <div class="alert alert-info">
+        No strings extracted yet. Click <strong>⬇ Extract Strings</strong> to scan cw.txt for Chinese text.
+      </div>
+      <?php endif; ?>
+
+      <!-- Instructions -->
+      <details style="margin-top:18px">
+        <summary style="font-size:12px;color:#507050;cursor:pointer;padding:6px 0">📖 How to use</summary>
+        <div style="background:rgba(20,40,20,.4);border:1px solid rgba(60,160,80,.2);border-radius:8px;padding:14px;margin-top:6px;font-size:12px;color:#7a9070;line-height:1.7">
+          <strong>1. Extract</strong> — scans cw.txt for Chinese strings and saves them to <code>cw_translations.json</code> next to admin.php.<br>
+          <strong>2. Translate</strong> — select a section, fill in English translations, click Save Page.<br>
+          <strong>3. Apply to cw.txt</strong> — rewrites cw.txt with your translations. Original is backed up as <code>cw.txt.original</code>.<br>
+          <strong>4. Apply to thm.json</strong> — same but for <code>default.thm.json</code> (UI theme strings).<br>
+          <strong>5. Copy to XAMPP</strong> — copy the updated <code>cw.txt</code> and <code>default.thm.json</code> to your XAMPP game folder.<br>
+          <strong>Note:</strong> Open the game in an incognito window (Ctrl+Shift+N) to bypass browser cache.
+        </div>
+      </details>
     </div>
 
   </main>
