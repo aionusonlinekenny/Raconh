@@ -23408,87 +23408,87 @@
   },
   "scene_data|116900": {
     "cn": "个人BOSS1",
-    "en": "",
+    "en": "Solo Boss 1",
     "section": "scene_data",
     "offset": 116900,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|116962": {
     "cn": "个人BOSS2",
-    "en": "",
+    "en": "Solo Boss 2",
     "section": "scene_data",
     "offset": 116962,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117024": {
     "cn": "个人BOSS3",
-    "en": "",
+    "en": "Solo Boss 3",
     "section": "scene_data",
     "offset": 117024,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117086": {
     "cn": "个人BOSS4",
-    "en": "",
+    "en": "Solo Boss 4",
     "section": "scene_data",
     "offset": 117086,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117148": {
     "cn": "个人BOSS5",
-    "en": "",
+    "en": "Solo Boss 5",
     "section": "scene_data",
     "offset": 117148,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117210": {
     "cn": "个人BOSS6",
-    "en": "",
+    "en": "Solo Boss 6",
     "section": "scene_data",
     "offset": 117210,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117272": {
     "cn": "个人BOSS7",
-    "en": "",
+    "en": "Solo Boss 7",
     "section": "scene_data",
     "offset": 117272,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117334": {
     "cn": "个人BOSS8",
-    "en": "",
+    "en": "Solo Boss 8",
     "section": "scene_data",
     "offset": 117334,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117396": {
     "cn": "个人BOSS9",
-    "en": "",
+    "en": "Solo Boss 9",
     "section": "scene_data",
     "offset": 117396,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117458": {
     "cn": "个人BOSS10",
-    "en": "",
+    "en": "Solo Boss 10",
     "section": "scene_data",
     "offset": 117458,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117521": {
     "cn": "个人BOSS10",
-    "en": "",
+    "en": "Solo Boss 10",
     "section": "scene_data",
     "offset": 117521,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|117584": {
     "cn": "个人BOSS10",
-    "en": "",
+    "en": "Solo Boss 10",
     "section": "scene_data",
     "offset": 117584,
-    "source": ""
+    "source": "full_dict"
   },
   "scene_data|118656": {
     "cn": "\u0000\u0000\u0000\u00142#791,1264|1653,1717\u0000\u001b风筝滑行到切地图",
@@ -30177,24 +30177,24 @@
   },
   "item_data|135745": {
     "cn": "金玉令牌",
-    "en": "",
+    "en": "Gold Jade Token",
     "section": "item_data",
     "offset": 135745,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|135771": {
     "cn": "持有该令牌，可以进入金玉堂，盗取海量银币、元宝",
-    "en": "",
+    "en": "Holding this token opens the Gold Hall to steal silver and ingots",
     "section": "item_data",
     "offset": 135771,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|135913": {
     "cn": "寻宝符",
-    "en": "",
+    "en": "Treasure Hunt Talisman",
     "section": "item_data",
     "offset": 135913,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|135930": {
     "cn": "\u0000\u0000\u0000\u0000\u0000\f用于寻宝\u00001{hots_resimg_name_viewId,{1,shangcheng, ,1006,1}}\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002bZe\u0000\u0000\u0000\u0000\u0002bZe\u0000\u000f经脉突破丹\u0000\u0000\u0005\u0000\u0000\u0000\u00010\u0000\u0000\u0000\u0000\u0000\u0018用于人物经脉突破\u00001{hots_resimg_name_viewId,{1,shangcheng, ,1006,2}}\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002bZo\u0000\u0000\u0000\u0000\u0002bZe\u0000\u0006命玉\u0000\u0000\u0004\u0000\u0000\u0000\u00010\u0000\u0000\u0000\u0000\u0000\u001b用于猎命，获得命格\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002bZp\u0000\u0000\u0000\u0000\u0002bZp\u0000\t聚元丹\u0000\u0000\u0004\u0000\u0000\u0000\u0001",
@@ -30205,10 +30205,10 @@
   },
   "item_data|136241": {
     "cn": "用于突破聚元阶段",
-    "en": "",
+    "en": "Use to break through Yuan Gathering stage",
     "section": "item_data",
     "offset": 136241,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|136338": {
     "cn": "初露峥嵘",
@@ -30534,10 +30534,10 @@
   },
   "item_data|142843": {
     "cn": "进阶丹",
-    "en": "",
+    "en": "Advancement Pill",
     "section": "item_data",
     "offset": 142843,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|142866": {
     "cn": "聚积天地灵性凝聚而成，长期喂食可使墨宠具有灵性，用于墨宠进阶升星使用",
@@ -30569,31 +30569,31 @@
   },
   "item_data|143448": {
     "cn": "使用该道具，可召唤让人闻风丧胆的上古巨猿作为你的墨宠",
-    "en": "",
+    "en": "Use to summon the legendary Ancient Giant Ape as your Mo Pet",
     "section": "item_data",
     "offset": 143448,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|143550": {
     "cn": "翡翠墨玉",
-    "en": "",
+    "en": "Jade Ink Stone",
     "section": "item_data",
     "offset": 143550,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|143600": {
     "cn": "雪疥虫",
-    "en": "",
+    "en": "Snow Itch Worm",
     "section": "item_data",
     "offset": 143600,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|143623": {
     "cn": "用于角色转生（1转），野外挂机掉落",
-    "en": "",
+    "en": "Use for character rebirth (1st), drops while AFK",
     "section": "item_data",
     "offset": 143623,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|143739": {
     "cn": "乌金丸",
@@ -30604,45 +30604,45 @@
   },
   "item_data|143762": {
     "cn": "用于角色转生（2转），野外挂机掉落",
-    "en": "",
+    "en": "Use for character rebirth (2nd), drops while AFK",
     "section": "item_data",
     "offset": 143762,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|143835": {
     "cn": "冰续草",
-    "en": "",
+    "en": "Ice Continuation Herb",
     "section": "item_data",
     "offset": 143835,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|143858": {
     "cn": "用于角色转生（3转），野外挂机掉落",
-    "en": "",
+    "en": "Use for character rebirth (3rd), drops while AFK",
     "section": "item_data",
     "offset": 143858,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|143931": {
     "cn": "冰续丹",
-    "en": "",
+    "en": "Ice Continuation Pill",
     "section": "item_data",
     "offset": 143931,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|143954": {
     "cn": "用于角色转生（4转），野外挂机掉落",
-    "en": "",
+    "en": "Use for character rebirth (4th), drops while AFK",
     "section": "item_data",
     "offset": 143954,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|144027": {
     "cn": "玄铁石",
-    "en": "",
+    "en": "Black Iron Stone",
     "section": "item_data",
     "offset": 144027,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|144050": {
     "cn": "陨铁由天外飞石锻造而来，融入神兵中可大大提升神兵威力\n每颗陨铁提升属性：\n气血<font color='#37B700'>+1440</font>\n攻击<font color='#37B700'>+160</font>\n伤害加成<font color='#37B700'>+0.1%</font>",
@@ -30653,17 +30653,17 @@
   },
   "item_data|144308": {
     "cn": "锦缎",
-    "en": "",
+    "en": "Brocade",
     "section": "item_data",
     "offset": 144308,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|144328": {
     "cn": "宫廷皇室御用贡品，编制披风必备神品",
-    "en": "",
+    "en": "Royal court tribute, essential for crafting cloaks",
     "section": "item_data",
     "offset": 144328,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|144403": {
     "cn": "九天缎",
@@ -30674,10 +30674,10 @@
   },
   "item_data|144426": {
     "cn": "宫廷皇室御用贡品，轻柔丝滑，做成服饰深受达官贵人喜爱",
-    "en": "",
+    "en": "Royal court tribute, soft silk favored by nobles",
     "section": "item_data",
     "offset": 144426,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|144528": {
     "cn": "白龙鱼服",
@@ -30737,10 +30737,10 @@
   },
   "item_data|146382": {
     "cn": "离魂幽梦",
-    "en": "",
+    "en": "Soul Departing Dream",
     "section": "item_data",
     "offset": 146382,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|146408": {
     "cn": "激活<font color='#37B700'>离魂幽梦</font>\n战力 <font color='#37B700'>41250</font>\n气血<font color='#37B700'>+45000</font>\n攻击<font color='#37B700'>+3000</font>\n伤害減免<font color='#37B700'>+4.5%</font>\n升星增加\n战力 <font color='#37B700'>47900</font>\n气血<font color='#37B700'>+9000</font>\n攻击<font color='#37B700'>+600</font>\n伤害减免<font color='#37B700'>+0.5%</font>",
@@ -30849,10 +30849,10 @@
   },
   "item_data|148520": {
     "cn": "龙爪功",
-    "en": "",
+    "en": "Dragon Claw Art",
     "section": "item_data",
     "offset": 148520,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|148537": {
     "cn": "\u0000\u0000\u0000\u0000\u0000;激活或提升绝学<font color='#37B700'>龙爪功</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b]\"\u0000\u0000\u0000\u0000\u0002b]\"\u0000\t伏虎拳\u0000\u0000\u0003\u0000\u0000\u0000\u00010\u0000\u0000\u0000\u0000\u0000;激活或提升绝学<font color='#37B700'>伏虎拳</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b]#\u0000\u0000\u0000\u0000\u0002b]#\u0000\f大金刚掌\u0000\u0000\u0004\u0000\u0000\u0000\u00010\u0000\u0000\u0000\u0000\u0000>激活或提升绝学<font color='#37B700'>大金刚掌</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b]$\u0000\u0000\u0000\u0000\u0002b]",
@@ -30863,10 +30863,10 @@
   },
   "item_data|148844": {
     "cn": "罗汉伏魔功",
-    "en": "",
+    "en": "Arhat Demon Subduing Art",
     "section": "item_data",
     "offset": 148844,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|148867": {
     "cn": "\u0000\u0000\u0000\u0000\u0000A激活或提升绝学<font color='#37B700'>罗汉伏魔功</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b]%\u0000\u0000\u0000\u0000\u0002b]%\u0000\t易筋经\u0000\u0000\u0006\u0000\u0000\u0000\u00010\u0000\u0000\u0000\u0000\u0000;激活或提升绝学<font color='#37B700'>易筋经</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b]&\u0000\u0000\u0000\u0000\u0002b]\"\u0000\f两仪剑法\u0000\u0000\u0003\u0000\u0000\u0000\u00010\u0000\u0000\u0000\u0000\u0000>激活或提升绝学<font color='#37B700'>两仪剑法</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b]'\u0000",
@@ -30891,10 +30891,10 @@
   },
   "item_data|149522": {
     "cn": "纯阳无极功",
-    "en": "",
+    "en": "Pure Yang Limitless Art",
     "section": "item_data",
     "offset": 149522,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|149545": {
     "cn": "\u0000\u0000\u0000\u0000\u0000A激活或提升绝学<font color='#37B700'>纯阳无极功</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b]+\u0000\u0000\u0000\u0000\u0002b]\"\u0000\t混元功\u0000\u0000\u0003\u0000\u0000\u0000\u00010\u0000\u0000\u0000\u0000\u0000;激活或提升绝学<font color='#37B700'>混元功</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b],\u0000\u0000\u0000\u0000\u0002b]\"\u0000\t七伤拳\u0000\u0000\u0003\u0000\u0000\u0000\u00010\u0000\u0000\u0000\u0000\u0000;激活或提升绝学<font color='#37B700'>七伤拳</font>\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0002b]-\u0000\u0000\u0000\u0000\u0002b]",
@@ -30940,10 +30940,10 @@
   },
   "item_data|150556": {
     "cn": "激活或提升绝学<font color='#37B700'>凌波微步</font>",
-    "en": "",
+    "en": "Activate or upgrade Juexue <font color='#37B700'>Lingbo Microstep</font>",
     "section": "item_data",
     "offset": 150556,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|150642": {
     "cn": "九阴真经",
@@ -30954,17 +30954,17 @@
   },
   "item_data|150668": {
     "cn": "激活或提升绝学<font color='#37B700'>九阴真经</font>",
-    "en": "",
+    "en": "Activate or upgrade Juexue <font color='#37B700'>Nine Yin Manual</font>",
     "section": "item_data",
     "offset": 150668,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|150754": {
     "cn": "凌霄·群攻",
-    "en": "",
+    "en": "Lingxiao: AoE",
     "section": "item_data",
     "offset": 150754,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|150797": {
     "cn": "用于激活凌霄剑法刻印。\n激活效果：增加攻击目标<font color='#37B700'>4个</font>",
@@ -30975,10 +30975,10 @@
   },
   "item_data|150921": {
     "cn": "狂风·群攻",
-    "en": "",
+    "en": "Kuangfeng: AoE",
     "section": "item_data",
     "offset": 150921,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|150964": {
     "cn": "用于激活狂风快剑刻印。\n激活效果：增加技能伤害<font color='#37B700'>100%</font>",
@@ -30989,10 +30989,10 @@
   },
   "item_data|151088": {
     "cn": "雷霆·群攻",
-    "en": "",
+    "en": "Leiting: AoE",
     "section": "item_data",
     "offset": 151088,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|151131": {
     "cn": "用于激活雷霆万钧刻印。\n激活效果：增加攻击目标<font color='#37B700'>5个</font>",
@@ -31003,10 +31003,10 @@
   },
   "item_data|151255": {
     "cn": "碧海·群攻",
-    "en": "",
+    "en": "Bihai: AoE",
     "section": "item_data",
     "offset": 151255,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|151298": {
     "cn": "用于激活碧海潮生刻印。\n激活效果：增加攻击目标<font color='#37B700'>5个</font>",
@@ -31017,10 +31017,10 @@
   },
   "item_data|151422": {
     "cn": "凌霄·强攻",
-    "en": "",
+    "en": "Lingxiao: Power ATK",
     "section": "item_data",
     "offset": 151422,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|151465": {
     "cn": "用于激活凌霄剑法刻印。\n激活效果：增加技能伤害<font color='#37B700'>100%</font>",
@@ -31031,38 +31031,38 @@
   },
   "item_data|151589": {
     "cn": "狂风·速攻",
-    "en": "",
+    "en": "Kuangfeng: Quick",
     "section": "item_data",
     "offset": 151589,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|151632": {
     "cn": "用于激活狂风快剑刻印。\n激活效果：50%概率立即清除技能冷却时间",
-    "en": "",
+    "en": "Activates Kuangfeng Sword seal.\nEffect: 50% chance to reset skill cooldown",
     "section": "item_data",
     "offset": 151632,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|151744": {
     "cn": "雷霆·速攻",
-    "en": "",
+    "en": "Leiting: Quick",
     "section": "item_data",
     "offset": 151744,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|151787": {
     "cn": "用于激活雷霆万钧刻印。\n激活效果：50%概率立即清除技能冷却时间",
-    "en": "",
+    "en": "Activates Leiting seal.\nEffect: 50% chance to reset skill cooldown",
     "section": "item_data",
     "offset": 151787,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|151899": {
     "cn": "碧海·强攻",
-    "en": "",
+    "en": "Bihai: Power ATK",
     "section": "item_data",
     "offset": 151899,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|151942": {
     "cn": "用于激活碧海潮生刻印。\n激活效果：增加技能伤害<font color='#37B700'>100%</font>",
@@ -31073,38 +31073,38 @@
   },
   "item_data|152066": {
     "cn": "凌霄·回血",
-    "en": "",
+    "en": "Lingxiao: Lifesteal",
     "section": "item_data",
     "offset": 152066,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|152109": {
     "cn": "用于激活凌霄剑法刻印。\n激活效果：使用技能一定概率使自身回复血量10%",
-    "en": "",
+    "en": "Activates Lingxiao Sword seal.\nEffect: Skill has chance to recover 10% HP",
     "section": "item_data",
     "offset": 152109,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|152230": {
     "cn": "狂风·冰冻",
-    "en": "",
+    "en": "Kuangfeng: Freeze",
     "section": "item_data",
     "offset": 152230,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|152273": {
     "cn": "用于激活狂风快剑刻印。\n激活效果：使用技能一定概率使主目标冰冻",
-    "en": "",
+    "en": "Activates Kuangfeng Sword seal.\nEffect: Skill has chance to freeze target",
     "section": "item_data",
     "offset": 152273,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|152388": {
     "cn": "雷霆·中毒",
-    "en": "",
+    "en": "Leiting: Poison",
     "section": "item_data",
     "offset": 152388,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|152431": {
     "cn": "用于激活雷霆万钧刻印。\n激活效果：使用技能一定概率使主目标中毒，使主目标每秒掉血10%，持续7秒",
@@ -31115,10 +31115,10 @@
   },
   "item_data|152589": {
     "cn": "碧海·穿透",
-    "en": "",
+    "en": "Bihai: Penetrate",
     "section": "item_data",
     "offset": 152589,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|152632": {
     "cn": "用于激活碧海潮生刻印。\n激活效果：使用技能一定概率使主目标防御降低10%，持续7秒，冷却30秒",
@@ -31129,10 +31129,10 @@
   },
   "item_data|152783": {
     "cn": "凌霄·必暴",
-    "en": "",
+    "en": "Lingxiao: Guaranteed Crit",
     "section": "item_data",
     "offset": 152783,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|152826": {
     "cn": "用于激活凌霄剑法刻印。\n激活效果：自身暴击时触发，暴击率100%，持续7秒，冷却时间30秒",
@@ -31143,24 +31143,24 @@
   },
   "item_data|152969": {
     "cn": "狂风·免伤",
-    "en": "",
+    "en": "Kuangfeng: DMG Reduce",
     "section": "item_data",
     "offset": 152969,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|153012": {
     "cn": "用于激活狂风快剑刻印。\n激活效果：持续7秒免伤10%，冷却30秒",
-    "en": "",
+    "en": "Activates Kuangfeng Sword seal.\nEffect: 10% DMG reduction for 7s, 30s cooldown",
     "section": "item_data",
     "offset": 153012,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|153118": {
     "cn": "雷霆·反伤",
-    "en": "",
+    "en": "Leiting: Counter",
     "section": "item_data",
     "offset": 153118,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|153161": {
     "cn": "用于激活雷霆万钧刻印。\n激活效果：自身闪避时触发，伤害提升50%，持续7秒，冷却时间30秒",
@@ -31171,10 +31171,10 @@
   },
   "item_data|153306": {
     "cn": "碧海·沉默",
-    "en": "",
+    "en": "Bihai: Silence",
     "section": "item_data",
     "offset": 153306,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|153349": {
     "cn": "用于激活碧海潮生刻印。\n激活效果：使用技能一定概率使主目标沉默，目标只能使用普攻，持续7秒",
@@ -31199,10 +31199,10 @@
   },
   "item_data|153896": {
     "cn": "城主时装激活（时效）",
-    "en": "",
+    "en": "City Lord Costume Activation (Timed)",
     "section": "item_data",
     "offset": 153896,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|153934": {
     "cn": "\u0000\u000f{cond,career,1}\u0000\u0000\u00017激活<font color='#37B700'>九州帝皇</font>\n气血+<font color='#37B700'>18000</font>\n攻击+<font color='#37B700'>1000</font>\n破甲+<font color='#37B700'>1500</font>\n升星增加\n气血+<font color='#37B700'>3600</font>\n攻击+<font color='#37B700'>200</font>\n伤害减免+<fon",
@@ -31269,10 +31269,10 @@
   },
   "item_data|155837": {
     "cn": "凌烟·群攻",
-    "en": "",
+    "en": "Lingyan: AoE",
     "section": "item_data",
     "offset": 155837,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|155880": {
     "cn": "用于激活凌烟剑法刻印。\n激活效果：增加攻击目标<font color='#37B700'>4个</font>",
@@ -31283,10 +31283,10 @@
   },
   "item_data|156004": {
     "cn": "落英·群攻",
-    "en": "",
+    "en": "Luoying: AoE",
     "section": "item_data",
     "offset": 156004,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|156047": {
     "cn": "用于激活落英神剑刻印。\n激活效果：增加技能伤害<font color='#37B700'>100%</font>",
@@ -31311,10 +31311,10 @@
   },
   "item_data|156338": {
     "cn": "北冥·群攻",
-    "en": "",
+    "en": "Beiming: AoE",
     "section": "item_data",
     "offset": 156338,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|156381": {
     "cn": "用于激活北冥神功刻印。\n激活效果：增加攻击目标<font color='#37B700'>5个</font>",
@@ -31325,10 +31325,10 @@
   },
   "item_data|156505": {
     "cn": "凌烟·强攻",
-    "en": "",
+    "en": "Lingyan: Power ATK",
     "section": "item_data",
     "offset": 156505,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|156548": {
     "cn": "用于激活凌烟剑法刻印。\n激活效果：增加技能伤害<font color='#37B700'>100%</font>",
@@ -31339,17 +31339,17 @@
   },
   "item_data|156672": {
     "cn": "落英·速攻",
-    "en": "",
+    "en": "Luoying: Quick",
     "section": "item_data",
     "offset": 156672,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|156715": {
     "cn": "用于激活落英神剑刻印。\n激活效果：50%概率立即清除技能冷却时间",
-    "en": "",
+    "en": "Activates Luoying Sword seal.\nEffect: 50% chance to reset skill cooldown",
     "section": "item_data",
     "offset": 156715,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|156827": {
     "cn": "万剑·速攻",
@@ -31360,17 +31360,17 @@
   },
   "item_data|156870": {
     "cn": "用于激活万剑归宗刻印。\n激活效果：50%概率立即清除技能冷却时间",
-    "en": "",
+    "en": "Activates Ten Thousand Swords seal.\nEffect: 50% chance to reset skill cooldown",
     "section": "item_data",
     "offset": 156870,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|156982": {
     "cn": "北冥·强攻",
-    "en": "",
+    "en": "Beiming: Power ATK",
     "section": "item_data",
     "offset": 156982,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|157025": {
     "cn": "用于激活北冥神功刻印。\n激活效果：增加技能伤害<font color='#37B700'>100%</font>",
@@ -31381,31 +31381,31 @@
   },
   "item_data|157149": {
     "cn": "凌烟·回血",
-    "en": "",
+    "en": "Lingyan: Lifesteal",
     "section": "item_data",
     "offset": 157149,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|157192": {
     "cn": "用于激活凌烟剑法刻印。\n激活效果：使用技能一定概率使自身回复血量10%",
-    "en": "",
+    "en": "Activates Lingyan Sword seal.\nEffect: Skill has chance to recover 10% HP",
     "section": "item_data",
     "offset": 157192,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|157313": {
     "cn": "落英·眩晕",
-    "en": "",
+    "en": "Luoying: Stun",
     "section": "item_data",
     "offset": 157313,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|157356": {
     "cn": "用于激活落英神剑刻印。\n激活效果：使用技能一定概率使主目标眩晕",
-    "en": "",
+    "en": "Activates Luoying Sword seal.\nEffect: Skill has chance to stun target",
     "section": "item_data",
     "offset": 157356,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|157471": {
     "cn": "万剑·中毒",
@@ -31423,10 +31423,10 @@
   },
   "item_data|157672": {
     "cn": "北冥·穿透",
-    "en": "",
+    "en": "Beiming: Penetrate",
     "section": "item_data",
     "offset": 157672,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|157715": {
     "cn": "用于激活北冥神功刻印。\n激活效果：使用技能一定概率使主目标防御降低10%，持续7秒，冷却*秒",
@@ -31437,10 +31437,10 @@
   },
   "item_data|157865": {
     "cn": "凌烟·必暴",
-    "en": "",
+    "en": "Lingyan: Guaranteed Crit",
     "section": "item_data",
     "offset": 157865,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|157908": {
     "cn": "用于激活凌烟剑法刻印。\n激活效果：自身暴击时触发，暴击率100%，持续7秒，冷却时间30秒",
@@ -31451,17 +31451,17 @@
   },
   "item_data|158051": {
     "cn": "落英·免伤",
-    "en": "",
+    "en": "Luoying: DMG Reduce",
     "section": "item_data",
     "offset": 158051,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|158094": {
     "cn": "用于激活落英神剑刻印。\n激活效果：持续7秒免伤10%，冷却30秒",
-    "en": "",
+    "en": "Activates Luoying Sword seal.\nEffect: 10% DMG reduction for 7s, 30s cooldown",
     "section": "item_data",
     "offset": 158094,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|158200": {
     "cn": "万剑·反伤",
@@ -31479,10 +31479,10 @@
   },
   "item_data|158388": {
     "cn": "北冥·沉默",
-    "en": "",
+    "en": "Beiming: Silence",
     "section": "item_data",
     "offset": 158388,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|158431": {
     "cn": "用于激活北冥神功刻印。\n激活效果：使用技能一定概率使主目标沉默，目标只能使用普攻，持续7秒",
@@ -31507,10 +31507,10 @@
   },
   "item_data|158978": {
     "cn": "城主时装激活（时效）",
-    "en": "",
+    "en": "City Lord Costume Activation (Timed)",
     "section": "item_data",
     "offset": 158978,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|159016": {
     "cn": "\u0000\u000f{cond,career,2}\u0000\u0000\u00017激活<font color='#37B700'>九州帝皇</font>\n气血+<font color='#37B700'>18000</font>\n攻击+<font color='#37B700'>1000</font>\n破甲+<font color='#37B700'>1500</font>\n升星增加\n气血+<font color='#37B700'>3600</font>\n攻击+<font color='#37B700'>200</font>\n伤害减免+<fon",
@@ -31577,17 +31577,17 @@
   },
   "item_data|160919": {
     "cn": "命格晶石",
-    "en": "",
+    "en": "Destiny Crystal",
     "section": "item_data",
     "offset": 160919,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|160945": {
     "cn": "分解后可获得命魂200",
-    "en": "",
+    "en": "Dismantle to get 200 Fate Soul",
     "section": "item_data",
     "offset": 160945,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|160996": {
     "cn": "生命",
@@ -31773,17 +31773,17 @@
   },
   "item_data|164439": {
     "cn": "命格晶石",
-    "en": "",
+    "en": "Destiny Crystal",
     "section": "item_data",
     "offset": 164439,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|164465": {
     "cn": "分解后可获得命魂1600",
-    "en": "",
+    "en": "Dismantle to get 1600 Fate Soul",
     "section": "item_data",
     "offset": 164465,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|164517": {
     "cn": "生命",
@@ -32011,73 +32011,73 @@
   },
   "item_data|168196": {
     "cn": "宗门贡献",
-    "en": "",
+    "en": "Sect Contribution",
     "section": "item_data",
     "offset": 168196,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|168246": {
     "cn": "命魂",
-    "en": "",
+    "en": "Fate Soul",
     "section": "item_data",
     "offset": 168246,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|168290": {
     "cn": "命格碎片",
-    "en": "",
+    "en": "Destiny Fragment",
     "section": "item_data",
     "offset": 168290,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|168340": {
     "cn": "绝学境界值",
-    "en": "",
+    "en": "Juexue Mastery",
     "section": "item_data",
     "offset": 168340,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|168393": {
     "cn": "防御紫装",
-    "en": "",
+    "en": "DEF Purple Gear",
     "section": "item_data",
     "offset": 168393,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|168419": {
     "cn": "BOSS有几率掉落防御紫装",
-    "en": "",
+    "en": "Boss has chance to drop DEF Purple Gear",
     "section": "item_data",
     "offset": 168419,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|168474": {
     "cn": "防御橙装",
-    "en": "",
+    "en": "DEF Orange Gear",
     "section": "item_data",
     "offset": 168474,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|168500": {
     "cn": "BOSS有几率掉落防御橙装",
-    "en": "",
+    "en": "Boss has chance to drop DEF Orange Gear",
     "section": "item_data",
     "offset": 168500,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|168555": {
     "cn": "防御红装",
-    "en": "",
+    "en": "DEF Red Gear",
     "section": "item_data",
     "offset": 168555,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|168581": {
     "cn": "BOSS有几率掉落防御红装",
-    "en": "",
+    "en": "Boss has chance to drop DEF Red Gear",
     "section": "item_data",
     "offset": 168581,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|168636": {
     "cn": "20级防御紫装",
@@ -32088,10 +32088,10 @@
   },
   "item_data|168667": {
     "cn": "BOSS有几率掉落20级防御紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.20 DEF Purple Equipment",
     "section": "item_data",
     "offset": 168667,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|168733": {
     "cn": "20级防御橙装",
@@ -32116,10 +32116,10 @@
   },
   "item_data|168861": {
     "cn": "BOSS有几率掉落20级防御红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.20 DEF Red Equipment",
     "section": "item_data",
     "offset": 168861,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|168927": {
     "cn": "40级防御紫装",
@@ -32130,10 +32130,10 @@
   },
   "item_data|168958": {
     "cn": "BOSS有几率掉落40级防御紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.40 DEF Purple Equipment",
     "section": "item_data",
     "offset": 168958,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|169024": {
     "cn": "40级防御橙装",
@@ -32158,10 +32158,10 @@
   },
   "item_data|169152": {
     "cn": "BOSS有几率掉落40级防御红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.40 DEF Red Equipment",
     "section": "item_data",
     "offset": 169152,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|169218": {
     "cn": "60级防御紫装",
@@ -32172,10 +32172,10 @@
   },
   "item_data|169249": {
     "cn": "BOSS有几率掉落60级防御紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.60 DEF Purple Equipment",
     "section": "item_data",
     "offset": 169249,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|169315": {
     "cn": "60级防御橙装",
@@ -32200,10 +32200,10 @@
   },
   "item_data|169443": {
     "cn": "BOSS有几率掉落60级防御红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.60 DEF Red Equipment",
     "section": "item_data",
     "offset": 169443,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|169509": {
     "cn": "80级防御紫装",
@@ -32214,10 +32214,10 @@
   },
   "item_data|169540": {
     "cn": "BOSS有几率掉落80级防御紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.80 DEF Purple Equipment",
     "section": "item_data",
     "offset": 169540,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|169606": {
     "cn": "80级防御橙装",
@@ -32242,10 +32242,10 @@
   },
   "item_data|169734": {
     "cn": "BOSS有几率掉落80级防御红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.80 DEF Red Equipment",
     "section": "item_data",
     "offset": 169734,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|169800": {
     "cn": "100级防御紫装",
@@ -32256,10 +32256,10 @@
   },
   "item_data|169832": {
     "cn": "BOSS有几率掉落100级防御紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.100 DEF Purple Equipment",
     "section": "item_data",
     "offset": 169832,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|169899": {
     "cn": "100级防御橙装",
@@ -32284,10 +32284,10 @@
   },
   "item_data|170030": {
     "cn": "BOSS有几率掉落100级防御红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.100 DEF Red Equipment",
     "section": "item_data",
     "offset": 170030,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|170097": {
     "cn": "120级防御紫装",
@@ -32298,10 +32298,10 @@
   },
   "item_data|170129": {
     "cn": "BOSS有几率掉落120级防御紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.120 DEF Purple Equipment",
     "section": "item_data",
     "offset": 170129,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|170196": {
     "cn": "120级防御橙装",
@@ -32382,52 +32382,52 @@
   },
   "item_data|171469": {
     "cn": "BOSS有几率掉落4阶防御红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 4 DEF Red Equipment",
     "section": "item_data",
     "offset": 171469,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|171534": {
     "cn": "攻击紫装",
-    "en": "",
+    "en": "ATK Purple Gear",
     "section": "item_data",
     "offset": 171534,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|171560": {
     "cn": "BOSS有几率掉落攻击紫装",
-    "en": "",
+    "en": "Boss has chance to drop ATK Purple Gear",
     "section": "item_data",
     "offset": 171560,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|171615": {
     "cn": "攻击橙装",
-    "en": "",
+    "en": "ATK Orange Gear",
     "section": "item_data",
     "offset": 171615,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|171641": {
     "cn": "BOSS有几率掉落攻击橙装",
-    "en": "",
+    "en": "Boss has chance to drop ATK Orange Gear",
     "section": "item_data",
     "offset": 171641,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|171696": {
     "cn": "攻击红装",
-    "en": "",
+    "en": "ATK Red Gear",
     "section": "item_data",
     "offset": 171696,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|171722": {
     "cn": "BOSS有几率掉落攻击红装",
-    "en": "",
+    "en": "Boss has chance to drop ATK Red Gear",
     "section": "item_data",
     "offset": 171722,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|171777": {
     "cn": "20级攻击紫装",
@@ -32438,10 +32438,10 @@
   },
   "item_data|171808": {
     "cn": "BOSS有几率掉落20级攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.20 ATK Purple Equipment",
     "section": "item_data",
     "offset": 171808,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|171874": {
     "cn": "20级攻击橙装",
@@ -32466,10 +32466,10 @@
   },
   "item_data|172002": {
     "cn": "BOSS有几率掉落20级攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.20 ATK Red Equipment",
     "section": "item_data",
     "offset": 172002,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|172068": {
     "cn": "40级攻击紫装",
@@ -32480,10 +32480,10 @@
   },
   "item_data|172099": {
     "cn": "BOSS有几率掉落40级攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.40 ATK Purple Equipment",
     "section": "item_data",
     "offset": 172099,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|172165": {
     "cn": "40级攻击橙装",
@@ -32508,10 +32508,10 @@
   },
   "item_data|172293": {
     "cn": "BOSS有几率掉落40级攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.40 ATK Red Equipment",
     "section": "item_data",
     "offset": 172293,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|172359": {
     "cn": "60级攻击紫装",
@@ -32522,10 +32522,10 @@
   },
   "item_data|172390": {
     "cn": "BOSS有几率掉落60级攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.60 ATK Purple Equipment",
     "section": "item_data",
     "offset": 172390,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|172456": {
     "cn": "60级攻击橙装",
@@ -32550,10 +32550,10 @@
   },
   "item_data|172584": {
     "cn": "BOSS有几率掉落60级攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.60 ATK Red Equipment",
     "section": "item_data",
     "offset": 172584,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|172650": {
     "cn": "80级攻击紫装",
@@ -32564,10 +32564,10 @@
   },
   "item_data|172681": {
     "cn": "BOSS有几率掉落80级攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.80 ATK Purple Equipment",
     "section": "item_data",
     "offset": 172681,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|172747": {
     "cn": "80级攻击橙装",
@@ -32592,10 +32592,10 @@
   },
   "item_data|172875": {
     "cn": "BOSS有几率掉落80级攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.80 ATK Red Equipment",
     "section": "item_data",
     "offset": 172875,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|172941": {
     "cn": "100级攻击紫装",
@@ -32606,10 +32606,10 @@
   },
   "item_data|172973": {
     "cn": "BOSS有几率掉落100级攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.100 ATK Purple Equipment",
     "section": "item_data",
     "offset": 172973,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|173040": {
     "cn": "100级攻击橙装",
@@ -32634,10 +32634,10 @@
   },
   "item_data|173171": {
     "cn": "BOSS有几率掉落100级攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.100 ATK Red Equipment",
     "section": "item_data",
     "offset": 173171,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|173238": {
     "cn": "120级攻击紫装",
@@ -32648,10 +32648,10 @@
   },
   "item_data|173270": {
     "cn": "BOSS有几率掉落120级攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.120 ATK Purple Equipment",
     "section": "item_data",
     "offset": 173270,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|173337": {
     "cn": "120级攻击橙装",
@@ -32676,10 +32676,10 @@
   },
   "item_data|173468": {
     "cn": "BOSS有几率掉落120级攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Lv.120 ATK Red Equipment",
     "section": "item_data",
     "offset": 173468,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|173535": {
     "cn": "1阶攻击紫装",
@@ -32690,10 +32690,10 @@
   },
   "item_data|173565": {
     "cn": "BOSS有几率掉落1阶攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 1 ATK Purple Equipment",
     "section": "item_data",
     "offset": 173565,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|173630": {
     "cn": "1阶攻击橙装",
@@ -32718,10 +32718,10 @@
   },
   "item_data|173755": {
     "cn": "BOSS有几率掉落1阶攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 1 ATK Red Equipment",
     "section": "item_data",
     "offset": 173755,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|173820": {
     "cn": "2阶攻击紫装",
@@ -32732,10 +32732,10 @@
   },
   "item_data|173850": {
     "cn": "BOSS有几率掉落2阶攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 2 ATK Purple Equipment",
     "section": "item_data",
     "offset": 173850,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|173915": {
     "cn": "2阶攻击橙装",
@@ -32760,10 +32760,10 @@
   },
   "item_data|174040": {
     "cn": "BOSS有几率掉落2阶攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 2 ATK Red Equipment",
     "section": "item_data",
     "offset": 174040,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|174105": {
     "cn": "3阶攻击紫装",
@@ -32774,10 +32774,10 @@
   },
   "item_data|174135": {
     "cn": "BOSS有几率掉落3阶攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 3 ATK Purple Equipment",
     "section": "item_data",
     "offset": 174135,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|174200": {
     "cn": "3阶攻击橙装",
@@ -32802,10 +32802,10 @@
   },
   "item_data|174325": {
     "cn": "BOSS有几率掉落3阶攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 3 ATK Red Equipment",
     "section": "item_data",
     "offset": 174325,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|174390": {
     "cn": "4阶攻击紫装",
@@ -32816,10 +32816,10 @@
   },
   "item_data|174420": {
     "cn": "BOSS有几率掉落4阶攻击紫色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 4 ATK Purple Equipment",
     "section": "item_data",
     "offset": 174420,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|174485": {
     "cn": "4阶攻击橙装",
@@ -32844,17 +32844,17 @@
   },
   "item_data|174610": {
     "cn": "BOSS有几率掉落4阶攻击红色装备",
-    "en": "",
+    "en": "Boss has chance to drop Tier 4 ATK Red Equipment",
     "section": "item_data",
     "offset": 174610,
-    "source": ""
+    "source": "full_pattern"
   },
   "item_data|174675": {
     "cn": "皇城战积分",
-    "en": "",
+    "en": "Castle War Points",
     "section": "item_data",
     "offset": 174675,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|174704": {
     "cn": "影响皇城战盟内排名、积分奖励。\n在皇城战中进行对战、挑战BOSS、防守城池可获得。",
@@ -32872,10 +32872,10 @@
   },
   "item_data|174867": {
     "cn": "绝世武学，龙战八荒。最强群攻，全屏大招，杀怪效率提升100%。",
-    "en": "",
+    "en": "Supreme martial art, dragon battles the wild. Strongest AoE, full-screen ultimate, 100% more kill efficiency.",
     "section": "item_data",
     "offset": 174867,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|175022": {
     "cn": "传功厚礼",
@@ -33187,10 +33187,10 @@
   },
   "item_data|177259": {
     "cn": "10元宝卡",
-    "en": "",
+    "en": "10 Ingot Card",
     "section": "item_data",
     "offset": 177259,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177284": {
     "cn": "使用可获得10元宝",
@@ -33201,10 +33201,10 @@
   },
   "item_data|177343": {
     "cn": "100元宝卡",
-    "en": "",
+    "en": "100 Ingot Card",
     "section": "item_data",
     "offset": 177343,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177369": {
     "cn": "使用可获得100元宝",
@@ -33215,10 +33215,10 @@
   },
   "item_data|177429": {
     "cn": "1000元宝卡",
-    "en": "",
+    "en": "1000 Ingot Card",
     "section": "item_data",
     "offset": 177429,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177456": {
     "cn": "使用可获得1000元宝",
@@ -33229,10 +33229,10 @@
   },
   "item_data|177517": {
     "cn": "金玉满堂",
-    "en": "",
+    "en": "Hall of Gold Jade",
     "section": "item_data",
     "offset": 177517,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177543": {
     "cn": "使用可获得400元宝",
@@ -33250,38 +33250,38 @@
   },
   "item_data|177629": {
     "cn": "使用可获得一万银币",
-    "en": "",
+    "en": "Use to obtain 10,000 Silver",
     "section": "item_data",
     "offset": 177629,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177692": {
     "cn": "十万银票",
-    "en": "",
+    "en": "100K Silver Note",
     "section": "item_data",
     "offset": 177692,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177718": {
     "cn": "使用可获得十万银币",
-    "en": "",
+    "en": "Use to obtain 100,000 Silver",
     "section": "item_data",
     "offset": 177718,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177781": {
     "cn": "百万银票",
-    "en": "",
+    "en": "1M Silver Note",
     "section": "item_data",
     "offset": 177781,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177807": {
     "cn": "使用可获得一百万银币",
-    "en": "",
+    "en": "Use to obtain 1,000,000 Silver",
     "section": "item_data",
     "offset": 177807,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|177873": {
     "cn": "小经验丹",
@@ -33306,73 +33306,73 @@
   },
   "item_data|178059": {
     "cn": "10荣誉卡",
-    "en": "",
+    "en": "10 Honor Card",
     "section": "item_data",
     "offset": 178059,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178120": {
     "cn": "100荣誉卡",
-    "en": "",
+    "en": "100 Honor Card",
     "section": "item_data",
     "offset": 178120,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178182": {
     "cn": "1000荣誉卡",
-    "en": "",
+    "en": "1000 Honor Card",
     "section": "item_data",
     "offset": 178182,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178245": {
     "cn": "装备包（测）",
-    "en": "",
+    "en": "Equipment Pack (Test)",
     "section": "item_data",
     "offset": 178245,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178313": {
     "cn": "稀有属性（测）",
-    "en": "",
+    "en": "Rare Attribute (Test)",
     "section": "item_data",
     "offset": 178313,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178384": {
     "cn": "皇城战胜利礼包",
-    "en": "",
+    "en": "Castle War Victory Pack",
     "section": "item_data",
     "offset": 178384,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178455": {
     "cn": "皇城战参与礼包",
-    "en": "",
+    "en": "Castle War Participation Pack",
     "section": "item_data",
     "offset": 178455,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178526": {
     "cn": "命格礼包（测）",
-    "en": "",
+    "en": "Destiny Pack (Test)",
     "section": "item_data",
     "offset": 178526,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178597": {
     "cn": "卓越绝学箱",
-    "en": "",
+    "en": "Outstanding Juexue Box",
     "section": "item_data",
     "offset": 178597,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178662": {
     "cn": "史诗绝学箱",
-    "en": "",
+    "en": "Epic Juexue Box",
     "section": "item_data",
     "offset": 178662,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178727": {
     "cn": "传说绝学箱",
@@ -33383,10 +33383,10 @@
   },
   "item_data|178792": {
     "cn": "绝世绝学箱",
-    "en": "",
+    "en": "Supreme Juexue Box",
     "section": "item_data",
     "offset": 178792,
-    "source": ""
+    "source": "full_dict"
   },
   "item_data|178857": {
     "cn": "互动礼包",
@@ -33404,10 +33404,10 @@
   },
   "item_data|179135": {
     "cn": "江湖风云结算礼包",
-    "en": "",
+    "en": "Jianghu Finale Gift Pack",
     "section": "item_data",
     "offset": 179135,
-    "source": ""
+    "source": "full_dict"
   },
   "mon_data|7": {
     "cn": "测试怪1",
@@ -76741,10 +76741,10 @@
   },
   "meridian_data|11128": {
     "cn": "二重天",
-    "en": "",
+    "en": "Celestial Tier 2",
     "section": "meridian_data",
     "offset": 11128,
-    "source": ""
+    "source": "full_dict"
   },
   "meridian_data|11229": {
     "cn": "任脉3层",
@@ -77196,10 +77196,10 @@
   },
   "meridian_data|17117": {
     "cn": "三重天",
-    "en": "",
+    "en": "Celestial Tier 3",
     "section": "meridian_data",
     "offset": 17117,
-    "source": ""
+    "source": "full_dict"
   },
   "meridian_data|17218": {
     "cn": "任脉4层",
@@ -78379,10 +78379,10 @@
   },
   "meridian_data|41862": {
     "cn": "七重天",
-    "en": "",
+    "en": "Celestial Tier 7",
     "section": "meridian_data",
     "offset": 41862,
-    "source": ""
+    "source": "full_dict"
   },
   "meridian_data|41968": {
     "cn": "任脉8层",
@@ -101339,108 +101339,108 @@
   },
   "dun_exp_data|105": {
     "cn": "3阶旗主",
-    "en": "",
+    "en": "Tier 3 Flag Master",
     "section": "dun_exp_data",
     "offset": 105,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|118": {
     "cn": "1阶堂主",
-    "en": "",
+    "en": "Tier 1 Hall Master",
     "section": "dun_exp_data",
     "offset": 118,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|131": {
     "cn": "3阶堂主",
-    "en": "",
+    "en": "Tier 3 Hall Master",
     "section": "dun_exp_data",
     "offset": 131,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|144": {
     "cn": "1阶护法",
-    "en": "",
+    "en": "Tier 1 Law Protector",
     "section": "dun_exp_data",
     "offset": 144,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|157": {
     "cn": "3阶护法",
-    "en": "",
+    "en": "Tier 3 Law Protector",
     "section": "dun_exp_data",
     "offset": 157,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|170": {
     "cn": "1阶舵主",
-    "en": "",
+    "en": "Tier 1 Helmsman",
     "section": "dun_exp_data",
     "offset": 170,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|183": {
     "cn": "3阶舵主",
-    "en": "",
+    "en": "Tier 3 Helmsman",
     "section": "dun_exp_data",
     "offset": 183,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|196": {
     "cn": "1阶供奉",
-    "en": "",
+    "en": "Tier 1 Tribute",
     "section": "dun_exp_data",
     "offset": 196,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|209": {
     "cn": "3阶供奉",
-    "en": "",
+    "en": "Tier 3 Tribute",
     "section": "dun_exp_data",
     "offset": 209,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|222": {
     "cn": "1阶长老",
-    "en": "",
+    "en": "Tier 1 Elder",
     "section": "dun_exp_data",
     "offset": 222,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|235": {
     "cn": "3阶长老",
-    "en": "",
+    "en": "Tier 3 Elder",
     "section": "dun_exp_data",
     "offset": 235,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|248": {
     "cn": "1阶法王",
-    "en": "",
+    "en": "Tier 1 Dharma King",
     "section": "dun_exp_data",
     "offset": 248,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|261": {
     "cn": "3阶法王",
-    "en": "",
+    "en": "Tier 3 Dharma King",
     "section": "dun_exp_data",
     "offset": 261,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|274": {
     "cn": "1阶太尊",
-    "en": "",
+    "en": "Tier 1 Grand Venerable",
     "section": "dun_exp_data",
     "offset": 274,
-    "source": ""
+    "source": "full_pattern"
   },
   "dun_exp_data|287": {
     "cn": "3阶太尊",
-    "en": "",
+    "en": "Tier 3 Grand Venerable",
     "section": "dun_exp_data",
     "offset": 287,
-    "source": ""
+    "source": "full_pattern"
   },
   "sys_privilege_data|6": {
     "cn": "黄金",
