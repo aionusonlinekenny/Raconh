@@ -72,55 +72,42 @@ def save_atlas(packs_dir, sheet_name, atlas_img, json_data):
     atlas_img.save(png)
     with open(jsn, "w", encoding="utf-8") as f:
         json.dump(json_data, f, ensure_ascii=False, separators=(",", ":"))
-    # Bump version in version.zip so browser reloads the new sheet
-    _bump_sheet_version(packs_dir, sheet_name)
+    # Bump clientVersion in main.min.js — ALL sprites use ?v=clientVersion
+    new_ver = _bump_client_version(packs_dir)
+    return new_ver   # returns new version number or None
 
-def _bump_sheet_version(packs_dir, sheet_name):
-    """Increment version for sheet .png and .json in resource/cw/version.zip."""
-    import zipfile, struct
-    version_zip = os.path.join(packs_dir, "..", "cw", "version.zip")
-    version_zip = os.path.normpath(version_zip)
-    if not os.path.exists(version_zip):
-        return  # version.zip not found, skip silently
+def _bump_client_version(packs_dir):
+    """
+    Find main.min.js (at game root = packs/../..) and increment clientVersion.
+    This is the ONLY way to bust browser cache for sprite sheets, because
+    the version controller appends ?v=clientVersion to ALL resource URLs.
+    """
+    import re
+    game_root = os.path.normpath(os.path.join(packs_dir, "..", ".."))
+    js_path   = os.path.join(game_root, "main.min.js")
+    if not os.path.exists(js_path):
+        return None
 
-    with zipfile.ZipFile(version_zip, "r") as z:
-        raw = z.read("version.txt")
+    with open(js_path, "r", encoding="utf-8") as f:
+        content = f.read()
 
-    # Parse entries: [2B LE len][utf-8 path][4B LE int version]
-    entries = []
-    i = 0
-    while i < len(raw):
-        if i + 2 > len(raw): break
-        sl = struct.unpack_from("<H", raw, i)[0]; i += 2
-        p  = raw[i:i+sl].decode("utf-8"); i += sl
-        v  = struct.unpack_from("<i", raw, i)[0]; i += 4
-        entries.append([p, v])
+    m = re.search(r'clientVersion=(\d+)', content)
+    if not m:
+        return None
 
-    # Bump version for this sheet's png and json
-    targets = {f"packs/{sheet_name}.png", f"packs/{sheet_name}.json"}
-    bumped  = 0
-    for e in entries:
-        if e[0] in targets:
-            e[1] += 1
-            bumped += 1
+    old_ver = int(m.group(1))
+    new_ver = old_ver + 1
+    new_content = content[:m.start(1)] + str(new_ver) + content[m.end(1):]
 
-    if bumped == 0:
-        return  # not listed in version.txt
-
-    # Rebuild binary
-    out = bytearray()
-    for path, ver in entries:
-        pb = path.encode("utf-8")
-        out.extend(struct.pack("<H", len(pb)))
-        out.extend(pb)
-        out.extend(struct.pack("<i", ver))
-
-    # Backup and rewrite zip
-    bak = version_zip + ".bak"
+    bak = js_path + ".bak"
     if not os.path.exists(bak):
-        shutil.copy2(version_zip, bak)
-    with zipfile.ZipFile(version_zip, "w", compression=zipfile.ZIP_DEFLATED) as z:
-        z.writestr("version.txt", bytes(out))
+        shutil.copy2(js_path, bak)
+
+    with open(js_path, "w", encoding="utf-8") as f:
+        f.write(new_content)
+
+    return new_ver
+
 
 # ── styled widget helpers ────────────────────────────────────────────────────
 def styled_btn(parent, text, cmd, accent=False, width=14):
@@ -526,31 +513,36 @@ class SpriteEditor:
         if not self.cur_sheet:
             messagebox.showwarning("Nothing to save", "No sheet loaded."); return
         try:
-            save_atlas(self.packs_dir, self.cur_sheet,
-                       self.atlas_img, self.atlas_data)
+            new_ver = save_atlas(self.packs_dir, self.cur_sheet,
+                                 self.atlas_img, self.atlas_data)
         except Exception as e:
             messagebox.showerror("Save failed", str(e)); return
         self.modified = False
         self.root.title("RaconH Sprite Editor")
-        # Check if version.zip was also updated
-        ver_zip = os.path.normpath(os.path.join(self.packs_dir, "..", "cw", "version.zip"))
-        has_ver = os.path.exists(ver_zip)
-        self._set_status(
-            f"✓  Saved:  {self.cur_sheet}.png  +  {self.cur_sheet}.json  →  {self.packs_dir}")
-        if has_ver:
-            messagebox.showinfo("Saved",
-                f"Atlas saved + browser cache busted!\n\n"
-                f"Files updated:\n"
-                f"  packs/{self.cur_sheet}.png\n"
-                f"  packs/{self.cur_sheet}.json\n"
-                f"  cw/version.zip  (version bumped)\n\n"
-                f"Just refresh the game (F5) — no extra steps needed.")
+
+        game_root = os.path.normpath(os.path.join(self.packs_dir, "..", ".."))
+        js_path   = os.path.join(game_root, "main.min.js")
+
+        if new_ver is not None:
+            self._set_status(
+                f"✓  Saved — clientVersion bumped to {new_ver} → F5 game to see changes")
+            messagebox.showinfo("Saved ✓",
+                f"Sprite saved and browser cache busted!\n\n"
+                f"Updated files:\n"
+                f"  {self.packs_dir}\\{self.cur_sheet}.png\n"
+                f"  {self.packs_dir}\\{self.cur_sheet}.json\n"
+                f"  {js_path}\n"
+                f"      clientVersion → {new_ver}\n\n"
+                f"Just press F5 in the game — no extra steps needed.")
         else:
-            messagebox.showinfo("Saved",
-                f"Atlas saved:\n"
+            self._set_status(f"✓  Saved atlas. main.min.js not found at {js_path}")
+            messagebox.showwarning("Saved (partial)",
+                f"Atlas files saved:\n"
                 f"  {self.cur_sheet}.png\n"
                 f"  {self.cur_sheet}.json\n\n"
-                f"Copy both files to your XAMPP game folder and refresh.")
+                f"⚠ main.min.js not found at:\n  {js_path}\n\n"
+                f"Browse folder should be: [game]/resource/packs\n"
+                f"Make sure the packs/ folder is directly inside resource/.")
 
     # ── helpers ───────────────────────────────────────────────────────────────
     def _check_sprite(self):
