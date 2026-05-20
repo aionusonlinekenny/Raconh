@@ -72,6 +72,55 @@ def save_atlas(packs_dir, sheet_name, atlas_img, json_data):
     atlas_img.save(png)
     with open(jsn, "w", encoding="utf-8") as f:
         json.dump(json_data, f, ensure_ascii=False, separators=(",", ":"))
+    # Bump version in version.zip so browser reloads the new sheet
+    _bump_sheet_version(packs_dir, sheet_name)
+
+def _bump_sheet_version(packs_dir, sheet_name):
+    """Increment version for sheet .png and .json in resource/cw/version.zip."""
+    import zipfile, struct
+    version_zip = os.path.join(packs_dir, "..", "cw", "version.zip")
+    version_zip = os.path.normpath(version_zip)
+    if not os.path.exists(version_zip):
+        return  # version.zip not found, skip silently
+
+    with zipfile.ZipFile(version_zip, "r") as z:
+        raw = z.read("version.txt")
+
+    # Parse entries: [2B LE len][utf-8 path][4B LE int version]
+    entries = []
+    i = 0
+    while i < len(raw):
+        if i + 2 > len(raw): break
+        sl = struct.unpack_from("<H", raw, i)[0]; i += 2
+        p  = raw[i:i+sl].decode("utf-8"); i += sl
+        v  = struct.unpack_from("<i", raw, i)[0]; i += 4
+        entries.append([p, v])
+
+    # Bump version for this sheet's png and json
+    targets = {f"packs/{sheet_name}.png", f"packs/{sheet_name}.json"}
+    bumped  = 0
+    for e in entries:
+        if e[0] in targets:
+            e[1] += 1
+            bumped += 1
+
+    if bumped == 0:
+        return  # not listed in version.txt
+
+    # Rebuild binary
+    out = bytearray()
+    for path, ver in entries:
+        pb = path.encode("utf-8")
+        out.extend(struct.pack("<H", len(pb)))
+        out.extend(pb)
+        out.extend(struct.pack("<i", ver))
+
+    # Backup and rewrite zip
+    bak = version_zip + ".bak"
+    if not os.path.exists(bak):
+        shutil.copy2(version_zip, bak)
+    with zipfile.ZipFile(version_zip, "w", compression=zipfile.ZIP_DEFLATED) as z:
+        z.writestr("version.txt", bytes(out))
 
 # ── styled widget helpers ────────────────────────────────────────────────────
 def styled_btn(parent, text, cmd, accent=False, width=14):
@@ -483,13 +532,25 @@ class SpriteEditor:
             messagebox.showerror("Save failed", str(e)); return
         self.modified = False
         self.root.title("RaconH Sprite Editor")
+        # Check if version.zip was also updated
+        ver_zip = os.path.normpath(os.path.join(self.packs_dir, "..", "cw", "version.zip"))
+        has_ver = os.path.exists(ver_zip)
         self._set_status(
             f"✓  Saved:  {self.cur_sheet}.png  +  {self.cur_sheet}.json  →  {self.packs_dir}")
-        messagebox.showinfo("Saved",
-            f"Atlas saved:\n"
-            f"  {self.cur_sheet}.png\n"
-            f"  {self.cur_sheet}.json\n\n"
-            f"Copy both files to your XAMPP game folder and refresh.")
+        if has_ver:
+            messagebox.showinfo("Saved",
+                f"Atlas saved + browser cache busted!\n\n"
+                f"Files updated:\n"
+                f"  packs/{self.cur_sheet}.png\n"
+                f"  packs/{self.cur_sheet}.json\n"
+                f"  cw/version.zip  (version bumped)\n\n"
+                f"Just refresh the game (F5) — no extra steps needed.")
+        else:
+            messagebox.showinfo("Saved",
+                f"Atlas saved:\n"
+                f"  {self.cur_sheet}.png\n"
+                f"  {self.cur_sheet}.json\n\n"
+                f"Copy both files to your XAMPP game folder and refresh.")
 
     # ── helpers ───────────────────────────────────────────────────────────────
     def _check_sprite(self):
