@@ -5,3 +5,5 @@ raconh5/client/main/resource/res/cw.txt.bak2
 __pycache__/
 raconh5/client/main/bin-release/web/221211145302/resource/res/cw.txt.original
 raconh5/client/main/bin-release/web/221211145302/resource/res/cw.txt.bak
+raconh5/client/main/bin-release/web/221211145302/resource/packs/*.bak
+sprites/
