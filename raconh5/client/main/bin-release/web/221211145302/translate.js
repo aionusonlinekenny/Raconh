@@ -1,6 +1,21 @@
-// RaconH English Translation Hook v3
+// RaconH English Translation Hook v4
 (function(){
 var _m={
+// --- Login / Server ---
+'账号':'Account','密码':'Password','选择区服':'Select Server','点击换服':'Switch Server',
+'切换区服':'Switch Server','区服':'Server','充值':'Recharge',
+// --- Dungeon unlock conditions ---
+'到达剧情副本第':'Reach Story Ch.','关后开启':'to unlock','关卡':'Stage',
+// --- Feature names (open_data) ---
+'墨宠':'Pet','命格':'Destiny','绝学':'Skills','聚宝蟾':'Treasure','等级礼':'Lv.Gift',
+'七日礼':'7-Day Gift','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
+'盟会试炼':'Guild Trial','宝石':'Gem','冲榜竞技':'PvP Rank','充值活动':'Top-up Event',
+'装扮':'Costume','称号':'Title','论剑台':'Duel Arena','神兵':'Weapon','摆摊':'Market',
+'魔神入侵':'Devil Raid','好友系统':'Friends','神器':'Artifact','功能预告':'Preview',
+// --- Item descriptions ---
+'最强群攻':'Max AOE','全屏大招':'Full AOE','杀怪效率提升':'Kill EFF+',
+'绝世武学':'Supreme Arts','龙战八荒':'Dragon Realm',
+// --- Attribute stats ---
 '极品属性':'Bonus Stats','铸魂属性':'Soul Stats','套装效果':'Set Effect',
 '强化等级':'Enh Level','强化石':'Enh Stone','强化':'Enh',
 '攻击增加':'ATK+','防御增加':'DEF+','破甲增加':'Pen+','命中增加':'Hit+',
@@ -38,7 +53,20 @@ var _m={
 '品质':'Quality','绑定':'Bound','未绑定':'Unbound',
 '击杀':'Kill','经验':'EXP','银币':'Silver','元宝':'Gems',
 '掉落':'Drop','采集':'Gather','怪物':'Monster','场景':'Scene',
-'战力：':'Power:','气血：':'HP:','攻击：':'ATK:','防御：':'DEF:'
+'战力：':'Power:','气血：':'HP:','攻击：':'ATK:','防御：':'DEF:',
+// --- Common UI ---
+'开始游戏':'Start Game','进入游戏':'Enter Game','创建角色':'Create Char',
+'确定':'OK','取消':'Cancel','关闭':'Close','返回':'Back',
+'升级':'Level Up','强化':'Enhance','镶嵌':'Inlay',
+'新的旅程':'New Journey','小试牛刀':'First Test','面对强敌':'Strong Foes',
+'夺取神器碎片':'Get Artifact Shard','突飞猛进':'Rapid Growth',
+'全民':'All-Server','珍稀掉落':'Rare Drops',
+'任务':'Quest','九霄塔':'Sky Tower','演武场':'Arena','金玉堂':'Treasure Hall',
+'挑战':'Challenge','关卡排名':'Stage Rank','盟会':'Guild',
+'第':'Ch.','级':'Lv.','关':'Stage','层':'Floor',
+'剧情副本':'Story','副本':'Dungeon',
+'铁':'Iron','铜':'Bronze','银':'Silver','金':'Gold',
+'伤害':'DMG','血量':'HP','技能':'Skill','冷却':'CD'
 };
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
@@ -88,7 +116,7 @@ function _patch(){
     }
     _fixAttrCVO();
 }
-document.title='EN v3';
+document.title='EN v4';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){clearInterval(_t);},15000);
