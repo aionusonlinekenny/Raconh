@@ -285,26 +285,31 @@ def save_cw(path, data):
 
 def replace_string(data, old_cn: str, new_en: str) -> tuple[bytearray, bool]:
     """
-    Find [2B BE len][old_cn utf-8] in data and replace with [2B BE len][new_en utf-8].
-    Only replaces if new bytes <= old bytes in length.
-    Returns (modified_data, success).
+    Find [2B BE len][old_cn utf-8] in data and replace content in-place.
+
+    CRITICAL: The 2B length field MUST stay as len(old_b) so the binary
+    parser advances by the original number of bytes and stays aligned.
+    The English string is padded with trailing spaces to fill the old slot.
+    The game displays the string (with harmless trailing spaces trimmed by
+    the UI renderer), and subsequent fields are parsed correctly.
     """
     old_b = old_cn.encode('utf-8')
     new_b = new_en.encode('utf-8')
-    needle = struct.pack('>H', len(old_b)) + old_b
 
+    if len(new_b) > len(old_b):
+        print(f'  SKIP (new longer by {len(new_b)-len(old_b)}B): {old_cn[:35]}')
+        return data, False
+
+    # Needle: length field (original) + original string bytes
+    needle = struct.pack('>H', len(old_b)) + old_b
     idx = data.find(needle)
     if idx < 0:
         return data, False
 
-    if len(new_b) > len(old_b):
-        print(f'  SKIP (new longer): {old_cn[:30]}…')
-        return data, False
-
-    # Pad shorter replacement with spaces to keep downstream offsets stable
+    # Replacement: keep length field = len(old_b), pad string with spaces
     padded = new_b + b' ' * (len(old_b) - len(new_b))
-    replacement = struct.pack('>H', len(new_b)) + padded
-    # replacement has same total length as needle (2 + len(old_b))
+    # Length field unchanged — parser reads len(old_b) bytes and stays aligned
+    replacement = struct.pack('>H', len(old_b)) + padded
     data[idx:idx + len(needle)] = replacement
     return data, True
 
