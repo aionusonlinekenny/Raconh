@@ -2,8 +2,8 @@
 (function(){
 var _m={
 // --- Login / Server ---
-'账号':'Account','密码':'Password','选择区服':'Select Server','点击换服':'Switch',
-'切换区服':'Switch','区服':'Server','充值':'Recharge',
+'账号':'Account','密码':'Password','选择区服':'Select Server','点击换服':'Switch Server',
+'切换区服':'Switch Server','区服':'Server','充值':'Recharge',
 // --- Dungeon unlock conditions ---
 '到达剧情副本第':'Reach Story Ch.','关后开启':'to unlock','关卡':'Stage',
 // --- Feature names (open_data) ---
