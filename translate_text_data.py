@@ -17,7 +17,7 @@ CW_PATH = os.path.join(os.path.dirname(__file__),
 TRANSLATIONS = {
 
     # ── System announcement templates ────────────────────────────────────────
-    '叱咤风云，笑傲江湖。Power榜第一名{0}回到了龙门客栈，势必再掀起一场腥风血雨':
+    '叱咤风云，笑傲江湖。战力榜第一名{0}回到了龙门客栈，势必再掀起一场腥风血雨':
         'Power Rank #1 {0} has returned to Dragon Gate Inn!',
     '恭喜{0}击杀{1}，获得珍贵物品：{2}！':
         'Congrats! {0} defeated {1} and obtained rare item: {2}!',

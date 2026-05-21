@@ -1,9 +1,10 @@
-// RaconH English Translation Hook v6
+// RaconH English Translation Hook v7
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
-'叱咤风云，笑傲江湖。Power榜第一名':'Power Rank #1 ',
-'回到了龙门客栈，势必再掀起一场腥风血雨':' returned to Dragon Gate Inn!',
+// NOTE: template uses 战力榜 (not Power榜); 战力→Power runs LATER so key must use original
+'叱咤风云，笑傲江湖。战力榜第一名':'Power Rank #1 ',
+'回到了龙门客栈，势必再掀起一场腥风血雨':' has returned to Dragon Gate Inn!',
 '[系统]':'[System]','[系统提示]':'[System]',
 // --- Login / Server ---
 '账号':'Account','密码':'Password','选择区服':'Select Server','点击换服':'Switch Server',
