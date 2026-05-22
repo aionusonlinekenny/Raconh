@@ -210,6 +210,19 @@ class SpriteEditor:
         self.grid_cv.create_window((0,0), window=self.grid_inner, anchor="nw")
         self.grid_inner.bind("<Configure>",
             lambda e: self.grid_cv.configure(scrollregion=self.grid_cv.bbox("all")))
+        # Mouse-wheel scroll — Windows/Mac use <MouseWheel>, Linux uses Button-4/5
+        self.grid_cv.bind("<MouseWheel>",
+            lambda e: self.grid_cv.yview_scroll(-1*(e.delta//120), "units"))
+        self.grid_cv.bind("<Button-4>",
+            lambda e: self.grid_cv.yview_scroll(-1, "units"))
+        self.grid_cv.bind("<Button-5>",
+            lambda e: self.grid_cv.yview_scroll(1, "units"))
+        self.grid_inner.bind("<MouseWheel>",
+            lambda e: self.grid_cv.yview_scroll(-1*(e.delta//120), "units"))
+        self.grid_inner.bind("<Button-4>",
+            lambda e: self.grid_cv.yview_scroll(-1, "units"))
+        self.grid_inner.bind("<Button-5>",
+            lambda e: self.grid_cv.yview_scroll(1, "units"))
 
         # detail panel (bottom, split into 3 columns)
         detail = tk.Frame(right, bg=PANEL)
@@ -427,6 +440,7 @@ class SpriteEditor:
     def _build_grid(self):
         for w in self.grid_inner.winfo_children():
             w.destroy()
+        self.grid_cv.yview_moveto(0)   # reset scroll to top when switching sheets
         self.selected.clear()
         self._update_sel_ui()
         frames = self.atlas_data["frames"]
@@ -463,6 +477,12 @@ class SpriteEditor:
             w.bind("<Button-1>",         lambda e, n=name: self._click(n))
             w.bind("<Control-Button-1>", lambda e, n=name: self._ctrl_click(n))
             w.bind("<Shift-Button-1>",   lambda e, n=name: self._shift_click(n))
+            w.bind("<MouseWheel>",
+                lambda e: self.grid_cv.yview_scroll(-1*(e.delta//120), "units"))
+            w.bind("<Button-4>",
+                lambda e: self.grid_cv.yview_scroll(-1, "units"))
+            w.bind("<Button-5>",
+                lambda e: self.grid_cv.yview_scroll(1, "units"))
 
     def _hl_cell(self, name):
         """Repaint a single cell according to cur_sprite + selected state."""
