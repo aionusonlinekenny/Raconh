@@ -194,13 +194,13 @@ class SpriteEditor:
         mk_btn(gh, "Select All",   self._select_all,   width=10).pack(side="right")
 
         tk.Frame(gf, bg=ACCENT, height=1).pack(fill="x", padx=10, pady=(0,4))
-        go = tk.Frame(gf, bg=PANEL)
-        go.pack(fill="both", expand=True, padx=4, pady=(0,4))
-        vsb = tk.Scrollbar(go, orient="vertical")
+        self.grid_outer = tk.Frame(gf, bg=PANEL)
+        self.grid_outer.pack(fill="both", expand=True, padx=4, pady=(0,4))
+        vsb = tk.Scrollbar(self.grid_outer, orient="vertical")
         vsb.pack(side="right", fill="y")
-        hsb = tk.Scrollbar(go, orient="horizontal")
+        hsb = tk.Scrollbar(self.grid_outer, orient="horizontal")
         hsb.pack(side="bottom", fill="x")
-        self.grid_cv = tk.Canvas(go, bg=PANEL, relief="flat", bd=0,
+        self.grid_cv = tk.Canvas(self.grid_outer, bg=PANEL, relief="flat", bd=0,
                                  yscrollcommand=vsb.set, xscrollcommand=hsb.set,
                                  highlightthickness=0)
         self.grid_cv.pack(fill="both", expand=True)
@@ -210,19 +210,11 @@ class SpriteEditor:
         self.grid_cv.create_window((0,0), window=self.grid_inner, anchor="nw")
         self.grid_inner.bind("<Configure>",
             lambda e: self.grid_cv.configure(scrollregion=self.grid_cv.bbox("all")))
-        # Mouse-wheel scroll — Windows/Mac use <MouseWheel>, Linux uses Button-4/5
-        self.grid_cv.bind("<MouseWheel>",
-            lambda e: self.grid_cv.yview_scroll(-1*(e.delta//120), "units"))
-        self.grid_cv.bind("<Button-4>",
-            lambda e: self.grid_cv.yview_scroll(-1, "units"))
-        self.grid_cv.bind("<Button-5>",
-            lambda e: self.grid_cv.yview_scroll(1, "units"))
-        self.grid_inner.bind("<MouseWheel>",
-            lambda e: self.grid_cv.yview_scroll(-1*(e.delta//120), "units"))
-        self.grid_inner.bind("<Button-4>",
-            lambda e: self.grid_cv.yview_scroll(-1, "units"))
-        self.grid_inner.bind("<Button-5>",
-            lambda e: self.grid_cv.yview_scroll(1, "units"))
+        # On Windows, <MouseWheel> fires on the focused widget, not the hovered one.
+        # Use bind_all while the mouse is inside the grid area so wheel always works.
+        self.grid_cv.bind("<Enter>",    lambda e: self._grid_hover_enter())
+        self.grid_inner.bind("<Enter>", lambda e: self._grid_hover_enter())
+        self.grid_outer.bind("<Leave>", lambda e: self._grid_hover_leave())
 
         # detail panel (bottom, split into 3 columns)
         detail = tk.Frame(right, bg=PANEL)
@@ -477,12 +469,7 @@ class SpriteEditor:
             w.bind("<Button-1>",         lambda e, n=name: self._click(n))
             w.bind("<Control-Button-1>", lambda e, n=name: self._ctrl_click(n))
             w.bind("<Shift-Button-1>",   lambda e, n=name: self._shift_click(n))
-            w.bind("<MouseWheel>",
-                lambda e: self.grid_cv.yview_scroll(-1*(e.delta//120), "units"))
-            w.bind("<Button-4>",
-                lambda e: self.grid_cv.yview_scroll(-1, "units"))
-            w.bind("<Button-5>",
-                lambda e: self.grid_cv.yview_scroll(1, "units"))
+            w.bind("<Enter>",            lambda e: self._grid_hover_enter())
 
     def _hl_cell(self, name):
         """Repaint a single cell according to cur_sprite + selected state."""
@@ -796,6 +783,23 @@ class SpriteEditor:
                 f"Atlas saved. main.min.js not found.\n"
                 f"Make sure packs/ folder is inside resource/.")
 
+    # ── grid mouse-wheel (bind_all while hovering) ────────────────────────────
+    def _grid_hover_enter(self):
+        self.root.bind_all("<MouseWheel>", self._grid_scroll)
+        self.root.bind_all("<Button-4>",   self._grid_scroll)
+        self.root.bind_all("<Button-5>",   self._grid_scroll)
+
+    def _grid_hover_leave(self):
+        self.root.unbind_all("<MouseWheel>")
+        self.root.unbind_all("<Button-4>")
+        self.root.unbind_all("<Button-5>")
+
+    def _grid_scroll(self, event):
+        if event.num == 4 or (event.delta and event.delta > 0):
+            self.grid_cv.yview_scroll(-1, "units")
+        elif event.num == 5 or (event.delta and event.delta < 0):
+            self.grid_cv.yview_scroll(1, "units")
+
     # ── utilities ─────────────────────────────────────────────────────────────
     def _check(self):
         if not self.cur_sheet:
@@ -833,6 +837,7 @@ class SpriteEditor:
         l.bind("<Button-1>",         lambda e, n=name: self._click(n))
         l.bind("<Control-Button-1>", lambda e, n=name: self._ctrl_click(n))
         l.bind("<Shift-Button-1>",   lambda e, n=name: self._shift_click(n))
+        l.bind("<Enter>",            lambda e: self._grid_hover_enter())
         # Restore correct highlight after rebuild
         self._hl_cell(name)
 
