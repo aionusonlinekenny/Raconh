@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-RaconH Sprite Editor  v2
+RaconH Sprite Editor  v3
 ─────────────────────────
 • Browse texture atlas sheets
 • Live preview of any sprite
 • Edit frame fields directly (x, y, w, h, offX, offY, sourceW, sourceH)
 • Quick-crop buttons (left / right / top / bottom)
+• Multi-select sprites  (Ctrl+Click = toggle, Shift+Click = range)
+• Export selected sprites to a folder in one click
 • Replace PNG from Photoshop
 • Save atlas + auto-bump clientVersion
 
@@ -122,7 +124,10 @@ class SpriteEditor:
         self._preview_tk = None
         self._after_id   = None
 
-        root.title("RaconH Sprite Editor  v2")
+        self.selected    = set()   # names of multi-selected sprites
+        self._sorted_names = []    # ordered sprite names for Shift+range
+
+        root.title("RaconH Sprite Editor  v3")
         root.configure(bg=BG)
         root.geometry("1280x780")
         root.minsize(1000, 640)
@@ -175,7 +180,19 @@ class SpriteEditor:
         gf = tk.Frame(right, bg=PANEL, height=240)
         gf.pack(fill="x", pady=(0, 6))
         gf.pack_propagate(False)
-        lbl(gf, "Sprites", size=10, bold=True).pack(pady=(6,2), padx=10, anchor="w")
+
+        # grid header row: title + selection counter + select-all buttons
+        gh = tk.Frame(gf, bg=PANEL)
+        gh.pack(fill="x", padx=10, pady=(6,2))
+        lbl(gh, "Sprites", size=10, bold=True, bg=PANEL).pack(side="left")
+        lbl(gh, "  Ctrl+Click = toggle  •  Shift+Click = range",
+            size=8, color=MUTED, bg=PANEL).pack(side="left", padx=6)
+        self.sel_count_var = tk.StringVar(value="")
+        tk.Label(gh, textvariable=self.sel_count_var, bg=PANEL, fg=ACCENT2,
+                 font=("Segoe UI", 9, "bold")).pack(side="left", padx=8)
+        mk_btn(gh, "Deselect All", self._deselect_all, width=12).pack(side="right", padx=(4,0))
+        mk_btn(gh, "Select All",   self._select_all,   width=10).pack(side="right")
+
         tk.Frame(gf, bg=ACCENT, height=1).pack(fill="x", padx=10, pady=(0,4))
         go = tk.Frame(gf, bg=PANEL)
         go.pack(fill="both", expand=True, padx=4, pady=(0,4))
@@ -335,10 +352,18 @@ class SpriteEditor:
 
         r2 = tk.Frame(parent, bg=PANEL)
         r2.pack(fill="x", pady=3)
-        mk_btn(r2, "📋  Export All in Sheet", self._export_all, width=22).pack(side="left")
+        self.exp_sel_btn = mk_btn(r2, "⬇  Export Selected (0)",
+                                  self._export_selected, width=24)
+        self.exp_sel_btn.pack(side="left")
+
+        r3 = tk.Frame(parent, bg=PANEL)
+        r3.pack(fill="x", pady=3)
+        mk_btn(r3, "📋  Export All in Sheet", self._export_all, width=22).pack(side="left")
 
         lbl(parent,
-            "Tip: Export → edit in Photoshop →\n"
+            "Ctrl+Click sprites to build a selection,\n"
+            "then Export Selected → choose folder.\n\n"
+            "Tip: Export PNG → edit in Photoshop →\n"
             "Replace PNG to inject back.\n"
             "Keep canvas size the same!",
             size=8, color=MUTED).pack(anchor="w", pady=(10,0))
@@ -402,10 +427,13 @@ class SpriteEditor:
     def _build_grid(self):
         for w in self.grid_inner.winfo_children():
             w.destroy()
+        self.selected.clear()
+        self._update_sel_ui()
         frames = self.atlas_data["frames"]
+        self._sorted_names = sorted(frames.keys())
         cols = max(1, 860 // (THUMB[0] + 12))
-        for idx, (name, frame) in enumerate(sorted(frames.items())):
-            self._make_cell(name, frame, idx // cols, idx % cols)
+        for idx, name in enumerate(self._sorted_names):
+            self._make_cell(name, frames[name], idx // cols, idx % cols)
 
     def _make_cell(self, name, frame, row, col):
         cell = tk.Frame(self.grid_inner, bg=PANEL, relief="flat",
@@ -432,24 +460,104 @@ class SpriteEditor:
         tk.Label(cell, text=short, bg=PANEL, fg=MUTED,
                  font=("Segoe UI", 7), cursor="hand2").pack(pady=(1,2))
         for w in [cell]+cell.winfo_children():
-            w.bind("<Button-1>", lambda e, n=name: self._select(n))
+            w.bind("<Button-1>",         lambda e, n=name: self._click(n))
+            w.bind("<Control-Button-1>", lambda e, n=name: self._ctrl_click(n))
+            w.bind("<Shift-Button-1>",   lambda e, n=name: self._shift_click(n))
 
     def _hl_cell(self, name):
-        for n, cell in self.thumb_btns.items():
-            c = SEL if n == name else PANEL
-            cell.config(highlightbackground=ACCENT if n==name else PANEL, bg=c)
-            for ch in cell.winfo_children():
-                ch.config(bg=c)
+        """Repaint a single cell according to cur_sprite + selected state."""
+        cell = self.thumb_btns.get(name)
+        if not cell:
+            return
+        is_cur = (name == self.cur_sprite)
+        is_sel = (name in self.selected)
+        if is_cur:
+            border, bg_c = ACCENT,  SEL
+        elif is_sel:
+            border, bg_c = ACCENT2, SEL
+        else:
+            border, bg_c = PANEL,   PANEL
+        cell.config(highlightbackground=border, bg=bg_c)
+        for ch in cell.winfo_children():
+            ch.config(bg=bg_c)
+
+    def _hl_all(self):
+        """Repaint every cell (after bulk selection changes)."""
+        for name in self.thumb_btns:
+            self._hl_cell(name)
+
+    # ── multi-select click handlers ───────────────────────────────────────────
+    def _click(self, name):
+        """Regular click → single selection, set cur_sprite."""
+        self.selected = {name}
+        self._select(name)      # sets cur_sprite, loads adjuster, updates preview
+        self._hl_all()
+        self._update_sel_ui()
+
+    def _ctrl_click(self, name):
+        """Ctrl+Click → toggle name in selection; keep cur_sprite unchanged."""
+        if name in self.selected:
+            self.selected.discard(name)
+        else:
+            self.selected.add(name)
+            # Move cur_sprite to last Ctrl-clicked so adjuster stays useful
+            self._select(name)
+        self._hl_all()
+        self._update_sel_ui()
+
+    def _shift_click(self, name):
+        """Shift+Click → range-select from cur_sprite to name."""
+        if not self.cur_sprite or not self._sorted_names:
+            self._click(name)
+            return
+        try:
+            a = self._sorted_names.index(self.cur_sprite)
+            b = self._sorted_names.index(name)
+        except ValueError:
+            self._click(name)
+            return
+        lo, hi = min(a, b), max(a, b)
+        self.selected |= set(self._sorted_names[lo:hi+1])
+        self._hl_all()
+        self._update_sel_ui()
+
+    def _select_all(self):
+        if not self.cur_sheet: return
+        self.selected = set(self._sorted_names)
+        self._hl_all()
+        self._update_sel_ui()
+
+    def _deselect_all(self):
+        self.selected.clear()
+        self._hl_all()
+        self._update_sel_ui()
+
+    def _update_sel_ui(self):
+        n = len(self.selected)
+        if n == 0:
+            self.sel_count_var.set("")
+            if hasattr(self, "exp_sel_btn"):
+                self.exp_sel_btn.config(text="⬇  Export Selected (0)")
+        else:
+            self.sel_count_var.set(f"{n} selected")
+            if hasattr(self, "exp_sel_btn"):
+                self.exp_sel_btn.config(text=f"⬇  Export Selected ({n})")
 
     # ── sprite selection ──────────────────────────────────────────────────────
     def _select(self, name):
+        """Set cur_sprite (adjuster target). Does NOT change self.selected."""
+        prev = self.cur_sprite
         self.cur_sprite  = name
         self._orig_frame = dict(self.atlas_data["frames"][name])
+        # Repaint old and new cur_sprite cells
+        if prev:
+            self._hl_cell(prev)
         self._hl_cell(name)
         self._load_vars(self.atlas_data["frames"][name])
         self._refresh_preview()
         self._refresh_info()
-        self._status(f"Selected: {name}")
+        self._status(f"Selected: {name}  ({len(self.selected)} in export set)"
+                     if self.selected else f"Selected: {name}")
 
     def _load_vars(self, frame):
         for k in self.FIELDS:
@@ -561,6 +669,33 @@ class SpriteEditor:
             f"Canvas: {sp.width}×{sp.height} px\n"
             f"Edit in Photoshop — keep the same canvas size!")
 
+    def _export_selected(self):
+        if not self.cur_sheet:
+            messagebox.showwarning("No sheet", "Select a sheet first."); return
+        if not self.selected:
+            messagebox.showwarning("Nothing selected",
+                "Ctrl+Click sprites to select them first."); return
+        folder = filedialog.askdirectory(title=f"Export {len(self.selected)} sprites to…")
+        if not folder: return
+        errors = []
+        for name in sorted(self.selected):
+            try:
+                frame = self.atlas_data["frames"][name]
+                crop_sprite(self.atlas_img, frame).save(
+                    os.path.join(folder, name + ".png"))
+            except Exception as e:
+                errors.append(f"{name}: {e}")
+        n = len(self.selected) - len(errors)
+        self._status(f"Exported {n}/{len(self.selected)} sprites to {folder}")
+        if errors:
+            messagebox.showwarning("Partial export",
+                f"Exported {n} sprites.\n\nFailed:\n" + "\n".join(errors))
+        else:
+            messagebox.showinfo("Done ✓",
+                f"Exported {n} sprite{'s' if n!=1 else ''} to:\n{folder}\n\n"
+                + "\n".join(sorted(self.selected)[:20])
+                + ("\n…" if len(self.selected) > 20 else ""))
+
     def _export_all(self):
         if not self.cur_sheet:
             messagebox.showwarning("No sheet", "Select a sheet first."); return
@@ -626,7 +761,7 @@ class SpriteEditor:
         except Exception as e:
             messagebox.showerror("Save failed", str(e)); return
         self.modified = False
-        self.root.title("RaconH Sprite Editor  v2")
+        self.root.title("RaconH Sprite Editor  v3")
         if nv:
             self._status(f"✓  Saved — clientVersion → {nv}")
             messagebox.showinfo("Saved ✓",
@@ -675,7 +810,11 @@ class SpriteEditor:
         l = tk.Label(cell, text=short, bg=cell.cget("bg"), fg=MUTED,
                      font=("Segoe UI", 7), cursor="hand2")
         l.pack(pady=(1,2))
-        l.bind("<Button-1>", lambda e, n=name: self._select(n))
+        l.bind("<Button-1>",         lambda e, n=name: self._click(n))
+        l.bind("<Control-Button-1>", lambda e, n=name: self._ctrl_click(n))
+        l.bind("<Shift-Button-1>",   lambda e, n=name: self._shift_click(n))
+        # Restore correct highlight after rebuild
+        self._hl_cell(name)
 
     def _status(self, msg):
         self.status_var.set(msg)
