@@ -1,30 +1,39 @@
 #!/usr/bin/env python3
 """
-RaconH Sprite Editor - GUI tool for editing game texture atlas sprites
-Run: python sprite_editor.py
-Requires: pip install Pillow
+RaconH Sprite Editor  v2
+─────────────────────────
+• Browse texture atlas sheets
+• Live preview of any sprite
+• Edit frame fields directly (x, y, w, h, offX, offY, sourceW, sourceH)
+• Quick-crop buttons (left / right / top / bottom)
+• Replace PNG from Photoshop
+• Save atlas + auto-bump clientVersion
+
+Run:  python sprite_editor.py
+Needs: pip install Pillow
 """
 
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-import json, os, shutil, glob
+import json, os, shutil, glob, re
 from PIL import Image, ImageTk, ImageDraw
 
-# ── constants ────────────────────────────────────────────────────────────────
-THUMB_SIZE   = (120, 60)
-BG_COLOR     = "#1e1e2e"
-PANEL_BG     = "#2a2a3e"
-ACCENT       = "#7c6af7"
-ACCENT2      = "#56cfb2"
-TEXT_COLOR   = "#e0e0f0"
-MUTED        = "#888899"
-BTN_BG       = "#3a3a5a"
-BTN_HOVER    = "#4a4a7a"
-SEL_BG       = "#3d3d6a"
+# ── palette ───────────────────────────────────────────────────────────────────
+BG      = "#1e1e2e"
+PANEL   = "#2a2a3e"
+ACCENT  = "#7c6af7"
+ACCENT2 = "#56cfb2"
+TEXT    = "#e0e0f0"
+MUTED   = "#888899"
+BTN     = "#3a3a5a"
+BTN_H   = "#4a4a7a"
+SEL     = "#3d3d6a"
+RED     = "#e06060"
+THUMB   = (120, 60)
 
-# ── checkerboard for transparency preview ───────────────────────────────────
-def make_checker(w, h, size=10):
-    img = Image.new("RGBA", (w, h), (255, 255, 255, 255))
+# ── helpers ───────────────────────────────────────────────────────────────────
+def checker(w, h, size=10):
+    img  = Image.new("RGBA", (w, h), (255, 255, 255, 255))
     draw = ImageDraw.Draw(img)
     for y in range(0, h, size):
         for x in range(0, w, size):
@@ -32,156 +41,125 @@ def make_checker(w, h, size=10):
                 draw.rectangle([x, y, x+size-1, y+size-1], fill=(200, 200, 200, 255))
     return img
 
-def composite_on_checker(img):
-    bg = make_checker(img.width, img.height)
+def on_checker(img):
+    bg = checker(img.width, img.height)
     bg.paste(img, mask=img)
     return bg
 
-# ── atlas helpers ─────────────────────────────────────────────────────────────
-def load_atlas(packs_dir, sheet_name):
-    png  = os.path.join(packs_dir, sheet_name + ".png")
-    jsn  = os.path.join(packs_dir, sheet_name + ".json")
-    atlas = Image.open(png).convert("RGBA")
-    with open(jsn, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return atlas, data
-
-def crop_sprite(atlas, frame):
-    x, y, w, h = frame["x"], frame["y"], frame["w"], frame["h"]
-    offX, offY = frame["offX"], frame["offY"]
-    srcW, srcH = frame["sourceW"], frame["sourceH"]
-    cropped = atlas.crop((x, y, x+w, y+h))
-    canvas  = Image.new("RGBA", (srcW, srcH), (0,0,0,0))
-    canvas.paste(cropped, (offX, offY))
+def crop_sprite(atlas, f):
+    c = atlas.crop((f["x"], f["y"], f["x"]+f["w"], f["y"]+f["h"]))
+    canvas = Image.new("RGBA", (f["sourceW"], f["sourceH"]), (0, 0, 0, 0))
+    canvas.paste(c, (f["offX"], f["offY"]))
     return canvas
 
 def auto_trim(img):
     bbox = img.getbbox()
-    if bbox is None:
+    if not bbox:
         return 0, 0, img
     return bbox[0], bbox[1], img.crop(bbox)
 
-def save_atlas(packs_dir, sheet_name, atlas_img, json_data):
-    png  = os.path.join(packs_dir, sheet_name + ".png")
-    jsn  = os.path.join(packs_dir, sheet_name + ".json")
-    bak_png  = png  + ".bak"
-    bak_json = jsn  + ".bak"
-    if not os.path.exists(bak_png):
-        shutil.copy2(png,  bak_png)
-        shutil.copy2(jsn,  bak_json)
+def bump_client_version(packs_dir):
+    js = os.path.normpath(os.path.join(packs_dir, "..", "..", "main.min.js"))
+    if not os.path.exists(js):
+        return None
+    with open(js, "r", encoding="utf-8") as f:
+        src = f.read()
+    m = re.search(r'clientVersion=(\d+)', src)
+    if not m:
+        return None
+    nv = int(m.group(1)) + 1
+    bak = js + ".bak"
+    if not os.path.exists(bak):
+        shutil.copy2(js, bak)
+    with open(js, "w", encoding="utf-8") as f:
+        f.write(src[:m.start(1)] + str(nv) + src[m.end(1):])
+    return nv
+
+def save_atlas(packs_dir, sheet, atlas_img, json_data):
+    png = os.path.join(packs_dir, sheet + ".png")
+    jsn = os.path.join(packs_dir, sheet + ".json")
+    for p in (png, jsn):
+        bak = p + ".bak"
+        if not os.path.exists(bak):
+            shutil.copy2(p, bak)
     atlas_img.save(png)
     with open(jsn, "w", encoding="utf-8") as f:
         json.dump(json_data, f, ensure_ascii=False, separators=(",", ":"))
-    # Bump clientVersion in main.min.js — ALL sprites use ?v=clientVersion
-    new_ver = _bump_client_version(packs_dir)
-    return new_ver   # returns new version number or None
+    return bump_client_version(packs_dir)
 
-def _bump_client_version(packs_dir):
-    """
-    Find main.min.js (at game root = packs/../..) and increment clientVersion.
-    This is the ONLY way to bust browser cache for sprite sheets, because
-    the version controller appends ?v=clientVersion to ALL resource URLs.
-    """
-    import re
-    game_root = os.path.normpath(os.path.join(packs_dir, "..", ".."))
-    js_path   = os.path.join(game_root, "main.min.js")
-    if not os.path.exists(js_path):
-        return None
-
-    with open(js_path, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    m = re.search(r'clientVersion=(\d+)', content)
-    if not m:
-        return None
-
-    old_ver = int(m.group(1))
-    new_ver = old_ver + 1
-    new_content = content[:m.start(1)] + str(new_ver) + content[m.end(1):]
-
-    bak = js_path + ".bak"
-    if not os.path.exists(bak):
-        shutil.copy2(js_path, bak)
-
-    with open(js_path, "w", encoding="utf-8") as f:
-        f.write(new_content)
-
-    return new_ver
-
-
-# ── styled widget helpers ────────────────────────────────────────────────────
-def styled_btn(parent, text, cmd, accent=False, width=14):
-    bg = ACCENT if accent else BTN_BG
-    fg = "#ffffff"
-    b  = tk.Button(parent, text=text, command=cmd,
-                   bg=bg, fg=fg, relief="flat", bd=0,
+def mk_btn(parent, text, cmd, accent=False, width=14):
+    bg = ACCENT if accent else BTN
+    b  = tk.Button(parent, text=text, command=cmd, bg=bg, fg="#fff",
+                   relief="flat", bd=0,
                    font=("Segoe UI", 9, "bold" if accent else "normal"),
-                   padx=10, pady=5, cursor="hand2", width=width)
-    b.bind("<Enter>", lambda e: b.config(bg=ACCENT2 if accent else BTN_HOVER))
+                   padx=8, pady=4, cursor="hand2", width=width)
+    b.bind("<Enter>", lambda e: b.config(bg=ACCENT2 if accent else BTN_H))
     b.bind("<Leave>", lambda e: b.config(bg=bg))
     return b
 
-def label(parent, text, size=9, color=TEXT_COLOR, bold=False, **kw):
-    font = ("Segoe UI", size, "bold" if bold else "normal")
-    return tk.Label(parent, text=text, bg=kw.pop("bg", PANEL_BG),
-                    fg=color, font=font, **kw)
+def lbl(parent, text, size=9, color=TEXT, bold=False, **kw):
+    return tk.Label(parent, text=text,
+                    bg=kw.pop("bg", PANEL), fg=color,
+                    font=("Segoe UI", size, "bold" if bold else "normal"), **kw)
 
-# ── main application ──────────────────────────────────────────────────────────
+# ── main app ──────────────────────────────────────────────────────────────────
 class SpriteEditor:
+    FIELDS = ("x", "y", "w", "h", "offX", "offY", "sourceW", "sourceH")
+
     def __init__(self, root):
-        self.root       = root
-        self.packs_dir  = ""
-        self.sheets     = []
-        self.cur_sheet  = None
-        self.atlas_img  = None   # current PIL Image (atlas)
-        self.atlas_data = None   # current JSON dict
-        self.modified   = False  # unsaved changes?
-        self.thumbs     = {}     # name → ImageTk
-        self.cur_sprite = None   # selected sprite name
-        self.thumb_btns = {}     # name → frame widget
+        self.root        = root
+        self.packs_dir   = ""
+        self.sheets      = []
+        self.cur_sheet   = None
+        self.atlas_img   = None
+        self.atlas_data  = None
+        self.modified    = False
+        self.thumbs      = {}
+        self.cur_sprite  = None
+        self.thumb_btns  = {}
+        self._orig_frame = {}   # saved values before editing (for Reset)
+        self._vars       = {}   # field name → IntVar
+        self._preview_tk = None
+        self._after_id   = None
 
-        root.title("RaconH Sprite Editor")
-        root.configure(bg=BG_COLOR)
-        root.geometry("1100x720")
-        root.minsize(900, 600)
-
+        root.title("RaconH Sprite Editor  v2")
+        root.configure(bg=BG)
+        root.geometry("1280x780")
+        root.minsize(1000, 640)
         self._build_ui()
 
-    # ── UI construction ───────────────────────────────────────────────────────
+    # ── UI ────────────────────────────────────────────────────────────────────
     def _build_ui(self):
         root = self.root
 
-        # ── top bar ──
-        top = tk.Frame(root, bg=BG_COLOR, pady=6)
+        # top bar
+        top = tk.Frame(root, bg=BG, pady=6)
         top.pack(fill="x", padx=10)
-
-        label(top, "Game Packs Folder:", bg=BG_COLOR).pack(side="left")
+        lbl(top, "Game Packs Folder:", bg=BG).pack(side="left")
         self.path_var = tk.StringVar(value="(not selected)")
-        tk.Entry(top, textvariable=self.path_var, bg=PANEL_BG, fg=TEXT_COLOR,
-                 relief="flat", font=("Segoe UI", 9), width=55,
-                 insertbackground=TEXT_COLOR).pack(side="left", padx=6)
-        styled_btn(top, "Browse…", self._browse_folder, width=10).pack(side="left")
-
+        tk.Entry(top, textvariable=self.path_var, bg=PANEL, fg=TEXT,
+                 relief="flat", font=("Segoe UI", 9), width=60,
+                 insertbackground=TEXT).pack(side="left", padx=6)
+        mk_btn(top, "Browse…", self._browse, width=10).pack(side="left")
         tk.Frame(top, bg=ACCENT, width=1, height=24).pack(side="left", padx=10)
-        self.save_btn = styled_btn(top, "💾  Save Atlas", self._save_atlas, accent=True, width=14)
+        self.save_btn = mk_btn(top, "💾  Save Atlas", self._save, accent=True, width=15)
         self.save_btn.pack(side="left")
 
-        # ── main pane ──
-        pane = tk.PanedWindow(root, orient="horizontal", bg=BG_COLOR,
+        # main paned window
+        pane = tk.PanedWindow(root, orient="horizontal", bg=BG,
                               sashwidth=5, sashrelief="flat")
-        pane.pack(fill="both", expand=True, padx=10, pady=(0,10))
+        pane.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
-        # left: sheet list
-        left = tk.Frame(pane, bg=PANEL_BG, width=180)
-        pane.add(left, minsize=150)
-        label(left, "Sheets", size=10, bold=True).pack(pady=(8,4), padx=8, anchor="w")
+        # ── left: sheet list ──
+        left = tk.Frame(pane, bg=PANEL, width=175)
+        pane.add(left, minsize=140)
+        lbl(left, "Sheets", size=10, bold=True).pack(pady=(8,4), padx=8, anchor="w")
         tk.Frame(left, bg=ACCENT, height=1).pack(fill="x", padx=8, pady=(0,4))
-
-        lf = tk.Frame(left, bg=PANEL_BG)
+        lf = tk.Frame(left, bg=PANEL)
         lf.pack(fill="both", expand=True, padx=4, pady=4)
-        sb = tk.Scrollbar(lf, troughcolor=PANEL_BG, bg=PANEL_BG)
+        sb = tk.Scrollbar(lf, troughcolor=PANEL, bg=PANEL)
         sb.pack(side="right", fill="y")
-        self.sheet_lb = tk.Listbox(lf, bg=PANEL_BG, fg=TEXT_COLOR,
+        self.sheet_lb = tk.Listbox(lf, bg=PANEL, fg=TEXT,
                                    selectbackground=ACCENT, selectforeground="#fff",
                                    relief="flat", bd=0, font=("Consolas", 9),
                                    yscrollcommand=sb.set, activestyle="none")
@@ -189,105 +167,193 @@ class SpriteEditor:
         sb.config(command=self.sheet_lb.yview)
         self.sheet_lb.bind("<<ListboxSelect>>", self._on_sheet_select)
 
-        # right area
-        right = tk.Frame(pane, bg=BG_COLOR)
-        pane.add(right, minsize=600)
+        # ── right area ──
+        right = tk.Frame(pane, bg=BG)
+        pane.add(right, minsize=700)
 
-        # sprite grid (top-right)
-        grid_frame = tk.Frame(right, bg=PANEL_BG, height=260)
-        grid_frame.pack(fill="x", pady=(0,6))
-        grid_frame.pack_propagate(False)
-
-        label(grid_frame, "Sprites", size=10, bold=True).pack(pady=(6,2), padx=10, anchor="w")
-        tk.Frame(grid_frame, bg=ACCENT, height=1).pack(fill="x", padx=10, pady=(0,4))
-
-        grid_scroll_outer = tk.Frame(grid_frame, bg=PANEL_BG)
-        grid_scroll_outer.pack(fill="both", expand=True, padx=4, pady=(0,4))
-        vsb = tk.Scrollbar(grid_scroll_outer, orient="vertical")
+        # sprite grid (top)
+        gf = tk.Frame(right, bg=PANEL, height=240)
+        gf.pack(fill="x", pady=(0, 6))
+        gf.pack_propagate(False)
+        lbl(gf, "Sprites", size=10, bold=True).pack(pady=(6,2), padx=10, anchor="w")
+        tk.Frame(gf, bg=ACCENT, height=1).pack(fill="x", padx=10, pady=(0,4))
+        go = tk.Frame(gf, bg=PANEL)
+        go.pack(fill="both", expand=True, padx=4, pady=(0,4))
+        vsb = tk.Scrollbar(go, orient="vertical")
         vsb.pack(side="right", fill="y")
-        hsb = tk.Scrollbar(grid_scroll_outer, orient="horizontal")
+        hsb = tk.Scrollbar(go, orient="horizontal")
         hsb.pack(side="bottom", fill="x")
-        self.grid_canvas = tk.Canvas(grid_scroll_outer, bg=PANEL_BG,
-                                     relief="flat", bd=0,
-                                     yscrollcommand=vsb.set,
-                                     xscrollcommand=hsb.set,
-                                     highlightthickness=0)
-        self.grid_canvas.pack(fill="both", expand=True)
-        vsb.config(command=self.grid_canvas.yview)
-        hsb.config(command=self.grid_canvas.xview)
-        self.grid_inner = tk.Frame(self.grid_canvas, bg=PANEL_BG)
-        self.grid_canvas.create_window((0,0), window=self.grid_inner, anchor="nw")
+        self.grid_cv = tk.Canvas(go, bg=PANEL, relief="flat", bd=0,
+                                 yscrollcommand=vsb.set, xscrollcommand=hsb.set,
+                                 highlightthickness=0)
+        self.grid_cv.pack(fill="both", expand=True)
+        vsb.config(command=self.grid_cv.yview)
+        hsb.config(command=self.grid_cv.xview)
+        self.grid_inner = tk.Frame(self.grid_cv, bg=PANEL)
+        self.grid_cv.create_window((0,0), window=self.grid_inner, anchor="nw")
         self.grid_inner.bind("<Configure>",
-            lambda e: self.grid_canvas.configure(scrollregion=self.grid_canvas.bbox("all")))
+            lambda e: self.grid_cv.configure(scrollregion=self.grid_cv.bbox("all")))
 
-        # detail panel (bottom-right)
-        detail = tk.Frame(right, bg=PANEL_BG)
+        # detail panel (bottom, split into 3 columns)
+        detail = tk.Frame(right, bg=PANEL)
         detail.pack(fill="both", expand=True)
 
-        # detail left: preview
-        prev_frame = tk.Frame(detail, bg=PANEL_BG, width=360)
-        prev_frame.pack(side="left", fill="y", padx=10, pady=10)
-        prev_frame.pack_propagate(False)
-        label(prev_frame, "Preview", size=10, bold=True).pack(anchor="w")
-        tk.Frame(prev_frame, bg=ACCENT, height=1).pack(fill="x", pady=(2,6))
-        self.preview_canvas = tk.Canvas(prev_frame, bg="#111120",
-                                        relief="flat", bd=0, highlightthickness=1,
-                                        highlightbackground=ACCENT,
-                                        width=340, height=180)
-        self.preview_canvas.pack()
-        self.prev_label = label(prev_frame, "No sprite selected",
-                                color=MUTED, size=8)
-        self.prev_label.pack(pady=4)
+        # col 1: preview
+        prev_f = tk.Frame(detail, bg=PANEL, width=320)
+        prev_f.pack(side="left", fill="y", padx=10, pady=10)
+        prev_f.pack_propagate(False)
+        lbl(prev_f, "Preview", size=10, bold=True).pack(anchor="w")
+        tk.Frame(prev_f, bg=ACCENT, height=1).pack(fill="x", pady=(2,6))
+        self.prev_cv = tk.Canvas(prev_f, bg="#111120", relief="flat", bd=0,
+                                 highlightthickness=1, highlightbackground=ACCENT,
+                                 width=300, height=160)
+        self.prev_cv.pack()
+        self.prev_lbl = lbl(prev_f, "No sprite selected", color=MUTED, size=8)
+        self.prev_lbl.pack(pady=4)
 
-        # detail right: info + actions
-        info_frame = tk.Frame(detail, bg=PANEL_BG)
-        info_frame.pack(side="left", fill="both", expand=True, padx=(0,10), pady=10)
+        # col 2: frame adjuster (NEW)
+        adj_f = tk.Frame(detail, bg=PANEL, width=310)
+        adj_f.pack(side="left", fill="y", padx=(0,6), pady=10)
+        adj_f.pack_propagate(False)
+        self._build_adjuster(adj_f)
 
-        label(info_frame, "Sprite Info", size=10, bold=True).pack(anchor="w")
-        tk.Frame(info_frame, bg=ACCENT, height=1).pack(fill="x", pady=(2,8))
-
-        self.info_var = tk.StringVar(value="─")
-        tk.Label(info_frame, textvariable=self.info_var, bg=PANEL_BG, fg=TEXT_COLOR,
-                 font=("Consolas", 9), justify="left", anchor="nw").pack(anchor="w")
-
-        tk.Frame(info_frame, bg=PANEL_BG).pack(expand=True, fill="y")  # spacer
-
-        label(info_frame, "Actions", size=10, bold=True).pack(anchor="w", pady=(0,2))
-        tk.Frame(info_frame, bg=ACCENT, height=1).pack(fill="x", pady=(0,8))
-
-        btn_row1 = tk.Frame(info_frame, bg=PANEL_BG)
-        btn_row1.pack(fill="x", pady=3)
-        styled_btn(btn_row1, "⬇  Export PNG", self._export_sprite, width=16).pack(side="left", padx=(0,6))
-        styled_btn(btn_row1, "⬆  Replace PNG", self._replace_sprite, width=16).pack(side="left")
-
-        btn_row2 = tk.Frame(info_frame, bg=PANEL_BG)
-        btn_row2.pack(fill="x", pady=3)
-        styled_btn(btn_row2, "📋  Export All in Sheet", self._export_all, width=22).pack(side="left")
-
-        label(info_frame,
-              "Tip: Export PNG → edit in Photoshop →\nReplace PNG to inject back.\n"
-              "Keep canvas size the same!",
-              size=8, color=MUTED).pack(anchor="w", pady=(10,0))
+        # col 3: actions
+        act_f = tk.Frame(detail, bg=PANEL)
+        act_f.pack(side="left", fill="both", expand=True, padx=(0,10), pady=10)
+        self._build_actions(act_f)
 
         # status bar
-        self.status_var = tk.StringVar(value="Open a game packs folder to start.")
-        tk.Label(root, textvariable=self.status_var, bg=BG_COLOR, fg=MUTED,
+        self.status_var = tk.StringVar(value="Open a packs folder to start.")
+        tk.Label(root, textvariable=self.status_var, bg=BG, fg=MUTED,
                  font=("Segoe UI", 8), anchor="w").pack(fill="x", padx=12, pady=(0,4))
 
-    # ── folder browsing ───────────────────────────────────────────────────────
-    def _browse_folder(self):
-        path = filedialog.askdirectory(title="Select game packs/ folder")
-        if not path:
+    def _build_adjuster(self, parent):
+        lbl(parent, "Frame Adjuster", size=10, bold=True).pack(anchor="w")
+        tk.Frame(parent, bg=ACCENT, height=1).pack(fill="x", pady=(2,6))
+
+        # ── individual field spinboxes ──
+        fields_f = tk.Frame(parent, bg=PANEL)
+        fields_f.pack(fill="x")
+
+        lbl(fields_f, "Field", size=8, bold=True, color=MUTED).grid(
+            row=0, column=0, sticky="w", padx=(0,4), pady=2)
+        lbl(fields_f, "Value", size=8, bold=True, color=MUTED).grid(
+            row=0, column=1, sticky="w", pady=2)
+        lbl(fields_f, "±", size=8, bold=True, color=MUTED).grid(
+            row=0, column=2, columnspan=2, pady=2)
+
+        self._vars = {}
+        FIELD_TIPS = {
+            "x":       "Atlas X  — pixel column in sheet.png",
+            "y":       "Atlas Y  — pixel row in sheet.png",
+            "w":       "Trim W   — visible width in atlas",
+            "h":       "Trim H   — visible height in atlas",
+            "offX":    "Offset X — left padding in source frame",
+            "offY":    "Offset Y — top padding in source frame",
+            "sourceW": "Source W — full frame width on screen",
+            "sourceH": "Source H — full frame height on screen",
+        }
+        for row, name in enumerate(self.FIELDS, start=1):
+            v = tk.IntVar(value=0)
+            self._vars[name] = v
+
+            lbl(fields_f, f"{name}", size=9, color=TEXT).grid(
+                row=row, column=0, sticky="w", padx=(0,8), pady=1)
+            sp = tk.Spinbox(fields_f, textvariable=v, from_=-9999, to=9999,
+                            width=7, bg=BTN, fg=TEXT, relief="flat",
+                            insertbackground=TEXT, buttonbackground=BTN,
+                            font=("Consolas", 9))
+            sp.grid(row=row, column=1, padx=(0,4), pady=1, sticky="w")
+            sp.bind("<Return>",    lambda e, n=name: self._apply_fields())
+            sp.bind("<FocusOut>",  lambda e, n=name: self._apply_fields())
+
+            tk.Button(fields_f, text="-1", command=lambda n=name: self._delta(n, -1),
+                      bg=BTN, fg=TEXT, relief="flat", font=("Consolas", 8),
+                      width=3, cursor="hand2").grid(row=row, column=2, padx=1)
+            tk.Button(fields_f, text="+1", command=lambda n=name: self._delta(n, +1),
+                      bg=BTN, fg=TEXT, relief="flat", font=("Consolas", 8),
+                      width=3, cursor="hand2").grid(row=row, column=3, padx=1)
+
+        # ── quick crop section ──
+        tk.Frame(parent, bg=ACCENT, height=1).pack(fill="x", pady=(10, 6))
+        lbl(parent, "Quick Crop  (x+N, w-N, offX+N)", size=9, bold=True).pack(anchor="w")
+
+        crop_f = tk.Frame(parent, bg=PANEL)
+        crop_f.pack(fill="x", pady=4)
+
+        lbl(crop_f, "N =", size=9, bg=PANEL).grid(row=0, column=0, sticky="w", padx=(0,4))
+        self.crop_n = tk.IntVar(value=4)
+        tk.Spinbox(crop_f, textvariable=self.crop_n, from_=1, to=50,
+                   width=4, bg=BTN, fg=TEXT, relief="flat",
+                   insertbackground=TEXT, buttonbackground=BTN,
+                   font=("Consolas", 9)).grid(row=0, column=1, padx=(0,8))
+        lbl(crop_f, "pixels", size=8, color=MUTED, bg=PANEL).grid(row=0, column=2, sticky="w")
+
+        crop_btns = tk.Frame(parent, bg=PANEL)
+        crop_btns.pack(fill="x", pady=2)
+
+        crop_defs = [
+            # label,             action
+            ("◀ Crop Left",  lambda: self._quick_crop("left")),
+            ("Crop Right ▶", lambda: self._quick_crop("right")),
+            ("▲ Crop Top",   lambda: self._quick_crop("top")),
+            ("Crop Bottom ▼",lambda: self._quick_crop("bottom")),
+        ]
+        for i, (txt, cmd) in enumerate(crop_defs):
+            mk_btn(crop_btns, txt, cmd, width=14).grid(
+                row=i//2, column=i%2, padx=3, pady=2)
+
+        # ── apply / reset row ──
+        tk.Frame(parent, bg=ACCENT, height=1).pack(fill="x", pady=(8, 6))
+        ar = tk.Frame(parent, bg=PANEL)
+        ar.pack(fill="x")
+        mk_btn(ar, "✓  Apply",  self._apply_fields, accent=True, width=12).pack(side="left", padx=(0,6))
+        mk_btn(ar, "↺  Reset",  self._reset_fields, width=10).pack(side="left")
+
+        lbl(parent,
+            "Apply updates preview immediately.\n"
+            "Click '💾 Save Atlas' in top bar to\n"
+            "write changes to disk.",
+            size=8, color=MUTED).pack(anchor="w", pady=(8,0))
+
+    def _build_actions(self, parent):
+        lbl(parent, "Sprite Info", size=10, bold=True).pack(anchor="w")
+        tk.Frame(parent, bg=ACCENT, height=1).pack(fill="x", pady=(2,6))
+        self.info_var = tk.StringVar(value="─")
+        tk.Label(parent, textvariable=self.info_var, bg=PANEL, fg=TEXT,
+                 font=("Consolas", 9), justify="left", anchor="nw").pack(anchor="w")
+
+        tk.Frame(parent, bg=PANEL).pack(expand=True, fill="y")
+
+        lbl(parent, "Actions", size=10, bold=True).pack(anchor="w", pady=(0,2))
+        tk.Frame(parent, bg=ACCENT, height=1).pack(fill="x", pady=(0,8))
+
+        r1 = tk.Frame(parent, bg=PANEL)
+        r1.pack(fill="x", pady=3)
+        mk_btn(r1, "⬇  Export PNG",    self._export,  width=16).pack(side="left", padx=(0,6))
+        mk_btn(r1, "⬆  Replace PNG",   self._replace, width=16).pack(side="left")
+
+        r2 = tk.Frame(parent, bg=PANEL)
+        r2.pack(fill="x", pady=3)
+        mk_btn(r2, "📋  Export All in Sheet", self._export_all, width=22).pack(side="left")
+
+        lbl(parent,
+            "Tip: Export → edit in Photoshop →\n"
+            "Replace PNG to inject back.\n"
+            "Keep canvas size the same!",
+            size=8, color=MUTED).pack(anchor="w", pady=(10,0))
+
+    # ── folder / sheet loading ────────────────────────────────────────────────
+    def _browse(self):
+        p = filedialog.askdirectory(title="Select resource/packs/ folder")
+        if not p:
             return
-        jsons = glob.glob(os.path.join(path, "*.json"))
-        pngs  = glob.glob(os.path.join(path, "*.png"))
-        if not jsons or not pngs:
+        if not glob.glob(os.path.join(p, "*.json")):
             messagebox.showwarning("Not found",
-                "No .json or .png files found.\n"
-                "Select the 'packs' folder inside resource/.")
+                "No .json files found.\nSelect the 'packs/' folder inside resource/.")
             return
-        self.packs_dir = path
-        self.path_var.set(path)
+        self.packs_dir = p
+        self.path_var.set(p)
         self._load_sheet_list()
 
     def _load_sheet_list(self):
@@ -295,16 +361,14 @@ class SpriteEditor:
         sheets = []
         for jp in sorted(glob.glob(os.path.join(self.packs_dir, "*.json"))):
             name = os.path.splitext(os.path.basename(jp))[0]
-            pp   = os.path.join(self.packs_dir, name + ".png")
-            if os.path.exists(pp):
+            if os.path.exists(os.path.join(self.packs_dir, name + ".png")):
                 sheets.append(name)
         self.sheets = sheets
         for s in sheets:
             self.sheet_lb.insert("end", s)
-        self._set_status(f"Loaded {len(sheets)} sheets from {self.packs_dir}")
+        self._status(f"Loaded {len(sheets)} sheets")
 
-    # ── sheet selection ───────────────────────────────────────────────────────
-    def _on_sheet_select(self, _event=None):
+    def _on_sheet_select(self, _=None):
         sel = self.sheet_lb.curselection()
         if not sel:
             return
@@ -313,7 +377,7 @@ class SpriteEditor:
             return
         if self.modified:
             if not messagebox.askyesno("Unsaved changes",
-                    f"You have unsaved changes in '{self.cur_sheet}'.\nDiscard and switch?"):
+                    f"Discard unsaved changes in '{self.cur_sheet}'?"):
                 return
         self._load_sheet(name)
 
@@ -324,228 +388,261 @@ class SpriteEditor:
         self.thumbs     = {}
         self.thumb_btns = {}
         try:
-            self.atlas_img, self.atlas_data = load_atlas(self.packs_dir, name)
+            png = os.path.join(self.packs_dir, name + ".png")
+            jsn = os.path.join(self.packs_dir, name + ".json")
+            self.atlas_img  = Image.open(png).convert("RGBA")
+            with open(jsn, encoding="utf-8") as f:
+                self.atlas_data = json.load(f)
         except Exception as e:
             messagebox.showerror("Error", str(e)); return
         self._build_grid()
-        self._set_status(f"Sheet: {name}  ({len(self.atlas_data['frames'])} sprites, "
-                         f"atlas {self.atlas_img.width}×{self.atlas_img.height})")
+        self._status(f"Sheet: {name}  ({len(self.atlas_data['frames'])} sprites)")
 
+    # ── sprite grid ───────────────────────────────────────────────────────────
     def _build_grid(self):
         for w in self.grid_inner.winfo_children():
             w.destroy()
         frames = self.atlas_data["frames"]
-        cols = max(1, 900 // (THUMB_SIZE[0] + 12))
+        cols = max(1, 860 // (THUMB[0] + 12))
         for idx, (name, frame) in enumerate(sorted(frames.items())):
-            col = idx % cols
-            row = idx // cols
-            self._make_thumb_cell(name, frame, row, col)
+            self._make_cell(name, frame, idx // cols, idx % cols)
 
-    def _make_thumb_cell(self, name, frame, row, col):
-        cell = tk.Frame(self.grid_inner, bg=PANEL_BG,
-                        relief="flat", bd=1, cursor="hand2",
-                        highlightthickness=1, highlightbackground=PANEL_BG)
+    def _make_cell(self, name, frame, row, col):
+        cell = tk.Frame(self.grid_inner, bg=PANEL, relief="flat",
+                        highlightthickness=1, highlightbackground=PANEL,
+                        cursor="hand2")
         cell.grid(row=row, column=col, padx=4, pady=4)
         self.thumb_btns[name] = cell
-
-        # thumbnail
         try:
-            sprite = crop_sprite(self.atlas_img, frame)
-            bg_img  = make_checker(THUMB_SIZE[0], THUMB_SIZE[1], 6)
-            th = sprite.copy()
-            th.thumbnail(THUMB_SIZE, Image.LANCZOS)
-            # center on checker
-            ox = (THUMB_SIZE[0] - th.width)  // 2
-            oy = (THUMB_SIZE[1] - th.height) // 2
-            bg_img.paste(th, (ox, oy), th)
-            tk_img = ImageTk.PhotoImage(bg_img)
+            sp   = crop_sprite(self.atlas_img, frame)
+            bg   = checker(*THUMB, 6)
+            th   = sp.copy()
+            th.thumbnail(THUMB, Image.LANCZOS)
+            ox   = (THUMB[0]-th.width)//2
+            oy   = (THUMB[1]-th.height)//2
+            bg.paste(th, (ox, oy), th)
+            tki  = ImageTk.PhotoImage(bg)
+            self.thumbs[name] = tki
+            tk.Label(cell, image=tki, bg=PANEL, cursor="hand2").pack(padx=2, pady=(2,0))
         except Exception:
-            tk_img = None
-        if tk_img:
-            self.thumbs[name] = tk_img
-            tk.Label(cell, image=tk_img, bg=PANEL_BG, cursor="hand2").pack(padx=2, pady=(2,0))
-
-        # label (truncated)
+            pass
         short = name.replace("_png","").replace("_"," ")
-        if len(short) > 16: short = short[:15]+"…"
-        tk.Label(cell, text=short, bg=PANEL_BG, fg=MUTED,
+        if len(short) > 16:
+            short = short[:15]+"…"
+        tk.Label(cell, text=short, bg=PANEL, fg=MUTED,
                  font=("Segoe UI", 7), cursor="hand2").pack(pady=(1,2))
+        for w in [cell]+cell.winfo_children():
+            w.bind("<Button-1>", lambda e, n=name: self._select(n))
 
-        for w in [cell] + cell.winfo_children():
-            w.bind("<Button-1>", lambda e, n=name: self._select_sprite(n))
-
-    def _highlight_thumb(self, name):
+    def _hl_cell(self, name):
         for n, cell in self.thumb_btns.items():
-            cell.config(highlightbackground=ACCENT if n==name else PANEL_BG,
-                        bg=SEL_BG if n==name else PANEL_BG)
+            c = SEL if n == name else PANEL
+            cell.config(highlightbackground=ACCENT if n==name else PANEL, bg=c)
             for ch in cell.winfo_children():
-                ch.config(bg=SEL_BG if n==name else PANEL_BG)
+                ch.config(bg=c)
 
-    # ── sprite selection & preview ────────────────────────────────────────────
-    def _select_sprite(self, name):
-        self.cur_sprite = name
-        self._highlight_thumb(name)
-        frame  = self.atlas_data["frames"][name]
-        sprite = crop_sprite(self.atlas_img, frame)
+    # ── sprite selection ──────────────────────────────────────────────────────
+    def _select(self, name):
+        self.cur_sprite  = name
+        self._orig_frame = dict(self.atlas_data["frames"][name])
+        self._hl_cell(name)
+        self._load_vars(self.atlas_data["frames"][name])
+        self._refresh_preview()
+        self._refresh_info()
+        self._status(f"Selected: {name}")
 
-        # preview on checker background, scaled to fit canvas (340×180)
-        cw, ch = 340, 180
-        display = composite_on_checker(sprite)
-        scale   = min(cw / display.width, ch / display.height, 2.0)
-        dw = max(1, int(display.width  * scale))
-        dh = max(1, int(display.height * scale))
-        display = display.resize((dw, dh), Image.LANCZOS)
-        self._preview_tk = ImageTk.PhotoImage(display)
-        self.preview_canvas.delete("all")
-        self.preview_canvas.create_image(cw//2, ch//2, image=self._preview_tk)
+    def _load_vars(self, frame):
+        for k in self.FIELDS:
+            self._vars[k].set(frame.get(k, 0))
 
-        self.prev_label.config(
-            text=f"{name}   ({sprite.width}×{sprite.height} px)")
+    def _refresh_preview(self):
+        if not self.cur_sprite:
+            return
+        frame = self.atlas_data["frames"][self.cur_sprite]
+        try:
+            sp    = crop_sprite(self.atlas_img, frame)
+            disp  = on_checker(sp)
+            cw, ch = 300, 160
+            scale = min(cw / max(disp.width, 1), ch / max(disp.height, 1), 2.0)
+            dw    = max(1, int(disp.width  * scale))
+            dh    = max(1, int(disp.height * scale))
+            disp  = disp.resize((dw, dh), Image.LANCZOS)
+            self._preview_tk = ImageTk.PhotoImage(disp)
+            self.prev_cv.delete("all")
+            self.prev_cv.create_image(cw//2, ch//2, image=self._preview_tk)
+            self.prev_lbl.config(
+                text=f"{self.cur_sprite}  ({sp.width}×{sp.height} px)")
+        except Exception as e:
+            self.prev_cv.delete("all")
+            self.prev_lbl.config(text=f"Preview error: {e}")
 
+    def _refresh_info(self):
+        if not self.cur_sprite:
+            return
+        f = self.atlas_data["frames"][self.cur_sprite]
         self.info_var.set(
-            f"Name    : {name}\n"
-            f"Canvas  : {frame['sourceW']} × {frame['sourceH']} px\n"
-            f"Trim    : {frame['w']} × {frame['h']} px\n"
-            f"Offset  : ({frame['offX']}, {frame['offY']})\n"
-            f"Atlas @ : ({frame['x']}, {frame['y']})\n"
-            f"Sheet   : {self.cur_sheet}"
-        )
-        self._set_status(f"Selected: {name}")
+            f"Name    : {self.cur_sprite}\n"
+            f"Canvas  : {f['sourceW']} × {f['sourceH']} px\n"
+            f"Trim    : {f['w']} × {f['h']} px\n"
+            f"Offset  : ({f['offX']}, {f['offY']})\n"
+            f"Atlas @ : ({f['x']}, {f['y']})\n"
+            f"Sheet   : {self.cur_sheet}")
 
-    # ── export ────────────────────────────────────────────────────────────────
-    def _export_sprite(self):
-        if not self._check_sprite(): return
-        name   = self.cur_sprite
-        frame  = self.atlas_data["frames"][name]
-        sprite = crop_sprite(self.atlas_img, frame)
-        default = name + ".png"
-        path = filedialog.asksaveasfilename(
-            title="Export sprite as PNG",
-            initialfile=default,
-            defaultextension=".png",
-            filetypes=[("PNG Image","*.png")])
+    # ── frame adjuster ────────────────────────────────────────────────────────
+    def _delta(self, field, d):
+        """Increment a single field by d and apply."""
+        if not self._check(): return
+        self._vars[field].set(self._vars[field].get() + d)
+        self._apply_fields()
+
+    def _quick_crop(self, side):
+        """
+        Smart crop — adjusts the linked triple so the visible sprite
+        content stays at the same screen position while cutting pixels.
+
+        Crop left  → x+N, w-N, offX+N   (skip N pixels from left in atlas)
+        Crop right → w-N                 (drop N pixels from right)
+        Crop top   → y+N, h-N, offY+N
+        Crop bottom→ h-N
+        """
+        if not self._check(): return
+        n = self.crop_n.get()
+        if side == "left":
+            self._vars["x"].set(self._vars["x"].get() + n)
+            self._vars["w"].set(max(1, self._vars["w"].get() - n))
+            self._vars["offX"].set(self._vars["offX"].get() + n)
+        elif side == "right":
+            self._vars["w"].set(max(1, self._vars["w"].get() - n))
+        elif side == "top":
+            self._vars["y"].set(self._vars["y"].get() + n)
+            self._vars["h"].set(max(1, self._vars["h"].get() - n))
+            self._vars["offY"].set(self._vars["offY"].get() + n)
+        elif side == "bottom":
+            self._vars["h"].set(max(1, self._vars["h"].get() - n))
+        self._apply_fields()
+
+    def _apply_fields(self):
+        """Write spinbox values → JSON frame, refresh preview."""
+        if not self._check(): return
+        frame = self.atlas_data["frames"][self.cur_sprite]
+        for k in self.FIELDS:
+            frame[k] = self._vars[k].get()
+        self.modified = True
+        self.root.title(f"RaconH Sprite Editor  ●  {self.cur_sheet} (unsaved)")
+        self._refresh_preview()
+        self._refresh_info()
+        self._rebuild_thumb(self.cur_sprite)
+        self._status(f"✎  Modified '{self.cur_sprite}' — click 💾 Save Atlas to write.")
+
+    def _reset_fields(self):
+        """Restore fields to values at the time the sprite was selected."""
+        if not self._check(): return
+        self.atlas_data["frames"][self.cur_sprite] = dict(self._orig_frame)
+        self._load_vars(self._orig_frame)
+        self._refresh_preview()
+        self._refresh_info()
+        self._rebuild_thumb(self.cur_sprite)
+        self._status(f"Reset '{self.cur_sprite}' to original values.")
+
+    # ── export / replace ──────────────────────────────────────────────────────
+    def _export(self):
+        if not self._check(): return
+        name  = self.cur_sprite
+        frame = self.atlas_data["frames"][name]
+        sp    = crop_sprite(self.atlas_img, frame)
+        path  = filedialog.asksaveasfilename(
+            title="Export sprite as PNG", initialfile=name+".png",
+            defaultextension=".png", filetypes=[("PNG","*.png")])
         if not path: return
-        sprite.save(path)
-        self._set_status(f"Exported: {path}  (canvas {sprite.width}×{sprite.height})")
+        sp.save(path)
+        self._status(f"Exported: {path}")
         messagebox.showinfo("Exported",
             f"Saved to:\n{path}\n\n"
-            f"Canvas size: {sprite.width}×{sprite.height} px\n"
-            f"Edit in Photoshop — keep the same canvas size!\n"
-            f"Then use 'Replace PNG' to inject back.")
+            f"Canvas: {sp.width}×{sp.height} px\n"
+            f"Edit in Photoshop — keep the same canvas size!")
 
     def _export_all(self):
         if not self.cur_sheet:
             messagebox.showwarning("No sheet", "Select a sheet first."); return
-        folder = filedialog.askdirectory(title="Choose folder for exported sprites")
+        folder = filedialog.askdirectory(title="Choose export folder")
         if not folder: return
-        frames  = self.atlas_data["frames"]
-        count   = 0
-        for name, frame in frames.items():
-            sprite = crop_sprite(self.atlas_img, frame)
-            sprite.save(os.path.join(folder, name + ".png"))
-            count += 1
-        self._set_status(f"Exported {count} sprites to {folder}")
-        messagebox.showinfo("Done", f"Exported {count} sprites to:\n{folder}")
+        n = 0
+        for name, frame in self.atlas_data["frames"].items():
+            crop_sprite(self.atlas_img, frame).save(
+                os.path.join(folder, name+".png"))
+            n += 1
+        self._status(f"Exported {n} sprites to {folder}")
+        messagebox.showinfo("Done", f"Exported {n} sprites to:\n{folder}")
 
-    # ── replace / inject ──────────────────────────────────────────────────────
-    def _replace_sprite(self):
-        if not self._check_sprite(): return
+    def _replace(self):
+        if not self._check(): return
         name  = self.cur_sprite
         frame = self.atlas_data["frames"][name]
         srcW, srcH = frame["sourceW"], frame["sourceH"]
-
         path = filedialog.askopenfilename(
             title=f"Replace '{name}' — select edited PNG",
-            filetypes=[("PNG Image","*.png")])
+            filetypes=[("PNG","*.png")])
         if not path: return
-
         try:
             new_img = Image.open(path).convert("RGBA")
         except Exception as e:
-            messagebox.showerror("Error", f"Cannot open image:\n{e}"); return
-
-        # Canvas size check
+            messagebox.showerror("Error", str(e)); return
         if new_img.size != (srcW, srcH):
-            ans = messagebox.askyesno(
-                "Canvas size mismatch",
-                f"Your image is {new_img.width}×{new_img.height} px\n"
-                f"Expected canvas: {srcW}×{srcH} px\n\n"
-                f"Auto-scale to fit? (May distort image)\n"
-                f"Press No to cancel.")
-            if not ans: return
+            if not messagebox.askyesno("Canvas mismatch",
+                    f"Image is {new_img.width}×{new_img.height}, expected {srcW}×{srcH}.\n"
+                    f"Auto-scale to fit?"):
+                return
             bg = Image.new("RGBA", (srcW, srcH), (0,0,0,0))
-            scaled = new_img.resize((srcW, srcH), Image.LANCZOS)
-            bg.paste(scaled, (0,0))
+            bg.paste(new_img.resize((srcW, srcH), Image.LANCZOS))
             new_img = bg
-
-        # Auto-trim new image
-        new_offX, new_offY, trimmed = auto_trim(new_img)
-        new_w, new_h = trimmed.size
-        old_w, old_h = frame["w"],   frame["h"]
-        old_x, old_y = frame["x"],   frame["y"]
-
-        if new_w > old_w or new_h > old_h:
-            ok = messagebox.askyesno(
-                "Size warning",
-                f"Trimmed content ({new_w}×{new_h}) is larger than original slot ({old_w}×{old_h}).\n"
-                f"Extra pixels may overlap nearby sprites.\n\nContinue?")
-            if not ok: return
-
-        # Patch atlas image
-        clear = Image.new("RGBA", (max(old_w, new_w), max(old_h, new_h)), (0,0,0,0))
-        self.atlas_img.paste(clear, (old_x, old_y))
-        self.atlas_img.paste(trimmed, (old_x, old_y), trimmed)
-
-        # Update JSON frame
-        frame["offX"] = new_offX
-        frame["offY"] = new_offY
-        frame["w"]    = new_w
-        frame["h"]    = new_h
-
+        nx, ny, trimmed = auto_trim(new_img)
+        nw, nh = trimmed.size
+        ox, oy = frame["x"], frame["y"]
+        ow, oh = frame["w"], frame["h"]
+        if nw > ow or nh > oh:
+            if not messagebox.askyesno("Size warning",
+                    f"New content ({nw}×{nh}) > original slot ({ow}×{oh}).\n"
+                    f"May overlap nearby sprites. Continue?"):
+                return
+        clear = Image.new("RGBA", (max(ow,nw), max(oh,nh)), (0,0,0,0))
+        self.atlas_img.paste(clear, (ox, oy))
+        self.atlas_img.paste(trimmed, (ox, oy), trimmed)
+        frame.update(offX=nx, offY=ny, w=nw, h=nh)
+        self._orig_frame = dict(frame)
+        self._load_vars(frame)
         self.modified = True
-        self._rebuild_thumb(name)
-        self._select_sprite(name)
-        self._set_status(f"✓  Replaced '{name}' — click 'Save Atlas' to write to disk.")
         self.root.title(f"RaconH Sprite Editor  ●  {self.cur_sheet} (unsaved)")
+        self._rebuild_thumb(name)
+        self._select(name)
+        self._status(f"✓  Replaced '{name}' — click 💾 Save Atlas.")
 
     # ── save ──────────────────────────────────────────────────────────────────
-    def _save_atlas(self):
+    def _save(self):
         if not self.cur_sheet:
             messagebox.showwarning("Nothing to save", "No sheet loaded."); return
         try:
-            new_ver = save_atlas(self.packs_dir, self.cur_sheet,
-                                 self.atlas_img, self.atlas_data)
+            nv = save_atlas(self.packs_dir, self.cur_sheet,
+                            self.atlas_img, self.atlas_data)
         except Exception as e:
             messagebox.showerror("Save failed", str(e)); return
         self.modified = False
-        self.root.title("RaconH Sprite Editor")
-
-        game_root = os.path.normpath(os.path.join(self.packs_dir, "..", ".."))
-        js_path   = os.path.join(game_root, "main.min.js")
-
-        if new_ver is not None:
-            self._set_status(
-                f"✓  Saved — clientVersion bumped to {new_ver} → F5 game to see changes")
+        self.root.title("RaconH Sprite Editor  v2")
+        if nv:
+            self._status(f"✓  Saved — clientVersion → {nv}")
             messagebox.showinfo("Saved ✓",
-                f"Sprite saved and browser cache busted!\n\n"
-                f"Updated files:\n"
-                f"  {self.packs_dir}\\{self.cur_sheet}.png\n"
-                f"  {self.packs_dir}\\{self.cur_sheet}.json\n"
-                f"  {js_path}\n"
-                f"      clientVersion → {new_ver}\n\n"
-                f"Just press F5 in the game — no extra steps needed.")
-        else:
-            self._set_status(f"✓  Saved atlas. main.min.js not found at {js_path}")
-            messagebox.showwarning("Saved (partial)",
-                f"Atlas files saved:\n"
+                f"Files updated:\n"
                 f"  {self.cur_sheet}.png\n"
-                f"  {self.cur_sheet}.json\n\n"
-                f"⚠ main.min.js not found at:\n  {js_path}\n\n"
-                f"Browse folder should be: [game]/resource/packs\n"
-                f"Make sure the packs/ folder is directly inside resource/.")
+                f"  {self.cur_sheet}.json\n"
+                f"  main.min.js  (clientVersion → {nv})\n\n"
+                f"Press F5 in the game.")
+        else:
+            self._status(f"✓  Saved  (main.min.js not found — bump clientVersion manually)")
+            messagebox.showwarning("Saved (partial)",
+                f"Atlas saved. main.min.js not found.\n"
+                f"Make sure packs/ folder is inside resource/.")
 
-    # ── helpers ───────────────────────────────────────────────────────────────
-    def _check_sprite(self):
+    # ── utilities ─────────────────────────────────────────────────────────────
+    def _check(self):
         if not self.cur_sheet:
             messagebox.showwarning("No sheet", "Select a sheet first."); return False
         if not self.cur_sprite:
@@ -557,20 +654,20 @@ class SpriteEditor:
         if not cell: return
         for w in cell.winfo_children():
             w.destroy()
-        frame  = self.atlas_data["frames"][name]
+        frame = self.atlas_data["frames"][name]
         try:
-            sprite  = crop_sprite(self.atlas_img, frame)
-            bg_img  = make_checker(THUMB_SIZE[0], THUMB_SIZE[1], 6)
-            th = sprite.copy()
-            th.thumbnail(THUMB_SIZE, Image.LANCZOS)
-            ox = (THUMB_SIZE[0] - th.width)  // 2
-            oy = (THUMB_SIZE[1] - th.height) // 2
-            bg_img.paste(th, (ox, oy), th)
-            tk_img = ImageTk.PhotoImage(bg_img)
-            self.thumbs[name] = tk_img
-            lbl = tk.Label(cell, image=tk_img, bg=cell.cget("bg"), cursor="hand2")
-            lbl.pack(padx=2, pady=(2,0))
-            lbl.bind("<Button-1>", lambda e, n=name: self._select_sprite(n))
+            sp  = crop_sprite(self.atlas_img, frame)
+            bg  = checker(*THUMB, 6)
+            th  = sp.copy()
+            th.thumbnail(THUMB, Image.LANCZOS)
+            ox  = (THUMB[0]-th.width)//2
+            oy  = (THUMB[1]-th.height)//2
+            bg.paste(th, (ox, oy), th)
+            tki = ImageTk.PhotoImage(bg)
+            self.thumbs[name] = tki
+            lbl_w = tk.Label(cell, image=tki, bg=cell.cget("bg"), cursor="hand2")
+            lbl_w.pack(padx=2, pady=(2,0))
+            lbl_w.bind("<Button-1>", lambda e, n=name: self._select(n))
         except Exception:
             pass
         short = name.replace("_png","").replace("_"," ")
@@ -578,16 +675,15 @@ class SpriteEditor:
         l = tk.Label(cell, text=short, bg=cell.cget("bg"), fg=MUTED,
                      font=("Segoe UI", 7), cursor="hand2")
         l.pack(pady=(1,2))
-        l.bind("<Button-1>", lambda e, n=name: self._select_sprite(n))
+        l.bind("<Button-1>", lambda e, n=name: self._select(n))
 
-    def _set_status(self, msg):
+    def _status(self, msg):
         self.status_var.set(msg)
         self.root.update_idletasks()
 
     def on_close(self):
         if self.modified:
-            if not messagebox.askyesno("Unsaved changes",
-                    "You have unsaved changes. Exit anyway?"):
+            if not messagebox.askyesno("Unsaved changes", "Exit without saving?"):
                 return
         self.root.destroy()
 
