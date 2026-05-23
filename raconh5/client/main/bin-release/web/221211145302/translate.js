@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v15
+// RaconH English Translation Hook v16
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -356,6 +356,11 @@ function _patch(){
             HtmlUtil.__cwC=true;var _c=HtmlUtil.addColorTag;
             HtmlUtil.addColorTag=function(t,c){return _c.call(this,_rep(t),c);};
         }
+    }
+    if(typeof egret!=='undefined'&&egret.HtmlTextParser&&egret.HtmlTextParser.prototype&&!egret.HtmlTextParser.prototype.__cwHP){
+        egret.HtmlTextParser.prototype.__cwHP=true;
+        var _php=egret.HtmlTextParser.prototype.parser;
+        egret.HtmlTextParser.prototype.parser=function(s){return _php.call(this,_rep(s));};
     }
     if(typeof egret!=='undefined'&&egret.TextField&&egret.TextField.prototype){
         var p=egret.TextField.prototype;
