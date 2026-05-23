@@ -163,6 +163,8 @@ var _m={
 '角色':'Character','背包':'Backpack','仓库':'Storage',
 '出售':'Sell','丢弃':'Discard','使用':'Use',
 '品质':'Quality','绑定':'Bound','未绑定':'Unbound',
+// --- Scene names with component-word conflicts (must precede 经验/银币/副本/盟会) ---
+'银币副本':'Silver Dungeon','经验副本':'EXP Dungeon',
 '击杀':'Kill','经验':'EXP','银币':'Silver','元宝':'Gems',
 '掉落':'Drop','采集':'Gather','怪物':'Monster','场景':'Scene',
 '战力：':'Power:','气血：':'HP:','攻击：':'ATK:','防御：':'DEF:',
@@ -171,8 +173,11 @@ var _m={
 '确定':'OK','取消':'Cancel','关闭':'Close','返回':'Back',
 '升级':'Level Up','装备':'Equip','镶嵌':'Inlay','宝石':'Gem','铸魂':'Soul Cast',
 '任务':'Quest','九霄塔':'Sky Tower','演武场':'Arena','金玉堂':'Treasure Hall',
+'盟会守军':'Guild Guard','盟会守卫':'Guild Defender',
 '挑战':'Challenge','关卡排名':'Stage Rank','盟会':'Guild',
 '第':'Ch.','级':'Lv.','关':'Stage','层':'Floor',
+'爬塔副本':'Tower Dungeon','聚元副本':'Origin Dungeon',
+'全民副本':'All-Server Dungeon',
 '剧情副本':'Story','副本':'Dungeon','关卡':'Level',
 '全民':'All-Server','珍稀掉落':'Rare Drops',
 '铸魂配置出错，请联系GM更新配置！':'Soul Cast cfg error - contact GM!',
@@ -251,7 +256,70 @@ var _m={
 // --- Skill description components ---
 '再战':'Fight Again ','对BOSS':'vs BOSS ',
 // Mixed key: 伤害→DMG fires before 对BOSS check
-'对BOSSDMG':'vs BOSS DMG'
+'对BOSSDMG':'vs BOSS DMG',
+// --- Monster names (mon_data) ---
+// Compound names first (before shorter component-word entries below)
+'魔化修罗':'Demon Shura','璇玑密探':'Jade Spy',
+'白衣剑客':'White Swordsman','荒原狼':'Wasteland Wolf',
+'蒙面刺客':'Masked Assassin','大肚守军':'Gate Guard',
+'琅琊阁弟子':'Langya Disciple','启竹溪守军':'Qizhu Guard',
+'屠刀刺客':'Blade Assassin','黑衣刺客':'Shadow Assassin',
+'大同叛军':'Datong Rebel','暗夜刺客':'Night Assassin',
+'禁军':'Imperial Guard','曹少钦':'Cao Shaoqin',
+'文神雕像':'Scholar Statue','武神雕像':'Warrior Statue',
+'文武化身':'Sage Avatar','玄武':'Xuanwu',
+'蒙烈':'Meng Lie','邪妖天师':'Evil Warlock',
+'炼狱将魂':'Infernal Soul','岩灵傀儡':'Stone Golem',
+'炎火妖姬':'Flame Demoness','潮汐将魂':'Tide Soul',
+'萧平章':'Xiao Pingzhang','云魂':'Cloud Soul',
+'雾隐':'Mist Phantom','星辉':'Starlight',
+'修罗':'Shura','千绵':'Qian Mian',
+'蓝月':'Blue Moon','狂狮':'Fierce Lion',
+'铁成':'Tie Cheng','释羽':'Shi Yu',
+'司徒':'Situ','少钦':'Shao Qin',
+'月魄':'Moon Soul','玉衡':'Yu Heng',
+'雷动':'Thunder Strike','寻亦':'Xun Yi',
+'烟杀':'Smoke Kill','玄策':'Xuan Ce',
+'墨羽':'Ink Wing','圣灵':'Holy Spirit',
+'血影':'Blood Shadow','昊阳':'Hao Yang',
+'擎天':'Sky Pillar','御皇神':'Imperial God',
+'攻城援军':'Siege Support','攻城勇士':'Siege Warrior',
+'岩魂':'Rock Soul','炎魂':'Flame Soul',
+'海岩傀儡':'Sea Golem',
+'缥缈录小怪':'Dungeon Minion',
+// --- Title names (title_data) ---
+'初露峥嵘':'Rising Star','第一盟会':'Top Guild',
+'入室弟子':'Inner Disciple','谁与争锋':'Unrivaled',
+'笑傲江湖':'Jianghu Legend','木秀于林':'Outstanding',
+'一枝独秀':'Stand Alone','刀光剑影':'Blade Master',
+'孤影傲世':'Lone Shadow','英勇神武':'Valiant',
+'神机百变':'Mastermind','丹凤朝阳':'Rising Phoenix',
+'一骑绝尘':'Supreme Rider','出神入化':'Transcendent',
+'命格无双':'Destiny Master','电光火石':'Lightning Fast',
+'流光溢彩':'Radiant','横扫千军':'Army Sweeper',
+'独孤求败':'Lone Champion','登峰造极':'Pinnacle',
+'惊鸿绝影':'Fleeting Shadow','超凡出神':'Divine Spirit',
+'御龙在天':'Dragon Rider',
+// --- Scene / dungeon names (scene_data) ---
+'龙门渡':'Dragon Ferry','凌云山':'Lingyun Mt.',
+'玉门关':'Jade Gate Pass','金陵':'Jinling',
+'七宿山':'Seven Stars Mt.','乾陵魔窟':'Demon Cave',
+'江湖风云':'Jianghu Storm','守城神将':'City Guardian',
+'皇城对战':'Imperial Battle','皇城战':'Imperial War',
+'缥缈录':'Misty Records',
+// --- Guild role labels ---
+'弟子':'Disciple','宗主':'Guild Master',
+'护法':'Guild Elder','长老':'Elder',
+'决神殿':'Divine Temple',
+// --- Mixed key: post-translation combo (魔神→Devil Raid fires first) ---
+'Devil Raid抢夺':'Devil Raid',
+// --- Robot player name components (common words in bot names) ---
+'幻影':'Phantom ','无尽':'Endless ','无极':'Boundless ',
+'天劫':'Sky Tribulation ','天绝':'Sky End ','天锐':'Sky Edge ',
+'孤傲':'Lone Pride ','月蚀':'Eclipse ','逍遥':'Free Spirit ',
+'沧狼':'Blue Wolf ','浣花':'Lotus ','流星':'Meteor ',
+'潜龙':'Hidden Dragon ','独醉':'Lone Drunk ','嗜血':'Bloodthirsty ',
+'暗影':'Dark Shadow '
 };
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
