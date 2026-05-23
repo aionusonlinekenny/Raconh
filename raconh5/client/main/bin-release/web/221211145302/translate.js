@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v12
+// RaconH English Translation Hook v13
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -243,7 +243,15 @@ var _m={
 '邱莫言':'Qiu Moyan','花满堂':'Hua Mantang','沈万山':'Shen Wanshan',
 '大风':'Da Feng','战北野':'Zhan Beiye',
 '神秘':'Mysterious ','长孙无极':'Changsun Wuji',
-'宗越':'Zong Yue','云痕':'Yun Hen'
+'宗越':'Zong Yue','云痕':'Yun Hen',
+// --- Feature names (additions) ---
+'经脉':'Meridian',
+// --- Loot / reward notifications ---
+'获得：':'Obtained: ','获得了':'obtained ',
+// --- Skill description components ---
+'再战':'Fight Again ','对BOSS':'vs BOSS ',
+// Mixed key: 伤害→DMG fires before 对BOSS check
+'对BOSSDMG':'vs BOSS DMG'
 };
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
@@ -300,6 +308,22 @@ function _patch(){
         }
     }
     _fixAttrCVO();
+    _retranslate();
+}
+function _retranslate(){
+    var s=(typeof egret!=='undefined')&&egret.stage;
+    if(!s)return;
+    function walk(d){
+        if(!d)return;
+        try{
+            var t=d.text;
+            if(typeof t==='string'&&/[一-鿿]/.test(t))d.text=t;
+            var h=d.htmlText;
+            if(typeof h==='string'&&/[一-鿿]/.test(h))d.htmlText=h;
+        }catch(e){}
+        try{var n=d.numChildren;for(var i=0;i<n;i++)walk(d.getChildAt(i));}catch(e){}
+    }
+    walk(s);
 }
 document.title='EN v6';
 _patch();
