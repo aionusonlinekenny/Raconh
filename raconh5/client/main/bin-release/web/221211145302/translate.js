@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v16
+// RaconH English Translation Hook v17
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -13,7 +13,7 @@ var _m={
 '到达剧情副本第':'Reach Story Ch.','关后开启':'to unlock',
 // --- Feature names ---
 '墨宠':'Pet','命格':'Destiny','绝学':'Skills','聚宝蟾':'Treasure','等级礼':'Lv.Gift',
-'七日礼':'7-Day Gift','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
+'七日礼':'7-Day Gift','自动任务':'Auto Task','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
 '盟会试炼':'Guild Trial','冲榜竞技':'PvP Rank','充值活动':'Top-up Event',
 '装扮':'Costume','称号':'Title','论剑台':'Duel Arena','神兵':'Weapon','摆摊':'Market',
 '魔神入侵':'Devil Raid','好友系统':'Friends','神器':'Artifact','功能预告':'Preview',
@@ -372,6 +372,24 @@ function _patch(){
             var _hd=Object.getOwnPropertyDescriptor(p,'htmlText');
             if(_hd&&_hd.set){p.__cwH=true;Object.defineProperty(p,'htmlText',{get:_hd.get,set:function(v){_hd.set.call(this,_rep(v));},configurable:true,enumerable:_hd.enumerable});}
         }
+        if(!p.__cwTF){
+            var _tfd=Object.getOwnPropertyDescriptor(p,'textFlow');
+            if(_tfd&&_tfd.set){
+                p.__cwTF=true;
+                Object.defineProperty(p,'textFlow',{get:_tfd.get,set:function(v){
+                    if(v&&v.length){
+                        var vv=[];
+                        for(var i=0;i<v.length;i++){
+                            var item=v[i];
+                            if(item&&typeof item.text==='string'){
+                                vv.push({text:_rep(item.text),style:item.style});
+                            } else { vv.push(item); }
+                        }
+                        _tfd.set.call(this,vv);
+                    } else { _tfd.set.call(this,v); }
+                },configurable:true,enumerable:_tfd.enumerable});
+            }
+        }
         if(typeof eui!=='undefined'&&eui.Label&&eui.Label.prototype&&!eui.Label.prototype.__cwL){
             var lp=eui.Label.prototype,_ld=Object.getOwnPropertyDescriptor(lp,'text');
             if(_ld&&_ld.set){lp.__cwL=true;Object.defineProperty(lp,'text',{get:_ld.get,set:function(v){_ld.set.call(this,_rep(v));},configurable:true,enumerable:_ld.enumerable});}
@@ -390,8 +408,19 @@ function _retranslate(){
     function walk(d){
         if(!d)return;
         try{
-            var t=d.text;
-            if(typeof t==='string'&&/[一-鿿]/.test(t))d.text=t;
+            if(d.isFlow){
+                var tf=d.textFlow;
+                if(tf&&tf.length){
+                    var needsRetrans=false;
+                    for(var fi=0;fi<tf.length;fi++){
+                        if(tf[fi]&&typeof tf[fi].text==='string'&&/[一-鿿]/.test(tf[fi].text)){needsRetrans=true;break;}
+                    }
+                    if(needsRetrans)d.textFlow=tf;
+                }
+            } else {
+                var t=d.text;
+                if(typeof t==='string'&&/[一-鿿]/.test(t))d.text=t;
+            }
             var h=d.htmlText;
             if(typeof h==='string'&&/[一-鿿]/.test(h))d.htmlText=h;
         }catch(e){}
