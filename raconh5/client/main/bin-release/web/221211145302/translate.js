@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v13
+// RaconH English Translation Hook v15
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -215,6 +215,7 @@ var _m={
 '江湖传闻':'Jianghu Rumors','盟会考验':'Guild Test',
 // --- Mixed keys: post-translation combos (components ran before these) ---
 'Guild Rank达到2阶':'Guild Rank 2','Guild Rank达到3阶':'Guild Rank 3',
+'Ch.一Guild':'Top Guild',
 '加入一个Guild':'Join a Guild',
 'Skill总Level':'Skill Level Total ',
 '一本Skills':'Skill Books',
@@ -225,7 +226,7 @@ var _m={
 // --- Component words (order: longer patterns first) ---
 '夺取':'Obtain ','夺回':'Reclaim ',
 '碎片':' Shard','熔炼':'Smelt ',
-'进阶':'Upgrade ','升到':'Reach ',
+'进阶':'Upgrade ','升到':'Reach ','阶':'Rank',
 '激活':'Activate ',
 '穿戴':'Wear ','个人':'Solo ',
 '全身':'Full ','捐献':' Donation',
@@ -396,5 +397,8 @@ function _retranslate(){
 document.title='EN v6';
 _patch();
 var _t=setInterval(function(){_patch();},500);
-setTimeout(function(){clearInterval(_t);},15000);
+setTimeout(function(){
+    clearInterval(_t);
+    setInterval(function(){_retranslate();},3000);
+},15000);
 })();
