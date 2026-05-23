@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v9
+// RaconH English Translation Hook v10
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -176,7 +176,69 @@ var _m={
 '剧情副本':'Story','副本':'Dungeon','关卡':'Level',
 '全民':'All-Server','珍稀掉落':'Rare Drops',
 '铸魂配置出错，请联系GM更新配置！':'Soul Cast cfg error - contact GM!',
-'伤害':'DMG','血量':'HP','技能':'Skill','冷却':'CD','强化':'Enh'
+'伤害':'DMG','血量':'HP','技能':'Skill','冷却':'CD','强化':'Enh',
+// --- Task names (pure Chinese — no pre-translated component words) ---
+'初试身手':'First Steps','小试牛刀':'Warm Up','扑朔迷离':'Mysterious',
+'凌烟问道':'Hall Quest','凌烟阁寻宝':'Hall Treasure Hunt',
+'英雄试炼':'Hero Trial','面对强敌':'Face a Foe',
+'突飞猛进':'Rapid Growth','从容应对':'Steady',
+'黑夜降临':'Night Falls','声名鹊起':'Rising Fame',
+'深陷重围':'Surrounded','阁主试炼':'Hall Master Trial',
+'加入一个盟会':'Join a Guild','浴血抗敌':'Bloody Battle','学成下山':'Training Complete',
+'初探缥缈录':'First Dungeon','切磋武艺':'Sparring',
+'琅琊练体':'Langya Training','试炼开始':'Trial Begins',
+'独孤试炼':'Lone Trial','师兄弟切磋':'Brother Sparring',
+'老阁主的惩罚':"Master's Punishment",
+'刺探敌情':'Spy on Enemy','江湖秘闻':'Jianghu Secrets',
+'独闯决神殿':'Solo Temple','路遇阻挠':'Road Blocked',
+'神殿奇闻':'Temple Tales','龙门渡之行':'Dragon Gate Journey',
+'决神试炼':'Divine Trial','凌云问道':'Lingyun Quest',
+'凌云奇遇':'Lingyun Adventure','登顶凌云山':'Summit Lingyun',
+'夜探孤影楼':'Shadow Tower Night','孤声飘影':'Shadow Echo',
+'再探山海阁':'Sea Hall Revisit','捕风捉影':'Chasing Shadows',
+'孤影秘闻':'Shadow Secrets','玉门关军报':'Jade Gate Report',
+'再会玉门关':'Jade Gate Return','长河落日':'River Sunset',
+'整装待发':'Ready to Go','风起长林':'Wind in Changlin',
+'前线补给':'Frontline Supply','沉船迷案':'Shipwreck Mystery',
+'鬼火幽冥':'Ghost Fire','势如水火':'Fire and Water',
+'宋浮反水':'Betrayal','问道琅琊':'Langya Quest',
+'扶风医堂':'Fufeng Clinic','及时赶到':'Arriving in Time',
+'转生之路':'Rebirth Path','水落石出':'Truth Revealed',
+'长林军魂':'Changlin Warriors','河堤查案':'Riverside Investigation',
+'山海问道':'Sea Hall Quest','兄弟相见':'Brothers Meet',
+'危机重重':'Crisis','江湖势力':'Jianghu Forces',
+'江湖传闻':'Jianghu Rumors','盟会考验':'Guild Test',
+// --- Mixed keys: post-translation combos (components ran before these) ---
+'Guild Rank达到2阶':'Guild Rank 2','Guild Rank达到3阶':'Guild Rank 3',
+'加入一个Guild':'Join a Guild',
+'Skill总Level':'Skill Level Total ',
+'一本Skills':'Skill Books',
+'Enh一次':'Enhance x1 ',
+'Stage开启':' Stage Unlock',
+'Power达到':'Reach Power ',
+'Challenge个人':'Challenge Solo ',
+// --- Component words (order: longer patterns first) ---
+'夺取':'Obtain ','夺回':'Reclaim ',
+'碎片':' Shard','熔炼':'Smelt ',
+'进阶':'Upgrade ','升到':'Reach ',
+'激活':'Activate ',
+'穿戴':'Wear ','个人':'Solo ',
+'全身':'Full ','捐献':' Donation',
+'寻找':'Find ','无双':'Peerless ',
+'传闻':' Rumor','秘闻':' Secrets',
+'风声':' Rumors','一次':'x1 ','一颗':' ',
+// --- Task status & common UI labels ---
+'(完成)':'(Done)','进行中':'In Progress',
+'查看排名':'View Ranking',
+'排名：':'Rank: ','名字：':'Name: ',
+'通关：':'Clear: ','时间：':'Time: ',
+'盟贡：':'Contrib: ',
+'挑战次数不足':'Attempts insufficient',
+'先完成任务':'Finish tasks first',
+'活动未开启':'Event not started',
+'背包已满，是否一键熔炼':'Bag full — smelt all?',
+'恭喜你挑战胜利！':'Challenge victory!',
+'连胜':'Win Streak','盟内排名：':'Guild Rank: '
 };
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
