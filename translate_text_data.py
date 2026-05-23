@@ -56,6 +56,180 @@ TRANSLATIONS = {
     '小伙惊呆！{0}运气爆棚，在抽奖福利中获得{1}！':
         'Amazing! {0} got lucky and won {1} in the lottery!',
 
+    # ── Hall of Heroes / Lingyan skill lottery ───────────────────────────────
+    '【{0}】在凌烟阁中获得{1}，真是羡煞旁人！':
+        '{0} obtained {1} in the Hall of Heroes!',
+
+    # ── Treasure hunt result messages ─────────────────────────────────────────
+    "寻宝1次，获得<font color = '#38b800'>银币*30000</font>，获得{0}":
+        "1x Hunt: <font color = '#38b800'>Silver*30000</font> + {0}",
+    "寻宝10次，获得<font color = '#38b800'>银币*300000</font>，获得{0}":
+        "10x Hunt: <font color = '#38b800'>Silver*300000</font> + {0}",
+
+    # ── Market broadcast ──────────────────────────────────────────────────────
+    "{0} 正在市场寄售 {1}，售价为 <font color='#ff8400'>{2}</font> 元宝，欲购从速！ {3}":
+        "{0} listed {1} on market for <font color='#ff8400'>{2}</font> gems! {3}",
+
+    # ── Online / offline ──────────────────────────────────────────────────────
+    '{0}上线了！': '{0} logged in!',
+    '{0}下线了！': '{0} logged off!',
+
+    # ── Heaven Lord (天尊) event ───────────────────────────────────────────────
+    '天尊山已经降临，夺得灵宝之气最多者将成为新一任天尊！{0}':
+        'The Heaven Lord descends! Top Aura collector becomes new Heaven Lord! {0}',
+    '本次天尊夺宝结束，现宣布新一任天尊的名字——{0}，他将在史册留名！':
+        'Heaven Lord event over! The new Heaven Lord is {0}!',
+    '{0}守住<font color=\'#ffae00\'>{1}</font>到最后一刻，成功吸收其中的大量灵气！':
+        '{0} held <font color=\'#ffae00\'>{1}</font> to the last second, absorbing great spirit energy!',
+    '{0}摇动骰子，掷出了<font color=\'#29b113\'>{1}</font>点！':
+        '{0} rolled <font color=\'#29b113\'>{1}</font> on the dice!',
+
+    # ── Guild broadcasts ──────────────────────────────────────────────────────
+    '{0}被禁言五分钟': '{0} muted for 5 min',
+    '宗门悬赏任务已经刷新，数量有限，先抢先得！{0}':
+        'Guild bounty quests refreshed! Limited — hurry! {0}',
+    '{0}赠送{1}给{2}，看来有一腿！': '{0} gifted {1} to {2}! Must be close!',
+    "{0}（战力：{1}）为宗门捐献了元宝{2}，加了{3}贡献,为宗门圣物增加{4}成长值":
+        "{0} (Power:{1}) donated {2} gems, +{3} contrib, +{4} artifact growth",
+    "{0}（战力：{1}）为宗门捐献了宗门令*{2}，加了{3}贡献,为宗门圣物增加{4}成长值":
+        "{0} (Power:{1}) donated {2} guild tokens, +{3} contrib, +{4} artifact growth",
+    "{0}（战力：{1}）申请加入宗门，请批准！{3}":
+        "{0} (Power:{1}) applied to join the guild! {3}",
+    "{0}发布了一份招募启示：<font color='#29b113'>{1}</font>广纳人才，入门者均可获得宗门圣物护佑，能力提升。{2}":
+        "{0} is recruiting: <font color='#29b113'>{1}</font> — join for guild artifact buffs! {2}",
+    '恭喜！本宗门守卫难度提升至{0}级，守卫宗门活动将获得更多的奖励！':
+        'Guild defense upgraded to level {0} — earn more rewards!',
+
+    # ── Killing God (杀神) PvP event ──────────────────────────────────────────
+    '杀破苍穹，惊天泣鬼！杀神之路正式开启，通天之路，谁主沉浮！{0}':
+        'The Killing God path is open — who will reign supreme? {0}',
+    '本次杀神之路结束，现宣布新一任通天杀神的名字——<font color=\'#ff4949\'>{0}</font>，他将在史册留名！':
+        'Killing God event over! The new Killing God: <font color=\'#ff4949\'>{0}</font>!',
+
+    # ── Party finder ──────────────────────────────────────────────────────────
+    "<font color='#c7ba6c'>{0}正寻找仙友一起挑战【{1}(Lv.{2})】，要求战力{3}！{4}</font>":
+        "<font color='#c7ba6c'>{0} seeks allies for 【{1}(Lv.{2})】 Power req:{3}! {4}</font>",
+    "<font color='#c7ba6c'>{0}正寻找仙友一起挑战【{1}(Lv.{2})】，无战斗力限制！{3}</font>":
+        "<font color='#c7ba6c'>{0} seeks allies for 【{1}(Lv.{2})】 no Power req! {3}</font>",
+
+    # ── Treasure hunt BOSS invasion ───────────────────────────────────────────
+    '【{0}】在寻宝时不小心破坏了封印，一大波狂暴BOSS入侵{1}-{2}线，维护世界和平的时候到啦！':
+        '【{0}】broke a seal while hunting! Wild BOSSes raid {1}-{2}! Go defend!',
+
+    # ── 3v3 championship ──────────────────────────────────────────────────────
+    '3v3争霸活动正式开启！来不及解释了，快进场！{0}':
+        '3v3 Championship started! Get in there! {0}',
+    '{0}采旗成功！': '{0} got the flag!',
+    '{0}击杀了{1},成功夺取旗帜！': '{0} killed {1} and seized the flag!',
+    '{0}离开战场，旗帜重新刷新！': '{0} left — flag reset!',
+    '{0}交付旗帜，取得胜利！': '{0} delivered the flag! Victory!',
+
+    # ── Sword upgrade ─────────────────────────────────────────────────────────
+    "<font color='#c7ba6c'>{0}</font>将仙剑品质提升至<font color='#e9c002'>乾坤仙剑</font>，获得<font color='#e9c002'>60绑定元宝</font>奖励！":
+        "<font color='#c7ba6c'>{0}</font> upgraded sword to <font color='#e9c002'>Qian Kun Sword</font>, got <font color='#e9c002'>60 bound gems</font>!",
+
+    # ── Free-for-all (群雄逐鹿) event ─────────────────────────────────────────
+    '群雄逐鹿活动正式开始！抢boss、抢矿石、抢人头，鹿死谁手，一战而定！{0}':
+        'Free-for-all started! Grab BOSSes, ores, and kills — who wins? {0}',
+    '恭喜{0}的全体成员击杀{1}，获得15秒优先采集权！':
+        '{0} all killed {1}, gained 15s priority harvest!',
+
+    # ── Tribulation (渡劫) ────────────────────────────────────────────────────
+    '恭喜{0}渡劫成功，获得{1}！': '{0} survived tribulation! Got {1}!',
+    '{0}大展神威，击杀渡劫者，夺得{1}！': '{0} slew the challenger and claimed {1}!',
+
+    # ── Investment ────────────────────────────────────────────────────────────
+    '玩家{0}成功购买百倍投资，财源滚滚来！': '{0} bought the 100x Investment! Wealth rolls!',
+    '玩家{0}成功购买投资计划，一本万利！': '{0} bought the Investment Plan! Big profits!',
+
+    # ── Rebirth (different wording variant) ──────────────────────────────────
+    '恭喜{0}历经千锤百炼，完成{1}转目标，战力暴涨！':
+        'Congrats! {0} completed {1} rebirths — Power surged!',
+
+    # ── BOSS top-3 (variant format) ──────────────────────────────────────────
+    '{0}在<font color=\'#c7ba6c\'>【BOSS】{1}（{2}转{3}级）</font>中投出前3名，获得{4}！':
+        '{0} ranked top 3 on <font color=\'#c7ba6c\'>[BOSS]{1}({2} Reb.{3})</font>, got {4}!',
+    '{0}在<font color=\'#c7ba6c\'>【全民BOSS】{1}</font>击杀中伤害排名第四，获得{2}！':
+        '{0} ranked #4 damage on <font color=\'#c7ba6c\'>[All-Server BOSS]{1}</font>, got {2}!',
+    '{0}在<font color=\'#c7ba6c\'>【全民BOSS】{1}</font>击杀中伤害排名第五，获得{2}！':
+        '{0} ranked #5 damage on <font color=\'#c7ba6c\'>[All-Server BOSS]{1}</font>, got {2}!',
+    '<font color=\'#c7ba6c\'>【BOSS】{0}（{1}转{2}级）</font>血量已少于{3}%，摧毁BOSS护盾有机会获得奖励！{4}':
+        '<font color=\'#c7ba6c\'>[BOSS]{0}({1} Reb.{2})</font> HP below {3}%! Destroy shield for a reward! {4}',
+    '<font color=\'#c7ba6c\'>【BOSS】{0}（{1}转{2}级）</font>血量已<font color=\'#c7ba6c\'>少于{3}%</font>，摧毁BOSS护盾有机会获得奖励！{4}':
+        '<font color=\'#c7ba6c\'>[BOSS]{0}({1} Reb.{2})</font> HP <font color=\'#c7ba6c\'>below {3}%</font>! Destroy shield for reward! {4}',
+
+    # ── Kill streak (variant wording) ─────────────────────────────────────────
+    '战报：<font color=\'#c7ba6c\'>{0}完成<font color=\'#ff4949\'>10连杀</font>，正主宰着战场的生死！</font>':
+        'Report: <font color=\'#c7ba6c\'>{0} on a <font color=\'#ff4949\'>10-kill streak</font>, dominating!</font>',
+    '战报：<font color=\'#c7ba6c\'>{0}完成<font color=\'#ff4949\'>20连杀</font>，领地战之神非他莫属！</font>':
+        'Report: <font color=\'#c7ba6c\'>{0} on a <font color=\'#ff4949\'>20-kill streak</font>, territory war god!</font>',
+    '战报：<font color=\'#c7ba6c\'>{0}完成<font color=\'#ff4949\'>20连杀</font>，杀神之位舍他其谁！</font>':
+        'Report: <font color=\'#c7ba6c\'>{0} on a <font color=\'#ff4949\'>20-kill streak</font>, born Killing God!</font>',
+
+    # ── Imperial War (皇城战) ─────────────────────────────────────────────────
+    '[{0}]{1}对皇神将造成最后一击！在[{2}]{3}带领下，{4}夺得胜利！':
+        '[{0}]{1} final blow to the Imperial General! [{2}]{3} leads {4} to Victory!',
+    '[{0}]{1}对皇神将造成最后一击！{2}夺得胜利！':
+        '[{0}]{1} final blow to the Imperial General! {2} wins!',
+    '在[{0}]{1}的带领以及援军对皇神将的最后一击下，{2}夺得胜利！':
+        '[{0}]{1} led the charge! Reinforcements struck the final blow — {2} wins!',
+    '受到援军的强力援助，皇神将被击败！{0}夺得胜利！':
+        'Reinforcements crushed the Imperial General! {0} wins!',
+    '在[{0}]{1}的带领下，{2}防守成功，夺得胜利！':
+        '[{0}]{1} leads {2} to a successful defense! Victory!',
+    '{0}全体英勇抗敌，防守成功，夺得胜利！':
+        '{0} fought bravely — defense succeeded! Victory!',
+
+    # ── Territory / outpost ───────────────────────────────────────────────────
+    '据点{0}正在被偷袭，请速速前往防守！': 'Outpost {0} is under attack! Go defend!',
+    '江湖纷争，错综复杂，{0}占领了{1}，持续获得奖励！':
+        '{0} captured {1}! Earning ongoing rewards!',
+    '风云天下，逆水行舟，{0}占领{1}统领了势力{2}，结算时将获得丰厚奖励！':
+        '{0} captured {1} and controls territory {2} — great rewards at settlement!',
+    "<font color='#c7ba6c'>宗门<font color='#12fe00'>{0}</font>所持有领地<font color='#12fe00'>{1}</font>的旗帜已被摧毁，宗门<font color='#12fe00'>{2}</font>拥有了旗帜的优先采集权！</font>":
+        "<font color='#c7ba6c'>Guild <font color='#12fe00'>{0}</font>'s <font color='#12fe00'>{1}</font> flag destroyed! Guild <font color='#12fe00'>{2}</font> has priority harvest!</font>",
+    "<font color='#c7ba6c'>宗门<font color='#12fe00'>{0}</font>的<font color='#12fe00'>{1}</font>采集了领地<font color='#12fe00'>{2}</font>的旗帜，暂时拥有了该领地的所属权，大家快攻击领地旗帜进行抢夺吧！</font>":
+        "<font color='#c7ba6c'>Guild <font color='#12fe00'>{0}</font>'s <font color='#12fe00'>{1}</font> seized <font color='#12fe00'>{2}</font> flag! Attack the flag to contest it!</font>",
+    "宗门-<font color='#12fe00'>{0}</font>持有领地-<font color='#12fe00'>{1}</font>的旗帜满15分钟，该旗帜已被永久持有，不会继续受到伤害！":
+        "Guild-<font color='#12fe00'>{0}</font> held territory-<font color='#12fe00'>{1}</font> flag 15 min! Flag permanently secured!",
+
+    # ── World BOSS champion ───────────────────────────────────────────────────
+    '恭喜[{0}]{1}获得世界BOSS活动霸主之位！':
+        '[{0}]{1} won the World BOSS Champion!',
+    '恭喜[{0}]{1}摇出{2}点，获得魔神幸运大奖：{3}！':
+        '[{0}]{1} rolled {2} pts, won Demon God prize: {3}!',
+    '杀破苍穹，惊天泣鬼！杀神之路正式开启！{0}':
+        'Killing God path open! {0}',
+    '本次天尊夺宝结束！新一任天尊：{0}':
+        'Heaven Lord event ended! New Heaven Lord: {0}',
+
+    # ── Gear enhancement broadcast ────────────────────────────────────────────
+    '{0}金戈铁马，气吞万里，全身装备强化达到了<font color=\'#ffae00\'>{1}</font>级！':
+        '{0} enhanced all gear to <font color=\'#ffae00\'>{1}</font>!',
+    '{0}镶嵌了{1}，流光溢彩，熠熠生辉！': '{0} inlaid {1} — radiant!',
+
+    # ── Mount / equip advancement ─────────────────────────────────────────────
+    "<font color='#12fe00'>恭喜{0}</font>将坐骑成功进阶至<font color='#12fe00'>{1}阶</font>，激活了酷炫坐骑<font color='#ffae00'>{2}</font>，实力暴涨，还收获了大批迷妹！{3}":
+        "<font color='#12fe00'>Congrats {0}</font> upgraded mount to <font color='#12fe00'>{1}</font>, activated <font color='#ffae00'>{2}</font>! Power surged! {3}",
+    "<font color='#12fe00'>恭喜{0}</font>将机甲成功进阶至<font color='#12fe00'>{1}阶</font>，激活了酷炫机甲<font color='#ffae00'>{2}</font>，从此再也不用担心灵宠的安全！{3}":
+        "<font color='#12fe00'>Congrats {0}</font> upgraded mecha to <font color='#12fe00'>{1}</font>, activated <font color='#ffae00'>{2}</font>! Pets are safe! {3}",
+    "<font color='#12fe00'>恭喜{0}</font>将神兵成功进阶至<font color='#12fe00'>{1}阶</font>，激活了酷炫神兵<font color='#ffae00'>{2}</font>，称霸寰宇，指日可待！{3}":
+        "<font color='#12fe00'>Congrats {0}</font> upgraded divine weapon to <font color='#12fe00'>{1}</font>, activated <font color='#ffae00'>{2}</font>! Dominance incoming! {3}",
+    "<font color='#12fe00'>恭喜{0}</font>将法轮成功进阶至<font color='#12fe00'>{1}阶</font>，激活了酷炫法轮<font color='#ffae00'>{2}</font>，实力暴涨，还解锁了新的逼格！{3}":
+        "<font color='#12fe00'>Congrats {0}</font> upgraded wheel to <font color='#12fe00'>{1}</font>, activated <font color='#ffae00'>{2}</font>! New power unlocked! {3}",
+    "<font color='#12fe00'>恭喜{0}</font>将喷饰成功进阶至<font color='#12fe00'>{1}阶</font>，激活了酷炫喷饰<font color='#ffae00'>{2}</font>，实力暴涨，吓坏了隔壁老王！{3}":
+        "<font color='#12fe00'>Congrats {0}</font> upgraded sprayer to <font color='#12fe00'>{1}</font>, activated <font color='#ffae00'>{2}</font>! Everyone is amazed! {3}",
+    "<font color='#12fe00'>恭喜{0}</font>将火器成功进阶至<font color='#12fe00'>{1}阶</font>，激活了酷炫火器<font color='#ffae00'>{2}</font>，实力暴涨，风光无限！{3}":
+        "<font color='#12fe00'>Congrats {0}</font> upgraded firearm to <font color='#12fe00'>{1}</font>, activated <font color='#ffae00'>{2}</font>! Limitless glory! {3}",
+    "<font color='#12fe00'>恭喜{0}</font>将仙盾成功进阶至<font color='#12fe00'>{1}阶</font>，激活了酷炫仙盾<font color='#ffae00'>{2}</font>，实力暴涨，从此走上人生巅峰！{3}":
+        "<font color='#12fe00'>Congrats {0}</font> upgraded celestial shield to <font color='#12fe00'>{1}</font>, activated <font color='#ffae00'>{2}</font>! Peak reached! {3}",
+
+    # ── Chat unlock ───────────────────────────────────────────────────────────
+    "<font color='#ff4949'>传讯聊天功能{0}级开放！</font>":
+        "<font color='#ff4949'>Whisper chat at level {0}!</font>",
+    "<font color='#ff4949'>场景聊天功能{0}级开放！</font>":
+        "<font color='#ff4949'>Area chat unlocks at level {0}!</font>",
+
     # ── Kill / combat announcements ───────────────────────────────────────────
     '{0}在【BOSS】{1}（{2}转{3}级）击杀中对其造成最后一击，获得{4}！':
         '{0} dealt the killing blow to [BOSS] {1} (Reb.{2} Lv.{3}) and got {4}!',
