@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v10
+// RaconH English Translation Hook v11
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -238,7 +238,12 @@ var _m={
 '活动未开启':'Event not started',
 '背包已满，是否一键熔炼':'Bag full — smelt all?',
 '恭喜你挑战胜利！':'Challenge victory!',
-'连胜':'Win Streak','盟内排名：':'Guild Rank: '
+'连胜':'Win Streak','盟内排名：':'Guild Rank: ',
+// --- NPC names (npc_data) ---
+'邱莫言':'Qiu Moyan','花满堂':'Hua Mantang','沈万山':'Shen Wanshan',
+'大风':'Da Feng','战北野':'Zhan Beiye',
+'神秘':'Mysterious ','长孙无极':'Changsun Wuji',
+'宗越':'Zong Yue','云痕':'Yun Hen'
 };
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
