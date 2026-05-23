@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v11
+// RaconH English Translation Hook v12
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -286,9 +286,17 @@ function _patch(){
             var _td=Object.getOwnPropertyDescriptor(p,'text');
             if(_td&&_td.set){p.__cwT=true;Object.defineProperty(p,'text',{get:_td.get,set:function(v){_td.set.call(this,_rep(v));},configurable:true,enumerable:_td.enumerable});}
         }
+        if(!p.__cwH){
+            var _hd=Object.getOwnPropertyDescriptor(p,'htmlText');
+            if(_hd&&_hd.set){p.__cwH=true;Object.defineProperty(p,'htmlText',{get:_hd.get,set:function(v){_hd.set.call(this,_rep(v));},configurable:true,enumerable:_hd.enumerable});}
+        }
         if(typeof eui!=='undefined'&&eui.Label&&eui.Label.prototype&&!eui.Label.prototype.__cwL){
             var lp=eui.Label.prototype,_ld=Object.getOwnPropertyDescriptor(lp,'text');
             if(_ld&&_ld.set){lp.__cwL=true;Object.defineProperty(lp,'text',{get:_ld.get,set:function(v){_ld.set.call(this,_rep(v));},configurable:true,enumerable:_ld.enumerable});}
+        }
+        if(typeof eui!=='undefined'&&eui.Label&&eui.Label.prototype&&!eui.Label.prototype.__cwLH){
+            var lp=eui.Label.prototype,_ldh=Object.getOwnPropertyDescriptor(lp,'htmlText');
+            if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
     _fixAttrCVO();
