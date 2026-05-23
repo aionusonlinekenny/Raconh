@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v8
+// RaconH English Translation Hook v9
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -17,6 +17,21 @@ var _m={
 '盟会试炼':'Guild Trial','冲榜竞技':'PvP Rank','充值活动':'Top-up Event',
 '装扮':'Costume','称号':'Title','论剑台':'Duel Arena','神兵':'Weapon','摆摊':'Market',
 '魔神入侵':'Devil Raid','好友系统':'Friends','神器':'Artifact','功能预告':'Preview',
+// --- Skill book names (juexue_data) — appear in 【】 in Hall of Heroes announcements ---
+'罗汉伏魔功':'Luohan Devil Fist','圣火令神功':'Sacred Flame Art','大金刚掌':'Great Vajra Palm',
+'神门十三剑':'Thirteen Gate Swords','大九天手':'Nine Heavens Hand','空明拳':'Void Clarity Fist',
+'乾坤大挪移':'Universe Transfer','九阴真经':'Nine Yin Classic','七伤拳':'Seven Injury Fist',
+'纯阳无极功':'Pure Yang Art','混元功':'Primal Unity Art','碧波掌法':'Blue Wave Palm',
+'凌波微步':'Rippling Steps','玉萧剑法':'Jade Flute Sword','太极拳剑':'Tai Chi Sword',
+'两仪剑法':'Yin-Yang Sword','绕指柔剑':'Supple Sword','易筋经':'Muscle Classic',
+'伏虎拳':'Tiger Fist',
+// --- Active skill names (skill_data) ---
+'凌霄剑法':'Soaring Sword Art','狂风快剑':'Gale Sword','雷霆万钧':'Thunder Strike',
+'碧海潮生':'Ocean Surge','凌烟剑法':'Misty Sword Art','落英神剑':'Petal Sword',
+'万剑归宗':'Myriad Swords','北冥神功':'North Sea Art',
+'无视冷却':'Ignore CD','附加冰冻':'Freeze','附加中毒':'Poison',
+'无视防御':'Ignore DEF','必定暴击':'Guaranteed Crit','闪避反伤':'Dodge Counter',
+'附加沉默':'Silence','附加眩晕':'Stun',
 // --- Item descriptions ---
 '最强群攻':'Max AOE','全屏大招':'Full AOE','杀怪效率提升':'Kill EFF+',
 '绝世武学':'Supreme Arts','龙战八荒':'Dragon Realm',
