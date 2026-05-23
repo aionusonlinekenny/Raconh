@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v7
+// RaconH English Translation Hook v8
 (function(){
 var _m={
 // --- System announcements (substrings after {0} substitution) ---
@@ -20,7 +20,14 @@ var _m={
 // --- Item descriptions ---
 '最强群攻':'Max AOE','全屏大招':'Full AOE','杀怪效率提升':'Kill EFF+',
 '绝世武学':'Supreme Arts','龙战八荒':'Dragon Realm',
-// --- Error / system messages (strings too long to fit in cw.txt binary) ---
+// --- Item tooltip ---
+'激活或提升':'Activate or upgrade ','类型：':'Type: ','通用':'Universal',
+// --- Treasure hunt UI ---
+'积分：':'Points: ','积分不足':'Insufficient points','寻宝记录':'Hunt Records',
+'每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
+    'Each hunt: 30,000 Silver + guaranteed Skill Book\n10x hunt: guaranteed Purple-quality or above Skill Book',
+// --- Common UI labels ---
+'战力：':'Power: ','战力:':'Power:','战力':'Power',
 '恭喜{0}击杀{1}，获得珍贵物品：{2}！':'Congrats! {0} defeated {1}, got: {2}!',
 '未知错误':'Unknown error',
 '背包或仓库为空':'Bag/storage empty',
