@@ -225,7 +225,8 @@ var _m={
 '自身':'Self ','时触发':' triggers,','持续':'Lasts ','冷却时间':'CD ','增加目标':'Add Target',
 '免伤加成':'DMG Reduce+','对前方':'vs front ','对附近':'AOE ','个目标造成':'x targets ',
 '范围：':'Range: ','目标：':'Target: ','目标':'target ','使主target ':'on target: ',
-'造成':'deals ','一定概率':'with a chance to ','降低':'-','升高':'+',
+'本轮触发效果：':'Effect: ','触发效果：':'Effect: ',
+'造成':'deals ','一定概率':'with a chance to ','降低':'-','升高':'+','提升':' +',
 '沉默':'Silenced','眩晕':'Stunned','中毒':'Poisoned','冰冻':'Frozen','只能':'can only ',
 '普通攻击':'normal attack','普攻':'basic attack','扇形':'Fan','圆形':'Circle',
 '，':', ','秒':'s','个':'x','再战':'Fight Again\n',
@@ -401,7 +402,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v43';
+document.title='EN v44';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
