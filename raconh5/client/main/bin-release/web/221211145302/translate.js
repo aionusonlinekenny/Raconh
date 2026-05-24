@@ -25,7 +25,7 @@ var _m={
 '到达剧情副本第':'Reach Story Ch.','关后开启':'to unlock',
 // --- Feature names ---
 '门派成员':'Guild Members','职位':'Role',
-'墨宠':'Pet','命格':'Destiny','绝学':'Skills','聚宝蟾':'Treasure','等级礼':'Lv.Gift',
+'命轮':'Fate Wheel','墨宠':'Pet','命格':'Destiny','绝学':'Skills','聚宝蟾':'Treasure','等级礼':'Lv.Gift',
 '七日礼':'7-Day Gift','自动任务':'Auto Task','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
 '盟会试炼':'Guild Trial','冲榜竞技':'PvP Rank','充值活动':'Top-up Event',
 '装扮':'Costume','称号':'Title','论剑台':'Duel Arena','神兵':'Weapon','摆摊':'Market',
@@ -229,6 +229,7 @@ var _m={
 '造成':'deals ','一定概率':'with a chance to ','降低':'-','升高':'+','提升':' +',
 '沉默':'Silenced','眩晕':'Stunned','中毒':'Poisoned','冰冻':'Frozen','只能':'can only ',
 '普通攻击':'normal attack','普攻':'basic attack','扇形':'Fan','圆形':'Circle',
+'壹':'1','贰':'2','叁':'3','肆':'4','伍':'5','陆':'6','柒':'7','捌':'8','玖':'9','拾':'10',
 '，':', ','秒':'s','个':'x','再战':'Fight Again\n',
 // NOTE: 对BOSSDMG must precede 对BOSS (伤害→DMG fires first turning 对BOSS伤害→对BOSSDMG)
 '对BOSSDMG':'vs BOSS DMG','对BOSS':'vs BOSS ',
@@ -402,7 +403,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v44';
+document.title='EN v45';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
