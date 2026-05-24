@@ -1,9 +1,10 @@
-// RaconH English Translation Hook v18
+// RaconH English Translation Hook v19
 (function(){
 var _m={
 // --- First recharge panel (must precede 充值→Recharge component) ---
 '首充豪礼':'First Recharge Gift',
 '首充奖励至少充值':'First Recharge: min. recharge ',
+'元可领':'yuan to claim',
 // --- System announcements (substrings after {0} substitution) ---
 // NOTE: template uses 战力榜 (not Power榜); 战力→Power runs LATER so key must use original
 '叱咤风云，笑傲江湖。战力榜第一名':'Power Rank #1 ',
@@ -15,6 +16,7 @@ var _m={
 // --- Dungeon unlock conditions ---
 '到达剧情副本第':'Reach Story Ch.','关后开启':'to unlock',
 // --- Feature names ---
+'门派成员':'Guild Members','职位':'Role',
 '墨宠':'Pet','命格':'Destiny','绝学':'Skills','聚宝蟾':'Treasure','等级礼':'Lv.Gift',
 '七日礼':'7-Day Gift','自动任务':'Auto Task','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
 '盟会试炼':'Guild Trial','冲榜竞技':'PvP Rank','充值活动':'Top-up Event',
@@ -177,8 +179,10 @@ var _m={
 '确定':'OK','取消':'Cancel','关闭':'Close','返回':'Back',
 '分钟':'min','回城':'Return',
 '改名卡':'Rename Card',
+'请输入新名字：':'Enter new name:',
 '请输入新名字:':'Enter new name:',
 '名字最长5个字':'Max 5 characters',
+'现任掌门：':'Guild Master: ','虚位以待':'Vacant',
 '钢铁之心':'Steel Heart',
 '钻石特权加成':'Diamond Privilege Bonus ',
 '升级':'Level Up','装备':'Equip','镶嵌':'Inlay','宝石':'Gem','铸魂':'Soul Cast',
@@ -242,14 +246,20 @@ var _m={
 '阶':'Rank',
 '激活':'Activate ',
 '穿戴':'Wear ','个人':'Solo ',
-'全身':'Full ','捐献':' Donation',
+'全身':'Full ',
+'普通捐献':'Normal Donation','高级捐献':'Premium Donation','捐献':'Donate',
+'贡献':' Contrib','剩余次数':'Remaining: ',
 '寻找':'Find ','无双':'Peerless ',
 '传闻':' Rumor','秘闻':' Secrets',
 '风声':' Rumors','一次':'x1 ','一颗':' ',
 // --- Task status & common UI labels ---
 '(完成)':'(Done)','进行中':'In Progress',
 '查看排名':'View Ranking',
-'排名：':'Rank: ','名字：':'Name: ',
+'排名：':'Rank: ','名字：':'Name: ','名字':'Name',
+'请输入新Name: ':'Enter new name:','请输入新Name:':'Enter new name:',
+'1RankDisciple':'Rank 1 Disciple','2RankDisciple':'Rank 2 Disciple',
+'3RankDisciple':'Rank 3 Disciple','4RankDisciple':'Rank 4 Disciple',
+'5RankDisciple':'Rank 5 Disciple',
 '通关：':'Clear: ','时间：':'Time: ',
 '盟贡：':'Contrib: ',
 '挑战次数不足':'Attempts insufficient',
@@ -426,16 +436,16 @@ function _retranslate(){
                 if(tf&&tf.length){
                     var needsRetrans=false;
                     for(var fi=0;fi<tf.length;fi++){
-                        if(tf[fi]&&typeof tf[fi].text==='string'&&/[一-鿿]/.test(tf[fi].text)){needsRetrans=true;break;}
+                        if(tf[fi]&&typeof tf[fi].text==='string'&&_rep(tf[fi].text)!==tf[fi].text){needsRetrans=true;break;}
                     }
                     if(needsRetrans)d.textFlow=tf;
                 }
             } else {
                 var t=d.text;
-                if(typeof t==='string'&&/[一-鿿]/.test(t))d.text=t;
+                if(typeof t==='string'&&t.length&&_rep(t)!==t)d.text=t;
             }
             var h=d.htmlText;
-            if(typeof h==='string'&&/[一-鿿]/.test(h))d.htmlText=h;
+            if(typeof h==='string'&&h.length&&_rep(h)!==h)d.htmlText=h;
         }catch(e){}
         try{var n=d.numChildren;for(var i=0;i<n;i++)walk(d.getChildAt(i));}catch(e){}
     }
