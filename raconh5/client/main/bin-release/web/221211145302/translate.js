@@ -1,6 +1,9 @@
-// RaconH English Translation Hook v17
+// RaconH English Translation Hook v18
 (function(){
 var _m={
+// --- First recharge panel (must precede 充值→Recharge component) ---
+'首充豪礼':'First Recharge Gift',
+'首充奖励至少充值':'First Recharge: min. recharge ',
 // --- System announcements (substrings after {0} substitution) ---
 // NOTE: template uses 战力榜 (not Power榜); 战力→Power runs LATER so key must use original
 '叱咤风云，笑傲江湖。战力榜第一名':'Power Rank #1 ',
@@ -33,7 +36,8 @@ var _m={
 '无视防御':'Ignore DEF','必定暴击':'Guaranteed Crit','闪避反伤':'Dodge Counter',
 '附加沉默':'Silence','附加眩晕':'Stun',
 // --- Item descriptions ---
-'最强群攻':'Max AOE','全屏大招':'Full AOE','杀怪效率提升':'Kill EFF+',
+'最强群攻':'Max AOE','全屏大招':'Full AOE','杀怪效率提升':'Kill EFF+','杀怪效率+':'Kill EFF+',
+'极品武器':'Premium Weapon',
 '绝世武学':'Supreme Arts','龙战八荒':'Dragon Realm',
 // --- Item tooltip ---
 '激活或提升':'Activate or upgrade ','类型：':'Type: ','通用':'Universal',
@@ -42,7 +46,7 @@ var _m={
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
     'Each hunt: 30,000 Silver + guaranteed Skill Book\n10x hunt: guaranteed Purple-quality or above Skill Book',
 // --- Common UI labels ---
-'战力：':'Power: ','战力:':'Power:','战力':'Power',
+'战斗力':'Combat Power','战力：':'Power: ','战力:':'Power:','战力':'Power',
 '恭喜{0}击杀{1}，获得珍贵物品：{2}！':'Congrats! {0} defeated {1}, got: {2}!',
 '未知错误':'Unknown error',
 '背包或仓库为空':'Bag/storage empty',
@@ -171,6 +175,12 @@ var _m={
 // --- Common UI ---
 '开始游戏':'Start Game','进入游戏':'Enter Game','创建角色':'Create Char',
 '确定':'OK','取消':'Cancel','关闭':'Close','返回':'Back',
+'分钟':'min','回城':'Return',
+'改名卡':'Rename Card',
+'请输入新名字:':'Enter new name:',
+'名字最长5个字':'Max 5 characters',
+'钢铁之心':'Steel Heart',
+'钻石特权加成':'Diamond Privilege Bonus ',
 '升级':'Level Up','装备':'Equip','镶嵌':'Inlay','宝石':'Gem','铸魂':'Soul Cast',
 '任务':'Quest','九霄塔':'Sky Tower','演武场':'Arena','金玉堂':'Treasure Hall',
 '盟会守军':'Guild Guard','盟会守卫':'Guild Defender',
@@ -217,7 +227,7 @@ var _m={
 'Guild Rank达到2阶':'Guild Rank 2','Guild Rank达到3阶':'Guild Rank 3',
 'Ch.一Guild':'Top Guild',
 '加入一个Guild':'Join a Guild',
-'Skill总Level':'Skill Level Total ',
+'Skill满级时':'(max level)','Skill总Level':'Skill Level Total ',
 '一本Skills':'Skill Books',
 'Enh一次':'Enhance x1 ',
 'Stage开启':' Stage Unlock',
@@ -226,7 +236,10 @@ var _m={
 // --- Component words (order: longer patterns first) ---
 '夺取':'Obtain ','夺回':'Reclaim ',
 '碎片':' Shard','熔炼':'Smelt ',
-'进阶':'Upgrade ','升到':'Reach ','阶':'Rank',
+'进阶':'Upgrade ','升到':'Reach ',
+'10阶':'Rank 10','9阶':'Rank 9','8阶':'Rank 8','7阶':'Rank 7','6阶':'Rank 6',
+'5阶':'Rank 5','4阶':'Rank 4','3阶':'Rank 3','2阶':'Rank 2','1阶':'Rank 1',
+'阶':'Rank',
 '激活':'Activate ',
 '穿戴':'Wear ','个人':'Solo ',
 '全身':'Full ','捐献':' Donation',
