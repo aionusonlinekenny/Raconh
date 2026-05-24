@@ -517,6 +517,38 @@ if ($action === 'setup') {
     $_SESSION['flash'] = ['type'=>'success','msg'=>'Translation data cleared.'];
     header('Location: admin.php?tab=translation&tmode=cw'); exit;
 
+} elseif ($action === 'tr_export_js') {
+    requireLogin();
+    $trans = loadTrans();
+    $entries = jsParseDict();
+    // Build existing key lookup
+    $existing = [];
+    foreach ($entries as $e) if ($e['t']==='e') $existing[$e['k']] = true;
+    // Collect new translations not already in translate.js
+    $newEntries = [];
+    foreach ($trans as $k => $row) {
+        if ($row['en'] === '' || $row['en'] === $row['cn']) continue;
+        $cn = $row['cn'];
+        if (isset($existing[$cn])) continue; // already in dict
+        $newEntries[] = ['t'=>'e','k'=>$cn,'v'=>$row['en']];
+    }
+    if (empty($newEntries)) {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'No new translations to export. Enter English values first, or all keys already exist in translate.js.'];
+    } else {
+        // Insert before the very last entry (before 万)
+        $insertAt = count($entries);
+        for ($i=count($entries)-1;$i>=0;$i--) { if($entries[$i]['t']==='e'){$insertAt=$i;break;} }
+        array_splice($entries, $insertAt, 0, $newEntries);
+        $err = jsSaveAndBump($entries);
+        if ($err) {
+            $_SESSION['flash'] = ['type'=>'error','msg'=>$err];
+        } else {
+            $cnt = count($newEntries);
+            $_SESSION['flash'] = ['type'=>'success','msg'=>"Exported $cnt translations to translate.js v".jsGetVersion().". Game will use them immediately on next reload."];
+        }
+    }
+    header('Location: admin.php?tab=translation&tmode=cw'); exit;
+
 } elseif ($action === 'js_add') {
     requireLogin();
     $nk = trim($_POST['new_k'] ?? '');
@@ -1326,11 +1358,13 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
         <form method="POST" style="display:inline"><input type="hidden" name="action" value="tr_extract">
           <input type="hidden" name="tmode" value="cw">
           <button type="submit" class="btn btn-gold btn-sm">⬇ Extract Strings</button></form>
-        <form method="POST" style="display:inline" onsubmit="return confirm('Apply translations to cw.txt?')">
-          <input type="hidden" name="action" value="tr_apply">
+        <?php if(file_exists(TRANS_FILE)): ?>
+        <form method="POST" style="display:inline" onsubmit="return confirm('Export all translations to translate.js?\n\nThis is the SAFE option — game will not break.')">
+          <input type="hidden" name="action" value="tr_export_js">
           <input type="hidden" name="tmode" value="cw">
-          <button type="submit" class="btn btn-green btn-sm">✔ Apply to cw.txt</button></form>
-        <form method="POST" style="display:inline" onsubmit="return confirm('Apply translations to thm.json?')">
+          <button type="submit" class="btn btn-green btn-sm">🚀 Export to translate.js</button></form>
+        <?php endif; ?>
+        <form method="POST" style="display:inline" onsubmit="return confirm('Apply to thm.json?')">
           <input type="hidden" name="action" value="tr_applythm">
           <input type="hidden" name="tmode" value="cw">
           <button type="submit" class="btn btn-blue btn-sm">🎨 Apply to thm.json</button></form>
@@ -1346,6 +1380,10 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           <input type="hidden" name="tmode" value="cw">
           <button type="submit" class="btn btn-red btn-sm">🗑 Clear</button></form>
         <?php endif; ?>
+        <form method="POST" style="display:inline" onsubmit="return confirm('⚠️ WARNING: Apply to cw.txt may BREAK the game (binary format issue).\n\nUse \"Export to translate.js\" instead.\n\nProceed anyway?')">
+          <input type="hidden" name="action" value="tr_apply">
+          <input type="hidden" name="tmode" value="cw">
+          <button type="submit" class="btn btn-red btn-sm" style="opacity:.55">⚠ Apply binary (risky)</button></form>
       </div>
 
       <?php if($trTotal>0): ?>
