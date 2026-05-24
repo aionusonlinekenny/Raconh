@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v29
+// RaconH English Translation Hook v30
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -299,6 +299,10 @@ var _m={
 '转生：':'Rebirth: ',
 '5转':'5th','4转':'4th','3转':'3rd','2转':'2nd','1转':'1st','0转':'0',
 '雪疥虫':'Frost Bug',
+// --- Stat cap / boost descriptors (rebirth rewards, passive descriptions) ---
+'HP上限提升':'Max HP +','MP上限提升':'Max MP +',
+'上限提升':'Max +',
+'上限':'Max ','提升':'+'
 // --- Skill description components ---
 '自身':'Self ','时触发':' triggers,',
 '持续':'Lasts ','冷却时间':'CD ',
