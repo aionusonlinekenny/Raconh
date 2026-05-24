@@ -282,7 +282,9 @@ function scanCJK($sec){
         $sl=unpack('n',substr($sec,$i,2))[1];
         if($sl>=1&&$sl<=512&&$i+2+$sl<=$len){
             $s=substr($sec,$i+2,$sl);
-            if(mb_check_encoding($s,'UTF-8')&&strlen($s)===$sl&&hasCJK($s)){
+            // Reject: non-UTF-8, wrong length, no CJK, starts with control char, or contains NUL/binary
+            if(mb_check_encoding($s,'UTF-8')&&strlen($s)===$sl&&hasCJK($s)
+               &&!preg_match('/^[\x00-\x1F]/',$s)&&strpos($s,"\x00")===false){
                 $found[]=[$i,$s];$i+=2+$sl;continue;
             }
         }
@@ -522,7 +524,7 @@ if ($action === 'setup') {
         foreach ($extracted as $k => $v) {
             if (!isset($existing[$k])) {
                 // Auto-fill if already translated in translate.js
-                $cn = trim($v['cn']);
+                $cn = preg_replace('/^[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\s]+|[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\s]+$/', '', $v['cn']);
                 if (isset($jsMap[$cn]) && $v['en'] === '') { $v['en'] = $jsMap[$cn]; $prefilled++; }
                 $existing[$k] = $v;
                 $added++;
@@ -548,7 +550,7 @@ if ($action === 'setup') {
         }
         $filled = 0;
         foreach ($trans as $k => &$row) {
-            $cnTrimmed = trim($row['cn']);
+            $cnTrimmed = preg_replace('/^[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\s]+|[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\s]+$/', '', $row['cn']);
             if ($row['en'] === '' && isset($jsMap[$cnTrimmed])) {
                 $row['en'] = $jsMap[$cnTrimmed];
                 $filled++;
@@ -615,11 +617,17 @@ if ($action === 'setup') {
     // Collect new translations not already in translate.js
     // Use jsEscNew() so real newlines/backslashes from cw.txt don't break JS syntax
     $newEntries = [];
+    $seenCN = []; // deduplicate: same Chinese text at multiple binary offsets
     foreach ($trans as $k => $row) {
         if ($row['en'] === '' || $row['en'] === $row['cn']) continue;
-        $cn = trim($row['cn']); // trim spaces that cw.txt binary may include
+        // Strip leading/trailing whitespace and binary control chars (keep \n \t in middle)
+        $cn = preg_replace('/^[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\s]+|[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\s]+$/', '', $row['cn']);
         if ($cn === '') continue;
+        // Reject if binary control chars remain anywhere (garbage extraction)
+        if (preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', $cn)) continue;
         if (isset($existing[$cn])) continue; // already in dict
+        if (isset($seenCN[$cn])) continue;   // duplicate in this export batch
+        $seenCN[$cn] = true;
         $newEntries[] = ['t'=>'e','k'=>jsEscNew($cn),'v'=>jsEscNew($row['en'])];
     }
     if (empty($newEntries)) {
