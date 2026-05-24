@@ -265,7 +265,7 @@ function jsSaveAndBump($entries) {
     if ($new === null || $new === $content) return 'Could not locate var _m={...}; block in translate.js';
     $newVer = jsGetVersion() + 1;
     $new = preg_replace('/Translation Hook v\d+/', 'Translation Hook v'.$newVer, $new);
-    file_put_contents(JS_FILE, $new);
+    file_put_contents(JS_FILE, "\xEF\xBB\xBF" . $new); // UTF-8 BOM for correct encoding detection
     if (file_exists(HTML_FILE)) {
         $html = file_get_contents(HTML_FILE);
         $html = preg_replace('/translate\.js\?v=\d+/', 'translate.js?v='.$newVer, $html);
@@ -522,7 +522,7 @@ if ($action === 'setup') {
         foreach ($extracted as $k => $v) {
             if (!isset($existing[$k])) {
                 // Auto-fill if already translated in translate.js
-                $cn = $v['cn'];
+                $cn = trim($v['cn']);
                 if (isset($jsMap[$cn]) && $v['en'] === '') { $v['en'] = $jsMap[$cn]; $prefilled++; }
                 $existing[$k] = $v;
                 $added++;
@@ -548,8 +548,9 @@ if ($action === 'setup') {
         }
         $filled = 0;
         foreach ($trans as $k => &$row) {
-            if ($row['en'] === '' && isset($jsMap[$row['cn']])) {
-                $row['en'] = $jsMap[$row['cn']];
+            $cnTrimmed = trim($row['cn']);
+            if ($row['en'] === '' && isset($jsMap[$cnTrimmed])) {
+                $row['en'] = $jsMap[$cnTrimmed];
                 $filled++;
             }
         }
@@ -616,7 +617,8 @@ if ($action === 'setup') {
     $newEntries = [];
     foreach ($trans as $k => $row) {
         if ($row['en'] === '' || $row['en'] === $row['cn']) continue;
-        $cn = $row['cn'];
+        $cn = trim($row['cn']); // trim spaces that cw.txt binary may include
+        if ($cn === '') continue;
         if (isset($existing[$cn])) continue; // already in dict
         $newEntries[] = ['t'=>'e','k'=>jsEscNew($cn),'v'=>jsEscNew($row['en'])];
     }
