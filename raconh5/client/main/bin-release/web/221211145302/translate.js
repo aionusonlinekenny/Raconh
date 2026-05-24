@@ -206,7 +206,8 @@ var _m={
 'Rank 3Disciple':'Rank 3 Disciple','Rank 4Disciple':'Rank 4 Disciple','Rank 5Disciple':'Rank 5 Disciple',
 'Guild Power ':'Pwr: ','Guild Power':'Pwr:',
 '通关：':'Clear: ','时间：':'Time: ','盟贡：':'Contrib: ',
-'Available at level ':'Req. Lv.','Available at Lv.':'Req. Lv.',
+'Requires level ':'Req. Lv.','Available at level ':'Req. Lv.','Available at Lv.':'Req. Lv.',
+' to challenge':'',
 '挑战次数不足':'Attempts insufficient','先完成任务':'Finish tasks first',
 '活动未开启':'Event not started','背包已满，是否一键熔炼':'Bag full — smelt all?',
 '恭喜你挑战胜利！':'Challenge victory!','连胜':'Win Streak','盟内排名：':'Guild Rank: ',
@@ -403,7 +404,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v45';
+document.title='EN v46';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
