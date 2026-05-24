@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v24
+// RaconH English Translation Hook v25
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -10,8 +10,8 @@ var _m={
     '10x hunt: guaranteed Purple-quality or above Skill Book',
 // --- First recharge panel (must precede 充值→Recharge component) ---
 '首充豪礼':'First Recharge Gift',
-'首充奖励至少充值':'First Recharge: min. recharge ',
-'元可领':'yuan to claim',
+'首充奖励至少充值':'Need recharge ',
+'元可领':' Yuan to claim',
 // --- System announcements (substrings after {0} substitution) ---
 // NOTE: template uses 战力榜 (not Power榜); 战力→Power runs LATER so key must use original
 '叱咤风云，笑傲江湖。战力榜第一名':'Power Rank #1 ',
@@ -399,7 +399,23 @@ function _patch(){
         var p=egret.TextField.prototype;
         if(!p.__cwT){
             var _td=Object.getOwnPropertyDescriptor(p,'text');
-            if(_td&&_td.set){p.__cwT=true;Object.defineProperty(p,'text',{get:_td.get,set:function(v){_td.set.call(this,_rep(v));},configurable:true,enumerable:_td.enumerable});}
+            var _tfd0=Object.getOwnPropertyDescriptor(p,'textFlow');
+            if(_td&&_td.set){
+                p.__cwT=true;
+                Object.defineProperty(p,'text',{get:_td.get,set:function(v){
+                    var t=_rep(v);
+                    var m=typeof t==='string'&&t.match(/^(Need recharge )(\S+ Yuan)( to claim\S*)$/);
+                    if(m&&_tfd0&&_tfd0.set){
+                        _tfd0.set.call(this,[
+                            {text:m[1],style:{}},
+                            {text:m[2],style:{textColor:0xFFD700}},
+                            {text:m[3],style:{}}
+                        ]);
+                        return;
+                    }
+                    _td.set.call(this,t);
+                },configurable:true,enumerable:_td.enumerable});
+            }
         }
         if(!p.__cwH){
             var _hd=Object.getOwnPropertyDescriptor(p,'htmlText');
