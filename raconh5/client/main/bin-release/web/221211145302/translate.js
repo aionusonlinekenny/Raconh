@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v28
+// RaconH English Translation Hook v29
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -240,6 +240,8 @@ var _m={
 'ATK目标':'ATK targets ',
 'CD时间':'CD ',
 'Crit率':'Crit Rate ',
+'UseSkill一定概率':'Using Skill: chance to ',
+'NormalATK':'normal attack',
 'Guild Rank达到2阶':'Guild Rank 2','Guild Rank达到3阶':'Guild Rank 3',
 'Ch.一Guild':'Top Guild',
 '加入一个Guild':'Join a Guild',
@@ -306,6 +308,11 @@ var _m={
 '个目标造成':'x targets ',
 '范围：':'Range: ','目标：':'Target: ',
 '目标':'target ',
+'使主target ':'on target: ',
+'造成':'deals ','一定概率':'with a chance to ',
+'降低':'-','升高':'+',
+'沉默':'Silenced','眩晕':'Stunned','中毒':'Poisoned','冰冻':'Frozen',
+'只能':'can only ','普通攻击':'normal attack','普攻':'basic attack',
 '扇形':'Fan','圆形':'Circle',
 '，':', ',
 '秒':'s',
