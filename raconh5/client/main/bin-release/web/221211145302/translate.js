@@ -206,7 +206,8 @@ var _m={
 'Rank 3Disciple':'Rank 3 Disciple','Rank 4Disciple':'Rank 4 Disciple','Rank 5Disciple':'Rank 5 Disciple',
 'Guild Contribution:':'Contrib:','Guild Contribution':'Contrib',
 'Guild Power ':'Pwr: ','Guild Power':'Pwr:',
-'通关：':'Clear: ','时间：':'Time: ','盟贡：':'Contrib: ',
+'通关：':'Clear: ','剩余时间：':'Remaining: ','剩余时间':'Remaining','时间：':'Time: ','盟贡：':'Contrib: ',
+'永久':'Permanent','小时':'h ',
 'Requires level ':'Req. Lv.','Available at level ':'Req. Lv.','Available at Lv.':'Req. Lv.',
 ' to challenge':'',
 '挑战次数不足':'Attempts insufficient','先完成任务':'Finish tasks first',
@@ -405,7 +406,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v47';
+document.title='EN v48';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
