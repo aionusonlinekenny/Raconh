@@ -204,6 +204,7 @@ var _m={
 '3RankDisciple':'Rank 3 Disciple','4RankDisciple':'Rank 4 Disciple','5RankDisciple':'Rank 5 Disciple',
 'Rank 1Disciple':'Rank 1 Disciple','Rank 2Disciple':'Rank 2 Disciple',
 'Rank 3Disciple':'Rank 3 Disciple','Rank 4Disciple':'Rank 4 Disciple','Rank 5Disciple':'Rank 5 Disciple',
+'Guild Contribution:':'Contrib:','Guild Contribution':'Contrib',
 'Guild Power ':'Pwr: ','Guild Power':'Pwr:',
 '通关：':'Clear: ','时间：':'Time: ','盟贡：':'Contrib: ',
 'Requires level ':'Req. Lv.','Available at level ':'Req. Lv.','Available at Lv.':'Req. Lv.',
@@ -404,7 +405,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v46';
+document.title='EN v47';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
