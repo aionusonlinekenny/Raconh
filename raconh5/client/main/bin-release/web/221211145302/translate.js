@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v23
+// RaconH English Translation Hook v24
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -194,10 +194,10 @@ var _m={
 '任务':'Quest','九霄塔':'Sky Tower','演武场':'Arena','金玉堂':'Treasure Hall',
 '盟会守军':'Guild Guard','盟会守卫':'Guild Defender',
 '挑战':'Challenge','关卡排名':'Stage Rank','盟会':'Guild',
-'第':'Ch.','级':'Lv.','关':'Stage','层':'Floor',
+'第':'Ch.','级':'Lv.','关卡':'Level','关':' Stage','层':'Floor',
 '爬塔副本':'Tower Dungeon','聚元副本':'Origin Dungeon',
 '全民副本':'All-Server Dungeon',
-'剧情副本':'Story','副本':'Dungeon','关卡':'Level',
+'剧情副本':'Story','副本':'Dungeon',
 '全民':'All-Server','珍稀掉落':'Rare Drops',
 '铸魂配置出错，请联系GM更新配置！':'Soul Cast cfg error - contact GM!',
 '伤害':'DMG','血量':'HP','技能':'Skill','冷却':'CD','强化':'Enh',
@@ -239,7 +239,7 @@ var _m={
 'Skill满级时':'(max level)','Skill总Level':'Skill Level Total ',
 '一本Skills':'Skill Books',
 'Enh一次':'Enhance x1 ',
-'Stage开启':' Stage Unlock',
+'Stage开启':'Stage Unlock',
 'Power达到':'Reach Power ',
 'Challenge个人':'Challenge Solo ',
 // --- Component words (order: longer patterns first) ---
@@ -287,7 +287,7 @@ var _m={
 // --- Loot / reward notifications ---
 '获得：':'Obtained: ','获得了':'obtained ',
 // --- Skill description components ---
-'再战':'Fight Again ','对BOSS':'vs BOSS ',
+'再战':'Fight Again\n','对BOSS':'vs BOSS ',
 // Mixed key: 伤害→DMG fires before 对BOSS check
 '对BOSSDMG':'vs BOSS DMG',
 // --- Monster names (mon_data) ---
