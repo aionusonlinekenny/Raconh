@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v41
+// RaconH English Translation Hook v42
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -291,8 +291,6 @@ var _m={
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
     for(var k in _m)if(s.indexOf(k)>=0)s=s.split(k).join(_m[k]);
-    // Put Lv./lv. on its own line when jammed against English name (no space before it)
-    s=s.replace(/([A-Za-z])([Ll]v\.\d+)/g,'$1\n$2');
     return s;
 }
 var _an={10:'Speed',11:'Max HP',12:'HP',13:'ATK',14:'DEF',15:'Pen',
@@ -336,12 +334,7 @@ function _patch(){
             var _td=Object.getOwnPropertyDescriptor(p,'text');
             if(_td&&_td.set){
                 p.__cwT=true;
-                Object.defineProperty(p,'text',{get:_td.get,set:function(v){
-                    var rep=_rep(v);
-                    // If translation introduced a \n, enable multiline so it renders as line break
-                    if(rep.indexOf('\n')>=0&&!this.multiline)this.multiline=true;
-                    _td.set.call(this,rep);
-                },configurable:true,enumerable:_td.enumerable});
+                Object.defineProperty(p,'text',{get:_td.get,set:function(v){_td.set.call(this,_rep(v));},configurable:true,enumerable:_td.enumerable});
             }
         }
         if(!p.__cwH){
@@ -407,7 +400,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v41';
+document.title='EN v42';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
