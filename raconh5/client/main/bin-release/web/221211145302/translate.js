@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v20
+// RaconH English Translation Hook v21
 (function(){
 var _m={
 // --- First recharge panel (must precede 充值→Recharge component) ---
@@ -48,7 +48,7 @@ var _m={
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
     'Each hunt: 30,000 Silver + guaranteed Skill Book\n10x hunt: guaranteed Purple-quality or above Skill Book',
 // --- Common UI labels ---
-'盟会战力':'Guild Power ','战斗力':'Combat Power','战力：':'Power: ','战力:':'Power:','战力':'Power',
+'盟会战力':'Pwr:','战斗力':'Combat Power','战力：':'Power: ','战力:':'Power:','战力':'Power',
 '恭喜{0}击杀{1}，获得珍贵物品：{2}！':'Congrats! {0} defeated {1}, got: {2}!',
 '未知错误':'Unknown error',
 '背包或仓库为空':'Bag/storage empty',
@@ -346,7 +346,8 @@ var _m={
 '孤傲':'Lone Pride ','月蚀':'Eclipse ','逍遥':'Free Spirit ',
 '沧狼':'Blue Wolf ','浣花':'Lotus ','流星':'Meteor ',
 '潜龙':'Hidden Dragon ','独醉':'Lone Drunk ','嗜血':'Bloodthirsty ',
-'暗影':'Dark Shadow '
+'暗影':'Dark Shadow ',
+'万':'0K'
 };
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
