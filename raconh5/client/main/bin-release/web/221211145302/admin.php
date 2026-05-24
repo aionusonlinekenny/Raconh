@@ -482,9 +482,7 @@ if ($action === 'setup') {
         if (isset($trans[$k])) { $trans[$k]['en'] = trim($en); $saved++; }
     }
     saveTrans($trans);
-    // Auto-apply to cw.txt so source is always up-to-date
-    $applyMsg = applyAllCW($trans);
-    $_SESSION['flash'] = ['type'=>'success','msg'=>"Saved $saved translations and applied to cw.txt. ($applyMsg)"];
+    $_SESSION['flash'] = ['type'=>'success','msg'=>"Saved $saved translations to JSON. Click \"Apply to cw.txt\" when ready to update the game."];
     $redir = 'admin.php?tab=translation&tmode=cw';
     if (!empty($_POST['tsec']))    $redir .= '&tsec='.urlencode($_POST['tsec']);
     if (!empty($_POST['tsearch'])) $redir .= '&tsearch='.urlencode($_POST['tsearch']);
