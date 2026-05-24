@@ -157,30 +157,61 @@ function langBuild($tbls){
 
 // ── translate.js dictionary management ───────────────────────────────────────
 
+// Escape a raw string for writing as a JS single-quoted literal.
+// Existing entries already store escape sequences as two chars (e.g. \n = \ + n),
+// so we ONLY escape bare single quotes and bare backslashes that aren't already
+// part of a JS escape sequence. For NEW strings coming from PHP (cw.txt values
+// that may have real newlines / real backslashes), call jsEscNew() instead.
+function jsEscNew($s) {
+    $s = str_replace('\\', '\\\\', $s);   // real \ → \\
+    $s = str_replace("'",  "\\'",  $s);   // real ' → \'
+    $s = str_replace("\n", '\\n',  $s);   // real LF → \n
+    $s = str_replace("\r", '',     $s);   // strip CR
+    $s = str_replace("\t", '\\t',  $s);   // real TAB → \t
+    return $s;
+}
+
 function jsParseDict() {
     if (!file_exists(JS_FILE)) return [];
     $content = file_get_contents(JS_FILE);
     if (!preg_match('/var _m\s*=\s*\{([\s\S]*?)\n\};/', $content, $m)) return [];
     $block = $m[1];
     $entries = [];
-    foreach (explode("\n", $block) as $rawLine) {
-        $trimmed = trim($rawLine);
+    $lines = explode("\n", $block);
+    $ENTRY_RE = "/'((?:[^'\\\\]|\\\\.)*)'\\s*:\\s*(?:'((?:[^'\\\\]|\\\\.)*)'|\"((?:[^\"\\\\]|\\\\.)*)\"),?/";
+    $KEY_ONLY = "/^'((?:[^'\\\\]|\\\\.)*)'\\s*:\\s*$/";
+    $VAL_ONLY = "/^(?:'((?:[^'\\\\]|\\\\.)*)'|\"((?:[^\"\\\\]|\\\\.)*)\"),?$/";
+    $i = 0; $total = count($lines);
+    while ($i < $total) {
+        $raw = $lines[$i++];
+        $trimmed = trim($raw);
         if ($trimmed === '') continue;
         if (substr($trimmed,0,2) === '//') {
             $entries[] = ['t'=>'c','text'=>ltrim(substr($trimmed,2))];
             continue;
         }
-        $offset = 0; $tlen = strlen($trimmed);
+        // Try full key:value on one line (handles multiple pairs per line)
+        $offset = 0; $tlen = strlen($trimmed); $matched = false;
         while ($offset < $tlen) {
-            if (!preg_match(
-                "/'((?:[^'\\\\]|\\\\.)*)'\\s*:\\s*(?:'((?:[^'\\\\]|\\\\.)*)'|\"((?:[^\"\\\\]|\\\\.)*)\"),?/",
-                $trimmed, $pm, 0, $offset
-            )) break;
+            if (!preg_match($ENTRY_RE, $trimmed, $pm, 0, $offset)) break;
             $k = $pm[1];
             $v = (isset($pm[3]) && $pm[3]!=='') ? $pm[3] : ($pm[2]??'');
             $entries[] = ['t'=>'e','k'=>$k,'v'=>$v];
             $offset += strlen($pm[0]);
+            $matched = true;
         }
+        if ($matched) continue;
+        // Multi-line: key on this line, value on the next
+        if (preg_match($KEY_ONLY, $trimmed, $km) && $i < $total) {
+            $nextTrimmed = trim($lines[$i]);
+            if (preg_match($VAL_ONLY, $nextTrimmed, $vm)) {
+                $i++; // consume the value line
+                $k = $km[1];
+                $v = (isset($vm[2])&&$vm[2]!=='') ? $vm[2] : ($vm[1]??'');
+                $entries[] = ['t'=>'e','k'=>$k,'v'=>$v];
+            }
+        }
+        // else: unrecognised line, skip silently
     }
     return $entries;
 }
@@ -194,6 +225,8 @@ function jsBuildBlock($entries) {
             $lines[] = '// '.$e['text'];
         } elseif ($e['t']==='e') {
             $comma = $i < $lastEIdx ? ',' : '';
+            // k/v already store JS escape sequences as raw chars (\n = two chars \ n)
+            // so we only need to escape bare single quotes
             $k = str_replace("'", "\\'", $e['k']);
             $v = str_replace("'", "\\'", $e['v']);
             $lines[] = "'$k':'$v'$comma";
@@ -209,8 +242,13 @@ function jsGetVersion() {
 
 function jsSaveAndBump($entries) {
     if (!file_exists(JS_FILE)) return 'translate.js not found at '.JS_FILE;
+    // Safety: require at least some entries to prevent wiping the file
+    $eCnt = 0; foreach ($entries as $e) if ($e['t']==='e') $eCnt++;
+    if ($eCnt < 10) return 'Aborting: only '.$eCnt.' entries parsed — would wipe translate.js. Check file format.';
     $content = file_get_contents(JS_FILE);
-    $block   = jsBuildBlock($entries);
+    // Backup before any write
+    file_put_contents(JS_FILE.'.bak', $content);
+    $block = jsBuildBlock($entries);
     $new = preg_replace('/var _m\s*=\s*\{[\s\S]*?\n\};/', "var _m={\n$block\n};", $content, 1);
     if ($new === null || $new === $content) return 'Could not locate var _m={...}; block in translate.js';
     $newVer = jsGetVersion() + 1;
@@ -525,12 +563,13 @@ if ($action === 'setup') {
     $existing = [];
     foreach ($entries as $e) if ($e['t']==='e') $existing[$e['k']] = true;
     // Collect new translations not already in translate.js
+    // Use jsEscNew() so real newlines/backslashes from cw.txt don't break JS syntax
     $newEntries = [];
     foreach ($trans as $k => $row) {
         if ($row['en'] === '' || $row['en'] === $row['cn']) continue;
         $cn = $row['cn'];
         if (isset($existing[$cn])) continue; // already in dict
-        $newEntries[] = ['t'=>'e','k'=>$cn,'v'=>$row['en']];
+        $newEntries[] = ['t'=>'e','k'=>jsEscNew($cn),'v'=>jsEscNew($row['en'])];
     }
     if (empty($newEntries)) {
         $_SESSION['flash'] = ['type'=>'error','msg'=>'No new translations to export. Enter English values first, or all keys already exist in translate.js.'];
