@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v27
+// RaconH English Translation Hook v28
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -236,6 +236,10 @@ var _m={
 '可Smelt ':'can Smelt ','件Equip':'x Equip',
 '的DMG':' DMG',
 'HP回复':'HP Regen',
+'x目标造成':'x targets ',
+'ATK目标':'ATK targets ',
+'CD时间':'CD ',
+'Crit率':'Crit Rate ',
 'Guild Rank达到2阶':'Guild Rank 2','Guild Rank达到3阶':'Guild Rank 3',
 'Ch.一Guild':'Top Guild',
 '加入一个Guild':'Join a Guild',
@@ -289,13 +293,21 @@ var _m={
 '经脉':'Meridian',
 // --- Loot / reward notifications ---
 '获得：':'Obtained: ','获得了':'obtained ',
+// --- Rebirth / passive unlock ---
+'转生：':'Rebirth: ',
+'5转':'5th','4转':'4th','3转':'3rd','2转':'2nd','1转':'1st','0转':'0',
+'雪疥虫':'Frost Bug',
 // --- Skill description components ---
+'自身':'Self ','时触发':' triggers,',
+'持续':'Lasts ','冷却时间':'CD ',
 '增加目标':'Add Target',
 '免伤加成':'DMG Reduce+',
 '对前方':'vs front ','对附近':'AOE ',
 '个目标造成':'x targets ',
 '范围：':'Range: ','目标：':'Target: ',
+'目标':'target ',
 '扇形':'Fan','圆形':'Circle',
+'，':', ',
 '秒':'s',
 '个':'x',
 '再战':'Fight Again\n','对BOSS':'vs BOSS ',
@@ -364,6 +376,7 @@ var _m={
 '沧狼':'Blue Wolf ','浣花':'Lotus ','流星':'Meteor ',
 '潜龙':'Hidden Dragon ','独醉':'Lone Drunk ','嗜血':'Bloodthirsty ',
 '暗影':'Dark Shadow ',
+'增加':'+ ',
 '万':'0K'
 };
 function _rep(s){
