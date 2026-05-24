@@ -161,7 +161,7 @@ function langBuild($tbls){
 
 // ── translate.js dictionary management ───────────────────────────────────────
 
-// Read translate.js stripping UTF-8 BOM if present
+// Read translate.js, strip BOM if present (legacy cleanup)
 function jsReadContent() {
     if (!file_exists(JS_FILE)) return '';
     $c = file_get_contents(JS_FILE);
@@ -265,8 +265,7 @@ function jsSaveAndBump($entries) {
     if ($new === null || $new === $content) return 'Could not locate var _m={...}; block in translate.js';
     $newVer = jsGetVersion() + 1;
     $new = preg_replace('/Translation Hook v\d+/', 'Translation Hook v'.$newVer, $new);
-    // Write with UTF-8 BOM so Windows editors (Notepad++, VS Code) detect encoding correctly
-    file_put_contents(JS_FILE, "\xEF\xBB\xBF" . $new);
+    file_put_contents(JS_FILE, $new);
     if (file_exists(HTML_FILE)) {
         $html = file_get_contents(HTML_FILE);
         $html = preg_replace('/translate\.js\?v=\d+/', 'translate.js?v='.$newVer, $html);
