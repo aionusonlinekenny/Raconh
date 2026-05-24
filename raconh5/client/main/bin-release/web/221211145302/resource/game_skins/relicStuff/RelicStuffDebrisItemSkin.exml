@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="RelicStuffDebrisItemSkin" width="244" height="60" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="RelicStuffDebrisItemSkin" width="290" height="60" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<ns1:BitmapRemote id="_itemBit" width="60" height="60" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0"/>
-	<ns1:Label id="_nameTxt" text="Label" x="66" anchorOffsetX="0" width="163" fontFamily="Microsoft YaHei" verticalCenter="0"/>
-	<e:Image id="_redIcon" source="common_red_icon_png" x="188" y="-1" visible="false"/>
+	<ns1:Label id="_nameTxt" text="Label" x="66" anchorOffsetX="0" width="212" fontFamily="Microsoft YaHei" size="18" verticalCenter="0"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="234" y="-1" visible="false"/>
 </e:Skin>

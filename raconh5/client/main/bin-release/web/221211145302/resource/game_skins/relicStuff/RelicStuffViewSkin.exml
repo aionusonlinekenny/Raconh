@@ -12,10 +12,10 @@
 	<e:Image id="_attrImg" source="relicStuff_xiangxi_png" x="528" y="882"/>
 	<ns1:BitmapRemote id="_nameBit" width="44" height="166" x="154" y="402" anchorOffsetX="0" anchorOffsetY="0"/>
 	<e:Group id="_spGroup" x="135" y="998">
-		<ns1:RelicStuffDebrisItem id="_item0" width="244" height="60" x="0" y="-1" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
-		<ns1:RelicStuffDebrisItem id="_item1" width="244" height="60" x="252" y="-1" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
-		<ns1:RelicStuffDebrisItem id="_item2" width="244" height="60" x="0" y="70" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
-		<ns1:RelicStuffDebrisItem id="_item3" width="244" height="60" x="252" y="69" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
+		<ns1:RelicStuffDebrisItem id="_item0" width="290" height="60" x="0" y="-1" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
+		<ns1:RelicStuffDebrisItem id="_item1" width="290" height="60" x="295" y="-1" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
+		<ns1:RelicStuffDebrisItem id="_item2" width="290" height="60" x="0" y="70" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
+		<ns1:RelicStuffDebrisItem id="_item3" width="290" height="60" x="295" y="69" anchorOffsetX="0" anchorOffsetY="0" skinName="RelicStuffDebrisItemSkin"/>
 	</e:Group>
 	<ns1:Button id="_actBtn" label="Button" y="1007" anchorOffsetX="0" width="238" anchorOffsetY="0" height="105" x="241" visible="false">
 		<ns1:skinName>
