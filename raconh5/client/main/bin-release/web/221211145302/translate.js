@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v21
+// RaconH English Translation Hook v22
 (function(){
 var _m={
 // --- First recharge panel (must precede 充值→Recharge component) ---
@@ -263,6 +263,7 @@ var _m={
 'Rank 1Disciple':'Rank 1 Disciple','Rank 2Disciple':'Rank 2 Disciple',
 'Rank 3Disciple':'Rank 3 Disciple','Rank 4Disciple':'Rank 4 Disciple',
 'Rank 5Disciple':'Rank 5 Disciple',
+'Guild Power ':'Pwr: ','Guild Power':'Pwr:',
 '通关：':'Clear: ','时间：':'Time: ',
 '盟贡：':'Contrib: ',
 '挑战次数不足':'Attempts insufficient',
