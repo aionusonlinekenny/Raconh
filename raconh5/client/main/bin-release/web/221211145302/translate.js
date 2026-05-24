@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v39
+// RaconH English Translation Hook v40
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -238,15 +238,15 @@ var _m={
 '黑衣刺客':'Shadow Assassin','大同叛军':'Datong Rebel','暗夜刺客':'Night Assassin',
 '禁军':'Imperial Guard','曹少钦':'Cao Shaoqin',
 '文神雕像':'Scholar Statue','武神雕像':'Warrior Statue','文武化身':'Sage Avatar',
-'玄武':'Xuanwu','蒙烈':'Meng Lie','邪妖天师':'Evil Warlock',
-'炼狱将魂':'Infernal Soul','岩灵傀儡':'Stone Golem',
-'炎火妖姬':'Flame Demoness','潮汐将魂':'Tide Soul',
-'萧平章':'Xiao Pingzhang','云魂':'Cloud Soul','雾隐':'Mist Phantom',
-'星辉':'Starlight','修罗':'Shura','千绵':'Qian Mian','蓝月':'Blue Moon',
-'狂狮':'Fierce Lion','铁成':'Tie Cheng','释羽':'Shi Yu','司徒':'Situ','少钦':'Shao Qin',
-'月魄':'Moon Soul','玉衡':'Yu Heng','寻亦':'Xun Yi','烟杀':'Smoke Kill',
-'玄策':'Xuan Ce','墨羽':'Ink Wing','圣灵':'Holy Spirit','血影':'Blood Shadow',
-'昊阳':'Hao Yang','擎天':'Sky Pillar','御皇神':'Imperial God',
+'玄武':'Xuanwu','蒙烈':'Meng','邪妖天师':'Evil Wlk',
+'炼狱将魂':'InfSoul','岩灵傀儡':'Golem',
+'炎火妖姬':'FlameDmn','潮汐将魂':'TideSoul',
+'萧平章':'XiaoPZ','云魂':'Cloud','雾隐':'Misty',
+'星辉':'Starlt','修罗':'Shura','千绵':'Mian','蓝月':'Moon',
+'狂狮':'Lion','铁成':'Cheng','释羽':'ShiYu','司徒':'Situ','少钦':'ShaoQ',
+'月魄':'MSoul','玉衡':'YuHng','寻亦':'XunYi','烟杀':'Smoke',
+'玄策':'XuanC','墨羽':'InkWg','圣灵':'Holy','血影':'Shadow',
+'昊阳':'HaoYg','擎天':'Titan','御皇神':'Imp.God',
 '攻城援军':'Siege Support','攻城勇士':'Siege Warrior',
 '岩魂':'Rock Soul','炎魂':'Flame Soul','海岩傀儡':'Sea Golem',
 '缥缈录小怪':'Dungeon Minion',
@@ -402,7 +402,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v39';
+document.title='EN v40';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
