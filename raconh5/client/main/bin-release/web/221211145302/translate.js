@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v30
+// RaconH English Translation Hook v31
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -161,6 +161,7 @@ var _m={
 '激活称号':'Activate Title',
 '生命恢复':'HP Regen','伤害加深':'DMG Amp','伤害减免':'DMG Reduce',
 '暴击几率':'Crit Rate','命中几率':'Hit Rate','闪避几率':'Evasion Rate',
+'暴击加成':'Crit Bonus','经验加成':'EXP Bonus',
 '气血上限':'Max HP','气血':'HP','攻击':'ATK','防御':'DEF','破甲':'Pen',
 '命中':'Hit','闪避':'Eva','暴击':'Crit','坚韧':'TEN',
 '战力':'Power','等级':'Level','移动':'Speed','生命':'HP',
@@ -353,6 +354,7 @@ var _m={
 '攻城援军':'Siege Support','攻城勇士':'Siege Warrior',
 '岩魂':'Rock Soul','炎魂':'Flame Soul',
 '海岩傀儡':'Sea Golem',
+'上古巨猿':'Ancient Giant Ape',
 '缥缈录小怪':'Dungeon Minion',
 // --- Title names (title_data) ---
 '初露峥嵘':'Rising Star','第一盟会':'Top Guild',
@@ -374,6 +376,7 @@ var _m={
 '江湖风云':'Jianghu Storm','守城神将':'City Guardian',
 '皇城对战':'Imperial Battle','皇城战':'Imperial War',
 '缥缈录':'Misty Records',
+'七星龙渊':'Seven-Star Dragon Abyss',
 // --- Guild role labels ---
 '弟子':'Disciple','宗主':'Guild Master',
 '护法':'Guild Elder','长老':'Elder',
@@ -387,6 +390,10 @@ var _m={
 '沧狼':'Blue Wolf ','浣花':'Lotus ','流星':'Meteor ',
 '潜龙':'Hidden Dragon ','独醉':'Lone Drunk ','嗜血':'Bloodthirsty ',
 '暗影':'Dark Shadow ',
+// --- Standalone UI / error messages (no component conflicts) ---
+'目标地图不支持传送':'Teleport not supported on this map',
+'装备等阶大于养成等阶':'Equipment tier exceeds upgrade tier',
+'参与':'Join',
 '增加':'+ ',
 '万':'0K'
 };
