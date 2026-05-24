@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v19
+// RaconH English Translation Hook v20
 (function(){
 var _m={
 // --- First recharge panel (must precede 充值→Recharge component) ---
@@ -48,7 +48,7 @@ var _m={
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
     'Each hunt: 30,000 Silver + guaranteed Skill Book\n10x hunt: guaranteed Purple-quality or above Skill Book',
 // --- Common UI labels ---
-'战斗力':'Combat Power','战力：':'Power: ','战力:':'Power:','战力':'Power',
+'盟会战力':'Guild Power ','战斗力':'Combat Power','战力：':'Power: ','战力:':'Power:','战力':'Power',
 '恭喜{0}击杀{1}，获得珍贵物品：{2}！':'Congrats! {0} defeated {1}, got: {2}!',
 '未知错误':'Unknown error',
 '背包或仓库为空':'Bag/storage empty',
@@ -182,7 +182,7 @@ var _m={
 '请输入新名字：':'Enter new name:',
 '请输入新名字:':'Enter new name:',
 '名字最长5个字':'Max 5 characters',
-'现任掌门：':'Guild Master: ','虚位以待':'Vacant',
+'现任掌门：':'Master: ','虚位以待':'Vacant',
 '钢铁之心':'Steel Heart',
 '钻石特权加成':'Diamond Privilege Bonus ',
 '升级':'Level Up','装备':'Equip','镶嵌':'Inlay','宝石':'Gem','铸魂':'Soul Cast',
@@ -241,14 +241,14 @@ var _m={
 '夺取':'Obtain ','夺回':'Reclaim ',
 '碎片':' Shard','熔炼':'Smelt ',
 '进阶':'Upgrade ','升到':'Reach ',
-'10阶':'Rank 10','9阶':'Rank 9','8阶':'Rank 8','7阶':'Rank 7','6阶':'Rank 6',
-'5阶':'Rank 5','4阶':'Rank 4','3阶':'Rank 3','2阶':'Rank 2','1阶':'Rank 1',
+'10阶':'Rank 10 ','9阶':'Rank 9 ','8阶':'Rank 8 ','7阶':'Rank 7 ','6阶':'Rank 6 ',
+'5阶':'Rank 5 ','4阶':'Rank 4 ','3阶':'Rank 3 ','2阶':'Rank 2 ','1阶':'Rank 1 ',
 '阶':'Rank',
 '激活':'Activate ',
 '穿戴':'Wear ','个人':'Solo ',
 '全身':'Full ',
 '普通捐献':'Normal Donation','高级捐献':'Premium Donation','捐献':'Donate',
-'贡献':' Contrib','剩余次数':'Remaining: ',
+'贡献':' pts','剩余次数':'Remaining: ','次':'x',
 '寻找':'Find ','无双':'Peerless ',
 '传闻':' Rumor','秘闻':' Secrets',
 '风声':' Rumors','一次':'x1 ','一颗':' ',
@@ -260,6 +260,9 @@ var _m={
 '1RankDisciple':'Rank 1 Disciple','2RankDisciple':'Rank 2 Disciple',
 '3RankDisciple':'Rank 3 Disciple','4RankDisciple':'Rank 4 Disciple',
 '5RankDisciple':'Rank 5 Disciple',
+'Rank 1Disciple':'Rank 1 Disciple','Rank 2Disciple':'Rank 2 Disciple',
+'Rank 3Disciple':'Rank 3 Disciple','Rank 4Disciple':'Rank 4 Disciple',
+'Rank 5Disciple':'Rank 5 Disciple',
 '通关：':'Clear: ','时间：':'Time: ',
 '盟贡：':'Contrib: ',
 '挑战次数不足':'Attempts insufficient',
