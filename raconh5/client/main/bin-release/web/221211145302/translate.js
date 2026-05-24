@@ -1,6 +1,13 @@
-// RaconH English Translation Hook v22
+// RaconH English Translation Hook v23
 (function(){
 var _m={
+// --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
+'每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
+    'Each hunt: 30,000 Silver + guaranteed Skill Book\n10x hunt: guaranteed Purple-quality or above Skill Book',
+'每次寻宝获得3万银币，同时必得绝学心法':
+    'Each hunt: 30,000 Silver + guaranteed Skill Book',
+'寻宝10次必得紫色品质以上绝学心法':
+    '10x hunt: guaranteed Purple-quality or above Skill Book',
 // --- First recharge panel (must precede 充值→Recharge component) ---
 '首充豪礼':'First Recharge Gift',
 '首充奖励至少充值':'First Recharge: min. recharge ',
@@ -45,8 +52,6 @@ var _m={
 '激活或提升':'Activate or upgrade ','类型：':'Type: ','通用':'Universal',
 // --- Treasure hunt UI ---
 '积分：':'Points: ','积分不足':'Insufficient points','寻宝记录':'Hunt Records',
-'每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
-    'Each hunt: 30,000 Silver + guaranteed Skill Book\n10x hunt: guaranteed Purple-quality or above Skill Book',
 // --- Common UI labels ---
 '盟会战力':'Pwr:','战斗力':'Combat Power','战力：':'Power: ','战力:':'Power:','战力':'Power',
 '恭喜{0}击杀{1}，获得珍贵物品：{2}！':'Congrats! {0} defeated {1}, got: {2}!',
