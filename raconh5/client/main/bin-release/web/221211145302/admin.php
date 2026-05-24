@@ -26,6 +26,8 @@ define('CW_ORIG',    __DIR__ . '/resource/res/cw.txt.original');
 define('THM_FILE',   __DIR__ . '/resource/default.thm.json');
 define('THM_ORIG',   __DIR__ . '/resource/default.thm.json.original');
 define('TRANS_FILE', __DIR__ . '/cw_translations.json');
+define('JS_FILE',    __DIR__ . '/translate.js');
+define('HTML_FILE',  __DIR__ . '/index.html');
 
 function gmExec(array $args) {
     if (!function_exists('shell_exec')) return 'error|shell_exec_disabled';
@@ -151,6 +153,75 @@ function langBuild($tbls){
         foreach($ents as[$sid,$sv]){$out.=pack('n',$sid).pack('n',strlen($sv)).$sv;}
     }
     return $out;
+}
+
+// ── translate.js dictionary management ───────────────────────────────────────
+
+function jsParseDict() {
+    if (!file_exists(JS_FILE)) return [];
+    $content = file_get_contents(JS_FILE);
+    if (!preg_match('/var _m\s*=\s*\{([\s\S]*?)\n\};/', $content, $m)) return [];
+    $block = $m[1];
+    $entries = [];
+    foreach (explode("\n", $block) as $rawLine) {
+        $trimmed = trim($rawLine);
+        if ($trimmed === '') continue;
+        if (substr($trimmed,0,2) === '//') {
+            $entries[] = ['t'=>'c','text'=>ltrim(substr($trimmed,2))];
+            continue;
+        }
+        $offset = 0; $tlen = strlen($trimmed);
+        while ($offset < $tlen) {
+            if (!preg_match(
+                "/'((?:[^'\\\\]|\\\\.)*)'\\s*:\\s*(?:'((?:[^'\\\\]|\\\\.)*)'|\"((?:[^\"\\\\]|\\\\.)*)\"),?/",
+                $trimmed, $pm, 0, $offset
+            )) break;
+            $k = $pm[1];
+            $v = (isset($pm[3]) && $pm[3]!=='') ? $pm[3] : ($pm[2]??'');
+            $entries[] = ['t'=>'e','k'=>$k,'v'=>$v];
+            $offset += strlen($pm[0]);
+        }
+    }
+    return $entries;
+}
+
+function jsBuildBlock($entries) {
+    $lastEIdx = -1;
+    foreach ($entries as $i=>$e) if ($e['t']==='e') $lastEIdx = $i;
+    $lines = [];
+    foreach ($entries as $i=>$e) {
+        if ($e['t']==='c') {
+            $lines[] = '// '.$e['text'];
+        } elseif ($e['t']==='e') {
+            $comma = $i < $lastEIdx ? ',' : '';
+            $k = str_replace("'", "\\'", $e['k']);
+            $v = str_replace("'", "\\'", $e['v']);
+            $lines[] = "'$k':'$v'$comma";
+        }
+    }
+    return implode("\n", $lines);
+}
+
+function jsGetVersion() {
+    if (!file_exists(JS_FILE)) return 0;
+    return preg_match('/Hook v(\d+)/', file_get_contents(JS_FILE), $m) ? (int)$m[1] : 0;
+}
+
+function jsSaveAndBump($entries) {
+    if (!file_exists(JS_FILE)) return 'translate.js not found at '.JS_FILE;
+    $content = file_get_contents(JS_FILE);
+    $block   = jsBuildBlock($entries);
+    $new = preg_replace('/var _m\s*=\s*\{[\s\S]*?\n\};/', "var _m={\n$block\n};", $content, 1);
+    if ($new === null || $new === $content) return 'Could not locate var _m={...}; block in translate.js';
+    $newVer = jsGetVersion() + 1;
+    $new = preg_replace('/Translation Hook v\d+/', 'Translation Hook v'.$newVer, $new);
+    file_put_contents(JS_FILE, $new);
+    if (file_exists(HTML_FILE)) {
+        $html = file_get_contents(HTML_FILE);
+        $html = preg_replace('/translate\.js\?v=\d+/', 'translate.js?v='.$newVer, $html);
+        file_put_contents(HTML_FILE, $html);
+    }
+    return null;
 }
 
 function hasCJK($s){return(bool)preg_match('/[\x{4e00}-\x{9fff}\x{3400}-\x{4dbf}]/u',$s);}
@@ -445,6 +516,82 @@ if ($action === 'setup') {
     if (file_exists(TRANS_FILE)) unlink(TRANS_FILE);
     $_SESSION['flash'] = ['type'=>'success','msg'=>'Translation data cleared.'];
     header('Location: admin.php?tab=translation'); exit;
+
+} elseif ($action === 'js_add') {
+    requireLogin();
+    $nk = trim($_POST['new_k'] ?? '');
+    $nv = trim($_POST['new_v'] ?? '');
+    $after = $_POST['after'] ?? '__end__';
+    if ($nk === '') { $_SESSION['flash']=['type'=>'error','msg'=>'Chinese key is required.']; }
+    elseif ($nv === '') { $_SESSION['flash']=['type'=>'error','msg'=>'English value is required.']; }
+    else {
+        $entries = jsParseDict();
+        $dup = false;
+        foreach ($entries as $e) if ($e['t']==='e' && $e['k']===$nk) { $dup=true; break; }
+        if ($dup) {
+            $_SESSION['flash']=['type'=>'error','msg'=>"Key already exists: '$nk'. Edit the existing row instead."];
+        } else {
+            $ne = ['t'=>'e','k'=>$nk,'v'=>$nv];
+            if ($after === '__end__') {
+                // Insert before the very last entry
+                $insertAt = count($entries);
+                for ($i=count($entries)-1;$i>=0;$i--) { if($entries[$i]['t']==='e'){$insertAt=$i;break;} }
+                array_splice($entries,$insertAt,0,[$ne]);
+            } else {
+                $out=[]; $inserted=false;
+                foreach ($entries as $e) {
+                    $out[]=$e;
+                    if ($e['t']==='e'&&$e['k']===$after) { $out[]=$ne; $inserted=true; }
+                }
+                if (!$inserted) $out[]=$ne;
+                $entries=$out;
+            }
+            $err = jsSaveAndBump($entries);
+            if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
+            else $_SESSION['flash']=['type'=>'success','msg'=>"Added '$nk' → '$nv'. v".jsGetVersion()." saved."];
+        }
+    }
+    header('Location: admin.php?tab=translation&jsq='.urlencode($_POST['jsq']??'')); exit;
+
+} elseif ($action === 'js_save_all') {
+    requireLogin();
+    $keys = $_POST['jk'] ?? [];
+    $vals = $_POST['jv'] ?? [];
+    if (count($keys) !== count($vals)) {
+        $_SESSION['flash']=['type'=>'error','msg'=>'Key/value count mismatch.'];
+    } else {
+        $updates = [];
+        for ($i=0;$i<count($keys);$i++) $updates[$keys[$i]] = trim($vals[$i]);
+        $entries = jsParseDict();
+        $changed = 0;
+        foreach ($entries as &$e) {
+            if ($e['t']==='e' && isset($updates[$e['k']]) && $updates[$e['k']] !== $e['v']) {
+                $e['v'] = $updates[$e['k']]; $changed++;
+            }
+        }
+        unset($e);
+        $err = jsSaveAndBump($entries);
+        if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
+        else $_SESSION['flash']=['type'=>'success','msg'=>"Saved $changed change(s). translate.js v".jsGetVersion()." written."];
+    }
+    $redir = 'admin.php?tab=translation';
+    if (!empty($_POST['jsq']))  $redir .= '&jsq='.urlencode($_POST['jsq']);
+    if (!empty($_POST['jspg'])) $redir .= '&jspg='.(int)$_POST['jspg'];
+    header('Location: '.$redir); exit;
+
+} elseif ($action === 'js_delete') {
+    requireLogin();
+    $dk = $_POST['del_k'] ?? '';
+    $entries = jsParseDict();
+    $cnt = count($entries);
+    $entries = array_values(array_filter($entries, fn($e)=>!($e['t']==='e'&&$e['k']===$dk)));
+    if (count($entries)===$cnt) { $_SESSION['flash']=['type'=>'error','msg'=>"Key not found: '$dk'"]; }
+    else {
+        $err = jsSaveAndBump($entries);
+        if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
+        else $_SESSION['flash']=['type'=>'success','msg'=>"Deleted '$dk'. v".jsGetVersion()." saved."];
+    }
+    header('Location: admin.php?tab=translation&jsq='.urlencode($_POST['jsq']??'')); exit;
 }
 
 // URL flash
@@ -462,6 +609,10 @@ $activeTab = $_GET['tab'] ?? 'players';
 $trTrans = []; $trSections = []; $trRows = []; $trFilter = ''; $trSearch = '';
 $trPage = 1; $trTotal = 0; $trDone = 0; $trPageCount = 1;
 $trCwExists = file_exists(CW_FILE); $trOrigExists = file_exists(CW_ORIG);
+// JS dict vars
+$jsAllEntries=[]; $jsEntries=[]; $jsFiltered=[]; $jsPageRows=[];
+$jsVersion=0; $jsQuery=''; $jsPage=1; $jsTotal=0; $jsPageCount=1;
+$jsAllKeys=[]; $jsPerPage=50;
 $setupMode = noAdmins();
 
 $players=$admins=$stats=[];
@@ -563,33 +714,44 @@ if (isLoggedIn()) {
 
     // ── Translation tab ──
     if ($activeTab === 'translation') {
+        // JS dict
+        $jsAllEntries = jsParseDict();
+        $jsVersion    = jsGetVersion();
+        $jsQuery      = trim($_GET['jsq']  ?? '');
+        $jsPage       = max(1,(int)($_GET['jspg'] ?? 1));
+        $jsEntries    = array_values(array_filter($jsAllEntries,fn($e)=>$e['t']==='e'));
+        $jsFiltered   = $jsQuery==='' ? $jsEntries : array_values(array_filter($jsEntries,
+            fn($e)=>mb_stripos($e['k'],$jsQuery)!==false||mb_stripos($e['v'],$jsQuery)!==false));
+        $jsTotal      = count($jsFiltered);
+        $jsPageCount  = max(1,(int)ceil($jsTotal/$jsPerPage));
+        $jsPage       = min($jsPage,$jsPageCount);
+        $jsPageRows   = array_slice($jsFiltered,($jsPage-1)*$jsPerPage,$jsPerPage);
+        $jsAllKeys    = array_column($jsEntries,'k');
+        // cw.txt
         $trTrans  = loadTrans();
         $trFilter = $_GET['tsec']    ?? '';
         $trSearch = trim($_GET['tsearch'] ?? '');
-        $trPage   = max(1, (int)($_GET['tpage'] ?? 1));
+        $trPage   = max(1,(int)($_GET['tpage'] ?? 1));
         $perPage  = 100;
-
         $secMap = [];
-        foreach ($trTrans as $k => $v) {
-            $s = $v['section'];
-            if (!isset($secMap[$s])) $secMap[$s] = ['total'=>0,'done'=>0];
+        foreach ($trTrans as $k=>$v) {
+            $s=$v['section'];
+            if(!isset($secMap[$s])) $secMap[$s]=['total'=>0,'done'=>0];
             $secMap[$s]['total']++;
-            if ($v['en'] !== '') $secMap[$s]['done']++;
+            if($v['en']!=='') $secMap[$s]['done']++;
         }
         ksort($secMap);
-        $trSections = $secMap;
-        $trTotal    = count($trTrans);
-        $trDone     = count(array_filter($trTrans, fn($r)=>$r['en']!==''));
-
-        $filtered = [];
-        foreach ($trTrans as $k => $v) {
-            if ($trFilter && $v['section'] !== $trFilter) continue;
-            if ($trSearch !== '' && stripos($v['cn'],$trSearch)===false && stripos($v['en'],$trSearch)===false) continue;
-            $filtered[$k] = $v;
+        $trSections=$secMap; $trTotal=count($trTrans);
+        $trDone=count(array_filter($trTrans,fn($r)=>$r['en']!==''));
+        $filtered=[];
+        foreach ($trTrans as $k=>$v) {
+            if ($trFilter&&$v['section']!==$trFilter) continue;
+            if ($trSearch!==''&&stripos($v['cn'],$trSearch)===false&&stripos($v['en'],$trSearch)===false) continue;
+            $filtered[$k]=$v;
         }
-        $trPageCount = max(1, (int)ceil(count($filtered)/$perPage));
-        $trPage = min($trPage, $trPageCount);
-        $trRows = array_slice($filtered, ($trPage-1)*$perPage, $perPage, true);
+        $trPageCount=max(1,(int)ceil(count($filtered)/$perPage));
+        $trPage=min($trPage,$trPageCount);
+        $trRows=array_slice($filtered,($trPage-1)*$perPage,$perPage,true);
     }
 
     // ── Game DB tab ──
@@ -772,6 +934,27 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
   border-radius:4px;color:#90a8d0;font-size:12px;text-decoration:none}
 .tr-pager a:hover{border-color:rgba(240,180,60,.4);color:#f0c060}
 .tr-pager span.cur{background:rgba(240,180,60,.15);border-color:rgba(240,180,60,.4);color:#f0c060}
+/* ── JS Dict UI ── */
+.jsd-stats{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.jsd-stat{background:rgba(255,255,255,.04);border:1px solid rgba(240,180,60,.12);border-radius:6px;padding:10px 16px}
+.jsd-stat .v{font-size:22px;font-weight:700;color:#f0c060}
+.jsd-stat .l{font-size:11px;color:#607090}
+.jsd-add{background:rgba(255,255,255,.03);border:1px solid rgba(80,200,100,.2);border-radius:8px;padding:16px;margin-bottom:18px}
+.jsd-add h3{font-size:13px;color:#80c890;margin-bottom:12px}
+.jsd-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.jsd-fg{flex:1;min-width:150px;display:flex;flex-direction:column;gap:4px}
+.jsd-fg label{font-size:11px;color:#6080a0}
+.jsd-fg input,.jsd-fg select{width:100%;font-size:13px}
+.jsd-tbl td{padding:5px 8px;vertical-align:middle}
+.jsd-key{color:#c0d0e0;font-size:12px;font-family:monospace;max-width:220px;word-break:break-all}
+.jsd-vi{width:100%;min-width:200px;padding:4px 8px;font-size:12px;background:rgba(0,0,10,.5);
+  border:1px solid rgba(240,180,60,.2);border-radius:4px;color:#dde0e8}
+.jsd-vi:focus{border-color:#f0c060;outline:none}
+.jsd-pager{display:flex;gap:6px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.jsd-pager a,.jsd-pager span{padding:4px 10px;background:rgba(40,60,100,.4);border:1px solid rgba(100,140,200,.2);
+  border-radius:4px;color:#90a8d0;font-size:12px;text-decoration:none}
+.jsd-pager a:hover{border-color:rgba(240,180,60,.4);color:#f0c060}
+.jsd-pager span.cur{background:rgba(240,180,60,.15);border-color:rgba(240,180,60,.4);color:#f0c060}
 </style>
 </head>
 <body>
@@ -1109,177 +1292,247 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
 
     <!-- ══ TRANSLATION ══ -->
     <div class="tab-panel <?=$activeTab==='translation'?'active':''?>">
-      <div class="page-title">🌐 Translation Editor</div>
-      <div class="page-sub">Extract Chinese strings from cw.txt / thm.json, add English translations, then apply.</div>
-
-      <!-- File status -->
-      <div style="margin-bottom:14px;font-size:12px;color:#6070a0">
-        <span style="color:<?=$trCwExists?'#60d070':'#d06060'?>"><?=$trCwExists?'✔':'✘'?> cw.txt</span>
-        &nbsp;&nbsp;
-        <span style="color:<?=$trOrigExists?'#60d070':'#a07040'?>"><?=$trOrigExists?'✔':'⚠'?> cw.txt.original<?=$trOrigExists?'':' (will be created on first apply)'?></span>
-        &nbsp;&nbsp;
-        <span style="color:<?=file_exists(TRANS_FILE)?'#60d070':'#a07040'?>"><?=file_exists(TRANS_FILE)?'✔':'⚠'?> cw_translations.json<?=file_exists(TRANS_FILE)?'':' (run Extract first)'?></span>
+      <div class="page-title">🌐 JS Translation Dictionary</div>
+      <div class="page-sub">
+        Edit the translate.js dictionary. Saving auto-increments the version and updates index.html.
+        &nbsp;
+        <span style="color:<?=file_exists(JS_FILE)?'#60d070':'#d06060'?>">
+          <?=file_exists(JS_FILE)?'✔ translate.js':'✘ translate.js NOT found at '.htmlspecialchars(JS_FILE)?>
+        </span>
       </div>
 
-      <!-- Toolbar -->
-      <div class="tr-toolbar">
-        <form method="POST" style="display:inline">
-          <input type="hidden" name="action" value="tr_extract">
-          <button type="submit" class="btn btn-gold">⬇ Extract Strings</button>
-        </form>
-        <form method="POST" style="display:inline" onsubmit="return confirm('Apply translations to cw.txt now?')">
-          <input type="hidden" name="action" value="tr_apply">
-          <button type="submit" class="btn btn-green">✔ Apply to cw.txt</button>
-        </form>
-        <form method="POST" style="display:inline" onsubmit="return confirm('Apply translations to thm.json now?')">
-          <input type="hidden" name="action" value="tr_applythm">
-          <button type="submit" class="btn btn-blue">🎨 Apply to thm.json</button>
-        </form>
-        <?php if($trOrigExists): ?>
-        <form method="POST" style="display:inline" onsubmit="return confirm('Restore original cw.txt? This undoes Apply.')">
-          <input type="hidden" name="action" value="tr_restore">
-          <button type="submit" class="btn btn-gray">↩ Restore Original</button>
-        </form>
-        <?php endif; ?>
-        <?php if(file_exists(TRANS_FILE)): ?>
-        <form method="POST" style="display:inline" onsubmit="return confirm('Clear ALL translation data? This cannot be undone.')">
-          <input type="hidden" name="action" value="tr_clear">
-          <button type="submit" class="btn btn-red btn-sm">🗑 Clear</button>
-        </form>
-        <?php endif; ?>
-      </div>
-
-      <?php if($trTotal > 0): ?>
       <!-- Stats -->
-      <div class="tr-stats">
-        <div class="tr-stat"><div class="v"><?=number_format($trTotal)?></div><div class="l">Total strings</div></div>
-        <div class="tr-stat"><div class="v"><?=number_format($trDone)?></div><div class="l">Translated</div></div>
-        <div class="tr-stat"><div class="v"><?=number_format($trTotal-$trDone)?></div><div class="l">Remaining</div></div>
-        <div class="tr-stat"><div class="v"><?=count($trSections)?></div><div class="l">Sections</div></div>
+      <div class="jsd-stats">
+        <div class="jsd-stat"><div class="v"><?=count($jsEntries)?></div><div class="l">Total entries</div></div>
+        <div class="jsd-stat"><div class="v">v<?=$jsVersion?></div><div class="l">Current version</div></div>
+        <div class="jsd-stat"><div class="v"><?=file_exists(JS_FILE)?number_format(filesize(JS_FILE)).' B':'—'?></div><div class="l">File size</div></div>
       </div>
 
-      <!-- Progress bar -->
-      <div class="tr-progress" title="<?=$trDone?>/<?=$trTotal?>">
-        <div class="tr-progress-bar" style="width:<?=$trTotal?round(100*$trDone/$trTotal):0?>%"></div>
-      </div>
-
-      <!-- Filter form -->
-      <form method="GET" style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
+      <!-- Search -->
+      <form method="GET" style="display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
         <input type="hidden" name="tab" value="translation">
-        <input type="search" name="tsearch" value="<?=htmlspecialchars($trSearch)?>"
-               placeholder="Search strings…" style="max-width:220px;font-size:13px">
+        <input type="search" name="jsq" value="<?=htmlspecialchars($jsQuery)?>"
+               placeholder="Search Chinese or English…" style="max-width:300px;font-size:13px;padding:8px 12px">
         <button type="submit" class="btn btn-blue btn-sm">Search</button>
-        <?php if($trSearch||$trFilter): ?>
+        <?php if($jsQuery): ?>
           <a href="admin.php?tab=translation" class="btn btn-gray btn-sm">✕ Clear</a>
+          <span style="font-size:12px;color:#607090"><?=$jsTotal?> result<?=$jsTotal==1?'':'s'?></span>
         <?php endif; ?>
       </form>
 
-      <!-- Section filter buttons -->
-      <div class="tr-sec-list">
-        <a href="admin.php?tab=translation<?=$trSearch?'&tsearch='.urlencode($trSearch):''?>"
-           class="tr-sec-btn <?=$trFilter===''?'sel':''?>">All (<?=$trTotal?>)</a>
-        <?php foreach($trSections as $sn=>$si): ?>
-          <a href="admin.php?tab=translation&tsec=<?=urlencode($sn)?><?=$trSearch?'&tsearch='.urlencode($trSearch):''?>"
-             class="tr-sec-btn <?=$trFilter===$sn?'sel':''?>">
-            <?=htmlspecialchars($sn)?> (<?=$si['done']?>/<?=$si['total']?>)
-          </a>
-        <?php endforeach; ?>
+      <!-- Add new entry -->
+      <div class="jsd-add">
+        <h3>➕ Add new entry</h3>
+        <form method="POST">
+          <input type="hidden" name="action" value="js_add">
+          <input type="hidden" name="jsq"    value="<?=htmlspecialchars($jsQuery)?>">
+          <div class="jsd-row">
+            <div class="jsd-fg">
+              <label>Chinese key (exact text to match in game)</label>
+              <input type="text" name="new_k" placeholder="e.g. 攻击力增加" required style="font-family:monospace">
+            </div>
+            <div class="jsd-fg">
+              <label>English replacement</label>
+              <input type="text" name="new_v" placeholder="e.g. ATK Boost" required>
+            </div>
+            <div class="jsd-fg" style="max-width:240px">
+              <label>Insert position (after this key)</label>
+              <select name="after">
+                <option value="__end__">— Before last entry (万) —</option>
+                <?php foreach($jsAllKeys as $k): ?>
+                  <option value="<?=htmlspecialchars($k)?>"><?=htmlspecialchars(mb_strlen($k)>44?mb_substr($k,0,44).'…':$k)?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <div style="padding-bottom:2px">
+              <button type="submit" class="btn btn-green">➕ Add &amp; Save</button>
+            </div>
+          </div>
+        </form>
       </div>
 
-      <!-- Translation form -->
-      <?php if(!empty($trRows)): ?>
+      <!-- Entries table -->
+      <?php if(!empty($jsPageRows)): ?>
       <form method="POST">
-        <input type="hidden" name="action" value="tr_save">
-        <input type="hidden" name="tsec"    value="<?=htmlspecialchars($trFilter)?>">
-        <input type="hidden" name="tsearch" value="<?=htmlspecialchars($trSearch)?>">
-        <input type="hidden" name="tpage"   value="<?=$trPage?>">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <input type="hidden" name="action" value="js_save_all">
+        <input type="hidden" name="jsq"   value="<?=htmlspecialchars($jsQuery)?>">
+        <input type="hidden" name="jspg"  value="<?=$jsPage?>">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
           <span style="font-size:12px;color:#607090">
-            Showing <?=count($trRows)?> strings (page <?=$trPage?>/<?=$trPageCount?>)
+            Showing <?=count($jsPageRows)?>/<?=$jsTotal?> entries
+            <?=$jsQuery ? '— filtered by "'.htmlspecialchars($jsQuery).'"' : ''?>
+            &nbsp;(page <?=$jsPage?>/<?=$jsPageCount?>)
           </span>
-          <button type="submit" class="btn btn-gold btn-sm">💾 Save Page</button>
+          <button type="submit" class="btn btn-gold btn-sm">💾 Save Changes on This Page</button>
         </div>
-
-        <div class="table-wrap" style="max-height:600px">
-        <table class="tr-table">
+        <div class="table-wrap" style="max-height:640px">
+        <table class="jsd-tbl">
           <thead><tr>
-            <th style="min-width:100px">Section</th>
-            <th style="min-width:200px">Chinese (source)</th>
-            <th style="min-width:240px">English translation</th>
+            <th style="width:40px">#</th>
+            <th style="min-width:180px">Chinese Key</th>
+            <th style="min-width:240px">English Value (editable)</th>
+            <th style="width:56px">Del</th>
           </tr></thead>
           <tbody>
-          <?php foreach($trRows as $key => $row): ?>
+          <?php foreach($jsPageRows as $idx=>$row): ?>
           <tr>
-            <td><div style="color:#8090a0;font-size:11px"><?=htmlspecialchars($row['section'])?></div>
-                <?php if(isset($row['table'])): ?>
-                  <div style="color:#506070;font-size:10px;font-family:monospace"><?=htmlspecialchars($row['table'])?>·<?=$row['id']?></div>
-                <?php elseif(isset($row['offset'])): ?>
-                  <div class="tr-key">@<?=$row['offset']?></div>
-                <?php endif; ?>
-            </td>
-            <td><div class="tr-cn"><?=htmlspecialchars($row['cn'])?></div></td>
+            <td style="color:#405060;font-size:11px"><?=($jsPage-1)*$jsPerPage+$idx+1?></td>
             <td>
-              <input type="text" name="tr[<?=base64_encode($key)?>]"
-                     value="<?=htmlspecialchars($row['en'])?>"
-                     class="tr-input<?=$row['en']!==''?' has-val':''?>"
-                     placeholder="Enter English…">
+              <div class="jsd-key"><?=htmlspecialchars($row['k'])?></div>
+              <input type="hidden" name="jk[]" value="<?=htmlspecialchars($row['k'])?>">
+            </td>
+            <td>
+              <input type="text" name="jv[]" value="<?=htmlspecialchars($row['v'])?>"
+                     class="jsd-vi" placeholder="English translation…">
+            </td>
+            <td>
+              <form method="POST" style="display:inline"
+                    onsubmit="return confirm('Delete entry:\n<?=addslashes(htmlspecialchars($row['k']))?>\n→ <?=addslashes(htmlspecialchars($row['v']))?>')">
+                <input type="hidden" name="action" value="js_delete">
+                <input type="hidden" name="del_k" value="<?=htmlspecialchars($row['k'])?>">
+                <input type="hidden" name="jsq"   value="<?=htmlspecialchars($jsQuery)?>">
+                <button type="submit" class="btn btn-red btn-sm">✕</button>
+              </form>
             </td>
           </tr>
           <?php endforeach; ?>
           </tbody>
         </table>
         </div>
-
         <!-- Pager -->
-        <?php if($trPageCount > 1): ?>
-        <div class="tr-pager" style="margin-top:10px">
-          <?php
-            $pBase = 'admin.php?tab=translation';
-            if ($trFilter) $pBase .= '&tsec='.urlencode($trFilter);
-            if ($trSearch) $pBase .= '&tsearch='.urlencode($trSearch);
-          ?>
-          <?php if($trPage>1): ?>
-            <a href="<?=$pBase?>&tpage=<?=$trPage-1?>">‹ Prev</a>
-          <?php endif; ?>
-          <?php for($p=max(1,$trPage-3);$p<=min($trPageCount,$trPage+3);$p++): ?>
-            <?php if($p===$trPage): ?>
-              <span class="cur"><?=$p?></span>
-            <?php else: ?>
-              <a href="<?=$pBase?>&tpage=<?=$p?>"><?=$p?></a>
-            <?php endif; ?>
+        <?php if($jsPageCount>1): ?>
+        <div class="jsd-pager">
+          <?php $pB='admin.php?tab=translation'.($jsQuery?'&jsq='.urlencode($jsQuery):''); ?>
+          <?php if($jsPage>1): ?><a href="<?=$pB?>&jspg=<?=$jsPage-1?>">‹ Prev</a><?php endif; ?>
+          <?php for($p=max(1,$jsPage-3);$p<=min($jsPageCount,$jsPage+3);$p++): ?>
+            <?php if($p===$jsPage): ?><span class="cur"><?=$p?></span>
+            <?php else: ?><a href="<?=$pB?>&jspg=<?=$p?>"><?=$p?></a><?php endif; ?>
           <?php endfor; ?>
-          <?php if($trPage<$trPageCount): ?>
-            <a href="<?=$pBase?>&tpage=<?=$trPage+1?>">Next ›</a>
-          <?php endif; ?>
-          <span style="color:#506070;font-size:11px">&nbsp;<?=count(array_filter($trTrans,fn($r)=>($trFilter?$r['section']===$trFilter:true)&&$r['en']!==''))?> / <?=count(array_filter($trTrans,fn($r)=>$trFilter?$r['section']===$trFilter:true))?> translated</span>
+          <?php if($jsPage<$jsPageCount): ?><a href="<?=$pB?>&jspg=<?=$jsPage+1?>">Next ›</a><?php endif; ?>
         </div>
         <?php endif; ?>
-
         <div style="margin-top:12px">
-          <button type="submit" class="btn btn-gold">💾 Save Page</button>
+          <button type="submit" class="btn btn-gold">💾 Save Changes on This Page</button>
         </div>
       </form>
-
-      <?php elseif($trTotal > 0): ?>
-        <p style="color:#607090;font-size:13px">No strings match the current filter.</p>
-      <?php endif; ?>
-
+      <?php elseif($jsQuery): ?>
+        <p style="color:#607090;font-size:13px">No entries match "<?=htmlspecialchars($jsQuery)?>".</p>
       <?php else: ?>
-      <div class="alert alert-info">
-        No strings extracted yet. Click <strong>⬇ Extract Strings</strong> to scan cw.txt for Chinese text.
-      </div>
+        <div class="alert alert-info">
+          translate.js not found or empty. Make sure it is placed at:<br>
+          <code><?=htmlspecialchars(JS_FILE)?></code>
+        </div>
       <?php endif; ?>
 
-      <!-- Instructions -->
-      <details style="margin-top:18px">
-        <summary style="font-size:12px;color:#507050;cursor:pointer;padding:6px 0">📖 How to use</summary>
-        <div style="background:rgba(20,40,20,.4);border:1px solid rgba(60,160,80,.2);border-radius:8px;padding:14px;margin-top:6px;font-size:12px;color:#7a9070;line-height:1.7">
-          <strong>1. Extract</strong> — scans cw.txt for Chinese strings and saves them to <code>cw_translations.json</code> next to admin.php.<br>
-          <strong>2. Translate</strong> — select a section, fill in English translations, click Save Page.<br>
-          <strong>3. Apply to cw.txt</strong> — rewrites cw.txt with your translations. Original is backed up as <code>cw.txt.original</code>.<br>
-          <strong>4. Apply to thm.json</strong> — same but for <code>default.thm.json</code> (UI theme strings).<br>
-          <strong>5. Copy to XAMPP</strong> — copy the updated <code>cw.txt</code> and <code>default.thm.json</code> to your XAMPP game folder.<br>
-          <strong>Note:</strong> Open the game in an incognito window (Ctrl+Shift+N) to bypass browser cache.
+      <!-- cw.txt (advanced / collapsed) -->
+      <details style="margin-top:28px">
+        <summary style="font-size:13px;color:#506070;cursor:pointer;padding:8px 0;
+                        border-top:1px solid rgba(255,255,255,.07);margin-top:4px">
+          ⚙ Advanced: cw.txt binary translation
+        </summary>
+        <div style="margin-top:14px">
+          <div style="margin-bottom:12px;font-size:12px;color:#6070a0">
+            <span style="color:<?=$trCwExists?'#60d070':'#d06060'?>"><?=$trCwExists?'✔':'✘'?> cw.txt</span>&nbsp;&nbsp;
+            <span style="color:<?=$trOrigExists?'#60d070':'#a07040'?>"><?=$trOrigExists?'✔':'⚠'?> backup</span>&nbsp;&nbsp;
+            <span style="color:<?=file_exists(TRANS_FILE)?'#60d070':'#a07040'?>"><?=file_exists(TRANS_FILE)?'✔':'⚠'?> cw_translations.json</span>
+          </div>
+          <div class="tr-toolbar">
+            <form method="POST" style="display:inline"><input type="hidden" name="action" value="tr_extract">
+              <button type="submit" class="btn btn-gold btn-sm">⬇ Extract</button></form>
+            <form method="POST" style="display:inline" onsubmit="return confirm('Apply to cw.txt?')">
+              <input type="hidden" name="action" value="tr_apply">
+              <button type="submit" class="btn btn-green btn-sm">✔ Apply cw.txt</button></form>
+            <form method="POST" style="display:inline" onsubmit="return confirm('Apply to thm.json?')">
+              <input type="hidden" name="action" value="tr_applythm">
+              <button type="submit" class="btn btn-blue btn-sm">🎨 Apply thm.json</button></form>
+            <?php if($trOrigExists): ?>
+            <form method="POST" style="display:inline" onsubmit="return confirm('Restore cw.txt original?')">
+              <input type="hidden" name="action" value="tr_restore">
+              <button type="submit" class="btn btn-gray btn-sm">↩ Restore</button></form>
+            <?php endif; ?>
+            <?php if(file_exists(TRANS_FILE)): ?>
+            <form method="POST" style="display:inline" onsubmit="return confirm('Clear cw translation data?')">
+              <input type="hidden" name="action" value="tr_clear">
+              <button type="submit" class="btn btn-red btn-sm">🗑 Clear</button></form>
+            <?php endif; ?>
+          </div>
+          <?php if($trTotal>0): ?>
+          <div class="tr-stats" style="margin-top:12px">
+            <div class="tr-stat"><div class="v"><?=number_format($trTotal)?></div><div class="l">Strings</div></div>
+            <div class="tr-stat"><div class="v"><?=number_format($trDone)?></div><div class="l">Translated</div></div>
+            <div class="tr-stat"><div class="v"><?=number_format($trTotal-$trDone)?></div><div class="l">Remaining</div></div>
+          </div>
+          <div class="tr-progress" title="<?=$trDone?>/<?=$trTotal?>" style="margin-bottom:12px">
+            <div class="tr-progress-bar" style="width:<?=$trTotal?round(100*$trDone/$trTotal):0?>%"></div>
+          </div>
+          <form method="GET" style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+            <input type="hidden" name="tab" value="translation">
+            <input type="search" name="tsearch" value="<?=htmlspecialchars($trSearch)?>"
+                   placeholder="Search strings…" style="max-width:200px;font-size:12px">
+            <button type="submit" class="btn btn-blue btn-sm">Search</button>
+            <?php if($trSearch||$trFilter): ?>
+              <a href="admin.php?tab=translation" class="btn btn-gray btn-sm">✕</a>
+            <?php endif; ?>
+          </form>
+          <div class="tr-sec-list">
+            <a href="admin.php?tab=translation" class="tr-sec-btn <?=$trFilter===''?'sel':''?>">All (<?=$trTotal?>)</a>
+            <?php foreach($trSections as $sn=>$si): ?>
+              <a href="admin.php?tab=translation&tsec=<?=urlencode($sn)?><?=$trSearch?'&tsearch='.urlencode($trSearch):''?>"
+                 class="tr-sec-btn <?=$trFilter===$sn?'sel':''?>">
+                <?=htmlspecialchars($sn)?> (<?=$si['done']?>/<?=$si['total']?>)
+              </a>
+            <?php endforeach; ?>
+          </div>
+          <?php if(!empty($trRows)): ?>
+          <form method="POST" style="margin-top:10px">
+            <input type="hidden" name="action" value="tr_save">
+            <input type="hidden" name="tsec"    value="<?=htmlspecialchars($trFilter)?>">
+            <input type="hidden" name="tsearch" value="<?=htmlspecialchars($trSearch)?>">
+            <input type="hidden" name="tpage"   value="<?=$trPage?>">
+            <div class="table-wrap" style="max-height:420px">
+            <table class="tr-table">
+              <thead><tr>
+                <th>Section</th><th style="min-width:180px">Chinese</th><th style="min-width:220px">English</th>
+              </tr></thead>
+              <tbody>
+              <?php foreach($trRows as $key=>$row): ?>
+              <tr>
+                <td><div style="color:#8090a0;font-size:11px"><?=htmlspecialchars($row['section'])?></div>
+                    <?php if(isset($row['table'])): ?>
+                      <div style="color:#506070;font-size:10px;font-family:monospace"><?=htmlspecialchars($row['table'])?>·<?=$row['id']?></div>
+                    <?php elseif(isset($row['offset'])): ?>
+                      <div class="tr-key">@<?=$row['offset']?></div>
+                    <?php endif; ?>
+                </td>
+                <td><div class="tr-cn"><?=htmlspecialchars($row['cn'])?></div></td>
+                <td><input type="text" name="tr[<?=base64_encode($key)?>]" value="<?=htmlspecialchars($row['en'])?>"
+                           class="tr-input<?=$row['en']!==''?' has-val':''?>" placeholder="Enter English…"></td>
+              </tr>
+              <?php endforeach; ?>
+              </tbody>
+            </table>
+            </div>
+            <?php if($trPageCount>1): ?>
+            <div class="tr-pager" style="margin-top:8px">
+              <?php $pBase='admin.php?tab=translation'.($trFilter?'&tsec='.urlencode($trFilter):'').($trSearch?'&tsearch='.urlencode($trSearch):''); ?>
+              <?php if($trPage>1): ?><a href="<?=$pBase?>&tpage=<?=$trPage-1?>">‹</a><?php endif; ?>
+              <?php for($p=max(1,$trPage-3);$p<=min($trPageCount,$trPage+3);$p++): ?>
+                <?php if($p===$trPage): ?><span class="cur"><?=$p?></span>
+                <?php else: ?><a href="<?=$pBase?>&tpage=<?=$p?>"><?=$p?></a><?php endif; ?>
+              <?php endfor; ?>
+              <?php if($trPage<$trPageCount): ?><a href="<?=$pBase?>&tpage=<?=$trPage+1?>">›</a><?php endif; ?>
+            </div>
+            <?php endif; ?>
+            <div style="margin-top:8px">
+              <button type="submit" class="btn btn-gold btn-sm">💾 Save cw translations</button>
+            </div>
+          </form>
+          <?php elseif($trTotal>0): ?>
+            <p style="color:#607090;font-size:12px;margin-top:8px">No strings match filter.</p>
+          <?php endif; ?>
+          <?php else: ?>
+            <div class="alert alert-info" style="margin-top:10px">Click ⬇ Extract to scan cw.txt for Chinese strings.</div>
+          <?php endif; ?>
         </div>
       </details>
     </div>
