@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v31
+// RaconH English Translation Hook v32
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -400,6 +400,8 @@ var _m={
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
     for(var k in _m)if(s.indexOf(k)>=0)s=s.split(k).join(_m[k]);
+    // Put Lv. on its own line when jammed against English name (no space before L)
+    s=s.replace(/([A-Za-z])(Lv\.\d+)/g,'$1\n$2');
     return s;
 }
 var _an={10:'Speed',11:'Max HP',12:'HP',13:'ATK',14:'DEF',15:'Pen',
