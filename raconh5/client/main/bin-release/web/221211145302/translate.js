@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v25
+// RaconH English Translation Hook v26
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -441,7 +441,22 @@ function _patch(){
         }
         if(typeof eui!=='undefined'&&eui.Label&&eui.Label.prototype&&!eui.Label.prototype.__cwL){
             var lp=eui.Label.prototype,_ld=Object.getOwnPropertyDescriptor(lp,'text');
-            if(_ld&&_ld.set){lp.__cwL=true;Object.defineProperty(lp,'text',{get:_ld.get,set:function(v){_ld.set.call(this,_rep(v));},configurable:true,enumerable:_ld.enumerable});}
+            if(_ld&&_ld.set){
+                lp.__cwL=true;
+                Object.defineProperty(lp,'text',{get:_ld.get,set:function(v){
+                    var t=_rep(v);
+                    var m=typeof t==='string'&&t.match(/^(Need recharge )(\S+ Yuan)( to claim\S*)$/);
+                    if(m&&_tfd0&&_tfd0.set){
+                        _tfd0.set.call(this,[
+                            {text:m[1],style:{}},
+                            {text:m[2],style:{textColor:0xFFD700}},
+                            {text:m[3],style:{}}
+                        ]);
+                        return;
+                    }
+                    _ld.set.call(this,t);
+                },configurable:true,enumerable:_ld.enumerable});
+            }
         }
         if(typeof eui!=='undefined'&&eui.Label&&eui.Label.prototype&&!eui.Label.prototype.__cwLH){
             var lp=eui.Label.prototype,_ldh=Object.getOwnPropertyDescriptor(lp,'htmlText');
