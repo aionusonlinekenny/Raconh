@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v26
+// RaconH English Translation Hook v27
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -233,6 +233,9 @@ var _m={
 '危机重重':'Crisis','江湖势力':'Jianghu Forces',
 '江湖传闻':'Jianghu Rumors','盟会考验':'Guild Test',
 // --- Mixed keys: post-translation combos (components ran before these) ---
+'可Smelt ':'can Smelt ','件Equip':'x Equip',
+'的DMG':' DMG',
+'HP回复':'HP Regen',
 'Guild Rank达到2阶':'Guild Rank 2','Guild Rank达到3阶':'Guild Rank 3',
 'Ch.一Guild':'Top Guild',
 '加入一个Guild':'Join a Guild',
@@ -287,6 +290,14 @@ var _m={
 // --- Loot / reward notifications ---
 '获得：':'Obtained: ','获得了':'obtained ',
 // --- Skill description components ---
+'增加目标':'Add Target',
+'免伤加成':'DMG Reduce+',
+'对前方':'vs front ','对附近':'AOE ',
+'个目标造成':'x targets ',
+'范围：':'Range: ','目标：':'Target: ',
+'扇形':'Fan','圆形':'Circle',
+'秒':'s',
+'个':'x',
 '再战':'Fight Again\n','对BOSS':'vs BOSS ',
 // Mixed key: 伤害→DMG fires before 对BOSS check
 '对BOSSDMG':'vs BOSS DMG',
@@ -399,22 +410,9 @@ function _patch(){
         var p=egret.TextField.prototype;
         if(!p.__cwT){
             var _td=Object.getOwnPropertyDescriptor(p,'text');
-            var _tfd0=Object.getOwnPropertyDescriptor(p,'textFlow');
             if(_td&&_td.set){
                 p.__cwT=true;
-                Object.defineProperty(p,'text',{get:_td.get,set:function(v){
-                    var t=_rep(v);
-                    var m=typeof t==='string'&&t.match(/^(Need recharge )(\S+ Yuan)( to claim\S*)$/);
-                    if(m&&_tfd0&&_tfd0.set){
-                        _tfd0.set.call(this,[
-                            {text:m[1],style:{}},
-                            {text:m[2],style:{textColor:0xFFD700}},
-                            {text:m[3],style:{}}
-                        ]);
-                        return;
-                    }
-                    _td.set.call(this,t);
-                },configurable:true,enumerable:_td.enumerable});
+                Object.defineProperty(p,'text',{get:_td.get,set:function(v){_td.set.call(this,_rep(v));},configurable:true,enumerable:_td.enumerable});
             }
         }
         if(!p.__cwH){
@@ -441,22 +439,7 @@ function _patch(){
         }
         if(typeof eui!=='undefined'&&eui.Label&&eui.Label.prototype&&!eui.Label.prototype.__cwL){
             var lp=eui.Label.prototype,_ld=Object.getOwnPropertyDescriptor(lp,'text');
-            if(_ld&&_ld.set){
-                lp.__cwL=true;
-                Object.defineProperty(lp,'text',{get:_ld.get,set:function(v){
-                    var t=_rep(v);
-                    var m=typeof t==='string'&&t.match(/^(Need recharge )(\S+ Yuan)( to claim\S*)$/);
-                    if(m&&_tfd0&&_tfd0.set){
-                        _tfd0.set.call(this,[
-                            {text:m[1],style:{}},
-                            {text:m[2],style:{textColor:0xFFD700}},
-                            {text:m[3],style:{}}
-                        ]);
-                        return;
-                    }
-                    _ld.set.call(this,t);
-                },configurable:true,enumerable:_ld.enumerable});
-            }
+            if(_ld&&_ld.set){lp.__cwL=true;Object.defineProperty(lp,'text',{get:_ld.get,set:function(v){_ld.set.call(this,_rep(v));},configurable:true,enumerable:_ld.enumerable});}
         }
         if(typeof eui!=='undefined'&&eui.Label&&eui.Label.prototype&&!eui.Label.prototype.__cwLH){
             var lp=eui.Label.prototype,_ldh=Object.getOwnPropertyDescriptor(lp,'htmlText');
