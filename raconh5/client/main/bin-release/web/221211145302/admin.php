@@ -4,6 +4,10 @@
  * Place at: C:\xampp\htdocs\game\admin.php
  */
 
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
+header('Content-Type: text/html; charset=utf-8');
+
 session_start();
 
 // Restore flash from session (survives redirects)
@@ -157,6 +161,14 @@ function langBuild($tbls){
 
 // ── translate.js dictionary management ───────────────────────────────────────
 
+// Read translate.js stripping UTF-8 BOM if present
+function jsReadContent() {
+    if (!file_exists(JS_FILE)) return '';
+    $c = file_get_contents(JS_FILE);
+    if (substr($c, 0, 3) === "\xEF\xBB\xBF") $c = substr($c, 3);
+    return $c;
+}
+
 // Escape a raw string for writing as a JS single-quoted literal.
 // Existing entries already store escape sequences as two chars (e.g. \n = \ + n),
 // so we ONLY escape bare single quotes and bare backslashes that aren't already
@@ -173,7 +185,7 @@ function jsEscNew($s) {
 
 function jsParseDict() {
     if (!file_exists(JS_FILE)) return [];
-    $content = file_get_contents(JS_FILE);
+    $content = jsReadContent();
     if (!preg_match('/var _m\s*=\s*\{([\s\S]*?)\n\};/', $content, $m)) return [];
     $block = $m[1];
     $entries = [];
@@ -237,7 +249,7 @@ function jsBuildBlock($entries) {
 
 function jsGetVersion() {
     if (!file_exists(JS_FILE)) return 0;
-    return preg_match('/Hook v(\d+)/', file_get_contents(JS_FILE), $m) ? (int)$m[1] : 0;
+    return preg_match('/Hook v(\d+)/', jsReadContent(), $m) ? (int)$m[1] : 0;
 }
 
 function jsSaveAndBump($entries) {
@@ -245,15 +257,16 @@ function jsSaveAndBump($entries) {
     // Safety: require at least some entries to prevent wiping the file
     $eCnt = 0; foreach ($entries as $e) if ($e['t']==='e') $eCnt++;
     if ($eCnt < 10) return 'Aborting: only '.$eCnt.' entries parsed — would wipe translate.js. Check file format.';
-    $content = file_get_contents(JS_FILE);
-    // Backup before any write
+    $content = jsReadContent(); // BOM-stripped
+    // Backup before any write (no BOM in backup so it's also clean)
     file_put_contents(JS_FILE.'.bak', $content);
     $block = jsBuildBlock($entries);
     $new = preg_replace('/var _m\s*=\s*\{[\s\S]*?\n\};/', "var _m={\n$block\n};", $content, 1);
     if ($new === null || $new === $content) return 'Could not locate var _m={...}; block in translate.js';
     $newVer = jsGetVersion() + 1;
     $new = preg_replace('/Translation Hook v\d+/', 'Translation Hook v'.$newVer, $new);
-    file_put_contents(JS_FILE, $new);
+    // Write with UTF-8 BOM so Windows editors (Notepad++, VS Code) detect encoding correctly
+    file_put_contents(JS_FILE, "\xEF\xBB\xBF" . $new);
     if (file_exists(HTML_FILE)) {
         $html = file_get_contents(HTML_FILE);
         $html = preg_replace('/translate\.js\?v=\d+/', 'translate.js?v='.$newVer, $html);
@@ -500,13 +513,50 @@ if ($action === 'setup') {
         $_SESSION['flash'] = ['type'=>'error','msg'=>$extracted['error']];
     } else {
         $existing = loadTrans();
-        $added = 0;
+        // Build lookup from translate.js dict: Chinese key → English value
+        $jsMap = [];
+        foreach (jsParseDict() as $e) {
+            if ($e['t']==='e' && isset($e['k']) && $e['k']!=='' && isset($e['v']) && $e['v']!=='')
+                $jsMap[$e['k']] = $e['v'];
+        }
+        $added = 0; $prefilled = 0;
         foreach ($extracted as $k => $v) {
-            if (!isset($existing[$k])) { $existing[$k] = $v; $added++; }
+            if (!isset($existing[$k])) {
+                // Auto-fill if already translated in translate.js
+                $cn = $v['cn'];
+                if (isset($jsMap[$cn]) && $v['en'] === '') { $v['en'] = $jsMap[$cn]; $prefilled++; }
+                $existing[$k] = $v;
+                $added++;
+            }
         }
         saveTrans($existing);
         $total = count($extracted);
-        $_SESSION['flash'] = ['type'=>'success','msg'=>"Extracted $total strings ($added new). Ready to translate."];
+        $_SESSION['flash'] = ['type'=>'success','msg'=>"Extracted $total strings ($added new, $prefilled pre-filled from translate.js). Ready to translate."];
+    }
+    header('Location: admin.php?tab=translation&tmode=cw'); exit;
+
+} elseif ($action === 'tr_sync_js') {
+    // Sync: fill empty cw translations from translate.js dict
+    requireLogin();
+    $trans = loadTrans();
+    if (empty($trans)) {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'No extracted strings yet. Click Extract Strings first.'];
+    } else {
+        $jsMap = [];
+        foreach (jsParseDict() as $e) {
+            if ($e['t']==='e' && isset($e['k']) && $e['k']!=='' && isset($e['v']) && $e['v']!=='')
+                $jsMap[$e['k']] = $e['v'];
+        }
+        $filled = 0;
+        foreach ($trans as $k => &$row) {
+            if ($row['en'] === '' && isset($jsMap[$row['cn']])) {
+                $row['en'] = $jsMap[$row['cn']];
+                $filled++;
+            }
+        }
+        unset($row);
+        saveTrans($trans);
+        $_SESSION['flash'] = ['type'=>'success','msg'=>"Synced $filled translations from translate.js into cw.txt table."];
     }
     header('Location: admin.php?tab=translation&tmode=cw'); exit;
 
@@ -1397,6 +1447,12 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
         <form method="POST" style="display:inline"><input type="hidden" name="action" value="tr_extract">
           <input type="hidden" name="tmode" value="cw">
           <button type="submit" class="btn btn-gold btn-sm">⬇ Extract Strings</button></form>
+        <?php if(file_exists(TRANS_FILE)): ?>
+        <form method="POST" style="display:inline" title="Fill empty translations using existing translate.js entries">
+          <input type="hidden" name="action" value="tr_sync_js">
+          <input type="hidden" name="tmode" value="cw">
+          <button type="submit" class="btn btn-blue btn-sm">🔄 Sync from translate.js</button></form>
+        <?php endif; ?>
         <?php if(file_exists(TRANS_FILE)): ?>
         <form method="POST" style="display:inline" onsubmit="return confirm('Export all translations to translate.js?\n\nThis is the SAFE option — game will not break.')">
           <input type="hidden" name="action" value="tr_export_js">
