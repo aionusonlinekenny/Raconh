@@ -25,9 +25,9 @@
 
 
 
-	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="228" y="33" height="42" width="180"/>
+	<e:Image source="common__jindudi_png" scale9Grid="24,10,60,13" x="233" y="33" height="42" width="180"/>
 	<ns1:Label id="_txtDesc" text="Count:" x="145" y="38" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="28"/>
-	<ns1:Label id="_txtCount" text="10/10" x="231" y="38" fontFamily="Microsoft YaHei" size="28" textColor="0xFFF7E6" width="174" textAlign="center" wordWrap="false" anchorOffsetX="0"/>
+	<ns1:Label id="_txtCount" text="10/10" x="236" y="38" fontFamily="Microsoft YaHei" size="28" textColor="0xFFF7E6" width="174" textAlign="center" wordWrap="false" anchorOffsetX="0"/>
 	<ns1:Label id="_txtValue0" text="Active: x10" x="145" y="90" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="28"/>
 	<ns1:Label id="_txtValue1" text="Guild Contrib: x10" x="301" y="90" textColor="0x7C6E62" fontFamily="Microsoft YaHei" size="28"/>
 </e:Skin>
