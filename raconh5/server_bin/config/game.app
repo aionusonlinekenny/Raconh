@@ -23,7 +23,7 @@
         , {center_api, "http://127.0.0.1:8220/api/"}   %% 中央后台接口路径
 
         , {app_id, "1000047"}           %% APPID
-        , {server_host, "127.0.0.1"}    %% 服务器外网IP
+        , {server_host, "134.22.38.31"}    %% 服务器外网IP
         , {server_port, 9001}           %% 节点端口
         , {server_ssl_port, 10001}      %% 节点SSL端口 https
 
@@ -35,7 +35,7 @@
             , {host, "localhost"}       %% mysql ip
             , {port, 3306}              %% mysql 端口
             , {user, "root"}            %% mysql 账号
-            , {password, "Eban0815@"}      %% mysql 密码
+            , {password, ""}      %% mysql 密码
             , {db, "cw02_game1"}        %% mysql 数据库名
             , {encode, utf8}            %% mysql 编码
             , {pool_size, 8}            %% mysql 进程池大小

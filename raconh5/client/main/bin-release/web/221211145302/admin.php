@@ -20,9 +20,10 @@ define('DB_PASS', '');
 define('DB_NAME', 'cw02_game1');
 
 // ── Erlang GM bridge ─────────────────────────────────────────────────────────
-// Path to escript.exe — adjust if Erlang is installed elsewhere
-define('ESCRIPT_EXE',  'C:\\Program Files\\erl9.0\\bin\\escript.exe');
-define('GM_ESCRIPT',   'C:\\raconh5\\server_bin\\gm.escript');
+// erl10.4 is bundled in the same folder as admin.php
+define('ESCRIPT_EXE', __DIR__ . DIRECTORY_SEPARATOR . 'erl10.4' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'escript.exe');
+// server_bin is 5 levels up: 221211145302/web/bin-release/main/client → repo root → server_bin
+define('GM_ESCRIPT',  dirname(__DIR__, 5) . DIRECTORY_SEPARATOR . 'server_bin' . DIRECTORY_SEPARATOR . 'gm.escript');
 
 // ── Translation file paths ────────────────────────────────────────────────────
 define('CW_FILE',    __DIR__ . '/resource/res/cw.txt');

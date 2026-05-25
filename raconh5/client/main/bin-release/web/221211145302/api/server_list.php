@@ -7,7 +7,7 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-$target = 'http://127.0.0.1:8200/api/server_list.php';
+$target = 'http://127.0.0.1:8220/api/server_list.php';
 if (!empty($_SERVER['QUERY_STRING'])) {
     $target .= '?' . $_SERVER['QUERY_STRING'];
 }
