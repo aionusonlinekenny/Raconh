@@ -23,7 +23,7 @@ var PlatformManager = (function () {
         if (Manager.config.platform == "")
             Manager.config.platform = PlatformConst.P_DEFAULT;
         if (Manager.config.apiUrl == "")
-            Manager.config.apiUrl = "http://127.0.0.1:8200/api/";
+            Manager.config.apiUrl = location.href.split("?")[0].replace(/[^\/]*$/, "") + "api/";
         switch (Manager.config.platform) {
             case PlatformConst.P_KU_DAI://裤袋平台
                 var kudaiURL = Manager.socket.isWss ? "https://kdsdk.04wan.com/js/kudaigame_v3.js?v=" : "http://kdsdk.04wan.com/js/kudaigame_v3.js?v=";

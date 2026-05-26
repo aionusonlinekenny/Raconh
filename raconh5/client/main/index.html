@@ -30,6 +30,14 @@
 
 
 
+        // Redirect to login portal if no username in URL
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (!params.get('username')) {
+                window.location.href = 'login.php';
+            }
+        })();
+
         var version = Math.random();
 		function showLoading()
 		{

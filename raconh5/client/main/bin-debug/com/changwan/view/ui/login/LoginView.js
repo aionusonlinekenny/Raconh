@@ -49,8 +49,8 @@ var LoginView = (function (_super) {
         if (this.parent == null)
             Manager.layer.uiLayer.addChild(this);
         // RES.getResByUrl("serverList.json?v=" + Math.random(), this.onLoadServerListComplete,this, RES.ResourceItem.TYPE_TEXT);
-        //this.postDataToServer();
-        this.setServer({ "name": "脚本王1区", "host": "127.0.0.1", "port": 9002, "serverID": 10001, "state": 0 });
+        this.postDataToServer();
+        this.setServer({ "name": "脚本王1区", "host": location.hostname, "port": 9002, "serverID": 10001, "state": 0 });
     };
     LoginView.prototype.postDataToServer = function () {
         // http://127.0.0.1:8200/api/server_list.php?username=lk12
@@ -91,7 +91,6 @@ var LoginView = (function (_super) {
     LoginView.prototype.setServer = function (data) {
         // { "name":"202服务器", "host":"127.0.0.1" , "port":9002, "serverID":10001, "state":0 },
         Manager.model.getLogin().serverIP = data.host;
-        Manager.model.getLogin().serverIP = "127.0.0.1"; //"127.0.0.1";
         //Manager.model.getLogin().serverIP ="127.0.0.1"// data.host;
         Manager.model.getLogin().serverPort = data.port;
         Manager.model.getLogin().ssl_Port = data.ssl_port;
