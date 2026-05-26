@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v44
+// RaconH English Translation Hook v45
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -53,6 +53,7 @@ var _m={
 // --- Item descriptions ---
 '最强群攻':'Max AOE','全屏大招':'Full AOE','杀怪效率提升':'Kill EFF+','杀怪效率+':'Kill EFF+',
 '极品武器':'Premium Weapon','绝世武学':'Supreme Arts','龙战八荒':'Dragon Realm',
+'卓越':'Superior','箱':' Box','银票':'Silver Ticket','9折':'10% Off',
 // --- Boss drop log ---
 '记录击败首领Drop的珍稀道具、Equip':'Records of rare items & equipment dropped by bosses',
 '珍稀道具':'Rare Items','珍稀':'Rare','首领':'Boss','击败':'Defeated',
@@ -61,8 +62,9 @@ var _m={
 // --- Item tooltip ---
 '激活或提升':'Activate or upgrade ','类型：':'Type: ','通用':'Universal',
 // --- Treasure hunt UI ---
-'积分：':'Points: ','积分不足':'Insufficient points','寻宝记录':'Hunt Records',
+'积分：':'Points: ','积分不足':'Insufficient points','寻宝记录':'Hunt Records','积分':'Points',
 // --- Common UI labels ---
+'提示':'Notice','立即使用':'Use Now',
 '盟会战力':'Pwr:','战斗力':'Combat Power','战力：':'Power: ','战力:':'Power:','战力':'Power',
 '恭喜{0}击杀{1}，获得珍贵物品：{2}！':'Congrats! {0} defeated {1}, got: {2}!',
 '未知错误':'Unknown error','背包或仓库为空':'Bag/storage empty','空间不足':'No space',
@@ -88,6 +90,7 @@ var _m={
 '道具不足，无法进入副本':'Need items to enter','转生奖励':'Rebirth Reward',
 '背包满了，请注意查收！':'Bag full — check mail!','副本奖励':'Dungeon Reward',
 '离线奖励':'Offline Reward','奖励领取成功！':'Reward claimed!','使用成功！':'Used!',
+'奖励':'Reward',
 '已领取':'Claimed','声望不足':'Low reputation','威望不足':'Low prestige',
 '坐骑升阶功能未开放':'Mount upgrade locked','转生后可继续使用！':'Use again after rebirth!',
 '今日寻宝次数已满':'Daily treasure limit','藏宝地空空如也！':'Treasure spot empty!',
@@ -165,6 +168,7 @@ var _m={
 '第':'Ch.','级':'Lv.','关卡':'Level','关':' Stage','层':'Floor',
 '爬塔副本':'Tower Dungeon','聚元副本':'Origin Dungeon',
 '全民副本':'All-Server Dungeon','剧情副本':'Story','副本':'Dungeon','全民':'All-Server',
+'剧情':'Story',
 '珍稀掉落':'Rare Drops',
 '铸魂配置出错，请联系GM更新配置！':'Soul Cast cfg error - contact GM!',
 '伤害':'DMG','血量':'HP','技能':'Skill','冷却':'CD','强化':'Enh',
@@ -306,6 +310,7 @@ var _m={
 '炼狱将':'Infernal General',
 '姿势不对，无法传送6%':'Wrong posture, unable to teleport 6%',
 '关开启':' Stage Unlock','开启':' Unlock',
+'一万':'10K','两万':'20K','三万':'30K','五万':'50K','十万':'100K',
 '万':'0K'
 };
 function _rep(s){
