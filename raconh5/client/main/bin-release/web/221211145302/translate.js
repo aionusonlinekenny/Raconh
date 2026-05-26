@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v46
+// RaconH English Translation Hook v47
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -240,6 +240,23 @@ var _m={
 '普通捐献':'Normal Donation','高级捐献':'Premium Donation','捐献':'Donate','贡献':' pts',
 '剩余次数':'Remaining: ','次':'x','寻找':'Find ','无双':'Peerless ',
 '传闻':' Rumor','秘闻':' Secrets','风声':' Rumors','一次':'x1 ','一颗':' ',
+// --- Landlord (斗地主) feature ---
+'苦工干活时间满释放会自动提取EXP':'Laborer auto-extracts EXP when work time is full',
+'保护时间内不可反抗或解救':'Protection time — cannot resist or be rescued',
+'苦工名称：':'Laborer Name: ',
+'苦工干活':'Laborer Working',
+'苦工':'Laborer ',
+'提取经验':'Extract EXP',
+'最新动态':'Recent Activity',
+'今日抓捕':'Today\'s Captures',
+'今日':'Today ',
+'干活':'Working',
+'压榨':'Squeeze',
+'抓捕':'Capture',
+'释放':'Release',
+'提取':'Extract ',
+'身份':'Identity',
+'信息':'Info',
 // --- Task buttons & chat ---
 '膜拜':'Worship','互动':'Interact','斗地主':'Landlord',
 '领取':'Claim','前往':'Go','发送':'Send',
