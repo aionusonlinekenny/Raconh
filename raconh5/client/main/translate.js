@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v45
+// RaconH English Translation Hook v46
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -12,6 +12,33 @@ var _m={
 '首充豪礼':'First Recharge Gift',
 '首充奖励至少充值':'Need recharge ',
 '元可领':' Yuan to claim',
+// --- VIP / Privilege card (compound forms before component words) ---
+'黄金特权卡':'Gold Privilege Card',
+'黄金特权':'Gold Privilege',
+'特权卡效果可叠加':'(Effects can stack)',
+'元宝狂送':'Gem Giveaway',
+'首次赠送':'First gift: ',
+'每天可领取':'Daily: ',
+'尊贵黄金特权称号':'Prestigious Gold Privilege Title',
+'战力飙升':'Power Boost ',
+'战力直升':'Power Boost +',
+'特权称号':'Privilege Title',
+'属性加成':'Stat Bonus',
+'墨宠属性':'Pet Stats ',
+'转生属性':'Rebirth Stats ',
+'成长加速':'Growth Boost',
+'挂机经验':'AFK EXP ',
+'挂机金币':'AFK Gold ',
+'挂机':'AFK ',
+'永久生效':'Permanent',
+'半月投':'Bi-Monthly',
+'等级投':'Level Pass',
+'钻石':'Diamond','黄金':'Gold','尊贵':'Noble ',
+// --- Chat system UI ---
+'系统频道禁止发言':'System channel — muted',
+'聊天发送信息输入区域':'Type a message...',
+// --- Enhance screen ---
+'所需材料':'Required Materials',
 // --- Mail system ---
 '未领取的邮件系统默认为您保存15天，请注意查收！':'Unclaimed mail is kept for 15 days — claim before it expires!',
 '邮箱':'Mailbox','战书':'War Notice','未读':'Unread',
@@ -213,6 +240,11 @@ var _m={
 '普通捐献':'Normal Donation','高级捐献':'Premium Donation','捐献':'Donate','贡献':' pts',
 '剩余次数':'Remaining: ','次':'x','寻找':'Find ','无双':'Peerless ',
 '传闻':' Rumor','秘闻':' Secrets','风声':' Rumors','一次':'x1 ','一颗':' ',
+// --- Task buttons & chat ---
+'膜拜':'Worship','互动':'Interact','斗地主':'Landlord',
+'领取':'Claim','前往':'Go','发送':'Send',
+'系统':'System','世界':'World',
+'飙升':'Boost ','榜':' Rank',
 // --- Task status & common UI labels ---
 '(完成)':'(Done)','进行中':'In Progress','查看排名':'View Ranking',
 '排名：':'Rank: ','名字：':'Name: ','名字':'Name',
