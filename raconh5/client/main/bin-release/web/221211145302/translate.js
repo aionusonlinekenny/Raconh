@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v43
+// RaconH English Translation Hook v44
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -12,6 +12,11 @@ var _m={
 '首充豪礼':'First Recharge Gift',
 '首充奖励至少充值':'Need recharge ',
 '元可领':' Yuan to claim',
+// --- Mail system ---
+'未领取的邮件系统默认为您保存15天，请注意查收！':'Unclaimed mail is kept for 15 days — claim before it expires!',
+'邮箱':'Mailbox','战书':'War Notice','未读':'Unread',
+'每日结算':'Daily Settlement','结算奖励':'Settlement Reward',
+'一键领取':'Claim All',
 // --- System announcements (substrings after {0} substitution) ---
 // NOTE: template uses 战力榜 (not Power榜); 战力→Power runs LATER so key must use original
 '叱咤风云，笑傲江湖。战力榜第一名':'Power Rank #1 ',
@@ -48,6 +53,11 @@ var _m={
 // --- Item descriptions ---
 '最强群攻':'Max AOE','全屏大招':'Full AOE','杀怪效率提升':'Kill EFF+','杀怪效率+':'Kill EFF+',
 '极品武器':'Premium Weapon','绝世武学':'Supreme Arts','龙战八荒':'Dragon Realm',
+// --- Boss drop log ---
+'记录击败首领Drop的珍稀道具、Equip':'Records of rare items & equipment dropped by bosses',
+'珍稀道具':'Rare Items','珍稀':'Rare','首领':'Boss','击败':'Defeated',
+'道具':'Item','记录':'Records',
+'、':', ',
 // --- Item tooltip ---
 '激活或提升':'Activate or upgrade ','类型：':'Type: ','通用':'Universal',
 // --- Treasure hunt UI ---
