@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v42
+// RaconH English Translation Hook v43
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -25,6 +25,7 @@ var _m={
 '到达剧情副本第':'Reach Story Ch.','关后开启':'to unlock',
 // --- Feature names ---
 '门派成员':'Guild Members','职位':'Role',
+'转生命轮':'Rebirth Wheel',
 '命轮':'Fate Wheel','墨宠':'Pet','命格':'Destiny','绝学':'Skills','聚宝蟾':'Treasure','等级礼':'Lv.Gift',
 '七日礼':'7-Day Gift','自动任务':'Auto Task','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
 '盟会试炼':'Guild Trial','冲榜竞技':'PvP Rank','充值活动':'Top-up Event',
@@ -160,6 +161,8 @@ var _m={
 // --- Task names (pure Chinese — no pre-translated component words) ---
 '初试身手':'First Steps','小试牛刀':'Warm Up','扑朔迷离':'Mysterious',
 '凌烟问道':'Hall Quest','凌烟阁寻宝':'Hall Treasure Hunt','英雄试炼':'Hero Trial',
+'凌烟阁':'Lingyan Hall','寻宝':'Treasure Hunt',
+'冲脉':'Meridian Rush','购买':'Purchase','消费':'Spend',
 '面对强敌':'Face a Foe','突飞猛进':'Rapid Growth','从容应对':'Steady',
 '黑夜降临':'Night Falls','声名鹊起':'Rising Fame','深陷重围':'Surrounded',
 '阁主试炼':'Hall Master Trial','加入一个盟会':'Join a Guild','浴血抗敌':'Bloody Battle',
@@ -206,7 +209,7 @@ var _m={
 'Rank 3Disciple':'Rank 3 Disciple','Rank 4Disciple':'Rank 4 Disciple','Rank 5Disciple':'Rank 5 Disciple',
 'Guild Contribution:':'Contrib:','Guild Contribution':'Contrib',
 'Guild Power ':'Pwr: ','Guild Power':'Pwr:',
-'通关：':'Clear: ','剩余时间：':'Remaining: ','剩余时间':'Remaining','时间：':'Time: ','盟贡：':'Contrib: ',
+'通关：':'Clear: ','剩余时间：':'Remaining: ','剩余时间':'Remaining','时间：':'Time: ','盟贡：':'Contrib: ','盟贡':' Guild Contrib',
 '永久':'Permanent','小时':'h ',
 'Requires level ':'Req. Lv.','Available at level ':'Req. Lv.','Available at Lv.':'Req. Lv.',
 ' to challenge':'',
@@ -220,7 +223,7 @@ var _m={
 // --- Feature names (additions) ---
 '经脉':'Meridian',
 // --- Loot / reward notifications ---
-'获得：':'Obtained: ','获得了':'obtained ',
+'获得：':'Obtained: ','获得了':'obtained ','获得':'Obtained ',
 // --- Rebirth / passive unlock ---
 '转生：':'Rebirth: ','5转':'5th','4转':'4th','3转':'3rd','2转':'2nd','1转':'1st','0转':'0',
 '雪疥虫':'Frost Bug',
@@ -292,6 +295,7 @@ var _m={
 '邪妖天':'Demonic Heaven',
 '炼狱将':'Infernal General',
 '姿势不对，无法传送6%':'Wrong posture, unable to teleport 6%',
+'关开启':' Stage Unlock','开启':' Unlock',
 '万':'0K'
 };
 function _rep(s){
