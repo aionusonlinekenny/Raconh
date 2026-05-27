@@ -389,21 +389,100 @@ function _fixAttrCVO(){
         for(var id in _an){var i=AttrCVO._data[parseInt(id)];if(i){i.name=_an[id];i.shortName=_an[id];}}
     }
 }
-// Find the LoginView component by scanning for skin._inputPassword.
-// EXML property names (id="...") are set via string key assignment at runtime —
-// they are never minified, making this approach reliable in both debug and release builds.
+// Try to find the LoginView component.
+// Checks both host properties (debug build: not minified) and skin properties (EXML ids).
 function _getLoginView(){
     var s=typeof egret!=='undefined'&&egret.stage;
     if(!s)return null;
     function scan(d){
         try{
-            if(d&&d.skin&&typeof d.skin._inputPassword!=='undefined')return d;
+            if(d){
+                // Host property check (debug build names are not minified)
+                if(d._inputClient!==undefined&&d._inputClient!==null&&typeof d._inputClient==='object')return d;
+                // Skin property check (EXML ids are always string-keyed, never minified)
+                var sk=d.skin;
+                if(sk&&(sk._inputClient!==undefined||sk._inputPassword!==undefined))return d;
+            }
             var n=d?d.numChildren:0;
             for(var i=0;i<n;i++){var r=scan(d.getChildAt(i));if(r)return r;}
         }catch(e){}
         return null;
     }
     return scan(s);
+}
+// Build and return the password overlay div (created once, reused).
+function _getOverlay(){
+    var id='_cwPwdBox';
+    if(document.getElementById(id))return document.getElementById(id);
+    var o=document.createElement('div');
+    o.id=id;
+    o.style.cssText='display:none;position:fixed;top:0;left:0;width:100%;height:100%;'
+        +'background:rgba(0,0,0,.78);z-index:99999;align-items:center;justify-content:center;'
+        +'font-family:Microsoft YaHei,Arial,sans-serif;';
+    o.innerHTML=
+        '<div style="background:#16213e;border:2px solid #e94560;border-radius:12px;'
+        +'padding:28px 24px;width:280px;box-shadow:0 8px 32px rgba(0,0,0,.8);">'
+        +'<div style="color:#e94560;text-align:center;font-size:18px;font-weight:bold;margin-bottom:18px;">Password Required</div>'
+        +'<div style="color:#888;font-size:12px;margin-bottom:4px;">Account</div>'
+        +'<div id="_cwPwdAcct" style="color:#fff;background:#0f3460;border-radius:6px;'
+        +'padding:8px 12px;margin-bottom:14px;font-size:14px;letter-spacing:.5px;"></div>'
+        +'<div style="color:#888;font-size:12px;margin-bottom:4px;">Password</div>'
+        +'<input id="_cwPwdInp" type="password" maxlength="64" placeholder="min 6 chars" '
+        +'style="width:100%;box-sizing:border-box;background:#0f3460;border:1px solid #1a4a7a;'
+        +'border-radius:6px;padding:9px 12px;color:#fff;font-size:15px;outline:none;margin-bottom:4px;">'
+        +'<div id="_cwPwdMsg" style="min-height:18px;color:#e94560;font-size:12px;'
+        +'text-align:center;margin-bottom:10px;"></div>'
+        +'<button id="_cwPwdBtn" style="width:100%;background:#e94560;border:none;border-radius:6px;'
+        +'padding:11px;color:#fff;font-size:15px;font-weight:bold;cursor:pointer;letter-spacing:.5px;">'
+        +'Confirm</button>'
+        +'</div>';
+    document.body.appendChild(o);
+    return o;
+}
+// Show password overlay; calls onOk(username) when auth.php returns ok.
+function _showPwdOverlay(cn, onOk){
+    var box=_getOverlay();
+    var acct=document.getElementById('_cwPwdAcct');
+    var inp=document.getElementById('_cwPwdInp');
+    var msg=document.getElementById('_cwPwdMsg');
+    var btn=document.getElementById('_cwPwdBtn');
+    if(acct)acct.textContent=cn;
+    if(inp){inp.value='';setTimeout(function(){inp.focus();},80);}
+    if(msg)msg.textContent='';
+    if(btn)btn.disabled=false;
+    box.style.display='flex';
+    function doSubmit(){
+        var pwd=inp?inp.value:'';
+        if(msg)msg.textContent='';
+        if(pwd.length<6){if(msg)msg.textContent='Min 6 characters required.';return;}
+        if(btn){btn.disabled=true;btn.textContent='...';}
+        var xr=new XMLHttpRequest();
+        xr.open('POST','auth.php',true);
+        xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        xr.onload=function(){
+            try{
+                var r=JSON.parse(xr.response);
+                if(r.ok){
+                    box.style.display='none';
+                    onOk(r.username);
+                }else{
+                    if(msg)msg.textContent=r.error||'Incorrect password.';
+                    if(btn){btn.disabled=false;btn.textContent='Confirm';}
+                    if(inp)inp.focus();
+                }
+            }catch(e){
+                if(msg)msg.textContent='Server error.';
+                if(btn){btn.disabled=false;btn.textContent='Confirm';}
+            }
+        };
+        xr.onerror=function(){
+            if(msg)msg.textContent='Connection error.';
+            if(btn){btn.disabled=false;btn.textContent='Confirm';}
+        };
+        xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
+    }
+    if(btn)btn.onclick=doSubmit;
+    if(inp)inp.onkeydown=function(e){if(e.key==='Enter')doSubmit();};
 }
 // Show a status string somewhere always visible without console.
 function _showStatus(msg){
@@ -479,32 +558,26 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
-    // Find LoginView via skin._inputPassword (EXML id — never minified).
-    // Runs every 500ms; once found, apply session-lock or show password field.
-    if(!_lvRef){
+    // Session player: try to lock the account field in the EXML login screen.
+    // Best-effort — works in debug build (names not minified) and when EXML loads dynamically.
+    if(_urlU&&!_lvRef){
         _lvRef=_getLoginView();
         if(_lvRef){
-            var sk=_lvRef.skin;
-            if(sk){
-                if(_urlU){
-                    // Session player: lock account to session username, hide password row
-                    if(sk._inputClient&&!sk._inputClient.__cwLocked){
-                        sk._inputClient.__cwLocked=true;
-                        sk._inputClient.text=_urlU;
-                        sk._inputClient.touchEnabled=false;
-                    }
-                    if(sk._groupPwd)sk._groupPwd.visible=false;
-                    if(sk._lblError)sk._lblError.visible=false;
-                    _showStatus('session-lock:'+_urlU);
-                } else {
-                    // No session: password field stays visible; ensure touchEnabled
-                    if(sk._inputPassword)sk._inputPassword.touchEnabled=true;
-                    _showStatus('no-session:pwd-required');
-                }
+            var _lsk=_lvRef.skin||_lvRef; // skin or host, depending on @SkinPart setup
+            var _ic=_lsk._inputClient||(_lvRef.skin&&_lvRef.skin._inputClient);
+            if(_ic&&!_ic.__cwLocked){
+                _ic.__cwLocked=true;
+                _ic.text=_urlU;
+                try{_ic.touchEnabled=false;}catch(e){}
             }
+            var _gp=_lsk._groupPwd||(_lvRef.skin&&_lvRef.skin._groupPwd);
+            if(_gp)try{_gp.visible=false;}catch(e){}
+            var _le=_lsk._lblError||(_lvRef.skin&&_lvRef.skin._lblError);
+            if(_le)try{_le.visible=false;}catch(e){}
+            _showStatus('lv-locked:'+_urlU);
         }
     }
-    // Block socket.init() for non-session players until auth.php validates credentials
+    // Block socket.init() for non-session players; show password overlay on each attempt.
     if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&!Manager.socket.__cwV){
         Manager.socket.__cwV=true;
         var _si=Manager.socket.init.bind(Manager.socket);
@@ -513,64 +586,25 @@ function _patch(){
             _showStatus('init cn='+(cn||'(empty)')+' authed='+_cwAuthed);
             if(!cn)return;
             if(_cwAuthed){_si();return;}
-            // No session: read password from EXML skin (property name = EXML id, never minified)
-            if(!_lvRef)_lvRef=_getLoginView();
-            var sk2=_lvRef&&_lvRef.skin;
-            var pwd=sk2&&sk2._inputPassword?sk2._inputPassword.text:'';
-            var erf=sk2&&sk2._lblError;
-            _showStatus('pwd-len='+pwd.length+' lv='+(sk2?'ok':'null'));
-            if(pwd.length<6){
-                if(erf){erf.visible=true;erf.text='Password: min 6 chars';}
-                return;
-            }
-            if(erf)erf.text='Checking...';
-            var xr=new XMLHttpRequest();
-            xr.open('POST','auth.php',true);
-            xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            xr.onload=function(){
-                try{
-                    var res=JSON.parse(xr.response);
-                    var sk3=_lvRef&&_lvRef.skin;
-                    var erf2=sk3&&sk3._lblError;
-                    if(res.ok){
-                        _cwAuthed=true;_urlU=res.username;
-                        try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
-                        // Lock account field and hide password row now that auth passed
-                        if(sk3){
-                            if(sk3._inputClient){sk3._inputClient.text=_urlU;sk3._inputClient.touchEnabled=false;}
-                            if(sk3._groupPwd)sk3._groupPwd.visible=false;
-                            if(erf2)erf2.visible=false;
-                        }
-                        var lm=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin();
-                        if(lm&&!lm.__cwLocked){
-                            lm.__cwLocked=true;
-                            try{
-                                Object.defineProperty(lm,'clientName',{
-                                    get:function(){return this.__cwCN||_urlU;},
-                                    set:function(v){this.__cwCN=(v&&v!=='clientName')?v:_urlU;},
-                                    configurable:true,enumerable:true
-                                });
-                                lm.__cwCN=_urlU;
-                            }catch(e){try{lm.clientName=_urlU;}catch(e2){}}
-                        }
-                        _showStatus('auth-ok '+_urlU);
-                        _si();
-                    }else{
-                        if(erf2){erf2.visible=true;erf2.text=res.error||'Incorrect password.';}
-                        _showStatus('auth-fail '+(res.error||'?'));
-                    }
-                }catch(e){
-                    var sk4=_lvRef&&_lvRef.skin;
-                    if(sk4&&sk4._lblError){sk4._lblError.visible=true;sk4._lblError.text='Server error.';}
-                    _showStatus('auth-parse-err');
+            // No session: show HTML password overlay (reliable regardless of EXML structure)
+            _showPwdOverlay(cn,function(username){
+                _cwAuthed=true;_urlU=username;
+                try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
+                var lm=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin();
+                if(lm&&!lm.__cwLocked){
+                    lm.__cwLocked=true;
+                    try{
+                        Object.defineProperty(lm,'clientName',{
+                            get:function(){return this.__cwCN||_urlU;},
+                            set:function(v){this.__cwCN=(v&&v!=='clientName')?v:_urlU;},
+                            configurable:true,enumerable:true
+                        });
+                        lm.__cwCN=_urlU;
+                    }catch(e){try{lm.clientName=_urlU;}catch(e2){}}
                 }
-            };
-            xr.onerror=function(){
-                var sk5=_lvRef&&_lvRef.skin;
-                if(sk5&&sk5._lblError){sk5._lblError.visible=true;sk5._lblError.text='Connection error.';}
-                _showStatus('auth-net-err');
-            };
-            xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
+                _showStatus('auth-ok '+_urlU);
+                _si();
+            });
         };
     }
     // Intercept selectRoleLogin to persist username→roleId mapping via save_role.php
