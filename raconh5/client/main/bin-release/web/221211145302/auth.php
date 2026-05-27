@@ -35,7 +35,7 @@ try {
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS web_users (
         id             INT AUTO_INCREMENT PRIMARY KEY,
-        username       VARCHAR(32)  NOT NULL UNIQUE,
+        username       VARCHAR(32)  COLLATE utf8_bin NOT NULL UNIQUE,
         password_hash  VARCHAR(255) NOT NULL,
         erlang_role_id VARCHAR(32)  NULL DEFAULT NULL,
         created_at     DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -45,7 +45,7 @@ try {
         $pdo->exec("ALTER TABLE web_users ADD COLUMN erlang_role_id VARCHAR(32) NULL DEFAULT NULL");
     } catch (PDOException $e) {}
 
-    $stmt = $pdo->prepare('SELECT password_hash FROM web_users WHERE username = ?');
+    $stmt = $pdo->prepare('SELECT password_hash FROM web_users WHERE BINARY username = ?');
     $stmt->execute([$username]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
