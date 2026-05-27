@@ -1,8 +1,10 @@
-// RaconH English Translation Hook v50
+// RaconH English Translation Hook v51
 (function(){
-// Username bridge: sessionStorage (set by login.php) is primary; URL param is fallback.
-// This survives the JS redirect from login.php even when URL params get stripped.
+// Username source: window._cwGameUser is injected by index.php (PHP session).
+// This is the most reliable method — no URL param race, no sessionStorage timing issue.
+// Fallbacks kept for the rare case of direct file access during local dev.
 var _urlU=(function(){
+    if(typeof window._cwGameUser!=='undefined'&&window._cwGameUser)return window._cwGameUser;
     try{var ss=sessionStorage.getItem('cw_game_user');if(ss&&ss.length)return ss;}catch(e){}
     try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}
 }());
@@ -527,7 +529,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v50';
+document.title='EN v51';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
