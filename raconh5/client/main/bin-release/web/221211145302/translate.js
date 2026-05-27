@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v54
+// RaconH English Translation Hook v55
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -9,7 +9,9 @@ var _urlU=(function(){
     try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}
 }());
 var _cwAS=false;     // auto-start flag — fire Manager.socket.init() once when ready
-var _cwAuthed=!!_urlU; // true when PHP session pre-authenticated (no overlay needed)
+// Authenticated = player went through the overlay in this browser session.
+// PHP session (_urlU) only pre-fills the Account field, not the auth flag.
+var _cwAuthed=(function(){try{return sessionStorage.getItem('cw_authed')==='1';}catch(e){return false;}}());
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
@@ -425,7 +427,7 @@ function _showAuthOverlay(){
                 var res=JSON.parse(xr.response);
                 if(res.ok){
                     _cwAuthed=true;_urlU=res.username;
-                    try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
+                    try{sessionStorage.setItem('cw_authed','1');sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
                     if(typeof Manager!=='undefined'&&Manager.model&&Manager.model.getLogin){
                         var lm=Manager.model.getLogin();
                         if(!lm.__cwLocked){
@@ -624,8 +626,13 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v54';
+document.title='EN v55';
 _patch();
+// Show overlay immediately — player can enter credentials while the game loads
+if(!_cwAuthed){
+    if(document.body)_showAuthOverlay();
+    else document.addEventListener('DOMContentLoaded',_showAuthOverlay);
+}
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
     clearInterval(_t);
