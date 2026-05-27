@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v59
+// RaconH English Translation Hook v60
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -390,28 +390,28 @@ function _fixAttrCVO(){
         for(var id in _an){var i=AttrCVO._data[parseInt(id)];if(i){i.name=_an[id];i.shortName=_an[id];}}
     }
 }
-// Walk the Egret stage to find the LoginView host — identified by its _inputClient skin part.
-function _getLoginView(){
-    var s=typeof egret!=='undefined'&&egret.stage;
-    if(!s)return null;
-    function _w(d){
-        if(!d)return null;
-        try{
-            if(typeof d._inputClient!=='undefined'&&d._inputClient!==null)return d;
-            for(var i=0,n=d.numChildren;i<n;i++){var r=_w(d.getChildAt(i));if(r)return r;}
-        }catch(e){}
-        return null;
-    }
-    return _w(s);
+// Scan a display subtree and collect all type="input" text fields into out[].
+// Also collect Labels with textColor=0xFF4444 (error labels) into errs[].
+function _scanFields(d,out,errs){
+    if(!d)return;
+    try{
+        var tp=d.type;
+        if(tp==='input'||tp===2){out.push(d);return;} // input: don't recurse inside
+        // Red label = error label candidate
+        if(errs&&typeof d.textColor!=='undefined'&&d.textColor===0xFF4444&&typeof d.text!=='undefined')
+            errs.push(d);
+        for(var i=0,n=d.numChildren;i<n;i++)_scanFields(d.getChildAt(i),out,errs);
+    }catch(e){}
 }
-// Access a skin part from the LoginView host OR its EUI skin object.
-// New EXML fields (_inputPassword, _lblError) are not declared @SkinPart in
-// LoginView.ts so they live on lv.skin, not on lv directly.
-function _lvField(lv,name){
-    if(!lv)return null;
-    if(lv[name]!=null)return lv[name];
-    if(lv.skin&&lv.skin[name]!=null)return lv.skin[name];
-    return null;
+// Return [accountField, passwordField, errorLabel] from the entire stage.
+// Account = index 0 (first input found), Password = index 1.
+// Error label = first Label with textColor 0xFF4444.
+function _getLoginFields(){
+    var s=typeof egret!=='undefined'&&egret.stage;
+    if(!s)return [null,null,null];
+    var ins=[],errs=[];
+    _scanFields(s,ins,errs);
+    return [ins[0]||null, ins[1]||null, errs[0]||null];
 }
 // Recursively set displayAsPassword=true on every egret.TextField in the tree.
 // ns1:Label type="input" doesn't expose displayAsPassword directly; the real
@@ -505,44 +505,22 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
-    // Set up EXML login fields.
-    // Strategy A: _lvField checks lv[name] (for @SkinPart) then lv.skin[name] (for EXML-only ids).
-    // Strategy B (fallback): search within lv._groupDebug child list.
-    var _lv=_getLoginView();
-    if(_lv){
-        var _ic=_lvField(_lv,'_inputClient');
-        if(_urlU&&_ic&&!_ic.__cwPF){
-            _ic.__cwPF=true;
-            if(!_ic.text)_ic.text=_urlU;
+    // Populate cached refs from stage scan (runs every 500ms while login screen is up).
+    if(!_ipRef){
+        var _flds=_getLoginFields();
+        // _flds[0]=Account field, _flds[1]=Password field, _flds[2]=error label
+        if(_urlU&&_flds[0]&&!_flds[0].__cwPF){
+            _flds[0].__cwPF=true;
+            if(!_flds[0].text)_flds[0].text=_urlU;
         }
-        // Locate _inputPassword
-        if(!_ipRef){
-            var _ip=_lvField(_lv,'_inputPassword');
-            if(!_ip){
-                // Fallback: gather all input fields inside _groupDebug, skip Account field
-                var _gd=_lvField(_lv,'_groupDebug');
-                if(_gd){
-                    var _ins=[];_findInputsIn(_gd,_ins);
-                    for(var _fi=0;_fi<_ins.length;_fi++){
-                        if(_ins[_fi]!==_ic){_ip=_ins[_fi];break;}
-                    }
-                }
-            }
-            if(_ip){
-                _ipRef=_ip;
-                if(!_ip.__cwDP){_ip.__cwDP=true;_setDPwd(_ip);}
-                _showStatus('pwd-field-found');
-            } else {
-                _showStatus('pwd-field-missing');
-            }
+        if(_flds[1]){
+            _ipRef=_flds[1];
+            if(!_flds[1].__cwDP){_flds[1].__cwDP=true;_setDPwd(_flds[1]);}
+            _showStatus('pwd-field-found inputs='+(_getLoginFields()[0]?'acct+':'')+'pwd');
         }
-        // Locate _lblError
-        if(!_erRef){
-            var _er=_lvField(_lv,'_lblError');
-            if(_er)_erRef=_er;
-        }
+        if(_flds[2])_erRef=_flds[2];
     }
-    // Block socket.init() until EXML password field passes auth.php validation
+    // Block socket.init() until password field passes auth.php validation
     if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&!Manager.socket.__cwV){
         Manager.socket.__cwV=true;
         var _si=Manager.socket.init.bind(Manager.socket);
@@ -551,36 +529,16 @@ function _patch(){
             _showStatus('init cn='+(cn||'(empty)')+' authed='+_cwAuthed);
             if(!cn)return;
             if(_cwAuthed){_si();return;}
-            // Locate password field: use cached ref, then skin lookup, then full-tree scan.
-            var _lv3=_getLoginView();
+            // Use cached refs; if still missing, do a fresh stage scan now.
+            if(!_ipRef){
+                var _f2=_getLoginFields();
+                if(_f2[1])_ipRef=_f2[1];
+                if(_f2[2])_erRef=_f2[2];
+                var _ins2=[]; _scanFields(typeof egret!=='undefined'?egret.stage:null,_ins2,null);
+                _showStatus('scan: '+_ins2.length+' inputs found');
+            }
             var ipf=_ipRef;
             var erf=_erRef;
-            if(!ipf||!erf){
-                if(_lv3){
-                    if(!ipf)ipf=_lvField(_lv3,'_inputPassword');
-                    if(!erf)erf=_lvField(_lv3,'_lblError');
-                    // Strategy B: scan entire LoginView subtree for input fields
-                    if(!ipf){
-                        var _allIns=[];_findInputsIn(_lv3,_allIns);
-                        var _acct=_lvField(_lv3,'_inputClient');
-                        for(var _si2=0;_si2<_allIns.length;_si2++){
-                            if(_allIns[_si2]!==_acct){ipf=_allIns[_si2];break;}
-                        }
-                    }
-                    // Log skin keys for diagnosis when still not found
-                    if(!ipf){
-                        try{
-                            var _sk=_lv3.skin;
-                            console.log('[cwLogin] lv.skin=',_sk,'keys=',_sk?Object.keys(_sk):[]);
-                            console.log('[cwLogin] lv keys=',Object.keys(_lv3).slice(0,30));
-                        }catch(e){}
-                        _showStatus('NO-PWD-FIELD');
-                        return; // can't auth without password field
-                    }
-                    if(ipf)_ipRef=ipf;
-                    if(erf)_erRef=erf;
-                }
-            }
             var pwd=ipf?ipf.text:'';
             _showStatus('pwd-len='+pwd.length+' ipf='+(ipf?'ok':'null')+' erf='+(erf?'ok':'null'));
             if(pwd.length<6){
@@ -594,7 +552,7 @@ function _patch(){
             xr.onload=function(){
                 try{
                     var res=JSON.parse(xr.response);
-                    var erf2=_erRef||_lvField(_getLoginView(),'_lblError');
+                    var erf2=_erRef;
                     if(res.ok){
                         _cwAuthed=true;_urlU=res.username;
                         try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
@@ -618,14 +576,12 @@ function _patch(){
                         _showStatus('auth-fail '+(res.error||'?'));
                     }
                 }catch(e){
-                    var erf3=_erRef||_lvField(_getLoginView(),'_lblError');
-                    if(erf3)erf3.text='Server error.';
+                    if(_erRef)_erRef.text='Server error.';
                     _showStatus('auth-parse-err');
                 }
             };
             xr.onerror=function(){
-                var erf4=_erRef||_lvField(_getLoginView(),'_lblError');
-                if(erf4)erf4.text='Connection error.';
+                if(_erRef)_erRef.text='Connection error.';
                 _showStatus('auth-net-err');
             };
             xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
@@ -692,7 +648,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v59';
+document.title='EN v60';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
