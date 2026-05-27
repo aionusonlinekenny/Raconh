@@ -22,8 +22,13 @@ define('DB_NAME', 'cw02_game1');
 // ── Erlang GM bridge ─────────────────────────────────────────────────────────
 // erl10.4 is bundled in the same folder as admin.php
 define('ESCRIPT_EXE', __DIR__ . DIRECTORY_SEPARATOR . 'erl10.4' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'escript.exe');
-// server_bin is 5 levels up: 221211145302/web/bin-release/main/client → repo root → server_bin
-define('GM_ESCRIPT',  dirname(__DIR__, 5) . DIRECTORY_SEPARATOR . 'server_bin' . DIRECTORY_SEPARATOR . 'gm.escript');
+// gm.escript: look next to admin.php first (self-contained XAMPP deploy),
+// then fall back to repo structure (raconh5/server_bin/).
+define('GM_ESCRIPT',
+    file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'gm.escript')
+        ? __DIR__ . DIRECTORY_SEPARATOR . 'gm.escript'
+        : dirname(__DIR__, 5) . DIRECTORY_SEPARATOR . 'server_bin' . DIRECTORY_SEPARATOR . 'gm.escript'
+);
 
 // ── Translation file paths ────────────────────────────────────────────────────
 define('CW_FILE',    __DIR__ . '/resource/res/cw.txt');
@@ -1357,16 +1362,57 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
       <?php endif; ?>
 
       <!-- ── Setup instructions ── -->
-      <details style="margin-top:18px">
-        <summary style="font-size:13px;color:#507050;cursor:pointer;padding:8px 0">🖥 Setup: enable the stat editor (gm.escript)</summary>
+      <?php
+        $escriptOk = file_exists(ESCRIPT_EXE);
+        $gmOk      = file_exists(GM_ESCRIPT);
+        $shellOk   = function_exists('shell_exec');
+      ?>
+      <details style="margin-top:18px" <?=(!$escriptOk||!$gmOk||!$shellOk)?'open':''?>>
+        <summary style="font-size:13px;color:<?=($escriptOk&&$gmOk&&$shellOk)?'#507050':'#805030'?>;cursor:pointer;padding:8px 0">
+          🖥 Stat editor status
+          <?php if(!$escriptOk||!$gmOk||!$shellOk): ?>
+            <span style="color:#c07040;font-size:11px;margin-left:6px">⚠ not ready — see below</span>
+          <?php else: ?>
+            <span style="color:#60c070;font-size:11px;margin-left:6px">✔ all files found</span>
+          <?php endif; ?>
+        </summary>
         <div style="background:rgba(20,40,20,.4);border:1px solid rgba(60,160,80,.2);border-radius:8px;padding:16px;margin-top:8px;font-size:12px;color:#7a9070">
-          <strong>1.</strong> Copy <code>gm.escript</code> (from repo <code>raconh5/server_bin/</code>) to <code>C:\raconh5\server_bin\gm.escript</code><br><br>
-          <strong>2.</strong> Find your <code>escript.exe</code> — usually at:<br>
-          <code>C:\Program Files\erl9.0\bin\escript.exe</code><br><br>
-          <strong>3.</strong> Edit the two constants at the top of <code>admin.php</code>:<br>
-          <code>define('ESCRIPT_EXE', 'C:\\Program Files\\erl9.0\\bin\\escript.exe');</code><br>
-          <code>define('GM_ESCRIPT',  'C:\\raconh5\\server_bin\\gm.escript');</code><br><br>
-          <strong>4.</strong> Make sure PHP's <code>shell_exec</code> is not disabled in <code>php.ini</code> (check <code>disable_functions</code>).
+
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+            <div>
+              <span style="color:<?=$escriptOk?'#60c070':'#c06040'?>"><?=$escriptOk?'✔':'✘'?></span>
+              <strong style="color:#90a080">escript.exe</strong>
+              <code style="color:#6080a0;margin-left:6px;font-size:11px"><?=htmlspecialchars(ESCRIPT_EXE)?></code>
+              <?php if(!$escriptOk): ?><span style="color:#c06040;margin-left:4px">← NOT FOUND</span><?php endif; ?>
+            </div>
+            <div>
+              <span style="color:<?=$gmOk?'#60c070':'#c06040'?>"><?=$gmOk?'✔':'✘'?></span>
+              <strong style="color:#90a080">gm.escript</strong>
+              <code style="color:#6080a0;margin-left:6px;font-size:11px"><?=htmlspecialchars(GM_ESCRIPT)?></code>
+              <?php if(!$gmOk): ?><span style="color:#c06040;margin-left:4px">← NOT FOUND</span><?php endif; ?>
+            </div>
+            <div>
+              <span style="color:<?=$shellOk?'#60c070':'#c06040'?>"><?=$shellOk?'✔':'✘'?></span>
+              <strong style="color:#90a080">shell_exec()</strong>
+              <?php if(!$shellOk): ?><span style="color:#c06040;margin-left:6px">disabled in php.ini — remove from disable_functions</span><?php endif; ?>
+            </div>
+          </div>
+
+          <?php if(!$escriptOk): ?>
+          <strong>escript.exe not found:</strong><br>
+          erl10.4 should be in the same folder as admin.php.<br>
+          Make sure you copied the full game folder including <code>erl10.4\</code>.<br><br>
+          <?php endif; ?>
+
+          <?php if(!$gmOk): ?>
+          <strong>gm.escript not found:</strong><br>
+          Copy <code>gm.escript</code> from the repo (already in the game folder alongside admin.php).<br>
+          Expected path: <code><?=htmlspecialchars(GM_ESCRIPT)?></code><br><br>
+          <?php endif; ?>
+
+          <span style="color:#506050">
+            The game server must be running (<code>newserver@127.0.0.1</code>) and reachable via Erlang distribution (cookie: <code>stupidcat</code>).
+          </span>
         </div>
       </details>
 
