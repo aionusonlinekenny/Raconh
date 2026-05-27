@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v52
+// RaconH English Translation Hook v53
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -486,6 +486,30 @@ function _patch(){
             _si();
         };
     }
+    // Intercept Manager.view.show so clientName is locked BEFORE LoginView (28) runs its
+    // clientName == "" check — eliminates the 500ms race between _patch() interval and
+    // LoginView initialisation that left the Account input visible but empty.
+    if(_urlU&&typeof Manager!=='undefined'&&Manager.view&&Manager.view.show&&!Manager.view.__cwSH){
+        Manager.view.__cwSH=true;
+        var _origVS=Manager.view.show.bind(Manager.view);
+        Manager.view.show=function(vid){
+            if(vid===28&&Manager.model&&Manager.model.getLogin){
+                var _lv=Manager.model.getLogin();
+                if(!_lv.__cwLocked){
+                    _lv.__cwLocked=true;
+                    try{
+                        Object.defineProperty(_lv,'clientName',{
+                            get:function(){return this.__cwCN||_urlU;},
+                            set:function(v){this.__cwCN=(v&&v!=='clientName')?v:_urlU;},
+                            configurable:true,enumerable:true
+                        });
+                        _lv.__cwCN=_lv.clientName||_urlU;
+                    }catch(e){try{_lv.clientName=_urlU;}catch(e2){}}
+                }
+            }
+            return _origVS(vid);
+        };
+    }
     // Intercept selectRoleLogin to persist username→roleId mapping via save_role.php
     if(_urlU&&typeof Manager!=='undefined'&&Manager.control&&Manager.control.getLogin&&!Manager.__cwRSH){
         var _lc=Manager.control.getLogin();
@@ -549,7 +573,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v52';
+document.title='EN v53';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){

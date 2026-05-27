@@ -52,6 +52,19 @@ $username_json = json_encode($username);
             padding: 0; border: 0; margin: 0;
             height: 100%;
         }
+        #cw-badge {
+            position: fixed; top: 8px; right: 8px; z-index: 9999;
+            background: rgba(0,0,0,.6);
+            border: 1px solid rgba(240,180,60,.4);
+            border-radius: 5px;
+            padding: 5px 12px;
+            font: 12px/1.4 Arial, sans-serif;
+            color: #f0c060;
+            text-decoration: none;
+            letter-spacing: .5px;
+            pointer-events: auto;
+        }
+        #cw-badge:hover { background: rgba(0,0,0,.85); }
     </style>
 
     <?php /* Two sources so translate.js has the username before AND after Egret loads */ ?>
@@ -61,7 +74,7 @@ $username_json = json_encode($username);
     </script>
 
     <script type="text/javascript" src="Loading.js"></script>
-    <script type="text/javascript" src="translate.js?v=52"></script>
+    <script type="text/javascript" src="translate.js?v=53"></script>
     <audio id="1002" class="media-audio" src="resource/res/sound/1002.mp3" preload loop="loop"></audio>
     <audio id="1001" class="media-audio" src="resource/res/sound/1001.mp3" preload loop="loop"></audio>
     <script>
@@ -82,6 +95,9 @@ $username_json = json_encode($username);
     </script>
 </head>
 <body>
+    <a id="cw-badge" href="logout.php" title="Click to logout">
+        &#9986; <?php echo htmlspecialchars($username); ?>
+    </a>
     <div id="egret-player"
          style="margin:auto;width:100%;height:100%;"
          class="egret-player"
