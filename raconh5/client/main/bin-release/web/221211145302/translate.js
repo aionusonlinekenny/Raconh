@@ -558,6 +558,25 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
+    // Session player: override clientName on the login model so cn is never empty.
+    // The game may auto-fire socket.init before the player types anything; this ensures
+    // Manager.model.getLogin().clientName always returns _urlU for session players.
+    if(_urlU&&typeof Manager!=='undefined'&&Manager.model&&Manager.model.getLogin&&!Manager.__cwCNSet){
+        var _lmm=Manager.model.getLogin();
+        if(_lmm&&!_lmm.__cwLocked){
+            Manager.__cwCNSet=true;
+            _lmm.__cwLocked=true;
+            try{
+                Object.defineProperty(_lmm,'clientName',{
+                    get:function(){return this.__cwCN||_urlU;},
+                    set:function(v){this.__cwCN=(v&&v!=='clientName')?v:_urlU;},
+                    configurable:true,enumerable:true
+                });
+                _lmm.__cwCN=_urlU;
+            }catch(e){try{_lmm.clientName=_urlU;}catch(e2){}}
+            _showStatus('cn-set:'+_urlU);
+        }
+    }
     // Session player: try to lock the account field in the EXML login screen.
     // Best-effort — works in debug build (names not minified) and when EXML loads dynamically.
     if(_urlU&&!_lvRef){
