@@ -389,19 +389,19 @@ function _fixAttrCVO(){
         for(var id in _an){var i=AttrCVO._data[parseInt(id)];if(i){i.name=_an[id];i.shortName=_an[id];}}
     }
 }
-// Try to find the LoginView component.
-// Checks both host properties (debug build: not minified) and skin properties (EXML ids).
+// Find the LoginView component by scanning for skin._groupDebug or skin._inputClient.
+// These IDs are in the original EXML and survive compilation as string-keyed properties
+// (EUI skin parser always does this["id"] = node — never minified).
+// _inputPassword / _groupPwd were added by us and may not be in the compiled skin.
 function _getLoginView(){
     var s=typeof egret!=='undefined'&&egret.stage;
     if(!s)return null;
     function scan(d){
         try{
             if(d){
-                // Host property check (debug build names are not minified)
-                if(d._inputClient!==undefined&&d._inputClient!==null&&typeof d._inputClient==='object')return d;
-                // Skin property check (EXML ids are always string-keyed, never minified)
                 var sk=d.skin;
-                if(sk&&(sk._inputClient!==undefined||sk._inputPassword!==undefined))return d;
+                // Original EXML ids: _groupDebug and _inputClient are always present
+                if(sk&&(sk._groupDebug!==undefined||sk._inputClient!==undefined))return d;
             }
             var n=d?d.numChildren:0;
             for(var i=0;i<n;i++){var r=scan(d.getChildAt(i));if(r)return r;}
@@ -577,23 +577,18 @@ function _patch(){
             _showStatus('cn-set:'+_urlU);
         }
     }
-    // Session player: try to lock the account field in the EXML login screen.
-    // Best-effort — works in debug build (names not minified) and when EXML loads dynamically.
+    // Session player: hide the entire Account+Password group from the login screen.
+    // _groupDebug is the original EXML id — string-keyed on skin, always survives compilation.
     if(_urlU&&!_lvRef){
         _lvRef=_getLoginView();
         if(_lvRef){
-            var _lsk=_lvRef.skin||_lvRef; // skin or host, depending on @SkinPart setup
-            var _ic=_lsk._inputClient||(_lvRef.skin&&_lvRef.skin._inputClient);
-            if(_ic&&!_ic.__cwLocked){
-                _ic.__cwLocked=true;
-                _ic.text=_urlU;
-                try{_ic.touchEnabled=false;}catch(e){}
+            var _sk=_lvRef.skin;
+            if(_sk){
+                // Hide the entire account/password block — session player just picks server+start
+                var _gd=_sk._groupDebug;
+                if(_gd)try{_gd.visible=false;}catch(e){}
+                _showStatus('lv-hidden-ok');
             }
-            var _gp=_lsk._groupPwd||(_lvRef.skin&&_lvRef.skin._groupPwd);
-            if(_gp)try{_gp.visible=false;}catch(e){}
-            var _le=_lsk._lblError||(_lvRef.skin&&_lvRef.skin._lblError);
-            if(_le)try{_le.visible=false;}catch(e){}
-            _showStatus('lv-locked:'+_urlU);
         }
     }
     // Block socket.init() for non-session players; show password overlay on each attempt.
