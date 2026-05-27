@@ -11,7 +11,7 @@
 	<e:Group id="_groupDebug" x="200" y="849">
 		<e:Image scale9Grid="6,6,38,38" x="118" y="0" anchorOffsetX="0" width="231" anchorOffsetY="0" height="34" source="login_rect_1_png"/>
 		<ns1:Label text="Account:" x="0" y="0" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="122" textAlign="left"/>
-		<ns1:Label id="_inputClient" text="clientName" x="123" y="1" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" touchEnabled="false" type="input" width="225"/>
+		<ns1:Label id="_inputClient" text="" x="123" y="1" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" touchEnabled="false" type="input" width="225"/>
 	</e:Group>
 
 

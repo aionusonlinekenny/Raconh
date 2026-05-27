@@ -1,5 +1,7 @@
-// RaconH English Translation Hook v47
+// RaconH English Translation Hook v48
 (function(){
+// Capture URL username once so it can be used to protect the game's login model
+var _urlU=(function(){try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}}());
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
@@ -443,6 +445,26 @@ function _patch(){
         if(!lp.__cwLH){
             var _ldh=Object.getOwnPropertyDescriptor(lp,'htmlText');
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
+        }
+    }
+    // Protect clientName: when URL has ?username=xxx, prevent the skin's default
+    // "clientName" text (or empty string from hidden input) from overwriting it.
+    if(_urlU&&typeof Manager!=='undefined'&&Manager.model&&Manager.model.getLogin){
+        var _lm=Manager.model.getLogin();
+        if(!_lm.__cwLocked){
+            _lm.__cwLocked=true;
+            var _cv=_lm.clientName||_urlU;
+            var _proto=Object.getPrototypeOf(_lm);
+            var _cd=Object.getOwnPropertyDescriptor(_proto,'clientName')||Object.getOwnPropertyDescriptor(_lm,'clientName');
+            if(!_cd){
+                // No descriptor — plain property; use Object.defineProperty on instance
+                Object.defineProperty(_lm,'clientName',{
+                    get:function(){return this.__cv||_urlU;},
+                    set:function(v){this.__cv=(v&&v!=='clientName')?v:_urlU;},
+                    configurable:true,enumerable:true
+                });
+                _lm.__cv=_cv;
+            }
         }
     }
     _fixAttrCVO();
