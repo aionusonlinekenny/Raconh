@@ -1,15 +1,16 @@
-// RaconH English Translation Hook v61
+// RaconH English Translation Hook v63
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
-// This is the most reliable method — no URL param race, no sessionStorage timing issue.
-// Fallbacks kept for the rare case of direct file access during local dev.
+// Non-empty only when the player already passed the login form in index.php.
 var _urlU=(function(){
     if(typeof window._cwGameUser!=='undefined'&&window._cwGameUser)return window._cwGameUser;
     try{var ss=sessionStorage.getItem('cw_game_user');if(ss&&ss.length)return ss;}catch(e){}
     try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}
 }());
-var _cwAS=false;    // auto-start flag — fire Manager.socket.init() once when ready
-var _cwAuthed=false; // set to true after password validated via auth.php
+var _cwAS=false;
+// _cwAuthed: true when PHP session is valid (index.php only loads game after login).
+// In-game re-auth is skipped — auth already happened via the index.php login form.
+var _cwAuthed=!!_urlU;
 // Cached refs to login-screen fields, populated by _patch() as soon as they are available.
 // Avoids depending on _lvField() inside the fast-path socket.init override.
 var _ipRef=null;  // _inputPassword field
