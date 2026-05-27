@@ -49,15 +49,13 @@ try {
     $stmt->execute([$username]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($row) {
-        if (!password_verify($password, $row['password_hash'])) {
-            echo json_encode(['error' => 'Incorrect password.']);
-            exit;
-        }
-    } else {
-        $hash = password_hash($password, PASSWORD_BCRYPT);
-        $pdo->prepare('INSERT INTO web_users (username, password_hash) VALUES (?, ?)')
-            ->execute([$username, $hash]);
+    if (!$row) {
+        echo json_encode(['error' => 'Account not registered. Please contact admin.']);
+        exit;
+    }
+    if (!password_verify($password, $row['password_hash'])) {
+        echo json_encode(['error' => 'Incorrect password.']);
+        exit;
     }
 
     $_SESSION['game_user'] = $username;

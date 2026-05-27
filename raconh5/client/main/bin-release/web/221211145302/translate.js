@@ -1,18 +1,11 @@
 // RaconH English Translation Hook v63
 (function(){
-// window._cwGameUser: injected by index.php, non-empty when PHP session exists (came via login.php).
-var _urlU=(function(){
-    if(typeof window._cwGameUser!=='undefined'&&window._cwGameUser)return window._cwGameUser;
-    try{var ss=sessionStorage.getItem('cw_game_user');if(ss&&ss.length)return ss;}catch(e){}
-    try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}
-}());
+// _cwAuthed: true ONLY when index.php injected a valid PHP session.
+// URL param alone does NOT bypass auth.
+var _cwAuthed=!!(typeof window._cwGameUser!=='undefined'&&window._cwGameUser);
+var _urlU=_cwAuthed?String(window._cwGameUser):'';
 var _cwAS=false;
-// Session players skip in-game password check; direct-access players must authenticate.
-var _cwAuthed=!!_urlU;
-// Cached refs to login-screen fields, populated by _patch() as soon as they are available.
-// Cached reference to the LoginView component (found by scanning skin._inputPassword).
-// EXML property names are never minified, so skin._inputPassword is always reliable.
-var _lvRef=null;
+var _lvRef=null; // cached LoginView reference
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
@@ -389,20 +382,14 @@ function _fixAttrCVO(){
         for(var id in _an){var i=AttrCVO._data[parseInt(id)];if(i){i.name=_an[id];i.shortName=_an[id];}}
     }
 }
-// Find the LoginView component by scanning for skin._groupDebug or skin._inputClient.
-// These IDs are in the original EXML and survive compilation as string-keyed properties
-// (EUI skin parser always does this["id"] = node — never minified).
-// _inputPassword / _groupPwd were added by us and may not be in the compiled skin.
+// Scan stage for LoginView: look for skin._groupDebug or skin._inputClient.
+// These are original EXML ids → string-keyed on skin → never minified in release builds.
 function _getLoginView(){
     var s=typeof egret!=='undefined'&&egret.stage;
     if(!s)return null;
     function scan(d){
         try{
-            if(d){
-                var sk=d.skin;
-                // Original EXML ids: _groupDebug and _inputClient are always present
-                if(sk&&(sk._groupDebug!==undefined||sk._inputClient!==undefined))return d;
-            }
+            if(d&&d.skin&&(d.skin._groupDebug!==undefined||d.skin._inputClient!==undefined))return d;
             var n=d?d.numChildren:0;
             for(var i=0;i<n;i++){var r=scan(d.getChildAt(i));if(r)return r;}
         }catch(e){}
@@ -410,79 +397,72 @@ function _getLoginView(){
     }
     return scan(s);
 }
-// Build and return the password overlay div (created once, reused).
-function _getOverlay(){
-    var id='_cwPwdBox';
-    if(document.getElementById(id))return document.getElementById(id);
-    var o=document.createElement('div');
-    o.id=id;
-    o.style.cssText='display:none;position:fixed;top:0;left:0;width:100%;height:100%;'
-        +'background:rgba(0,0,0,.78);z-index:99999;align-items:center;justify-content:center;'
-        +'font-family:Microsoft YaHei,Arial,sans-serif;';
-    o.innerHTML=
-        '<div style="background:#16213e;border:2px solid #e94560;border-radius:12px;'
-        +'padding:28px 24px;width:280px;box-shadow:0 8px 32px rgba(0,0,0,.8);">'
-        +'<div style="color:#e94560;text-align:center;font-size:18px;font-weight:bold;margin-bottom:18px;">Password Required</div>'
-        +'<div style="color:#888;font-size:12px;margin-bottom:4px;">Account</div>'
-        +'<div id="_cwPwdAcct" style="color:#fff;background:#0f3460;border-radius:6px;'
-        +'padding:8px 12px;margin-bottom:14px;font-size:14px;letter-spacing:.5px;"></div>'
-        +'<div style="color:#888;font-size:12px;margin-bottom:4px;">Password</div>'
-        +'<input id="_cwPwdInp" type="password" maxlength="64" placeholder="min 6 chars" '
-        +'style="width:100%;box-sizing:border-box;background:#0f3460;border:1px solid #1a4a7a;'
-        +'border-radius:6px;padding:9px 12px;color:#fff;font-size:15px;outline:none;margin-bottom:4px;">'
-        +'<div id="_cwPwdMsg" style="min-height:18px;color:#e94560;font-size:12px;'
-        +'text-align:center;margin-bottom:10px;"></div>'
-        +'<button id="_cwPwdBtn" style="width:100%;background:#e94560;border:none;border-radius:6px;'
-        +'padding:11px;color:#fff;font-size:15px;font-weight:bold;cursor:pointer;letter-spacing:.5px;">'
-        +'Confirm</button>'
-        +'</div>';
-    document.body.appendChild(o);
-    return o;
+// AJAX: POST to auth.php, calls back(true, username) on success or back(false, errorMsg) on fail.
+function _doAuth(cn,pwd,back){
+    var xr=new XMLHttpRequest();
+    xr.open('POST','auth.php',true);
+    xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xr.onload=function(){
+        try{
+            var r=JSON.parse(xr.response);
+            if(r.ok)back(true,r.username);
+            else back(false,r.error||'Login failed.');
+        }catch(e){back(false,'Server error.');}
+    };
+    xr.onerror=function(){back(false,'Connection error.');};
+    xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
 }
-// Show password overlay; calls onOk(username) when auth.php returns ok.
-function _showPwdOverlay(cn, onOk){
-    var box=_getOverlay();
-    var acct=document.getElementById('_cwPwdAcct');
-    var inp=document.getElementById('_cwPwdInp');
-    var msg=document.getElementById('_cwPwdMsg');
-    var btn=document.getElementById('_cwPwdBtn');
+// HTML password overlay — used when EXML skin._inputPassword is not accessible.
+// Created once, reused. onOk(username) called after successful auth.php check.
+function _showPwdOverlay(cn,onOk){
+    var B='_cwPwdBox';
+    if(!document.getElementById(B)){
+        var o=document.createElement('div');
+        o.id=B;
+        o.style.cssText='display:none;position:fixed;top:0;left:0;width:100%;height:100%;'
+            +'background:rgba(0,0,0,.78);z-index:99999;align-items:center;justify-content:center;'
+            +'font-family:Microsoft YaHei,Arial,sans-serif;';
+        o.innerHTML='<div style="background:#16213e;border:2px solid #e94560;border-radius:12px;'
+            +'padding:28px 24px;width:280px;box-shadow:0 8px 32px rgba(0,0,0,.8);">'
+            +'<div style="color:#e94560;text-align:center;font-size:18px;font-weight:bold;margin-bottom:18px;">Login</div>'
+            +'<div style="color:#888;font-size:12px;margin-bottom:4px;">Account</div>'
+            +'<div id="_cwPA" style="color:#fff;background:#0f3460;border-radius:6px;padding:8px 12px;margin-bottom:14px;font-size:14px;"></div>'
+            +'<div style="color:#888;font-size:12px;margin-bottom:4px;">Password</div>'
+            +'<input id="_cwPI" type="password" maxlength="64" placeholder="Enter password"'
+            +' style="width:100%;box-sizing:border-box;background:#0f3460;border:1px solid #1a4a7a;'
+            +'border-radius:6px;padding:9px 12px;color:#fff;font-size:15px;outline:none;margin-bottom:4px;">'
+            +'<div id="_cwPM" style="min-height:18px;color:#e94560;font-size:12px;text-align:center;margin-bottom:10px;"></div>'
+            +'<button id="_cwPB" style="width:100%;background:#e94560;border:none;border-radius:6px;'
+            +'padding:11px;color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Confirm</button>'
+            +'</div>';
+        document.body.appendChild(o);
+    }
+    var box=document.getElementById(B);
+    var inp=document.getElementById('_cwPI');
+    var msg=document.getElementById('_cwPM');
+    var btn=document.getElementById('_cwPB');
+    var acct=document.getElementById('_cwPA');
     if(acct)acct.textContent=cn;
-    if(inp){inp.value='';setTimeout(function(){inp.focus();},80);}
+    if(inp){inp.value='';setTimeout(function(){try{inp.focus();}catch(e){}},80);}
     if(msg)msg.textContent='';
-    if(btn)btn.disabled=false;
+    if(btn){btn.disabled=false;btn.textContent='Confirm';}
     box.style.display='flex';
-    function doSubmit(){
+    function submit(){
         var pwd=inp?inp.value:'';
         if(msg)msg.textContent='';
-        if(pwd.length<6){if(msg)msg.textContent='Min 6 characters required.';return;}
+        if(pwd.length<6){if(msg)msg.textContent='Min 6 characters.';return;}
         if(btn){btn.disabled=true;btn.textContent='...';}
-        var xr=new XMLHttpRequest();
-        xr.open('POST','auth.php',true);
-        xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-        xr.onload=function(){
-            try{
-                var r=JSON.parse(xr.response);
-                if(r.ok){
-                    box.style.display='none';
-                    onOk(r.username);
-                }else{
-                    if(msg)msg.textContent=r.error||'Incorrect password.';
-                    if(btn){btn.disabled=false;btn.textContent='Confirm';}
-                    if(inp)inp.focus();
-                }
-            }catch(e){
-                if(msg)msg.textContent='Server error.';
+        _doAuth(cn,pwd,function(ok,val){
+            if(ok){box.style.display='none';onOk(val);}
+            else{
+                if(msg)msg.textContent=val;
                 if(btn){btn.disabled=false;btn.textContent='Confirm';}
+                if(inp)inp.focus();
             }
-        };
-        xr.onerror=function(){
-            if(msg)msg.textContent='Connection error.';
-            if(btn){btn.disabled=false;btn.textContent='Confirm';}
-        };
-        xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
+        });
     }
-    if(btn)btn.onclick=doSubmit;
-    if(inp)inp.onkeydown=function(e){if(e.key==='Enter')doSubmit();};
+    if(btn)btn.onclick=submit;
+    if(inp)inp.onkeydown=function(e){if(e.key==='Enter')submit();};
 }
 // Show a status string somewhere always visible without console.
 function _showStatus(msg){
@@ -558,14 +538,11 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
-    // Session player: override clientName on the login model so cn is never empty.
-    // The game may auto-fire socket.init before the player types anything; this ensures
-    // Manager.model.getLogin().clientName always returns _urlU for session players.
+    // ── Session player: force clientName = _urlU so cn is never empty ──────────
     if(_urlU&&typeof Manager!=='undefined'&&Manager.model&&Manager.model.getLogin&&!Manager.__cwCNSet){
         var _lmm=Manager.model.getLogin();
         if(_lmm&&!_lmm.__cwLocked){
-            Manager.__cwCNSet=true;
-            _lmm.__cwLocked=true;
+            Manager.__cwCNSet=true;_lmm.__cwLocked=true;
             try{
                 Object.defineProperty(_lmm,'clientName',{
                     get:function(){return this.__cwCN||_urlU;},
@@ -577,69 +554,55 @@ function _patch(){
             _showStatus('cn-set:'+_urlU);
         }
     }
-    // Session player: hide the entire Account+Password group from the login screen.
-    // _groupDebug is the original EXML id — string-keyed on skin, always survives compilation.
+    // ── Session player: hide Account+Password group (just select server + Start) ─
     if(_urlU&&!_lvRef){
         _lvRef=_getLoginView();
-        if(_lvRef){
-            var _sk=_lvRef.skin;
-            if(_sk){
-                // Hide the entire account/password block — session player just picks server+start
-                var _gd=_sk._groupDebug;
-                if(_gd)try{_gd.visible=false;}catch(e){}
-                _showStatus('lv-hidden-ok');
-            }
+        if(_lvRef&&_lvRef.skin&&_lvRef.skin._groupDebug!==undefined){
+            try{_lvRef.skin._groupDebug.visible=false;}catch(e){}
+            _showStatus('lv-hidden-ok');
         }
     }
-    // Block socket.init() for non-session players; show password overlay on each attempt.
+    // ── socket.init gate: block connection until credentials are verified ─────
     if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&!Manager.socket.__cwV){
         Manager.socket.__cwV=true;
         var _si=Manager.socket.init.bind(Manager.socket);
         Manager.socket.init=function(){
-            var cn=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin().clientName;
+            var lm=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin();
+            var cn=lm&&lm.clientName;
             _showStatus('init cn='+(cn||'(empty)')+' authed='+_cwAuthed);
             if(!cn)return;
             if(_cwAuthed){_si();return;}
-            // No session: show HTML password overlay (reliable regardless of EXML structure)
-            _showPwdOverlay(cn,function(username){
-                _cwAuthed=true;_urlU=username;
-                try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
-                var lm=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin();
-                if(lm&&!lm.__cwLocked){
-                    lm.__cwLocked=true;
-                    try{
-                        Object.defineProperty(lm,'clientName',{
-                            get:function(){return this.__cwCN||_urlU;},
-                            set:function(v){this.__cwCN=(v&&v!=='clientName')?v:_urlU;},
-                            configurable:true,enumerable:true
-                        });
-                        lm.__cwCN=_urlU;
-                    }catch(e){try{lm.clientName=_urlU;}catch(e2){}}
+            // Not authenticated: try EXML password field, fall back to HTML overlay
+            if(!_lvRef)_lvRef=_getLoginView();
+            var sk=_lvRef&&_lvRef.skin;
+            var pwdField=sk&&sk._inputPassword;
+            var errField=sk&&sk._lblError;
+            if(pwdField){
+                // EXML field accessible (dynamic EXML loading)
+                var pwd=pwdField.text||'';
+                if(pwd.length<6){
+                    if(errField){errField.visible=true;errField.text='Password min 6 chars.';}
+                    _showStatus('pwd-short');return;
                 }
-                _showStatus('auth-ok '+_urlU);
-                _si();
-            });
+                if(errField)errField.text='...';
+                _doAuth(cn,pwd,function(ok,val){
+                    if(ok){
+                        _cwAuthed=true;_urlU=val;
+                        if(errField)errField.text='';
+                        _showStatus('auth-ok '+val);_si();
+                    }else{
+                        if(errField){errField.visible=true;errField.text=val;}
+                        _showStatus('auth-fail '+val);
+                    }
+                });
+            }else{
+                // EXML not accessible (compiled skin) — HTML overlay
+                _showPwdOverlay(cn,function(username){
+                    _cwAuthed=true;_urlU=username;
+                    _showStatus('auth-ok '+username);_si();
+                });
+            }
         };
-    }
-    // Intercept selectRoleLogin to persist username→roleId mapping via save_role.php
-    if(_urlU&&typeof Manager!=='undefined'&&Manager.control&&Manager.control.getLogin&&!Manager.__cwRSH){
-        var _lc=Manager.control.getLogin();
-        if(_lc&&_lc.selectRoleLogin){
-            Manager.__cwRSH=true;
-            var _origSRL=_lc.selectRoleLogin.bind(_lc);
-            _lc.selectRoleLogin=function(id,extra){
-                if(id&&!_lc.__cwRoleSaved){
-                    _lc.__cwRoleSaved=true;
-                    try{
-                        var _xr=new XMLHttpRequest();
-                        _xr.open('POST','save_role.php',true);
-                        _xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-                        _xr.send('role_id='+encodeURIComponent(id));
-                    }catch(e3){}
-                }
-                return _origSRL(id,extra);
-            };
-        }
     }
     _fixAttrCVO();
     _retranslate();
