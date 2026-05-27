@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v58
+// RaconH English Translation Hook v59
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -551,9 +551,36 @@ function _patch(){
             _showStatus('init cn='+(cn||'(empty)')+' authed='+_cwAuthed);
             if(!cn)return;
             if(_cwAuthed){_si();return;}
-            // Use cached refs; fall back to live lookup if cache still empty
-            var ipf=_ipRef||_lvField(_getLoginView(),'_inputPassword');
-            var erf=_erRef||_lvField(_getLoginView(),'_lblError');
+            // Locate password field: use cached ref, then skin lookup, then full-tree scan.
+            var _lv3=_getLoginView();
+            var ipf=_ipRef;
+            var erf=_erRef;
+            if(!ipf||!erf){
+                if(_lv3){
+                    if(!ipf)ipf=_lvField(_lv3,'_inputPassword');
+                    if(!erf)erf=_lvField(_lv3,'_lblError');
+                    // Strategy B: scan entire LoginView subtree for input fields
+                    if(!ipf){
+                        var _allIns=[];_findInputsIn(_lv3,_allIns);
+                        var _acct=_lvField(_lv3,'_inputClient');
+                        for(var _si2=0;_si2<_allIns.length;_si2++){
+                            if(_allIns[_si2]!==_acct){ipf=_allIns[_si2];break;}
+                        }
+                    }
+                    // Log skin keys for diagnosis when still not found
+                    if(!ipf){
+                        try{
+                            var _sk=_lv3.skin;
+                            console.log('[cwLogin] lv.skin=',_sk,'keys=',_sk?Object.keys(_sk):[]);
+                            console.log('[cwLogin] lv keys=',Object.keys(_lv3).slice(0,30));
+                        }catch(e){}
+                        _showStatus('NO-PWD-FIELD');
+                        return; // can't auth without password field
+                    }
+                    if(ipf)_ipRef=ipf;
+                    if(erf)_erRef=erf;
+                }
+            }
             var pwd=ipf?ipf.text:'';
             _showStatus('pwd-len='+pwd.length+' ipf='+(ipf?'ok':'null')+' erf='+(erf?'ok':'null'));
             if(pwd.length<6){
@@ -665,7 +692,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v58';
+document.title='EN v59';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
