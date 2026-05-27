@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v60
+// RaconH English Translation Hook v61
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -390,46 +390,34 @@ function _fixAttrCVO(){
         for(var id in _an){var i=AttrCVO._data[parseInt(id)];if(i){i.name=_an[id];i.shortName=_an[id];}}
     }
 }
-// Scan a display subtree and collect all type="input" text fields into out[].
-// Also collect Labels with textColor=0xFF4444 (error labels) into errs[].
-function _scanFields(d,out,errs){
-    if(!d)return;
-    try{
-        var tp=d.type;
-        if(tp==='input'||tp===2){out.push(d);return;} // input: don't recurse inside
-        // Red label = error label candidate
-        if(errs&&typeof d.textColor!=='undefined'&&d.textColor===0xFF4444&&typeof d.text!=='undefined')
-            errs.push(d);
-        for(var i=0,n=d.numChildren;i<n;i++)_scanFields(d.getChildAt(i),out,errs);
-    }catch(e){}
-}
-// Return [accountField, passwordField, errorLabel] from the entire stage.
-// Account = index 0 (first input found), Password = index 1.
-// Error label = first Label with textColor 0xFF4444.
-function _getLoginFields(){
-    var s=typeof egret!=='undefined'&&egret.stage;
-    if(!s)return [null,null,null];
-    var ins=[],errs=[];
-    _scanFields(s,ins,errs);
-    return [ins[0]||null, ins[1]||null, errs[0]||null];
-}
-// Recursively set displayAsPassword=true on every egret.TextField in the tree.
-// ns1:Label type="input" doesn't expose displayAsPassword directly; the real
-// TextField is one or two levels inside.
+// Recursively set displayAsPassword=true on the egret.TextField buried inside
+// ns1:Label. The property 'displayAsPassword' is on the framework class (not
+// minified) so this is reliable regardless of game-code minification.
 function _setDPwd(d){
     if(!d)return;
     try{if('displayAsPassword' in d)d.displayAsPassword=true;}catch(e){}
     try{for(var i=0,n=d.numChildren;i<n;i++)_setDPwd(d.getChildAt(i));}catch(e){}
 }
-// Search inside a display-object tree for all type="input" text fields.
-// Used as fallback when skin-property lookup fails.
-function _findInputsIn(d,out){
+// Collect every display object that has a 'displayAsPassword' property.
+// These are egret.TextField instances (framework class → property not minified).
+// The ns1:Label wraps one, so we recurse into it to find the inner TextField.
+function _scanDPs(d,out){
     if(!d)return;
     try{
-        var tp=d.type;
-        if(tp==='input'||tp===2)out.push(d);
-        for(var i=0,n=d.numChildren;i<n;i++)_findInputsIn(d.getChildAt(i),out);
+        if('displayAsPassword' in d){out.push(d);return;} // found TextField — stop here
+        for(var i=0,n=d.numChildren;i<n;i++)_scanDPs(d.getChildAt(i),out);
     }catch(e){}
+}
+// Return [accountTF, passwordTF] from the entire stage.
+// EXML order: Account is declared first → found first in pre-order traversal.
+function _getLoginFields(){
+    var s=typeof egret!=='undefined'&&egret.stage;
+    if(!s)return [null,null];
+    var out=[];
+    _scanDPs(s,out);
+    _showStatus('dp-scan: '+out.length+' TF(s) found');
+    return [out[0]||null, out[1]||null];
+}
 }
 // Show a status string somewhere always visible without console.
 function _showStatus(msg){
@@ -505,20 +493,19 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
-    // Populate cached refs from stage scan (runs every 500ms while login screen is up).
+    // Populate cached refs: scan for egret.TextField nodes (displayAsPassword property).
+    // Runs every 500ms during the 15-second patch window.
     if(!_ipRef){
-        var _flds=_getLoginFields();
-        // _flds[0]=Account field, _flds[1]=Password field, _flds[2]=error label
+        var _flds=_getLoginFields(); // [accountTF, passwordTF]
         if(_urlU&&_flds[0]&&!_flds[0].__cwPF){
             _flds[0].__cwPF=true;
             if(!_flds[0].text)_flds[0].text=_urlU;
         }
         if(_flds[1]){
             _ipRef=_flds[1];
-            if(!_flds[1].__cwDP){_flds[1].__cwDP=true;_setDPwd(_flds[1]);}
-            _showStatus('pwd-field-found inputs='+(_getLoginFields()[0]?'acct+':'')+'pwd');
+            if(!_flds[1].__cwDP){_flds[1].__cwDP=true;_flds[1].displayAsPassword=true;}
+            _showStatus('pwd-field-cached');
         }
-        if(_flds[2])_erRef=_flds[2];
     }
     // Block socket.init() until password field passes auth.php validation
     if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&!Manager.socket.__cwV){
@@ -529,13 +516,10 @@ function _patch(){
             _showStatus('init cn='+(cn||'(empty)')+' authed='+_cwAuthed);
             if(!cn)return;
             if(_cwAuthed){_si();return;}
-            // Use cached refs; if still missing, do a fresh stage scan now.
+            // Use cached ref; if still missing, do a fresh displayAsPassword scan now.
             if(!_ipRef){
-                var _f2=_getLoginFields();
-                if(_f2[1])_ipRef=_f2[1];
-                if(_f2[2])_erRef=_f2[2];
-                var _ins2=[]; _scanFields(typeof egret!=='undefined'?egret.stage:null,_ins2,null);
-                _showStatus('scan: '+_ins2.length+' inputs found');
+                var _f2=_getLoginFields(); // [accountTF, passwordTF]
+                if(_f2[1]){_ipRef=_f2[1];_f2[1].displayAsPassword=true;}
             }
             var ipf=_ipRef;
             var erf=_erRef;
@@ -648,7 +632,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v60';
+document.title='EN v61';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
