@@ -1,20 +1,18 @@
 // RaconH English Translation Hook v63
 (function(){
-// Username source: window._cwGameUser is injected by index.php (PHP session).
-// Non-empty only when the player already passed the login form in index.php.
+// window._cwGameUser: injected by index.php, non-empty when PHP session exists (came via login.php).
 var _urlU=(function(){
     if(typeof window._cwGameUser!=='undefined'&&window._cwGameUser)return window._cwGameUser;
     try{var ss=sessionStorage.getItem('cw_game_user');if(ss&&ss.length)return ss;}catch(e){}
     try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}
 }());
 var _cwAS=false;
-// _cwAuthed: true when PHP session is valid (index.php only loads game after login).
-// In-game re-auth is skipped — auth already happened via the index.php login form.
+// Session players skip in-game password check; direct-access players must authenticate.
 var _cwAuthed=!!_urlU;
 // Cached refs to login-screen fields, populated by _patch() as soon as they are available.
-// Avoids depending on _lvField() inside the fast-path socket.init override.
-var _ipRef=null;  // _inputPassword field
-var _erRef=null;  // _lblError field
+// Cached reference to the LoginView component (found by scanning skin._inputPassword).
+// EXML property names are never minified, so skin._inputPassword is always reliable.
+var _lvRef=null;
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
@@ -391,33 +389,21 @@ function _fixAttrCVO(){
         for(var id in _an){var i=AttrCVO._data[parseInt(id)];if(i){i.name=_an[id];i.shortName=_an[id];}}
     }
 }
-// Recursively set displayAsPassword=true on the egret.TextField buried inside
-// ns1:Label. The property 'displayAsPassword' is on the framework class (not
-// minified) so this is reliable regardless of game-code minification.
-function _setDPwd(d){
-    if(!d)return;
-    try{if('displayAsPassword' in d)d.displayAsPassword=true;}catch(e){}
-    try{for(var i=0,n=d.numChildren;i<n;i++)_setDPwd(d.getChildAt(i));}catch(e){}
-}
-// Collect every display object that has a 'displayAsPassword' property.
-// These are egret.TextField instances (framework class → property not minified).
-// The ns1:Label wraps one, so we recurse into it to find the inner TextField.
-function _scanDPs(d,out){
-    if(!d)return;
-    try{
-        if('displayAsPassword' in d){out.push(d);return;} // found TextField — stop here
-        for(var i=0,n=d.numChildren;i<n;i++)_scanDPs(d.getChildAt(i),out);
-    }catch(e){}
-}
-// Return [accountTF, passwordTF] from the entire stage.
-// EXML order: Account is declared first → found first in pre-order traversal.
-function _getLoginFields(){
+// Find the LoginView component by scanning for skin._inputPassword.
+// EXML property names (id="...") are set via string key assignment at runtime —
+// they are never minified, making this approach reliable in both debug and release builds.
+function _getLoginView(){
     var s=typeof egret!=='undefined'&&egret.stage;
-    if(!s)return [null,null];
-    var out=[];
-    _scanDPs(s,out);
-    _showStatus('dp-scan: '+out.length+' TF(s) found');
-    return [out[0]||null, out[1]||null];
+    if(!s)return null;
+    function scan(d){
+        try{
+            if(d&&d.skin&&typeof d.skin._inputPassword!=='undefined')return d;
+            var n=d?d.numChildren:0;
+            for(var i=0;i<n;i++){var r=scan(d.getChildAt(i));if(r)return r;}
+        }catch(e){}
+        return null;
+    }
+    return scan(s);
 }
 // Show a status string somewhere always visible without console.
 function _showStatus(msg){
@@ -493,21 +479,32 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
-    // Populate cached refs: scan for egret.TextField nodes (displayAsPassword property).
-    // Runs every 500ms during the 15-second patch window.
-    if(!_ipRef){
-        var _flds=_getLoginFields(); // [accountTF, passwordTF]
-        if(_urlU&&_flds[0]&&!_flds[0].__cwPF){
-            _flds[0].__cwPF=true;
-            if(!_flds[0].text)_flds[0].text=_urlU;
-        }
-        if(_flds[1]){
-            _ipRef=_flds[1];
-            if(!_flds[1].__cwDP){_flds[1].__cwDP=true;_flds[1].displayAsPassword=true;}
-            _showStatus('pwd-field-cached');
+    // Find LoginView via skin._inputPassword (EXML id — never minified).
+    // Runs every 500ms; once found, apply session-lock or show password field.
+    if(!_lvRef){
+        _lvRef=_getLoginView();
+        if(_lvRef){
+            var sk=_lvRef.skin;
+            if(sk){
+                if(_urlU){
+                    // Session player: lock account to session username, hide password row
+                    if(sk._inputClient&&!sk._inputClient.__cwLocked){
+                        sk._inputClient.__cwLocked=true;
+                        sk._inputClient.text=_urlU;
+                        sk._inputClient.touchEnabled=false;
+                    }
+                    if(sk._groupPwd)sk._groupPwd.visible=false;
+                    if(sk._lblError)sk._lblError.visible=false;
+                    _showStatus('session-lock:'+_urlU);
+                } else {
+                    // No session: password field stays visible; ensure touchEnabled
+                    if(sk._inputPassword)sk._inputPassword.touchEnabled=true;
+                    _showStatus('no-session:pwd-required');
+                }
+            }
         }
     }
-    // Block socket.init() until password field passes auth.php validation
+    // Block socket.init() for non-session players until auth.php validates credentials
     if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&!Manager.socket.__cwV){
         Manager.socket.__cwV=true;
         var _si=Manager.socket.init.bind(Manager.socket);
@@ -516,30 +513,34 @@ function _patch(){
             _showStatus('init cn='+(cn||'(empty)')+' authed='+_cwAuthed);
             if(!cn)return;
             if(_cwAuthed){_si();return;}
-            // Use cached ref; if still missing, do a fresh displayAsPassword scan now.
-            if(!_ipRef){
-                var _f2=_getLoginFields(); // [accountTF, passwordTF]
-                if(_f2[1]){_ipRef=_f2[1];_f2[1].displayAsPassword=true;}
-            }
-            var ipf=_ipRef;
-            var erf=_erRef;
-            var pwd=ipf?ipf.text:'';
-            _showStatus('pwd-len='+pwd.length+' ipf='+(ipf?'ok':'null')+' erf='+(erf?'ok':'null'));
+            // No session: read password from EXML skin (property name = EXML id, never minified)
+            if(!_lvRef)_lvRef=_getLoginView();
+            var sk2=_lvRef&&_lvRef.skin;
+            var pwd=sk2&&sk2._inputPassword?sk2._inputPassword.text:'';
+            var erf=sk2&&sk2._lblError;
+            _showStatus('pwd-len='+pwd.length+' lv='+(sk2?'ok':'null'));
             if(pwd.length<6){
-                if(erf)erf.text='Password: min 6 chars';
+                if(erf){erf.visible=true;erf.text='Password: min 6 chars';}
                 return;
             }
-            if(erf)erf.text='...';
+            if(erf)erf.text='Checking...';
             var xr=new XMLHttpRequest();
             xr.open('POST','auth.php',true);
             xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
             xr.onload=function(){
                 try{
                     var res=JSON.parse(xr.response);
-                    var erf2=_erRef;
+                    var sk3=_lvRef&&_lvRef.skin;
+                    var erf2=sk3&&sk3._lblError;
                     if(res.ok){
                         _cwAuthed=true;_urlU=res.username;
                         try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
+                        // Lock account field and hide password row now that auth passed
+                        if(sk3){
+                            if(sk3._inputClient){sk3._inputClient.text=_urlU;sk3._inputClient.touchEnabled=false;}
+                            if(sk3._groupPwd)sk3._groupPwd.visible=false;
+                            if(erf2)erf2.visible=false;
+                        }
                         var lm=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin();
                         if(lm&&!lm.__cwLocked){
                             lm.__cwLocked=true;
@@ -552,20 +553,21 @@ function _patch(){
                                 lm.__cwCN=_urlU;
                             }catch(e){try{lm.clientName=_urlU;}catch(e2){}}
                         }
-                        if(erf2)erf2.text='';
                         _showStatus('auth-ok '+_urlU);
                         _si();
                     }else{
-                        if(erf2)erf2.text=res.error||'Incorrect password.';
+                        if(erf2){erf2.visible=true;erf2.text=res.error||'Incorrect password.';}
                         _showStatus('auth-fail '+(res.error||'?'));
                     }
                 }catch(e){
-                    if(_erRef)_erRef.text='Server error.';
+                    var sk4=_lvRef&&_lvRef.skin;
+                    if(sk4&&sk4._lblError){sk4._lblError.visible=true;sk4._lblError.text='Server error.';}
                     _showStatus('auth-parse-err');
                 }
             };
             xr.onerror=function(){
-                if(_erRef)_erRef.text='Connection error.';
+                var sk5=_lvRef&&_lvRef.skin;
+                if(sk5&&sk5._lblError){sk5._lblError.visible=true;sk5._lblError.text='Connection error.';}
                 _showStatus('auth-net-err');
             };
             xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
