@@ -3,7 +3,7 @@
  * login.php — Player registration & login portal
  * Place at: C:\xampp\htdocs\game\login.php
  *
- * Flow: register/login here → redirect to /?username=xxx → game starts
+ * Flow: register/login here → set sessionStorage → game auto-connects
  */
 
 define('DB_HOST', 'localhost');
@@ -32,6 +32,19 @@ function getDB() {
 // ── Validate username: 3-20 chars, letters/numbers/underscore ─────────────────
 function validUsername($u) {
     return preg_match('/^[a-zA-Z0-9_]{3,20}$/', $u);
+}
+
+// ── Launch the game: write username to sessionStorage then redirect ───────────
+// Using JS bridge instead of Location header — sessionStorage survives the
+// redirect and is more reliable than URL params crossing the Egret loader.
+function launchGame($username) {
+    $u = json_encode($username);
+    echo '<!DOCTYPE html><html><head><meta charset="utf-8">';
+    echo '<script>';
+    echo 'sessionStorage.setItem("cw_game_user",' . $u . ');';
+    echo 'window.location.replace("./?username=" + encodeURIComponent(' . $u . '));';
+    echo '</script></head><body></body></html>';
+    exit;
 }
 
 $error   = '';
@@ -64,9 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $hash = password_hash($password, PASSWORD_BCRYPT);
                     $db->prepare('INSERT INTO web_users (username, password_hash) VALUES (?, ?)')
                        ->execute([$username, $hash]);
-                    // Auto-login after registration
-                    header('Location: ./?username=' . urlencode($username));
-                    exit;
+                    launchGame($username);
                 }
             }
         } else {
@@ -80,8 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!$row || !password_verify($password, $row['password_hash']))
                     $error = 'Incorrect username or password.';
                 else {
-                    header('Location: ./?username=' . urlencode($username));
-                    exit;
+                    launchGame($username);
                 }
             }
         }

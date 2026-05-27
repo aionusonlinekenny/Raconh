@@ -1,7 +1,11 @@
-// RaconH English Translation Hook v49
+// RaconH English Translation Hook v50
 (function(){
-// Capture URL username once so it can be used to protect the game's login model
-var _urlU=(function(){try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}}());
+// Username bridge: sessionStorage (set by login.php) is primary; URL param is fallback.
+// This survives the JS redirect from login.php even when URL params get stripped.
+var _urlU=(function(){
+    try{var ss=sessionStorage.getItem('cw_game_user');if(ss&&ss.length)return ss;}catch(e){}
+    try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}
+}());
 var _cwAS=false; // auto-start flag — fire Manager.socket.init() once when ready
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -448,25 +452,37 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
-    // Protect clientName: when URL has ?username=xxx, prevent the skin's default
-    // "clientName" text (or empty string from hidden input) from overwriting it.
+    // Protect clientName: always redefine as accessor on the instance so any attempt
+    // to overwrite it with "" or "clientName" (hidden-input default) is blocked.
+    // Previous version had if(!_cd) — WRONG: plain data properties DO have a descriptor,
+    // so the block was always skipped. Now we always call defineProperty.
     if(_urlU&&typeof Manager!=='undefined'&&Manager.model&&Manager.model.getLogin){
         var _lm=Manager.model.getLogin();
         if(!_lm.__cwLocked){
             _lm.__cwLocked=true;
             var _cv=_lm.clientName||_urlU;
-            var _proto=Object.getPrototypeOf(_lm);
-            var _cd=Object.getOwnPropertyDescriptor(_proto,'clientName')||Object.getOwnPropertyDescriptor(_lm,'clientName');
-            if(!_cd){
-                // No descriptor — plain property; use Object.defineProperty on instance
+            try{
                 Object.defineProperty(_lm,'clientName',{
-                    get:function(){return this.__cv||_urlU;},
-                    set:function(v){this.__cv=(v&&v!=='clientName')?v:_urlU;},
+                    get:function(){return this.__cwCN||_urlU;},
+                    set:function(v){this.__cwCN=(v&&v!=='clientName')?v:_urlU;},
                     configurable:true,enumerable:true
                 });
-                _lm.__cv=_cv;
+                _lm.__cwCN=_cv;
+            }catch(e){
+                // defineProperty failed (non-configurable) — fall back to direct assign
+                try{_lm.clientName=_urlU;}catch(e2){}
             }
         }
+    }
+    // Block socket.init() when clientName is empty (prevents anonymous character creation)
+    if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&!Manager.socket.__cwV){
+        Manager.socket.__cwV=true;
+        var _si=Manager.socket.init.bind(Manager.socket);
+        Manager.socket.init=function(){
+            var cn=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin().clientName;
+            if(!cn){egret&&egret.log&&egret.log('[CW] socket.init blocked: no account');return;}
+            _si();
+        };
     }
     _fixAttrCVO();
     _retranslate();
@@ -511,7 +527,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v49';
+document.title='EN v50';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
