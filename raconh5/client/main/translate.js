@@ -1,7 +1,8 @@
-// RaconH English Translation Hook v48
+// RaconH English Translation Hook v49
 (function(){
 // Capture URL username once so it can be used to protect the game's login model
 var _urlU=(function(){try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}}());
+var _cwAS=false; // auto-start flag — fire Manager.socket.init() once when ready
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
@@ -473,6 +474,20 @@ function _patch(){
 function _retranslate(){
     var s=(typeof egret!=='undefined')&&egret.stage;
     if(!s)return;
+    // Auto-start: when login.php provided ?username=xxx, skip the Start Game click.
+    // Conditions: URL has username, Manager + socket ready, server already set by LoginView.show().
+    if(_urlU&&!_cwAS&&typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&
+       Manager.model&&Manager.model.getLogin){
+        var _lg=Manager.model.getLogin();
+        if(_lg.clientName&&_lg.serverId&&_lg.serverIP){
+            _cwAS=true;
+            // Small delay gives the Egret renderer one frame to settle before connecting
+            setTimeout(function(){
+                if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init)
+                    Manager.socket.init();
+            },400);
+        }
+    }
     function walk(d){
         if(!d)return;
         try{
@@ -496,7 +511,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v48';
+document.title='EN v49';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
