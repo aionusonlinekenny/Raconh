@@ -8,16 +8,16 @@
 	<ns1:Label id="_txtServer" text="Test Server" x="242" y="911" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="272" textAlign="center" touchEnabled="false"/>
 	<ns1:Label id="_txtClick" text="Switch Server" x="510" y="911" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="210" textAlign="left" touchEnabled="false"/>
 
-	<e:Group id="_groupDebug" x="200" y="795">
+	<e:Group id="_groupDebug" x="200" y="849">
 		<!-- Account row -->
 		<e:Image scale9Grid="6,6,38,38" x="118" y="0" anchorOffsetX="0" width="231" anchorOffsetY="0" height="34" source="login_rect_1_png"/>
 		<ns1:Label text="Account:" x="0" y="0" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="122" textAlign="left"/>
 		<ns1:Label id="_inputClient" text="" x="123" y="1" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" touchEnabled="false" type="input" width="225"/>
-		<!-- Password row: wrapped in named Group so translate.js can hide it when session is active -->
+		<!-- Password row -->
 		<e:Group id="_groupPwd" x="0" y="44">
 			<e:Image scale9Grid="6,6,38,38" x="118" y="0" anchorOffsetX="0" width="231" anchorOffsetY="0" height="34" source="login_rect_1_png"/>
 			<ns1:Label text="Password:" x="0" y="0" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="122" textAlign="left"/>
-			<ns1:Label id="_inputPassword" text="" x="123" y="1" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" touchEnabled="true" type="input" width="225"/>
+			<ns1:Label id="_inputPassword" text="" x="123" y="1" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" touchEnabled="true" type="input" displayAsPassword="true" width="225"/>
 		</e:Group>
 		<!-- Error message -->
 		<ns1:Label id="_lblError" text="" x="0" y="88" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="360" textAlign="center" size="18" textColor="0xFF4444"/>

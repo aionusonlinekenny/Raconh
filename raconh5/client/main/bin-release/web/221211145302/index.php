@@ -1,27 +1,3 @@
-<?php
-/**
- * index.php — game entry point
- * Place at: C:\xampp\htdocs\game\index.php
- *
- * No mandatory login redirect.
- * - If PHP session exists: inject username → translate.js locks account field,
- *   hides password row, _cwAuthed=true → player just picks server + Start.
- * - If no session: game loads, translate.js shows account+password fields,
- *   requires auth.php validation before socket.init() fires.
- */
-session_start();
-$username = $_SESSION['game_user'] ?? '';
-
-if ($username) {
-    $urlUser = $_GET['username'] ?? '';
-    if ($urlUser !== $username) {
-        header('Location: ./?username=' . rawurlencode($username));
-        exit;
-    }
-}
-
-$username_json = json_encode($username); // '' for guests; filled for session users
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -43,14 +19,8 @@ $username_json = json_encode($username); // '' for guests; filled for session us
         }
     </style>
 
-    <script>
-        // Non-empty only when a valid PHP session exists (player came via login.php).
-        // translate.js reads this: if set → _cwAuthed=true, lock account field, hide password row.
-        window._cwGameUser = <?php echo $username_json; ?>;
-    </script>
-
     <script type="text/javascript" src="Loading.js"></script>
-    <script type="text/javascript" src="translate.js?v=63"></script>
+    <script type="text/javascript" src="translate.js?v=64"></script>
     <audio id="1002" class="media-audio" src="resource/res/sound/1002.mp3" preload loop="loop"></audio>
     <audio id="1001" class="media-audio" src="resource/res/sound/1001.mp3" preload loop="loop"></audio>
     <script>
