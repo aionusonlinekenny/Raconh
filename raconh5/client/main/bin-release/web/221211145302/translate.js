@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v56
+// RaconH English Translation Hook v57
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -400,6 +400,23 @@ function _getLoginView(){
     }
     return _w(s);
 }
+// Access a skin part from the LoginView host OR its EUI skin object.
+// New EXML fields (_inputPassword, _lblError) are not declared @SkinPart in
+// LoginView.ts so they live on lv.skin, not on lv directly.
+function _lvField(lv,name){
+    if(!lv)return null;
+    if(lv[name]!=null)return lv[name];
+    if(lv.skin&&lv.skin[name]!=null)return lv.skin[name];
+    return null;
+}
+// Recursively set displayAsPassword=true on every egret.TextField in the tree.
+// ns1:Label type="input" doesn't expose displayAsPassword directly; the real
+// TextField is one or two levels inside.
+function _setDPwd(d){
+    if(!d)return;
+    try{if('displayAsPassword' in d)d.displayAsPassword=true;}catch(e){}
+    try{for(var i=0,n=d.numChildren;i<n;i++)_setDPwd(d.getChildAt(i));}catch(e){}
+}
 function _patch(){
     if(typeof AttrDescTypeEx!=='undefined'&&AttrDescTypeEx.getAttrName&&!AttrDescTypeEx.__cwP){
         AttrDescTypeEx.__cwP=true;
@@ -469,16 +486,19 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
-    // Set up EXML login fields: pre-fill account from session, enable password masking
+    // Set up EXML login fields — use _lvField() because _inputPassword / _lblError are
+    // NOT @SkinPart on LoginView.ts; they only exist on lv.skin, not lv itself.
     var _lv=_getLoginView();
     if(_lv){
-        if(_urlU&&_lv._inputClient&&!_lv._inputClient.__cwPF){
-            _lv._inputClient.__cwPF=true;
-            if(!_lv._inputClient.text)_lv._inputClient.text=_urlU;
+        var _ic=_lvField(_lv,'_inputClient');
+        if(_urlU&&_ic&&!_ic.__cwPF){
+            _ic.__cwPF=true;
+            if(!_ic.text)_ic.text=_urlU; // pre-fill account from PHP session
         }
-        if(_lv._inputPassword&&!_lv._inputPassword.__cwDP){
-            _lv._inputPassword.__cwDP=true;
-            try{_lv._inputPassword.displayAsPassword=true;}catch(e){}
+        var _ip=_lvField(_lv,'_inputPassword');
+        if(_ip&&!_ip.__cwDP){
+            _ip.__cwDP=true;
+            _setDPwd(_ip); // traverse children to find inner TextField
         }
     }
     // Block socket.init() until EXML password field passes auth.php validation
@@ -490,17 +510,22 @@ function _patch(){
             if(!cn)return;
             if(_cwAuthed){_si();return;}
             var lv2=_getLoginView();
-            var pwd=lv2&&lv2._inputPassword?lv2._inputPassword.text:'';
+            var ipf=_lvField(lv2,'_inputPassword');
+            var erf=_lvField(lv2,'_lblError');
+            var pwd=ipf?ipf.text:'';
             if(pwd.length<6){
-                if(lv2&&lv2._lblError)lv2._lblError.text='Password must be at least 6 characters.';
+                if(erf)erf.text='Password min. 6 characters.';
                 return;
             }
+            if(erf)erf.text='...';
             var xr=new XMLHttpRequest();
             xr.open('POST','auth.php',true);
             xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
             xr.onload=function(){
                 try{
                     var res=JSON.parse(xr.response);
+                    var lv3=_getLoginView();
+                    var erf2=_lvField(lv3,'_lblError');
                     if(res.ok){
                         _cwAuthed=true;_urlU=res.username;
                         try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
@@ -516,18 +541,21 @@ function _patch(){
                                 lm.__cwCN=_urlU;
                             }catch(e){try{lm.clientName=_urlU;}catch(e2){}}
                         }
-                        var lv3=_getLoginView();
-                        if(lv3&&lv3._lblError)lv3._lblError.text='';
+                        if(erf2)erf2.text='';
                         _si();
                     }else{
-                        var lv4=_getLoginView();
-                        if(lv4&&lv4._lblError)lv4._lblError.text=res.error||'Incorrect password.';
+                        if(erf2)erf2.text=res.error||'Incorrect password.';
                     }
-                }catch(e){}
+                }catch(e){
+                    var lv4=_getLoginView();
+                    var erf3=_lvField(lv4,'_lblError');
+                    if(erf3)erf3.text='Server error.';
+                }
             };
             xr.onerror=function(){
                 var lv5=_getLoginView();
-                if(lv5&&lv5._lblError)lv5._lblError.text='Connection error.';
+                var erf4=_lvField(lv5,'_lblError');
+                if(erf4)erf4.text='Connection error.';
             };
             xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
         };
@@ -593,7 +621,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v56';
+document.title='EN v57';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
