@@ -747,6 +747,7 @@ $jsAllKeys=[]; $jsPerPage=50; $tMode='cw';
 $setupMode = noAdmins();
 
 $players=$admins=$stats=[];
+$playerList=[];
 $dbTables=$tableColumns=$tableRows=[];
 $tablePK=''; $editRow=null;
 $dbSearch=trim($_GET['search']??'');
@@ -769,6 +770,34 @@ if (isLoggedIn()) {
         try {
             $allTables = $db->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
         } catch (PDOException $e) { $allTables = []; }
+
+        // Build player list: web_users + enrich with role ID from t_log_register
+        $plRaw = safeQuery("SELECT id, username, IFNULL(erlang_role_id,'') AS erlang_role_id, created_at FROM web_users ORDER BY username ASC");
+        if (isset($plRaw['__error__'])) {
+            $plRaw = safeQuery("SELECT id, username, '' AS erlang_role_id, created_at FROM web_users ORDER BY username ASC");
+        }
+        if (!isset($plRaw['__error__'])) $playerList = $plRaw;
+
+        // Try enriching with rid from t_log_register
+        if (in_array('t_log_register', $allTables)) {
+            $lCols = safeQuery("DESCRIBE `t_log_register`");
+            if (!isset($lCols['__error__'])) {
+                $lColNames = array_column($lCols, 'Field');
+                if (in_array('rid', $lColNames) && in_array('account', $lColNames)) {
+                    $ridMap = [];
+                    $lRids = safeQuery("SELECT account, MAX(rid) AS rid FROM t_log_register GROUP BY account");
+                    if (!isset($lRids['__error__'])) {
+                        foreach ($lRids as $r) $ridMap[$r['account']] = $r['rid'];
+                    }
+                    foreach ($playerList as &$pl) {
+                        if ($pl['erlang_role_id'] === '' && isset($ridMap[$pl['username']])) {
+                            $pl['erlang_role_id'] = $ridMap[$pl['username']];
+                        }
+                    }
+                    unset($pl);
+                }
+            }
+        }
 
         // Player data is in Mnesia (memory), not MySQL columns.
         // Read-only info available from t_log_register + activity logs.
@@ -1181,30 +1210,64 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
     <!-- ══ PLAYER STATS ══ -->
     <div class="tab-panel <?=$activeTab==='player'?'active':''?>">
       <div class="page-title">⚔ Player Stats</div>
-      <div class="page-sub">Search by account name to view and edit Mnesia stats. Player must be <strong>offline</strong> to save changes.</div>
+      <div class="page-sub">Click a player on the left to load their stats. Player must be <strong>offline</strong> to save changes.</div>
 
-      <!-- Search form -->
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;align-items:flex-end">
-        <form method="GET" style="display:flex;gap:8px;align-items:center">
-          <input type="hidden" name="tab" value="player">
-          <div>
-            <div style="font-size:11px;color:#6070a0;margin-bottom:4px">Account name</div>
-            <input type="search" name="search" value="<?=htmlspecialchars($playerSearch)?>"
-                   placeholder="e.g. clientName, Kenny…" style="width:220px;padding:9px 12px;font-size:13px">
+      <div style="display:flex;gap:20px;align-items:flex-start">
+
+        <!-- ── Player list sidebar ── -->
+        <div style="width:200px;flex-shrink:0">
+          <div style="font-size:11px;color:#5060a0;margin-bottom:6px;padding-left:2px">
+            <?=count($playerList)?> registered player<?=count($playerList)!=1?'s':''?>
           </div>
-          <button type="submit" class="btn btn-gold" style="margin-top:14px">Load</button>
-          <?php if($playerSearch): ?><a href="admin.php?tab=player" class="btn btn-gray" style="margin-top:14px">✕</a><?php endif; ?>
-        </form>
-        <form method="GET" style="display:flex;gap:8px;align-items:center">
-          <input type="hidden" name="tab" value="player">
-          <div>
-            <div style="font-size:11px;color:#6070a0;margin-bottom:4px">Role ID (direct)</div>
-            <input type="number" name="rid" value="<?=$gmRoleId?:''?>"
-                   placeholder="e.g. 100010000012" style="width:200px;padding:9px 12px;font-size:13px">
+          <div style="background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);border-radius:8px;overflow:auto;max-height:640px">
+            <?php if(empty($playerList)): ?>
+              <div style="padding:14px;font-size:12px;color:#506070">No players yet.</div>
+            <?php else: ?>
+              <?php foreach($playerList as $pl): ?>
+                <?php
+                  $rid = $pl['erlang_role_id'] ?? '';
+                  $url = $rid
+                    ? 'admin.php?tab=player&rid='.urlencode($rid)
+                    : 'admin.php?tab=player&search='.urlencode($pl['username']);
+                  $isActive = ($gmRoleId && (string)$gmRoleId === (string)$rid)
+                           || (!$gmRoleId && $playerSearch === $pl['username']);
+                ?>
+                <a href="<?=$url?>" style="display:block;padding:9px 12px;text-decoration:none;
+                   border-bottom:1px solid rgba(255,255,255,.04);
+                   background:<?=$isActive?'rgba(240,180,60,.13)':'transparent'?>;
+                   transition:background .12s">
+                  <div style="font-size:13px;font-weight:600;color:<?=$isActive?'#f0c060':'#b0c0d8'?>"><?=htmlspecialchars($pl['username'])?></div>
+                  <?php if($rid): ?>
+                    <div style="font-size:10px;color:#4a5a7a;font-family:monospace;margin-top:1px">RID: <?=htmlspecialchars($rid)?></div>
+                  <?php else: ?>
+                    <div style="font-size:10px;color:#384050;margin-top:1px">no role ID</div>
+                  <?php endif; ?>
+                </a>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </div>
-          <button type="submit" class="btn btn-blue" style="margin-top:14px">Load</button>
-        </form>
-      </div>
+          <!-- Manual search fallback -->
+          <details style="margin-top:10px">
+            <summary style="font-size:11px;color:#4a5a70;cursor:pointer;padding:4px 2px">Search / direct RID</summary>
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+              <form method="GET">
+                <input type="hidden" name="tab" value="player">
+                <input type="search" name="search" value="<?=htmlspecialchars($playerSearch)?>"
+                       placeholder="Account name…" style="width:100%;font-size:12px;padding:6px 9px">
+                <button type="submit" class="btn btn-gold btn-sm" style="width:100%;margin-top:5px">Load by name</button>
+              </form>
+              <form method="GET">
+                <input type="hidden" name="tab" value="player">
+                <input type="number" name="rid" value="<?=$gmRoleId?:''?>"
+                       placeholder="Role ID…" style="width:100%;font-size:12px;padding:6px 9px">
+                <button type="submit" class="btn btn-blue btn-sm" style="width:100%;margin-top:5px">Load by RID</button>
+              </form>
+            </div>
+          </details>
+        </div>
+
+        <!-- ── Main stat editor column ── -->
+        <div style="flex:1;min-width:0">
 
       <!-- ── Stat editor (shown when gmStats loaded) ── -->
       <?php if($gmStats): ?>
@@ -1306,6 +1369,9 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           <strong>4.</strong> Make sure PHP's <code>shell_exec</code> is not disabled in <code>php.ini</code> (check <code>disable_functions</code>).
         </div>
       </details>
+
+        </div><!-- end main stat editor column -->
+      </div><!-- end two-column flex -->
     </div>
 
     <!-- ══ ADMINS ══ -->
