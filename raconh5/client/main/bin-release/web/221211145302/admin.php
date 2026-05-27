@@ -475,7 +475,7 @@ if ($action === 'setup') {
             if ($reason === 'player_must_be_offline')
                 $flash = ['type'=>'error','msg'=>'Player is currently online — log out first, then edit.'];
             elseif ($reason === 'escript_not_found')
-                $flash = ['type'=>'error','msg'=>'gm.escript not found. Copy it to C:\\raconh5\\server_bin\\'];
+                $flash = ['type'=>'error','msg'=>'gm.escript not found. Check the status panel on the Player Stats tab.'];
             else
                 $flash = ['type'=>'error','msg'=>'GM error: '.$reason];
         }
@@ -1328,9 +1328,9 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
         </div>
 
       <?php elseif($playerSearch): ?>
-        <?php if(!file_exists('C:\\raconh5\\server_bin\\gm.escript')): ?>
+        <?php if(!file_exists(GM_ESCRIPT)||!file_exists(ESCRIPT_EXE)): ?>
           <div class="alert alert-error">
-            <strong>gm.escript not found.</strong> Copy <code>gm.escript</code> from the repo to <code>C:\raconh5\server_bin\gm.escript</code> and make sure escript.exe path in admin.php is correct.
+            <strong>Stat editor not ready.</strong> See the status panel below for what's missing.
           </div>
         <?php else: ?>
           <p style="color:#806040;font-size:13px">Account "<strong><?=htmlspecialchars($playerSearch)?></strong>" not found in Mnesia. Check the account name spelling.</p>
