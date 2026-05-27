@@ -418,7 +418,6 @@ function _getLoginFields(){
     _showStatus('dp-scan: '+out.length+' TF(s) found');
     return [out[0]||null, out[1]||null];
 }
-}
 // Show a status string somewhere always visible without console.
 function _showStatus(msg){
     document.title='['+msg+'] RaconH';
