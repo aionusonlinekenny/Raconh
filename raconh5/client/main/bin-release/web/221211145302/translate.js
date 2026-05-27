@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v51
+// RaconH English Translation Hook v52
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -486,6 +486,26 @@ function _patch(){
             _si();
         };
     }
+    // Intercept selectRoleLogin to persist username→roleId mapping via save_role.php
+    if(_urlU&&typeof Manager!=='undefined'&&Manager.control&&Manager.control.getLogin&&!Manager.__cwRSH){
+        var _lc=Manager.control.getLogin();
+        if(_lc&&_lc.selectRoleLogin){
+            Manager.__cwRSH=true;
+            var _origSRL=_lc.selectRoleLogin.bind(_lc);
+            _lc.selectRoleLogin=function(id,extra){
+                if(id&&!_lc.__cwRoleSaved){
+                    _lc.__cwRoleSaved=true;
+                    try{
+                        var _xr=new XMLHttpRequest();
+                        _xr.open('POST','save_role.php',true);
+                        _xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                        _xr.send('role_id='+encodeURIComponent(id));
+                    }catch(e3){}
+                }
+                return _origSRL(id,extra);
+            };
+        }
+    }
     _fixAttrCVO();
     _retranslate();
 }
@@ -529,7 +549,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v51';
+document.title='EN v52';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){

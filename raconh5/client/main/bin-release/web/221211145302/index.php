@@ -3,20 +3,35 @@
  * index.php — PHP-gated game entry point
  * Place at: C:\xampp\htdocs\game\index.php
  *
- * Apache serves index.php before index.html (DirectoryIndex default).
- * All access to the game goes through this file.
- * PHP session check → username injected as window._cwGameUser → translate.js reads it.
+ * Auth flow:
+ *   1. No session         → redirect to login.php
+ *   2. Session but no ?username in URL → redirect to ./?username=xxx
+ *      (PlatformManager inside main.min.js reads only from URL params)
+ *   3. URL has correct username → serve the game page
+ *
+ * The game then connects as that username; Erlang loads the existing
+ * character or shows CreateRoleView for a new account.
  */
 session_start();
 
-// Not authenticated → send to login
+// ── 1. Must be logged in ──────────────────────────────────────────────────────
 if (empty($_SESSION['game_user'])) {
     header('Location: login.php');
     exit;
 }
 
-$username     = $_SESSION['game_user'];
-$username_json = json_encode($username);   // safely quoted for JS
+$username = $_SESSION['game_user'];
+
+// ── 2. PlatformManager (compiled) reads only from URL params.
+//       Make sure ?username= is present and matches the session so it picks it up.
+$urlUser = $_GET['username'] ?? '';
+if ($urlUser !== $username) {
+    header('Location: ./?username=' . rawurlencode($username));
+    exit;
+}
+
+// ── 3. Serve the game ─────────────────────────────────────────────────────────
+$username_json = json_encode($username);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -39,12 +54,14 @@ $username_json = json_encode($username);   // safely quoted for JS
         }
     </style>
 
-    <?php /* Username injected by PHP — translate.js reads window._cwGameUser as primary source.
-             This is 100% reliable: no URL param, no sessionStorage race condition. */ ?>
-    <script>window._cwGameUser = <?php echo $username_json; ?>;</script>
+    <?php /* Two sources so translate.js has the username before AND after Egret loads */ ?>
+    <script>
+        // Primary: read by translate.js immediately (before Egret starts)
+        window._cwGameUser = <?php echo $username_json; ?>;
+    </script>
 
     <script type="text/javascript" src="Loading.js"></script>
-    <script type="text/javascript" src="translate.js?v=51"></script>
+    <script type="text/javascript" src="translate.js?v=52"></script>
     <audio id="1002" class="media-audio" src="resource/res/sound/1002.mp3" preload loop="loop"></audio>
     <audio id="1001" class="media-audio" src="resource/res/sound/1001.mp3" preload loop="loop"></audio>
     <script>
@@ -64,7 +81,6 @@ $username_json = json_encode($username);   // safely quoted for JS
         }
     </script>
 </head>
-
 <body>
     <div id="egret-player"
          style="margin:auto;width:100%;height:100%;"

@@ -28,12 +28,19 @@ function getDB() {
     );
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS web_users (
-            id            INT AUTO_INCREMENT PRIMARY KEY,
-            username      VARCHAR(32) NOT NULL UNIQUE,
-            password_hash VARCHAR(255) NOT NULL,
-            created_at    DATETIME DEFAULT CURRENT_TIMESTAMP
+            id              INT AUTO_INCREMENT PRIMARY KEY,
+            username        VARCHAR(32)  NOT NULL UNIQUE,
+            password_hash   VARCHAR(255) NOT NULL,
+            erlang_role_id  VARCHAR(32)  NULL DEFAULT NULL,
+            created_at      DATETIME DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     ");
+    // Safe migration for existing installs that pre-date the role-id column
+    try {
+        $pdo->exec("ALTER TABLE web_users ADD COLUMN erlang_role_id VARCHAR(32) NULL DEFAULT NULL");
+    } catch (PDOException $ex) {
+        // Column already present — ignore
+    }
     return $pdo;
 }
 
