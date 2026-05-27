@@ -20,8 +20,31 @@ define('DB_PASS', '');
 define('DB_NAME', 'cw02_game1');
 
 // ── Erlang GM bridge ─────────────────────────────────────────────────────────
-// erl10.4 is bundled in the same folder as admin.php
-define('ESCRIPT_EXE', __DIR__ . DIRECTORY_SEPARATOR . 'erl10.4' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'escript.exe');
+// Auto-detect escript.exe: check bundled erl10.4 first, then common Windows
+// Erlang installation paths, then anywhere on PATH.
+function _findEscript() {
+    $ds = DIRECTORY_SEPARATOR;
+    $candidates = [
+        __DIR__ . $ds . 'erl10.4' . $ds . 'bin' . $ds . 'escript.exe',
+        'C:\\Program Files\\erl10.4\\bin\\escript.exe',
+        'C:\\Program Files\\erl-10.4\\bin\\escript.exe',
+        'C:\\Program Files\\Erlang OTP\\bin\\escript.exe',
+        'C:\\erl10.4\\bin\\escript.exe',
+        'C:\\raconh5\\erl10.4\\bin\\escript.exe',
+    ];
+    // Also scan C:\Program Files for any erl* folder
+    if (is_dir('C:\\Program Files')) {
+        foreach (glob('C:\\Program Files\\erl*', GLOB_ONLYDIR) ?: [] as $d) {
+            $candidates[] = $d . $ds . 'bin' . $ds . 'escript.exe';
+        }
+    }
+    foreach ($candidates as $c) {
+        if (file_exists($c)) return $c;
+    }
+    // Last resort: assume escript.exe is on PATH
+    return 'escript.exe';
+}
+define('ESCRIPT_EXE', _findEscript());
 // gm.escript: look next to admin.php first (self-contained XAMPP deploy),
 // then fall back to repo structure (raconh5/server_bin/).
 define('GM_ESCRIPT',
@@ -43,7 +66,8 @@ function gmExec(array $args) {
     if (!function_exists('shell_exec')) return 'error|shell_exec_disabled';
     $escript = ESCRIPT_EXE;
     $script  = GM_ESCRIPT;
-    if (!file_exists($escript)) return 'error|escript_exe_not_found:'.ESCRIPT_EXE;
+    // Allow bare 'escript.exe' (PATH fallback) to skip the file_exists check
+    if ($escript !== 'escript.exe' && !file_exists($escript)) return 'error|escript_exe_not_found:'.ESCRIPT_EXE;
     if (!file_exists($script))  return 'error|gm_escript_not_found:'.GM_ESCRIPT;
     $safe = array_map('escapeshellarg', $args);
     $cmd  = "\"$escript\" \"$script\" " . implode(' ', $safe) . ' 2>&1';
@@ -1363,7 +1387,7 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
 
       <!-- ── Setup instructions ── -->
       <?php
-        $escriptOk = file_exists(ESCRIPT_EXE);
+        $escriptOk = (ESCRIPT_EXE === 'escript.exe') || file_exists(ESCRIPT_EXE);
         $gmOk      = file_exists(GM_ESCRIPT);
         $shellOk   = function_exists('shell_exec');
       ?>
@@ -1399,9 +1423,15 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           </div>
 
           <?php if(!$escriptOk): ?>
-          <strong>escript.exe not found:</strong><br>
-          erl10.4 should be in the same folder as admin.php.<br>
-          Make sure you copied the full game folder including <code>erl10.4\</code>.<br><br>
+          <strong>escript.exe not found.</strong> Tried these locations in order:<br>
+          <ul style="margin:6px 0 10px 18px;padding:0;color:#907060">
+            <li><code><?=htmlspecialchars(__DIR__)?>\erl10.4\bin\escript.exe</code> — bundle next to admin.php (pull from git)</li>
+            <li><code>C:\Program Files\erl10.4\bin\escript.exe</code></li>
+            <li><code>C:\Program Files\Erlang OTP\bin\escript.exe</code></li>
+            <li><code>C:\erl10.4\bin\escript.exe</code></li>
+            <li>Any <code>C:\Program Files\erl*\bin\escript.exe</code></li>
+          </ul>
+          Easiest fix: do a <code>git pull</code> and copy the full game folder to XAMPP (including <code>erl10.4\</code>).<br><br>
           <?php endif; ?>
 
           <?php if(!$gmOk): ?>
