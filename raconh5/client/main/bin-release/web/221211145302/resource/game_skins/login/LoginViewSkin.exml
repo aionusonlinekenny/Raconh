@@ -16,7 +16,7 @@
 		<!-- Password row -->
 		<e:Image scale9Grid="6,6,38,38" x="118" y="44" anchorOffsetX="0" width="231" anchorOffsetY="0" height="34" source="login_rect_1_png"/>
 		<ns1:Label text="Password:" x="0" y="44" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="122" textAlign="left"/>
-		<ns1:Label id="_inputPassword" text="" x="123" y="45" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" touchEnabled="false" type="input" width="225" displayAsPassword="true"/>
+		<ns1:Label id="_inputPassword" text="" x="123" y="45" fontFamily="Microsoft YaHei" anchorOffsetX="0" textAlign="left" touchEnabled="false" type="input" width="225"/>
 		<!-- Error message -->
 		<ns1:Label id="_lblError" text="" x="0" y="83" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="360" textAlign="center" size="18" textColor="0xFF4444"/>
 	</e:Group>

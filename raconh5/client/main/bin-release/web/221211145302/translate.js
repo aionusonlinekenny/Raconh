@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v57
+// RaconH English Translation Hook v58
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -10,6 +10,10 @@ var _urlU=(function(){
 }());
 var _cwAS=false;    // auto-start flag — fire Manager.socket.init() once when ready
 var _cwAuthed=false; // set to true after password validated via auth.php
+// Cached refs to login-screen fields, populated by _patch() as soon as they are available.
+// Avoids depending on _lvField() inside the fast-path socket.init override.
+var _ipRef=null;  // _inputPassword field
+var _erRef=null;  // _lblError field
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
@@ -417,6 +421,21 @@ function _setDPwd(d){
     try{if('displayAsPassword' in d)d.displayAsPassword=true;}catch(e){}
     try{for(var i=0,n=d.numChildren;i<n;i++)_setDPwd(d.getChildAt(i));}catch(e){}
 }
+// Search inside a display-object tree for all type="input" text fields.
+// Used as fallback when skin-property lookup fails.
+function _findInputsIn(d,out){
+    if(!d)return;
+    try{
+        var tp=d.type;
+        if(tp==='input'||tp===2)out.push(d);
+        for(var i=0,n=d.numChildren;i<n;i++)_findInputsIn(d.getChildAt(i),out);
+    }catch(e){}
+}
+// Show a status string somewhere always visible without console.
+function _showStatus(msg){
+    document.title='['+msg+'] RaconH';
+    console.log('[cwLogin]',msg);
+}
 function _patch(){
     if(typeof AttrDescTypeEx!=='undefined'&&AttrDescTypeEx.getAttrName&&!AttrDescTypeEx.__cwP){
         AttrDescTypeEx.__cwP=true;
@@ -486,19 +505,41 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
-    // Set up EXML login fields — use _lvField() because _inputPassword / _lblError are
-    // NOT @SkinPart on LoginView.ts; they only exist on lv.skin, not lv itself.
+    // Set up EXML login fields.
+    // Strategy A: _lvField checks lv[name] (for @SkinPart) then lv.skin[name] (for EXML-only ids).
+    // Strategy B (fallback): search within lv._groupDebug child list.
     var _lv=_getLoginView();
     if(_lv){
         var _ic=_lvField(_lv,'_inputClient');
         if(_urlU&&_ic&&!_ic.__cwPF){
             _ic.__cwPF=true;
-            if(!_ic.text)_ic.text=_urlU; // pre-fill account from PHP session
+            if(!_ic.text)_ic.text=_urlU;
         }
-        var _ip=_lvField(_lv,'_inputPassword');
-        if(_ip&&!_ip.__cwDP){
-            _ip.__cwDP=true;
-            _setDPwd(_ip); // traverse children to find inner TextField
+        // Locate _inputPassword
+        if(!_ipRef){
+            var _ip=_lvField(_lv,'_inputPassword');
+            if(!_ip){
+                // Fallback: gather all input fields inside _groupDebug, skip Account field
+                var _gd=_lvField(_lv,'_groupDebug');
+                if(_gd){
+                    var _ins=[];_findInputsIn(_gd,_ins);
+                    for(var _fi=0;_fi<_ins.length;_fi++){
+                        if(_ins[_fi]!==_ic){_ip=_ins[_fi];break;}
+                    }
+                }
+            }
+            if(_ip){
+                _ipRef=_ip;
+                if(!_ip.__cwDP){_ip.__cwDP=true;_setDPwd(_ip);}
+                _showStatus('pwd-field-found');
+            } else {
+                _showStatus('pwd-field-missing');
+            }
+        }
+        // Locate _lblError
+        if(!_erRef){
+            var _er=_lvField(_lv,'_lblError');
+            if(_er)_erRef=_er;
         }
     }
     // Block socket.init() until EXML password field passes auth.php validation
@@ -507,14 +548,16 @@ function _patch(){
         var _si=Manager.socket.init.bind(Manager.socket);
         Manager.socket.init=function(){
             var cn=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin().clientName;
+            _showStatus('init cn='+(cn||'(empty)')+' authed='+_cwAuthed);
             if(!cn)return;
             if(_cwAuthed){_si();return;}
-            var lv2=_getLoginView();
-            var ipf=_lvField(lv2,'_inputPassword');
-            var erf=_lvField(lv2,'_lblError');
+            // Use cached refs; fall back to live lookup if cache still empty
+            var ipf=_ipRef||_lvField(_getLoginView(),'_inputPassword');
+            var erf=_erRef||_lvField(_getLoginView(),'_lblError');
             var pwd=ipf?ipf.text:'';
+            _showStatus('pwd-len='+pwd.length+' ipf='+(ipf?'ok':'null')+' erf='+(erf?'ok':'null'));
             if(pwd.length<6){
-                if(erf)erf.text='Password min. 6 characters.';
+                if(erf)erf.text='Password: min 6 chars';
                 return;
             }
             if(erf)erf.text='...';
@@ -524,8 +567,7 @@ function _patch(){
             xr.onload=function(){
                 try{
                     var res=JSON.parse(xr.response);
-                    var lv3=_getLoginView();
-                    var erf2=_lvField(lv3,'_lblError');
+                    var erf2=_erRef||_lvField(_getLoginView(),'_lblError');
                     if(res.ok){
                         _cwAuthed=true;_urlU=res.username;
                         try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
@@ -542,20 +584,22 @@ function _patch(){
                             }catch(e){try{lm.clientName=_urlU;}catch(e2){}}
                         }
                         if(erf2)erf2.text='';
+                        _showStatus('auth-ok '+_urlU);
                         _si();
                     }else{
                         if(erf2)erf2.text=res.error||'Incorrect password.';
+                        _showStatus('auth-fail '+(res.error||'?'));
                     }
                 }catch(e){
-                    var lv4=_getLoginView();
-                    var erf3=_lvField(lv4,'_lblError');
+                    var erf3=_erRef||_lvField(_getLoginView(),'_lblError');
                     if(erf3)erf3.text='Server error.';
+                    _showStatus('auth-parse-err');
                 }
             };
             xr.onerror=function(){
-                var lv5=_getLoginView();
-                var erf4=_lvField(lv5,'_lblError');
+                var erf4=_erRef||_lvField(_getLoginView(),'_lblError');
                 if(erf4)erf4.text='Connection error.';
+                _showStatus('auth-net-err');
             };
             xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
         };
@@ -621,7 +665,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v57';
+document.title='EN v58';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){

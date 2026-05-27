@@ -52,7 +52,7 @@ $username_json = json_encode($username); // '' for guests; filled for session us
     </script>
 
     <script type="text/javascript" src="Loading.js"></script>
-    <script type="text/javascript" src="translate.js?v=57"></script>
+    <script type="text/javascript" src="translate.js?v=58"></script>
     <audio id="1002" class="media-audio" src="resource/res/sound/1002.mp3" preload loop="loop"></audio>
     <audio id="1001" class="media-audio" src="resource/res/sound/1001.mp3" preload loop="loop"></audio>
     <script>
