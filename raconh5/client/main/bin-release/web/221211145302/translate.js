@@ -1,11 +1,41 @@
 // RaconH English Translation Hook v63
 (function(){
 // _cwAuthed: true ONLY when index.php injected a valid PHP session.
-// URL param alone does NOT bypass auth.
 var _cwAuthed=!!(typeof window._cwGameUser!=='undefined'&&window._cwGameUser);
 var _urlU=_cwAuthed?String(window._cwGameUser):'';
 var _cwAS=false;
-var _lvRef=null; // cached LoginView reference
+var _lvRef=null;
+// ── WebSocket gate (primary, runs before any game code) ──────────────────────
+// Intercepts the game's WebSocket connection to port 9002.
+// No timing issues — override is installed synchronously at translate.js load.
+;(function(){
+    var _o=window.WebSocket;
+    if(!_o||_cwAuthed)return; // session players pass through immediately
+    window.WebSocket=function(url,proto){
+        if(url&&url.indexOf(':9002')!==-1){
+            _showStatus('ws-gate');
+            // Get account name if the game already set it, else empty (overlay will ask)
+            var cn='';
+            try{cn=(Manager.model.getLogin().clientName)||'';}catch(e){}
+            // Show auth overlay; on success reload so PHP session is active
+            _showPwdOverlay(cn,function(username){
+                _cwAuthed=true;_urlU=username;
+                window.location.reload();
+            });
+            // Return a suspended dummy — stays in CONNECTING so game waits quietly
+            return {readyState:0,send:function(){},close:function(){},
+                    addEventListener:function(){},removeEventListener:function(){},
+                    binaryType:'arraybuffer',bufferedAmount:0,extensions:'',protocol:''};
+        }
+        return proto?new _o(url,proto):new _o(url);
+    };
+    window.WebSocket.prototype=_o.prototype;
+    window.WebSocket.CONNECTING=_o.CONNECTING||0;
+    window.WebSocket.OPEN=_o.OPEN||1;
+    window.WebSocket.CLOSING=_o.CLOSING||2;
+    window.WebSocket.CLOSED=_o.CLOSED||3;
+})();
+// ─────────────────────────────────────────────────────────────────────────────
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
@@ -412,57 +442,63 @@ function _doAuth(cn,pwd,back){
     xr.onerror=function(){back(false,'Connection error.');};
     xr.send('username='+encodeURIComponent(cn)+'&password='+encodeURIComponent(pwd));
 }
-// HTML password overlay — used when EXML skin._inputPassword is not accessible.
-// Created once, reused. onOk(username) called after successful auth.php check.
+// Auth overlay — shows Account + Password inputs, validates via auth.php.
+// cn: pre-fill account (editable). onOk(username) called on success.
 function _showPwdOverlay(cn,onOk){
     var B='_cwPwdBox';
     if(!document.getElementById(B)){
         var o=document.createElement('div');
         o.id=B;
         o.style.cssText='display:none;position:fixed;top:0;left:0;width:100%;height:100%;'
-            +'background:rgba(0,0,0,.78);z-index:99999;align-items:center;justify-content:center;'
+            +'background:rgba(0,0,0,.82);z-index:99999;align-items:center;justify-content:center;'
             +'font-family:Microsoft YaHei,Arial,sans-serif;';
         o.innerHTML='<div style="background:#16213e;border:2px solid #e94560;border-radius:12px;'
-            +'padding:28px 24px;width:280px;box-shadow:0 8px 32px rgba(0,0,0,.8);">'
-            +'<div style="color:#e94560;text-align:center;font-size:18px;font-weight:bold;margin-bottom:18px;">Login</div>'
+            +'padding:28px 24px;width:290px;box-shadow:0 8px 32px rgba(0,0,0,.8);">'
+            +'<div style="color:#e94560;text-align:center;font-size:20px;font-weight:bold;margin-bottom:20px;">RaconH Login</div>'
             +'<div style="color:#888;font-size:12px;margin-bottom:4px;">Account</div>'
-            +'<div id="_cwPA" style="color:#fff;background:#0f3460;border-radius:6px;padding:8px 12px;margin-bottom:14px;font-size:14px;"></div>'
+            +'<input id="_cwPU" type="text" maxlength="20" placeholder="Account name"'
+            +' style="width:100%;box-sizing:border-box;background:#0f3460;border:1px solid #1a4a7a;'
+            +'border-radius:6px;padding:9px 12px;color:#fff;font-size:15px;outline:none;margin-bottom:12px;">'
             +'<div style="color:#888;font-size:12px;margin-bottom:4px;">Password</div>'
-            +'<input id="_cwPI" type="password" maxlength="64" placeholder="Enter password"'
+            +'<input id="_cwPI" type="password" maxlength="64" placeholder="Password"'
             +' style="width:100%;box-sizing:border-box;background:#0f3460;border:1px solid #1a4a7a;'
             +'border-radius:6px;padding:9px 12px;color:#fff;font-size:15px;outline:none;margin-bottom:4px;">'
             +'<div id="_cwPM" style="min-height:18px;color:#e94560;font-size:12px;text-align:center;margin-bottom:10px;"></div>'
             +'<button id="_cwPB" style="width:100%;background:#e94560;border:none;border-radius:6px;'
-            +'padding:11px;color:#fff;font-size:15px;font-weight:bold;cursor:pointer;">Confirm</button>'
+            +'padding:11px;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;letter-spacing:1px;">Sign In</button>'
             +'</div>';
         document.body.appendChild(o);
     }
     var box=document.getElementById(B);
-    var inp=document.getElementById('_cwPI');
+    var uinp=document.getElementById('_cwPU');
+    var pinp=document.getElementById('_cwPI');
     var msg=document.getElementById('_cwPM');
     var btn=document.getElementById('_cwPB');
-    var acct=document.getElementById('_cwPA');
-    if(acct)acct.textContent=cn;
-    if(inp){inp.value='';setTimeout(function(){try{inp.focus();}catch(e){}},80);}
+    if(uinp){uinp.value=cn||'';}
+    if(pinp){pinp.value='';}
     if(msg)msg.textContent='';
-    if(btn){btn.disabled=false;btn.textContent='Confirm';}
+    if(btn){btn.disabled=false;btn.textContent='Sign In';}
     box.style.display='flex';
+    setTimeout(function(){try{(cn?pinp:uinp).focus();}catch(e){}},80);
     function submit(){
-        var pwd=inp?inp.value:'';
+        var user=uinp?uinp.value.trim():'';
+        var pwd=pinp?pinp.value:'';
         if(msg)msg.textContent='';
-        if(pwd.length<6){if(msg)msg.textContent='Min 6 characters.';return;}
+        if(!user){if(msg)msg.textContent='Please enter account name.';return;}
+        if(pwd.length<6){if(msg)msg.textContent='Password min 6 characters.';return;}
         if(btn){btn.disabled=true;btn.textContent='...';}
-        _doAuth(cn,pwd,function(ok,val){
+        _doAuth(user,pwd,function(ok,val){
             if(ok){box.style.display='none';onOk(val);}
             else{
                 if(msg)msg.textContent=val;
-                if(btn){btn.disabled=false;btn.textContent='Confirm';}
-                if(inp)inp.focus();
+                if(btn){btn.disabled=false;btn.textContent='Sign In';}
+                if(pinp){pinp.value='';pinp.focus();}
             }
         });
     }
     if(btn)btn.onclick=submit;
-    if(inp)inp.onkeydown=function(e){if(e.key==='Enter')submit();};
+    if(uinp)uinp.onkeydown=function(e){if(e.key==='Enter'){try{pinp.focus();}catch(e2){}}};
+    if(pinp)pinp.onkeydown=function(e){if(e.key==='Enter')submit();};
 }
 // Show a status string somewhere always visible without console.
 function _showStatus(msg){
