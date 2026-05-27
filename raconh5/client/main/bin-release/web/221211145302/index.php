@@ -1,37 +1,28 @@
 <?php
 /**
- * index.php — PHP-gated game entry point
+ * index.php — game entry point
  * Place at: C:\xampp\htdocs\game\index.php
  *
- * Auth flow:
- *   1. No session         → redirect to login.php
- *   2. Session but no ?username in URL → redirect to ./?username=xxx
- *      (PlatformManager inside main.min.js reads only from URL params)
- *   3. URL has correct username → serve the game page
+ * No mandatory login redirect.  Authentication happens inside the game via
+ * the translate.js password overlay → auth.php.
  *
- * The game then connects as that username; Erlang loads the existing
- * character or shows CreateRoleView for a new account.
+ * If a PHP session already exists (returning player) the username is injected
+ * directly so translate.js skips the overlay and the player goes straight to
+ * server selection.
  */
 session_start();
+$username = $_SESSION['game_user'] ?? '';
 
-// ── 1. Must be logged in ──────────────────────────────────────────────────────
-if (empty($_SESSION['game_user'])) {
-    header('Location: login.php');
-    exit;
+// Returning player: ensure ?username= is in the URL so PlatformManager picks it up
+if ($username) {
+    $urlUser = $_GET['username'] ?? '';
+    if ($urlUser !== $username) {
+        header('Location: ./?username=' . rawurlencode($username));
+        exit;
+    }
 }
 
-$username = $_SESSION['game_user'];
-
-// ── 2. PlatformManager (compiled) reads only from URL params.
-//       Make sure ?username= is present and matches the session so it picks it up.
-$urlUser = $_GET['username'] ?? '';
-if ($urlUser !== $username) {
-    header('Location: ./?username=' . rawurlencode($username));
-    exit;
-}
-
-// ── 3. Serve the game ─────────────────────────────────────────────────────────
-$username_json = json_encode($username);
+$username_json = json_encode($username); // '' for guests; filled for session users
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -52,29 +43,16 @@ $username_json = json_encode($username);
             padding: 0; border: 0; margin: 0;
             height: 100%;
         }
-        #cw-badge {
-            position: fixed; top: 8px; right: 8px; z-index: 9999;
-            background: rgba(0,0,0,.6);
-            border: 1px solid rgba(240,180,60,.4);
-            border-radius: 5px;
-            padding: 5px 12px;
-            font: 12px/1.4 Arial, sans-serif;
-            color: #f0c060;
-            text-decoration: none;
-            letter-spacing: .5px;
-            pointer-events: auto;
-        }
-        #cw-badge:hover { background: rgba(0,0,0,.85); }
     </style>
 
-    <?php /* Two sources so translate.js has the username before AND after Egret loads */ ?>
     <script>
-        // Primary: read by translate.js immediately (before Egret starts)
+        // Injected by PHP: non-empty only when a valid session exists.
+        // translate.js reads this — if set, the password overlay is skipped.
         window._cwGameUser = <?php echo $username_json; ?>;
     </script>
 
     <script type="text/javascript" src="Loading.js"></script>
-    <script type="text/javascript" src="translate.js?v=53"></script>
+    <script type="text/javascript" src="translate.js?v=54"></script>
     <audio id="1002" class="media-audio" src="resource/res/sound/1002.mp3" preload loop="loop"></audio>
     <audio id="1001" class="media-audio" src="resource/res/sound/1001.mp3" preload loop="loop"></audio>
     <script>
@@ -95,9 +73,6 @@ $username_json = json_encode($username);
     </script>
 </head>
 <body>
-    <a id="cw-badge" href="logout.php" title="Click to logout">
-        &#9986; <?php echo htmlspecialchars($username); ?>
-    </a>
     <div id="egret-player"
          style="margin:auto;width:100%;height:100%;"
          class="egret-player"

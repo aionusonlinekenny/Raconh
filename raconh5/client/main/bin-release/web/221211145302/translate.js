@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v53
+// RaconH English Translation Hook v54
 (function(){
 // Username source: window._cwGameUser is injected by index.php (PHP session).
 // This is the most reliable method — no URL param race, no sessionStorage timing issue.
@@ -8,7 +8,8 @@ var _urlU=(function(){
     try{var ss=sessionStorage.getItem('cw_game_user');if(ss&&ss.length)return ss;}catch(e){}
     try{return new URLSearchParams(window.location.search).get('username')||'';}catch(e){return '';}
 }());
-var _cwAS=false; // auto-start flag — fire Manager.socket.init() once when ready
+var _cwAS=false;     // auto-start flag — fire Manager.socket.init() once when ready
+var _cwAuthed=!!_urlU; // true when PHP session pre-authenticated (no overlay needed)
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
 '每次寻宝获得3万银币，同时必得绝学心法\n寻宝10次必得紫色品质以上绝学心法':
@@ -385,6 +386,79 @@ function _fixAttrCVO(){
         for(var id in _an){var i=AttrCVO._data[parseInt(id)];if(i){i.name=_an[id];i.shortName=_an[id];}}
     }
 }
+function _showAuthOverlay(){
+    if(_cwAuthed||document.getElementById('_cwOvl'))return;
+    var ov=document.createElement('div');
+    ov.id='_cwOvl';
+    ov.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.75);font-family:Arial,sans-serif;';
+    ov.innerHTML='<div style="background:#0d0d1a;border:1px solid rgba(240,180,60,.35);border-radius:12px;padding:28px 30px;width:320px;max-width:90vw;box-shadow:0 0 40px rgba(240,180,60,.12);">'
+        +'<h2 style="text-align:center;color:#f0c060;margin:0 0 4px;font-size:20px;letter-spacing:3px;">&#9876; GAME PORTAL</h2>'
+        +'<p style="text-align:center;color:#8890a0;font-size:12px;margin:0 0 20px;">Enter account &amp; password to play</p>'
+        +'<div style="margin-bottom:13px;"><label style="display:block;color:#a0a8b8;font-size:12px;margin-bottom:5px;">Account</label>'
+        +'<input id="_cwAccI" type="text" maxlength="20" autocomplete="username" style="width:100%;box-sizing:border-box;padding:10px 12px;background:rgba(0,0,10,.5);border:1px solid rgba(240,180,60,.25);border-radius:6px;color:#e8d8b0;font-size:14px;outline:none;" placeholder="3–20 chars, letters/numbers/_"></div>'
+        +'<div style="margin-bottom:16px;"><label style="display:block;color:#a0a8b8;font-size:12px;margin-bottom:5px;">Password</label>'
+        +'<input id="_cwPwdI" type="password" autocomplete="current-password" style="width:100%;box-sizing:border-box;padding:10px 12px;background:rgba(0,0,10,.5);border:1px solid rgba(240,180,60,.25);border-radius:6px;color:#e8d8b0;font-size:14px;outline:none;" placeholder="Min. 6 characters"></div>'
+        +'<div id="_cwErr" style="color:#f08080;font-size:12px;min-height:16px;margin-bottom:10px;text-align:center;"></div>'
+        +'<button id="_cwBtn" style="width:100%;padding:12px;background:linear-gradient(135deg,#b07820,#d4a030);border:none;border-radius:6px;color:#1a1000;font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer;">ENTER GAME</button>'
+        +'<p style="text-align:center;margin:11px 0 0;font-size:11px;color:#505868;">New username? An account is created automatically.</p>'
+        +'</div>';
+    document.body.appendChild(ov);
+    var accI=document.getElementById('_cwAccI');
+    var pwdI=document.getElementById('_cwPwdI');
+    var errD=document.getElementById('_cwErr');
+    var btn =document.getElementById('_cwBtn');
+    if(_urlU){accI.value=_urlU;accI.readOnly=true;accI.style.background='rgba(0,0,10,.3)';accI.style.color='#9098a8';}
+    setTimeout(function(){(_urlU?pwdI:accI).focus();},120);
+    function _doAuth(){
+        var acc=accI.value.trim();
+        var pwd=pwdI.value;
+        errD.textContent='';
+        if(!acc){errD.textContent='Please enter your account name.';return;}
+        if(pwd.length<6){errD.textContent='Password must be at least 6 characters.';return;}
+        btn.disabled=true;btn.textContent='...';
+        var xr=new XMLHttpRequest();
+        xr.open('POST','auth.php',true);
+        xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        xr.onload=function(){
+            btn.disabled=false;btn.textContent='ENTER GAME';
+            try{
+                var res=JSON.parse(xr.response);
+                if(res.ok){
+                    _cwAuthed=true;_urlU=res.username;
+                    try{sessionStorage.setItem('cw_game_user',_urlU);}catch(e){}
+                    if(typeof Manager!=='undefined'&&Manager.model&&Manager.model.getLogin){
+                        var lm=Manager.model.getLogin();
+                        if(!lm.__cwLocked){
+                            lm.__cwLocked=true;
+                            try{
+                                Object.defineProperty(lm,'clientName',{
+                                    get:function(){return this.__cwCN||_urlU;},
+                                    set:function(v){this.__cwCN=(v&&v!=='clientName')?v:_urlU;},
+                                    configurable:true,enumerable:true
+                                });
+                                lm.__cwCN=_urlU;
+                            }catch(e){try{lm.clientName=_urlU;}catch(e2){}}
+                        }
+                    }
+                    document.body.removeChild(ov);
+                    if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&
+                       Manager.model&&Manager.model.getLogin){
+                        var lg=Manager.model.getLogin();
+                        if(lg.clientName&&lg.serverId&&lg.serverIP)
+                            setTimeout(function(){Manager.socket.init();},250);
+                    }
+                }else{
+                    errD.textContent=res.error||'Login failed.';
+                    pwdI.value='';pwdI.focus();
+                }
+            }catch(e){errD.textContent='Server error. Please try again.';}
+        };
+        xr.onerror=function(){btn.disabled=false;btn.textContent='ENTER GAME';errD.textContent='Connection error.';};
+        xr.send('username='+encodeURIComponent(acc)+'&password='+encodeURIComponent(pwd));
+    }
+    btn.onclick=_doAuth;
+    pwdI.onkeydown=accI.onkeydown=function(e){if(e.keyCode===13)_doAuth();};
+}
 function _patch(){
     if(typeof AttrDescTypeEx!=='undefined'&&AttrDescTypeEx.getAttrName&&!AttrDescTypeEx.__cwP){
         AttrDescTypeEx.__cwP=true;
@@ -476,38 +550,14 @@ function _patch(){
             }
         }
     }
-    // Block socket.init() when clientName is empty (prevents anonymous character creation)
+    // Block socket.init() until overlay auth completes; re-show overlay if bypassed
     if(typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&!Manager.socket.__cwV){
         Manager.socket.__cwV=true;
         var _si=Manager.socket.init.bind(Manager.socket);
         Manager.socket.init=function(){
             var cn=Manager.model&&Manager.model.getLogin&&Manager.model.getLogin().clientName;
-            if(!cn){egret&&egret.log&&egret.log('[CW] socket.init blocked: no account');return;}
+            if(!_cwAuthed||!cn){_showAuthOverlay();return;}
             _si();
-        };
-    }
-    // Intercept Manager.view.show so clientName is locked BEFORE LoginView (28) runs its
-    // clientName == "" check — eliminates the 500ms race between _patch() interval and
-    // LoginView initialisation that left the Account input visible but empty.
-    if(_urlU&&typeof Manager!=='undefined'&&Manager.view&&Manager.view.show&&!Manager.view.__cwSH){
-        Manager.view.__cwSH=true;
-        var _origVS=Manager.view.show.bind(Manager.view);
-        Manager.view.show=function(vid){
-            if(vid===28&&Manager.model&&Manager.model.getLogin){
-                var _lv=Manager.model.getLogin();
-                if(!_lv.__cwLocked){
-                    _lv.__cwLocked=true;
-                    try{
-                        Object.defineProperty(_lv,'clientName',{
-                            get:function(){return this.__cwCN||_urlU;},
-                            set:function(v){this.__cwCN=(v&&v!=='clientName')?v:_urlU;},
-                            configurable:true,enumerable:true
-                        });
-                        _lv.__cwCN=_lv.clientName||_urlU;
-                    }catch(e){try{_lv.clientName=_urlU;}catch(e2){}}
-                }
-            }
-            return _origVS(vid);
         };
     }
     // Intercept selectRoleLogin to persist username→roleId mapping via save_role.php
@@ -536,9 +586,10 @@ function _patch(){
 function _retranslate(){
     var s=(typeof egret!=='undefined')&&egret.stage;
     if(!s)return;
-    // Auto-start: when login.php provided ?username=xxx, skip the Start Game click.
-    // Conditions: URL has username, Manager + socket ready, server already set by LoginView.show().
-    if(_urlU&&!_cwAS&&typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&
+    // Show password overlay as soon as the Egret stage is alive
+    if(!_cwAuthed&&typeof egret!=='undefined'&&egret.stage){_showAuthOverlay();}
+    // Auto-start: once authenticated + server selected, fire socket.init()
+    if(_cwAuthed&&_urlU&&!_cwAS&&typeof Manager!=='undefined'&&Manager.socket&&Manager.socket.init&&
        Manager.model&&Manager.model.getLogin){
         var _lg=Manager.model.getLogin();
         if(_lg.clientName&&_lg.serverId&&_lg.serverIP){
@@ -573,7 +624,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v53';
+document.title='EN v54';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
