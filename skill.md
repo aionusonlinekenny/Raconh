@@ -221,3 +221,287 @@ git pull origin claude/xampp-setup-guide-vFsWS
 | 蓝冥石(3级) | Item data OR gem data | JS hook '蓝冥石(3级)':'Sapphire Lv.3' |
 | 角色 | Language section / EXML skin | Binary language section translated |
 | 防御 | attr_desc_data / item desc | Binary "DEF" + JS hook |
+
+---
+
+---
+
+# Login Password Authentication — Session Knowledge Base
+
+## Mục tiêu
+
+Thêm xác thực account + password vào màn hình đăng nhập game (LoginViewSkin.exml).
+Flow mong muốn:
+- Account không tồn tại → báo lỗi trong game UI
+- Account đúng, password sai → báo lỗi trong game UI
+- Account + password đúng → cho phép vào game (`Manager.socket.init()`)
+
+---
+
+## Kiến trúc Game — Những điều phải hiểu
+
+### Egret H5 Engine
+- Game dùng **`egret.WebSocket`** (wrapper riêng của Egret), KHÔNG dùng `window.WebSocket` native.
+- Mọi cố gắng override `window.WebSocket` đều bị bypass hoàn toàn. Đây là lý do tất cả các phiên bản trước thất bại.
+
+### EUI Skin System (EXML)
+- EXML được **pre-compile** thành JavaScript trong `resource/default.thm.json` dưới dạng trường `gjs`.
+- Sửa file `.exml` mà KHÔNG cập nhật `default.thm.json` → không có tác dụng gì ở runtime.
+- Skin parts có `id` trong EXML được đăng ký trong mảng `skinParts` của skin class.
+- EUI framework tự động bind skin part vào host component nếu tên field khớp:
+  - Nếu id trong EXML có entry trong `skinParts` → bind vào `this.<id>` trực tiếp trên host.
+  - Nếu không có trong `skinParts` → chỉ truy cập được qua `this.skin.<id>`.
+
+### bin-debug vs bin-release
+- `bin-debug/` chứa từng file JS riêng lẻ (không minify).
+- `bin-release/web/221211145302/` chứa `main.min.js` (bundle minified).
+- **XAMPP deploy dùng bin-release** — `manifest.json` chỉ load `main.min.js`.
+- Sửa `bin-debug/LoginView.js` mà không rebuild → không ảnh hưởng gì đến runtime.
+
+### LoginView — File thực tế kiểm soát đăng nhập
+- Source: `raconh5/client/main/src/com/changwan/view/ui/login/LoginView.ts`
+- Compiled (bin-debug): `raconh5/client/main/bin-debug/com/changwan/view/ui/login/LoginView.js`
+- Nhưng XAMPP chạy từ `main.min.js` (bin-release) — không thể sửa trực tiếp file đó dễ dàng.
+
+### translate.js — Điểm hook duy nhất khả dụng
+- Được load trực tiếp trong `index.php` TRƯỚC khi `main.min.js` load.
+- Có thể patch `LoginView.prototype.onClickHandler` sau khi game code load (dùng `setInterval`).
+- Đây là cách duy nhất can thiệp vào click handler mà không cần rebuild `main.min.js`.
+
+---
+
+## Các lần thất bại trước và lý do
+
+| Cách thử | Tại sao thất bại |
+|----------|-----------------|
+| Override `window.WebSocket` | Game dùng `egret.WebSocket`, không đi qua `window.WebSocket` |
+| Override `Manager.socket.init` | Race condition — game có thể gọi init trước khi patch chạy |
+| Scan `this.skin._inputPassword` | EXML không reload; skin được tạo từ `gjs` trong `default.thm.json`, không từ file `.exml` |
+| `_cwAuthed = !!_urlU` với URL param | URL `?username=kennylucia` làm `_urlU` có giá trị → bypass hết auth |
+| HTML overlay + reload page | Quá phức tạp, gây vòng lặp redirect |
+| SyntaxError v61 | Có thêm `}` thừa đóng IIFE sớm → toàn bộ code auth không chạy |
+
+---
+
+## Giải pháp cuối cùng — Đúng
+
+### 1. Cập nhật `default.thm.json` — thêm password field vào skin
+
+File: `raconh5/client/main/bin-release/web/221211145302/resource/default.thm.json`
+
+Tìm entry `className: "LoginViewSkin"` trong mảng `exmls`, sửa trường `gjs`:
+
+**Thêm vào `_groupDebug_i()`:**
+```javascript
+t.elementsContent = [
+    this._Image1_i(), this._Label1_i(), this._inputClient_i(),
+    this._groupPwd_i(),   // thêm mới
+    this._lblError_i()    // thêm mới
+];
+```
+
+**Thêm 5 method mới vào prototype:**
+- `_groupPwd_i()` — Group chứa password row (y=44, bên dưới account row)
+- `_Image2_i()` — Background image cho password row
+- `_Label2_i()` — Label "Password:"
+- `_inputPassword_i()` — Input field (type="input", displayAsPassword=true)
+- `_lblError_i()` — Label hiển thị lỗi (màu đỏ #FF4444, y=88)
+
+**Cập nhật `skinParts`:**
+```javascript
+return ["_back","_serverBack","_icon","_btnEnter","_txtServer","_txtClick",
+        "_inputClient","_groupDebug",
+        "_inputPassword","_lblError"];  // thêm 2 cái này
+```
+
+→ Nhờ được thêm vào `skinParts`, EUI tự bind `_inputPassword` và `_lblError` trực tiếp lên host LoginView:
+  - `this._inputPassword.text` — đọc password người dùng nhập
+  - `this._lblError.text` — hiển thị thông báo lỗi
+
+Script Python để cập nhật (tránh sửa JSON 1.3MB bằng tay):
+```python
+import json
+thm_path = 'raconh5/client/main/bin-release/web/221211145302/resource/default.thm.json'
+with open(thm_path) as f:
+    d = json.load(f)
+idx = next(i for i,s in enumerate(d['exmls']) if s.get('className') == 'LoginViewSkin')
+gjs = d['exmls'][idx]['gjs']
+# ... string replacements ...
+d['exmls'][idx]['gjs'] = gjs
+with open(thm_path, 'w', encoding='utf-8') as f:
+    json.dump(d, f, ensure_ascii=False, separators=(',', ':'))
+```
+
+### 2. Patch `LoginView.prototype.onClickHandler` trong `translate.js`
+
+Thêm vào hàm `_patch()` — chạy mỗi 500ms cho đến khi `LoginView` được định nghĩa:
+
+```javascript
+if (typeof LoginView !== 'undefined' && !LoginView.prototype.__cwAuth) {
+    LoginView.prototype.__cwAuth = true;
+    var _origClick = LoginView.prototype.onClickHandler;
+    LoginView.prototype.onClickHandler = function(e) {
+        // Chỉ chặn click Start Game, không chặn Switch Server
+        if (e.currentTarget !== this._btnEnter) {
+            return _origClick.call(this, e);
+        }
+        var username = this._inputClient ? this._inputClient.text : '';
+        var pwdField = this._inputPassword;   // bound via skinParts
+        var errLabel = this._lblError;         // bound via skinParts
+        var password = pwdField ? pwdField.text : '';
+
+        if (!username) { if (errLabel) errLabel.text = 'Enter account name.'; return; }
+        if (!password || password.length < 6) {
+            if (errLabel) errLabel.text = 'Password: min 6 characters.'; return;
+        }
+        if (errLabel) errLabel.text = 'Verifying...';
+
+        var xr = new XMLHttpRequest();
+        xr.open('POST', 'auth.php', true);
+        xr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xr.onload = function() {
+            try {
+                var res = JSON.parse(xr.responseText || xr.response);
+                if (res.ok) {
+                    if (errLabel) errLabel.text = '';
+                    Manager.model.getLogin().clientName = username;
+                    egret.localStorage.setItem('username', username);
+                    Manager.socket.init();   // chỉ gọi khi auth thành công
+                } else {
+                    if (errLabel) errLabel.text = res.error || 'Login failed.';
+                }
+            } catch(ex) { if (errLabel) errLabel.text = 'Server error.'; }
+        };
+        xr.onerror = function() { if (errLabel) errLabel.text = 'Network error.'; };
+        xr.send('username=' + encodeURIComponent(username) +
+                '&password=' + encodeURIComponent(password));
+    };
+}
+```
+
+**Tại sao không cần WebSocket override hay session nữa:**
+- Auth chặn ngay tại nút Start Game trước khi `Manager.socket.init()` được gọi.
+- Không có cách nào bypass vì hàm gốc không bao giờ được gọi nếu auth fail.
+
+### 3. `auth.php` — Chỉ login, không tạo account mới
+
+```php
+$stmt = $pdo->prepare('SELECT password_hash FROM web_users WHERE BINARY username = ?');
+$stmt->execute([$username]);
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$row) {
+    echo json_encode(['error' => 'Account not registered. Please contact admin.']);
+    exit;
+}
+if (!password_verify($password, $row['password_hash'])) {
+    echo json_encode(['error' => 'Incorrect password.']);
+    exit;
+}
+echo json_encode(['ok' => true, 'username' => $username]);
+```
+
+**`BINARY` trong WHERE clause** — MySQL mặc định so sánh VARCHAR không phân biệt hoa thường
+(`utf8_general_ci`). `WHERE BINARY username = ?` ép so sánh byte-by-byte:
+- `KennyLucia` ≠ `kennylucia` ≠ `KENNYLUCIA`
+- Hoạt động trên table cũ không cần ALTER TABLE
+
+**Schema table `web_users` (chuẩn):**
+```sql
+CREATE TABLE IF NOT EXISTS web_users (
+    id             INT AUTO_INCREMENT PRIMARY KEY,
+    username       VARCHAR(32)  COLLATE utf8_bin NOT NULL UNIQUE,
+    password_hash  VARCHAR(255) NOT NULL,
+    erlang_role_id VARCHAR(32)  NULL DEFAULT NULL,
+    created_at     DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+`COLLATE utf8_bin` trên column → table mới tạo sẽ dùng case-sensitive collation từ đầu.
+
+### 4. `index.php` — Đơn giản hóa
+
+Bỏ toàn bộ PHP session logic (session_start, redirect `?username=`, `window._cwGameUser`).
+File trở thành HTML thuần — không có PHP session nào được dùng nữa.
+
+---
+
+## Cấu trúc thư mục — Files cần copy vào XAMPP
+
+```
+C:\xampp\htdocs\game\
+├── index.php             ← đã sửa (bỏ PHP session)
+├── auth.php              ← đã sửa (BINARY compare, no auto-register)
+├── translate.js          ← đã sửa (v64, LoginView.prototype patch)
+└── resource\
+    ├── default.thm.json  ← đã sửa (skinParts + gjs cho LoginViewSkin)
+    └── game_skins\login\
+        └── LoginViewSkin.exml  ← đồng bộ (không dùng trực tiếp, chỉ tham khảo)
+```
+
+---
+
+## Thứ tự load trong browser
+
+```
+1. index.php (HTML)
+2. Loading.js
+3. translate.js  ← load sớm, định nghĩa _patch() nhưng chưa patch LoginView (chưa tồn tại)
+4. main.min.js   ← load game code, định nghĩa LoginView, tải default.thm.json (gjs)
+5. setInterval (_patch, 500ms) phát hiện LoginView đã tồn tại → patch onClickHandler
+6. Game show LoginView → người dùng thấy Account + Password fields
+7. Người dùng click Start Game → _patched handler → XHR auth.php → (nếu ok) Manager.socket.init()
+```
+
+---
+
+## Debug Tips
+
+Nếu login vẫn không hoạt động:
+
+1. **Kiểm tra `translate.js` đã load đúng version chưa:**
+   - Tab browser title hiện `EN v64` → đúng
+   - Nếu hiện version cũ → Ctrl+Shift+R (hard refresh)
+
+2. **Kiểm tra skinParts có `_inputPassword` chưa:**
+   ```javascript
+   // Paste vào DevTools console sau khi game load
+   var s = egret.stage;
+   function find(d) {
+       if (d && d.skin && d.skin._inputPassword !== undefined) return d;
+       var n = d ? d.numChildren : 0;
+       for (var i = 0; i < n; i++) { var r = find(d.getChildAt(i)); if (r) return r; }
+   }
+   var lv = find(s);
+   console.log('LoginView:', lv);
+   console.log('_inputPassword:', lv && lv._inputPassword);
+   console.log('_lblError:', lv && lv._lblError);
+   ```
+
+3. **Kiểm tra auth.php trực tiếp:**
+   ```bash
+   curl -X POST http://127.0.0.1/game/auth.php \
+     -d "username=KennyLucia&password=yourpassword"
+   # Expected: {"ok":true,"username":"KennyLucia"}
+   # or: {"error":"Incorrect password."}
+   ```
+
+4. **Nếu password field không hiện** → `default.thm.json` chưa được copy đúng vào XAMPP.
+
+5. **Nếu error label không hiện** → `_lblError` chưa được bind → kiểm tra `skinParts` trong `gjs`.
+
+6. **Nếu vẫn vào game dù sai password** → `LoginView.prototype.__cwAuth` chưa được set → `_patch()` chưa chạy hoặc `LoginView` chưa được định nghĩa khi patch chạy.
+
+---
+
+## Ghi chú: Erlang Role ID
+
+Field `erlang_role_id` trong table `web_users` được thiết kế để link account web với role trong game server Erlang. Hiện tại chưa dùng trong auth flow. Nếu sau này cần, query thêm field này và trả về trong JSON response để client có thể dùng.
+
+---
+
+## Commits của Session này
+
+| Commit | Nội dung |
+|--------|---------|
+| `158fe84a` | Add password auth gate: default.thm.json + translate.js v64 + index.php cleanup |
+| `ab2aefb3` | Make username case-sensitive with BINARY in auth.php |
