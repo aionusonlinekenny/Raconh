@@ -229,9 +229,9 @@ main(["patch_filter"]) ->
         "filter(T) -> T.\n"
         "is_violation(_) -> false.\n"
         "is_violation_words(_,_) -> false.\n"
-        "strict(_,T) -> T.\n"
-        "moderate(_,T) -> T.\n"
-        "loosen(_,T) -> T.\n",
+        "strict(_,_) -> {ok}.\n"
+        "moderate(_,_) -> {ok}.\n"
+        "loosen(_,_) -> {ok}.\n",
     TmpFile = "filter_patch.erl",
     rpc:call(?NODE, file, write_file, [TmpFile, list_to_binary(Src)]),
     case rpc:call(?NODE, compile, file, [TmpFile, [binary, return_errors]]) of
