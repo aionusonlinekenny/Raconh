@@ -86,6 +86,7 @@ var _m={
 '无视防御':'Ignore DEF','必定暴击':'Guaranteed Crit','闪避反伤':'Dodge Counter',
 '附加沉默':'Silence','附加眩晕':'Stun',
 // --- Item descriptions ---
+'霸气墨宠':'Mighty Pet','输出暴涨':'DMG Surge ','暴涨':'Surge ',
 '最强群攻':'Max AOE','全屏大招':'Full AOE','杀怪效率提升':'Kill EFF+','杀怪效率+':'Kill EFF+',
 '极品武器':'Premium Weapon','绝世武学':'Supreme Arts','龙战八荒':'Dragon Realm',
 '卓越':'Superior','箱':' Box','银票':'Silver Ticket','9折':'10% Off',
@@ -236,7 +237,8 @@ var _m={
 '山海问道':'Sea Hall Quest','兄弟相见':'Brothers Meet','危机重重':'Crisis',
 '江湖势力':'Jianghu Forces','江湖传闻':'Jianghu Rumors','盟会考验':'Guild Test',
 // --- Mixed keys: post-translation combos (components ran before these) ---
-'可Smelt ':'can Smelt ','件Equip':'x Equip','的DMG':' DMG','HP回复':'HP Regen',
+'可Smelt ':'can Smelt ','件Equip':'x Equip','一xEquip':'1x Equip','一x Equip':'1x Equip','的DMG':' DMG','HP回复':'HP Regen',
+'Pet现世':'Pet Summon',
 'x目标造成':'x targets ','ATK目标':'ATK targets ','CD时间':'CD ','Crit率':'Crit Rate ',
 'UseSkill一定概率':'Using Skill: chance to ','NormalATK':'normal attack',
 'Guild Rank达到2阶':'Guild Rank 2','Guild Rank达到3阶':'Guild Rank 3',
