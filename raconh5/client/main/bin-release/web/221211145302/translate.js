@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v75
+// RaconH English Translation Hook v76
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -275,7 +275,7 @@ var _m={
 // --- Task buttons & chat ---
 '膜拜':'Worship','互动':'Interact','斗地主':'Landlord',
 '领取':'Claim','前往':'Go','发送':'Send',
-'系统':'Sys','世界':'Wrld',
+'系统':'System','世界':'World',
 '飙升':'Boost ','榜':' Rank',
 // --- Task status & common UI labels ---
 '(完成)':'(Done)','进行中':'In Progress','查看排名':'View Ranking',
@@ -465,14 +465,22 @@ function _patch(){
     }
     // Patch LoginView.onClickHandler to require auth before socket.init()
     // _inputPassword and _lblError are in skinParts → bound directly to host instance
+    // Hide VIP badge in chat (badge overlaps after channel name translation).
+    // VIP status is still visible above player heads in the game world.
     if(typeof ChatContentItem!=='undefined'&&ChatContentItem.prototype&&!ChatContentItem.prototype.__cwVipPos){
         ChatContentItem.prototype.__cwVipPos=true;
         var _origPF=ChatContentItem.prototype.parseFace;
         ChatContentItem.prototype.parseFace=function(){
             _origPF.call(this);
-            // Override hardcoded x=59 (sized for '[世界]'≈59px).
-            // Translated '[World]'/['Guild']' are ~105px wide → shift badge right.
-            if(this._vipIcon) this._vipIcon.x=130;
+            if(this._vipIcon) this._vipIcon.visible=false;
+        };
+    }
+    if(typeof ChatContentItem2!=='undefined'&&ChatContentItem2.prototype&&!ChatContentItem2.prototype.__cwVipPos){
+        ChatContentItem2.prototype.__cwVipPos=true;
+        var _origPF2=ChatContentItem2.prototype.parseFace;
+        ChatContentItem2.prototype.parseFace=function(){
+            _origPF2.call(this);
+            if(this._vipIcon) this._vipIcon.visible=false;
         };
     }
     if(typeof LoginView!=='undefined'&&!LoginView.prototype.__cwAuth){
