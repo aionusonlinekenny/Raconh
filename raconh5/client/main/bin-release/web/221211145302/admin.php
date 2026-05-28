@@ -527,8 +527,8 @@ if ($action === 'setup') {
     $newName = trim($_POST['name'] ?? '');
     if ($rid && $newName !== '') {
         $len = mb_strlen($newName, 'UTF-8');
-        if ($len < 2 || $len > 5) {
-            $flash = ['type'=>'error','msg'=>'Name must be 2–5 characters.'];
+        if ($len < 2 || $len > 16) {
+            $flash = ['type'=>'error','msg'=>'Name must be 2–16 characters.'];
         } else {
             $out = gmRename($rid, $newName);
             if ($out === 'ok') {
@@ -1398,13 +1398,13 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
               <div class="stat-label">Character Name</div>
               <div class="stat-value">
                 <?=htmlspecialchars($charName)?>
-                <span style="color:#8090a0;font-size:11px;margin-left:6px">(<?=$charNameLen?> chars, max 5)</span>
+                <span style="color:#8090a0;font-size:11px;margin-left:6px">(<?=$charNameLen?> chars, max 16)</span>
               </div>
               <form method="POST" class="edit-row-inline">
                 <input type="hidden" name="action" value="gm_rename">
                 <input type="hidden" name="rid"   value="<?=$gmRoleId?>">
                 <input type="text" name="name" value="<?=htmlspecialchars($charName)?>"
-                       maxlength="5" style="width:100%" placeholder="2–5 chars">
+                       maxlength="16" style="width:100%" placeholder="2–16 chars">
                 <button type="submit" class="btn btn-green btn-sm">Save</button>
               </form>
             </div>
