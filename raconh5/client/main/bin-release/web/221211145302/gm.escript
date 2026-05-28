@@ -207,5 +207,14 @@ main(["fields", RoleIdStr]) ->
             io:format("error|not_found~n")
     end;
 
+%% clear_sensitive_words: empties sys_sensitive_word so re:replace badarg
+%% (Unicode codepoint patterns on OTP 10.4) no longer crashes private chat.
+main(["clear_sensitive_words"]) ->
+    connect(),
+    case rpc:call(?NODE, mnesia, clear_table, [sys_sensitive_word]) of
+        {atomic, ok} -> io:format("ok~n");
+        Err          -> io:format("error|~p~n", [Err])
+    end;
+
 main(_) ->
     io:format("error|invalid_args~n").
