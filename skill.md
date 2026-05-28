@@ -505,3 +505,125 @@ Field `erlang_role_id` trong table `web_users` được thiết kế để link 
 |--------|---------|
 | `158fe84a` | Add password auth gate: default.thm.json + translate.js v64 + index.php cleanup |
 | `ab2aefb3` | Make username case-sensitive with BINARY in auth.php |
+
+---
+
+# Private Chat Fix — Session Knowledge Base
+
+## Triệu chứng
+
+Private chat (Cmd:20002) crash với 2 lỗi khác nhau:
+
+**Lỗi 1 (trước khi patch):**
+```
+{'EXIT',{badarg,[{filter,loosen,[chat,<<text>>],[]},...
+```
+Module `filter` cũ crash vì `re:replace/4` dùng danh sách Unicode codepoints `[27611,27901,19996]` làm regex pattern — OTP 21/22 không hỗ trợ integer >255 trong list pattern.
+
+**Lỗi 2 (sau khi patch sai):**
+```
+{'EXIT',{{case_clause,<<50,50,50,50,50>>},[{chat,private_chat,2,...line,273}
+```
+No-op `loosen/2` trả về binary thô, nhưng `chat.erl:273` pattern-match kết quả là tuple.
+
+---
+
+## Root Cause — filter.erl
+
+File `filter.erl` gốc tại `src/mod/filter/filter.erl`, compiled beam tại `ebin/filter.beam`.
+
+Nguyên nhân crash: line 118 gọi:
+```erlang
+re:replace(Text, [27611,27901,19996], [42], [caseless,global])
+```
+`[27611,27901,19996]` là list integer (Unicode codepoints của ký tự Trung). OTP 21/22 yêu cầu pattern phải là binary hoặc string ASCII (byte ≤255). List integer >255 → `badarg`.
+
+---
+
+## Cấu trúc return của filter functions
+
+Quan trọng: xem `chat.erl:273` (decompile từ beam_lib) để biết return format mong đợi:
+
+| Function | Return khi cho phép | Return khi chặn |
+|----------|--------------------|--------------------|
+| `filter:loosen(Type, Text)` | `{ok}` | `{false, Reason}` |
+| `filter:strict(Type, Text)` | `{ok}` | `{false, Reason}` |
+| `filter:moderate(Type, Text)` | `{ok}` | `{false, Reason}` |
+| `filter:filter(Text)` | `Text` (binary, đã lọc) | — |
+| `filter:is_violation(Text)` | `false` | `true` |
+| `filter:is_violation_words(Text, Words)` | `false` | `true` |
+
+Flow trong `chat.erl:273`:
+```erlang
+case filter:loosen(chat, Msg) of
+    {false, Reason} -> {false, Reason};
+    {ok} ->
+        Msg1 = filter:filter(Msg),   % lọc text
+        private_chat(...)            % gửi chat
+end
+```
+
+---
+
+## Fix: patch_filter command trong gm.escript
+
+**Cách dùng** (chạy trong `C:\raconh5\server_bin`):
+```cmd
+escript gm.escript patch_filter
+```
+Kết quả: `ok|saved_to:ebin/filter.beam|disk:ok`
+
+**Cách hoạt động:**
+1. Gửi source Erlang no-op qua RPC đến server
+2. Compile bằng `compile:file/2` trên chính server (dùng OTP version của server)
+3. Ghi đè `ebin/filter.beam` trên disk (persist qua restart)
+4. Hot-load vào memory ngay lập tức (`code:load_binary`)
+
+**Lý do phải compile trên server, không compile sẵn:**
+- Beam file bị lock với OTP version. OTP 22 hỗ trợ opcode tối đa 168.
+- Nếu compile bằng OTP 25 (opcode 169+) → server reject với lỗi `badfile`.
+- Dùng `compile:file` qua RPC → compile đúng OTP version của server.
+
+**No-op filter module đúng (file `filter.erl` dùng trong patch_filter):**
+```erlang
+-module(filter).
+-export([filter/1, is_violation/1, is_violation_words/2,
+         strict/2, moderate/2, loosen/2]).
+
+filter(T)              -> T.
+is_violation(_)        -> false.
+is_violation_words(_,_) -> false.
+strict(_,_)            -> {ok}.
+moderate(_,_)          -> {ok}.
+loosen(_,_)            -> {ok}.
+```
+`strict/moderate/loosen` trả về `{ok}` (không phải text), `filter/1` trả về text nguyên vẹn.
+
+---
+
+## Files liên quan
+
+| File | Mô tả |
+|------|-------|
+| `raconh5/server_bin/gm.escript` | Source gm script (có patch_filter command) |
+| `raconh5/client/main/bin-release/web/221211145302/gm.escript` | Deploy copy — luôn sync với file trên |
+| `raconh5/server_bin/ebin/filter.beam` | Beam gốc bị lỗi (giữ nguyên trong repo) |
+
+---
+
+## Lưu ý quan trọng
+
+- **Chỉ cần chạy `patch_filter` một lần** sau mỗi lần restart server (beam trên disk đã được ghi đè, server tự load đúng beam khi khởi động).
+- Nếu server crash và khởi động lại, beam mới đã được ghi đè trên disk → tự động load no-op version.
+- **Không commit beam pre-compiled** vào repo — khác OTP version sẽ bị reject khi load.
+- Nếu muốn fix vĩnh viễn không cần chạy lệnh: cần có OTP 22 erlc để compile, hoặc rebuild server source.
+
+---
+
+## Commits
+
+| Commit | Nội dung |
+|--------|---------|
+| `ada30ef0` | Add patch_filter command: hot-replace broken filter module at runtime |
+| `61d8938a` | patch_filter: also overwrite filter.beam on disk for permanent fix |
+| `e445cd22` | Fix patch_filter: strict/moderate/loosen must return {ok} not raw text |
