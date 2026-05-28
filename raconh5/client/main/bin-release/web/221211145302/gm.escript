@@ -2,15 +2,15 @@
 %%! -name gm_php@127.0.0.1 -setcookie stupidcat
 
 %% Usage:
-%%   escript gm.escript get  <role_id>
-%%   escript gm.escript find <account_name>
-%%   escript gm.escript set  <role_id> lev|exp|gold|gold_bind|coin|vip_lev <value>
+%%   escript gm.escript get    <role_id>
+%%   escript gm.escript find   <account_name>
+%%   escript gm.escript set    <role_id> lev|exp|gold|gold_bind|coin|vip_lev <value>
+%%   escript gm.escript rename <role_id> <base64_encoded_name>
 %%   escript gm.escript online
 
 -define(NODE, 'newserver@127.0.0.1').
 
 %% Minimum vip_exp required for each VIP level (from vip_data:get_vip/1 probing).
-%% VIP11 threshold is estimated at 300000 (between VIP10=200000 and VIP12=500000).
 vip_exp_for_lev(0)  -> 0;
 vip_exp_for_lev(1)  -> 100;
 vip_exp_for_lev(2)  -> 500;
@@ -51,15 +51,17 @@ main(["get", RoleIdStr]) ->
             Online = case rpc:call(?NODE, ets, lookup, [role_online, RoleId]) of
                 [] -> 0; _ -> 1
             end,
-            %% ok|lev|exp|gold|gold_bind|coin|vip_lev|is_online
-            io:format("ok|~B|~B|~B|~B|~B|~B|~B~n", [
+            Name = element(6, RB),
+            %% ok|lev|exp|gold|gold_bind|coin|vip_lev|is_online|name
+            io:format("ok|~B|~B|~B|~B|~B|~B|~B|~ts~n", [
                 element(12, RB),
                 element(23, RB),
                 element(24, RB),
                 element(25, RB),
                 element(28, RB),
                 VipLev,
-                Online
+                Online,
+                Name
             ]);
         _ ->
             io:format("error|not_found~n")
@@ -104,9 +106,34 @@ main(["online"]) ->
         _ -> io:format("error|rpc_failed~n")
     end;
 
+%% rename: name is passed as base64 to safely handle Unicode/Chinese chars
+main(["rename", RoleIdStr, B64Name]) ->
+    connect(),
+    RoleId = list_to_integer(RoleIdStr),
+    NewNameBin = base64:decode(B64Name),
+    case rpc:call(?NODE, ets, lookup, [role_online, RoleId]) of
+        [_|_] ->
+            io:format("error|player_must_be_offline~n");
+        [] ->
+            case rpc:call(?NODE, mnesia, dirty_read, [role_data, RoleId]) of
+                [RD] ->
+                    RB    = element(4, RD),
+                    NewRB = setelement(6, RB, NewNameBin),
+                    NewRD = setelement(4, RD, NewRB),
+                    rpc:call(?NODE, mnesia, dirty_write, [NewRD]),
+                    rpc:call(?NODE, mnesia, dirty_write, [NewRB]),
+                    io:format("ok~n");
+                [] ->
+                    io:format("error|not_found~n");
+                _ ->
+                    io:format("error|rpc_failed_read~n")
+            end;
+        _ ->
+            io:format("error|rpc_failed_ets~n")
+    end;
+
 %% vip_lev is nested: role_data -> element(5)=role_ext -> element(38)=role_vip -> element(3)=level
 %% Also set vip_exp (element 4) large enough that the server won't recalculate lev back to 0.
-%% Use 100000 * Level as vip_exp so VIP10 = 1,000,000 exp.
 main(["set", RoleIdStr, "vip_lev", ValueStr]) ->
     connect(),
     RoleId = list_to_integer(RoleIdStr),

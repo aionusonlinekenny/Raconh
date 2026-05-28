@@ -80,7 +80,7 @@ function gmGet($roleId) {
     $out = gmExec(['get', (string)(int)$roleId]);
     if (strpos($out, 'ok|') === 0) {
         $p = explode('|', $out);
-        return ['lev'=>$p[1],'exp'=>$p[2],'gold'=>$p[3],'gold_bind'=>$p[4],'coin'=>$p[5],'vip_lev'=>$p[6],'online'=>$p[7]];
+        return ['lev'=>$p[1],'exp'=>$p[2],'gold'=>$p[3],'gold_bind'=>$p[4],'coin'=>$p[5],'vip_lev'=>$p[6],'online'=>$p[7],'name'=>rtrim($p[8]??'')];
     }
     return null;
 }
@@ -98,6 +98,11 @@ function gmSet($roleId, $field, $value) {
     $allowed = ['lev','exp','gold','gold_bind','coin','vip_lev'];
     if (!in_array($field, $allowed)) return 'error|invalid_field';
     return gmExec(['set', (string)(int)$roleId, $field, (string)(int)$value]);
+}
+
+function gmRename($roleId, $newName) {
+    $b64 = base64_encode($newName);
+    return gmExec(['rename', (string)(int)$roleId, $b64]);
 }
 
 // ── DB ───────────────────────────────────────────────────────────────────────
@@ -502,6 +507,31 @@ if ($action === 'setup') {
                 $flash = ['type'=>'error','msg'=>'gm.escript not found. Check the status panel on the Player Stats tab.'];
             else
                 $flash = ['type'=>'error','msg'=>'GM error: '.$reason];
+        }
+    }
+    $_SESSION['flash'] = $flash;
+    header('Location: admin.php?tab=player&rid='.$rid); exit;
+
+} elseif ($action === 'gm_rename') {
+    requireLogin();
+    $rid     = (int)($_POST['rid'] ?? 0);
+    $newName = trim($_POST['name'] ?? '');
+    if ($rid && $newName !== '') {
+        $len = mb_strlen($newName, 'UTF-8');
+        if ($len < 2 || $len > 5) {
+            $flash = ['type'=>'error','msg'=>'Name must be 2–5 characters.'];
+        } else {
+            $out = gmRename($rid, $newName);
+            if ($out === 'ok') {
+                $flash = ['type'=>'success','msg'=>'Renamed to: '.$newName];
+            } else {
+                $p = explode('|', $out);
+                $reason = $p[1] ?? $out;
+                if ($reason === 'player_must_be_offline')
+                    $flash = ['type'=>'error','msg'=>'Player must be offline to rename.'];
+                else
+                    $flash = ['type'=>'error','msg'=>'Rename error: '.$reason];
+            }
         }
     }
     $_SESSION['flash'] = $flash;
@@ -1300,10 +1330,17 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
 
       <!-- ── Stat editor (shown when gmStats loaded) ── -->
       <?php if($gmStats): ?>
-        <?php $online = (int)$gmStats['online']; ?>
+        <?php
+          $online      = (int)$gmStats['online'];
+          $charName    = $gmStats['name'] !== '' ? $gmStats['name'] : ($gmFoundRole['name'] ?? $playerSearch);
+          $charNameLen = mb_strlen($charName, 'UTF-8');
+        ?>
         <div class="player-card" style="margin-bottom:20px">
           <div class="player-name">
-            <?=htmlspecialchars($gmFoundRole['name'] ?? $playerSearch)?>
+            <?=htmlspecialchars($charName)?>
+            <?php if($charNameLen): ?>
+              <span style="font-size:11px;color:#8090a0;margin-left:6px">(<?=$charNameLen?> chars)</span>
+            <?php endif; ?>
             <?php if($online): ?>
               <span style="font-size:12px;background:rgba(60,200,80,.15);border:1px solid rgba(60,200,80,.4);color:#60d070;padding:2px 9px;border-radius:10px;margin-left:8px">● Online</span>
             <?php else: ?>
@@ -1347,6 +1384,21 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
               </form>
             </div>
             <?php endforeach; ?>
+            <!-- Character name rename -->
+            <div class="stat-item editable" style="grid-column:1/-1">
+              <div class="stat-label">Character Name</div>
+              <div class="stat-value">
+                <?=htmlspecialchars($charName)?>
+                <span style="color:#8090a0;font-size:11px;margin-left:6px">(<?=$charNameLen?> chars, max 5)</span>
+              </div>
+              <form method="POST" class="edit-row-inline">
+                <input type="hidden" name="action" value="gm_rename">
+                <input type="hidden" name="rid"   value="<?=$gmRoleId?>">
+                <input type="text" name="name" value="<?=htmlspecialchars($charName)?>"
+                       maxlength="5" style="width:100%" placeholder="2–5 chars">
+                <button type="submit" class="btn btn-green btn-sm">Save</button>
+              </form>
+            </div>
           </div>
           <?php endif; ?>
         </div>
