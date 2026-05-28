@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v72
+// RaconH English Translation Hook v73
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -465,6 +465,16 @@ function _patch(){
     }
     // Patch LoginView.onClickHandler to require auth before socket.init()
     // _inputPassword and _lblError are in skinParts → bound directly to host instance
+    if(typeof ChatContentItem!=='undefined'&&ChatContentItem.prototype&&!ChatContentItem.prototype.__cwVipPos){
+        ChatContentItem.prototype.__cwVipPos=true;
+        var _origPF=ChatContentItem.prototype.parseFace;
+        ChatContentItem.prototype.parseFace=function(){
+            _origPF.call(this);
+            // Override hardcoded x=59 (sized for '[世界]'≈59px).
+            // Translated '[World]'/['Guild']' are ~105px wide → shift badge right.
+            if(this._vipIcon) this._vipIcon.x=112;
+        };
+    }
     if(typeof LoginView!=='undefined'&&!LoginView.prototype.__cwAuth){
         LoginView.prototype.__cwAuth=true;
         var _origClick=LoginView.prototype.onClickHandler;
