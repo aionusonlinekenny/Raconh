@@ -207,14 +207,15 @@ main(["fields", RoleIdStr]) ->
             io:format("error|not_found~n")
     end;
 
-%% clear_sensitive_words: empties sys_sensitive_word so re:replace badarg
-%% (Unicode codepoint patterns on OTP 10.4) no longer crashes private chat.
-main(["clear_sensitive_words"]) ->
+%% clear_filter: clears both the ETS runtime cache (filter_data) and the
+%% Mnesia source table (sys_sensitive_word).
+%% Fixes private chat crash: filter.erl passes Unicode codepoint lists to
+%% re:replace which is not supported on OTP 10.4, causing badarg.
+main(["clear_filter"]) ->
     connect(),
-    case rpc:call(?NODE, mnesia, clear_table, [sys_sensitive_word]) of
-        {atomic, ok} -> io:format("ok~n");
-        Err          -> io:format("error|~p~n", [Err])
-    end;
+    EtsRes = rpc:call(?NODE, ets, delete_all_objects, [filter_data]),
+    MnsRes = rpc:call(?NODE, mnesia, clear_table, [sys_sensitive_word]),
+    io:format("ok|ets:~p|mnesia:~p~n", [EtsRes, MnsRes]);
 
 main(_) ->
     io:format("error|invalid_args~n").
