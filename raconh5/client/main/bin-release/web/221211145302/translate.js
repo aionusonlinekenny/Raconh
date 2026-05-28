@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v74
+// RaconH English Translation Hook v75
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -275,7 +275,7 @@ var _m={
 // --- Task buttons & chat ---
 '膜拜':'Worship','互动':'Interact','斗地主':'Landlord',
 '领取':'Claim','前往':'Go','发送':'Send',
-'系统':'System','世界':'World',
+'系统':'Sys','世界':'Wrld',
 '飙升':'Boost ','榜':' Rank',
 // --- Task status & common UI labels ---
 '(完成)':'(Done)','进行中':'In Progress','查看排名':'View Ranking',
