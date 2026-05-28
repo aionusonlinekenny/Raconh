@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v71
+// RaconH English Translation Hook v72
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -121,6 +121,7 @@ var _m={
 '好友推荐':'Suggested Friends','换一批':'Refresh','一键添加':'Add All',
 '请输入玩家Name':'Search player name',
 '好友已达上限':'Friends list full','对方不在线':'Offline',
+'好友':'Friends','总Power:':'Power:','离线':'Offline ','在线':'Online ',
 '副本进入次数已满！':'Dungeon limit reached!','上个副本评分太低！':'Last dungeon score too low!',
 '副本已达到最高层':'Max dungeon floor','已经在副本里面！':'Already in dungeon!',
 '在其它活动里面！':'In another activity!','正在PK！':'In PvP!',
@@ -380,6 +381,7 @@ var _m={
 };
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
+    s=s.replace(/与(.+?)私聊中/,'PM: $1');
     for(var k in _m)if(s.indexOf(k)>=0)s=s.split(k).join(_m[k]);
     return s;
 }
