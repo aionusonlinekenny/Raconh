@@ -46,12 +46,21 @@ function _findEscript() {
 }
 define('ESCRIPT_EXE', _findEscript());
 // gm.escript: look next to admin.php first (self-contained XAMPP deploy),
-// then fall back to repo structure (raconh5/server_bin/).
-define('GM_ESCRIPT',
-    file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'gm.escript')
-        ? __DIR__ . DIRECTORY_SEPARATOR . 'gm.escript'
-        : dirname(__DIR__, 5) . DIRECTORY_SEPARATOR . 'server_bin' . DIRECTORY_SEPARATOR . 'gm.escript'
-);
+// then try known absolute server locations.
+function _findGmEscript() {
+    $ds = DIRECTORY_SEPARATOR;
+    $candidates = [
+        __DIR__ . $ds . 'gm.escript',
+        'C:\\raconh5\\server_bin\\gm.escript',
+        'C:\\raconh5\\raconh5\\server_bin\\gm.escript',
+        'C:\\server_bin\\gm.escript',
+    ];
+    foreach ($candidates as $c) {
+        if (file_exists($c)) return $c;
+    }
+    return __DIR__ . $ds . 'gm.escript'; // fallback (will show as not-found in status)
+}
+define('GM_ESCRIPT', _findGmEscript());
 
 // ── Translation file paths ────────────────────────────────────────────────────
 define('CW_FILE',    __DIR__ . '/resource/res/cw.txt');
