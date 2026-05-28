@@ -209,13 +209,43 @@ main(["fields", RoleIdStr]) ->
 
 %% clear_filter: clears both the ETS runtime cache (filter_data) and the
 %% Mnesia source table (sys_sensitive_word).
-%% Fixes private chat crash: filter.erl passes Unicode codepoint lists to
-%% re:replace which is not supported on OTP 10.4, causing badarg.
 main(["clear_filter"]) ->
     connect(),
     EtsRes = rpc:call(?NODE, ets, delete_all_objects, [filter_data]),
     MnsRes = rpc:call(?NODE, mnesia, clear_table, [sys_sensitive_word]),
     io:format("ok|ets:~p|mnesia:~p~n", [EtsRes, MnsRes]);
+
+%% patch_filter: hot-replaces the broken filter module with a no-op version.
+%% filter.erl calls re:replace with Unicode codepoint lists (>255) which
+%% causes badarg on OTP 21. This replacement simply passes text through.
+%% Exports discovered from filter.beam: filter/1, is_violation/1,
+%% is_violation_words/2, strict/2, moderate/2, loosen/2.
+main(["patch_filter"]) ->
+    connect(),
+    Src =
+        "-module(filter).\n"
+        "-export([filter/1,is_violation/1,is_violation_words/2,"
+                 "strict/2,moderate/2,loosen/2]).\n"
+        "filter(T) -> T.\n"
+        "is_violation(_) -> false.\n"
+        "is_violation_words(_,_) -> false.\n"
+        "strict(_,T) -> T.\n"
+        "moderate(_,T) -> T.\n"
+        "loosen(_,T) -> T.\n",
+    TmpFile = "filter_patch.erl",
+    rpc:call(?NODE, file, write_file, [TmpFile, list_to_binary(Src)]),
+    case rpc:call(?NODE, compile, file, [TmpFile, [binary, return_errors]]) of
+        {ok, filter, Bin} ->
+            rpc:call(?NODE, file, delete, [TmpFile]),
+            case rpc:call(?NODE, code, load_binary, [filter, "filter.erl", Bin]) of
+                {module, filter} -> io:format("ok~n");
+                E -> io:format("error|load:~p~n", [E])
+            end;
+        {error, Errors, _} ->
+            io:format("error|compile:~p~n", [Errors]);
+        E ->
+            io:format("error|~p~n", [E])
+    end;
 
 main(_) ->
     io:format("error|invalid_args~n").
