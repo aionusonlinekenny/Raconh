@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v73
+// RaconH English Translation Hook v74
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -472,7 +472,7 @@ function _patch(){
             _origPF.call(this);
             // Override hardcoded x=59 (sized for '[世界]'≈59px).
             // Translated '[World]'/['Guild']' are ~105px wide → shift badge right.
-            if(this._vipIcon) this._vipIcon.x=112;
+            if(this._vipIcon) this._vipIcon.x=130;
         };
     }
     if(typeof LoginView!=='undefined'&&!LoginView.prototype.__cwAuth){
