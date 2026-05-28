@@ -167,7 +167,7 @@ body{
     <script>
     function startGame(){
       sessionStorage.setItem('cw_game_user',<?=$safeUser?>);
-      window.location.href='index.html';
+      window.location.href='index.html?username='+encodeURIComponent(<?=$safeUser?>);
     }
     </script>
 
