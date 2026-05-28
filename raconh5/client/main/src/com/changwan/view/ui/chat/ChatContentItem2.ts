@@ -87,6 +87,17 @@ class ChatContentItem2 implements cw.IDispose
 
     private parseFace():void
     {
+        let channelVipX = 59;
+        if(this._info.vipLvl > 0 && this._info.head)
+        {
+            let m = this._info.head.match(/<font[^>]+>\[[^\]]+\]<\/font>/i);
+            if(m)
+            {
+                HtmlUtil.setTextFlow(this._txt, m[0]);
+                channelVipX = Math.ceil(this._txt.textWidth);
+                HtmlUtil.setTextFlow(this._txt, this._info.head);
+            }
+        }
         let offsetX = Math.ceil(this._txt.textWidth);
         HtmlUtil.setTextFlow(this._txt, this._info.content);
         if(this._info.vipLvl > 0)
@@ -97,7 +108,7 @@ class ChatContentItem2 implements cw.IDispose
                 this._vipIcon.source = "chat_vip_png";
                 this._imageContainer.addChild(this._vipIcon);
             }
-            this._vipIcon.x = 59;
+            this._vipIcon.x = channelVipX;
             this._vipIcon.y = 2;
         }
         else
