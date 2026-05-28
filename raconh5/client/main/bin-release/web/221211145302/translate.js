@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v64
+// RaconH English Translation Hook v66
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
