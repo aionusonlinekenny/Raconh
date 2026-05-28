@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v66
+// RaconH English Translation Hook v71
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -237,7 +237,7 @@ var _m={
 '山海问道':'Sea Hall Quest','兄弟相见':'Brothers Meet','危机重重':'Crisis',
 '江湖势力':'Jianghu Forces','江湖传闻':'Jianghu Rumors','盟会考验':'Guild Test',
 // --- Mixed keys: post-translation combos (components ran before these) ---
-'可Smelt ':'can Smelt ','件Equip':'x Equip','一xEquip':'1x Equip','一x Equip':'1x Equip','的DMG':' DMG','HP回复':'HP Regen',
+'可Smelt ':'can Smelt ','件Equip':'x Equip','的DMG':' DMG','HP回复':'HP Regen',
 'Pet现世':'Pet Summon',
 'x目标造成':'x targets ','ATK目标':'ATK targets ','CD时间':'CD ','Crit率':'Crit Rate ',
 'UseSkill一定概率':'Using Skill: chance to ','NormalATK':'normal attack',
@@ -374,7 +374,9 @@ var _m={
 '姿势不对，无法传送6%':'Wrong posture, unable to teleport 6%',
 '关开启':' Stage Unlock','开启':' Unlock',
 '一万':'10K','两万':'20K','三万':'30K','五万':'50K','十万':'100K',
-'万':'0K'
+'万':'0K',
+// --- Final-pass combos (must be last: depend on 次→x and 装备→Equip having already fired) ---
+'一xEquip':'1x Equip','一x Equip':'1x Equip'
 };
 function _rep(s){
     if(typeof s!=='string'||!s)return s;
