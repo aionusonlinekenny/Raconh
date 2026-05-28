@@ -9,6 +9,7 @@ var _m={
 '寻宝10次必得紫色品质以上绝学心法':
     '10x hunt: guaranteed Purple-quality or above Skill Book',
 // --- First recharge panel (must precede 充值→Recharge component) ---
+'立即充值':'Top Up Now',
 '首充豪礼':'First Recharge Gift',
 '首充奖励至少充值':'Need recharge ',
 '元可领':' Yuan to claim',
@@ -23,6 +24,7 @@ var _m={
 '战力飙升':'Power Boost ',
 '战力直升':'Power Boost +',
 '特权称号':'Privilege Title',
+'特权':'Privileges',
 '属性加成':'Stat Bonus',
 '墨宠属性':'Pet Stats ',
 '转生属性':'Rebirth Stats ',
@@ -41,6 +43,8 @@ var _m={
 '所需材料':'Required Materials',
 // --- Mail system ---
 '未领取的邮件系统默认为您保存15天，请注意查收！':'Unclaimed mail is kept for 15 days — claim before it expires!',
+'邮件内容':'Mail Content',
+'立即领取':'Claim Now',
 '邮箱':'Mailbox','战书':'War Notice','未读':'Unread',
 '每日结算':'Daily Settlement','结算奖励':'Settlement Reward',
 '一键领取':'Claim All',
@@ -58,12 +62,16 @@ var _m={
 // --- Feature names ---
 '门派成员':'Guild Members','职位':'Role',
 '转生命轮':'Rebirth Wheel',
+// --- Skill panel labels (compound forms before 绝学→Skills) ---
+'绝学境界':'Skill Realm','绝学属性':'Skill Stats','激活条件':'Requirements','额外属性':'Extra Stats',
+'境界':'Realm',
 '命轮':'Fate Wheel','墨宠':'Pet','命格':'Destiny','绝学':'Skills','聚宝蟾':'Treasure','等级礼':'Lv.Gift',
 '七日礼':'7-Day Gift','自动任务':'Auto Task','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
 '盟会试炼':'Guild Trial','冲榜竞技':'PvP Rank','充值活动':'Top-up Event',
 '装扮':'Costume','称号':'Title','论剑台':'Duel Arena','神兵':'Weapon','摆摊':'Market',
 '魔神入侵':'Devil Raid','好友系统':'Friends','神器':'Artifact','功能预告':'Preview',
 // --- Skill book names (juexue_data) ---
+'龙爪功':'Dragon Claw Art',
 '罗汉伏魔功':'Luohan Devil Fist','圣火令神功':'Sacred Flame Art','大金刚掌':'Great Vajra Palm',
 '神门十三剑':'Thirteen Gate Swords','大九天手':'Nine Heavens Hand','空明拳':'Void Clarity Fist',
 '乾坤大挪移':'Universe Transfer','九阴真经':'Nine Yin Classic','七伤拳':'Seven Injury Fist',
@@ -109,6 +117,8 @@ var _m={
 '您不是队长！':'Not the leader!','不能操作自己！':'Cannot target self!',
 '{0}成为了队长！':'{0} is now leader!',
 '您的仇人{0}上线了！':'Enemy {0} is online!','您的仇人{0}下线了！':'Enemy {0} went offline.',
+'好友推荐':'Suggested Friends','换一批':'Refresh','一键添加':'Add All',
+'请输入玩家Name':'Search player name',
 '好友已达上限':'Friends list full','对方不在线':'Offline',
 '副本进入次数已满！':'Dungeon limit reached!','上个副本评分太低！':'Last dungeon score too low!',
 '副本已达到最高层':'Max dungeon floor','已经在副本里面！':'Already in dungeon!',
@@ -203,7 +213,9 @@ var _m={
 '初试身手':'First Steps','小试牛刀':'Warm Up','扑朔迷离':'Mysterious',
 '凌烟问道':'Hall Quest','凌烟阁寻宝':'Hall Treasure Hunt','英雄试炼':'Hero Trial',
 '凌烟阁':'Lingyan Hall','寻宝':'Treasure Hunt',
-'冲脉':'Meridian Rush','购买':'Purchase','消费':'Spend',
+'冲脉':'Meridian Rush','专属VIP商城':'VIP Exclusive Store','专属礼包':'Exclusive Pack','金蟾聚宝':'Golden Toad Treasure','免费补签':'Free Sign-in',
+'专属':'Exclusive ','立即':'Now ',
+'购买':'Purchase','消费':'Spend',
 '面对强敌':'Face a Foe','突飞猛进':'Rapid Growth','从容应对':'Steady',
 '黑夜降临':'Night Falls','声名鹊起':'Rising Fame','深陷重围':'Surrounded',
 '阁主试炼':'Hall Master Trial','加入一个盟会':'Join a Guild','浴血抗敌':'Bloody Battle',
@@ -238,7 +250,7 @@ var _m={
 '5阶':'Rank 5 ','4阶':'Rank 4 ','3阶':'Rank 3 ','2阶':'Rank 2 ','1阶':'Rank 1 ','阶':'Rank',
 '激活':'Activate ','穿戴':'Wear ','个人':'Solo ','全身':'Full ',
 '普通捐献':'Normal Donation','高级捐献':'Premium Donation','捐献':'Donate','贡献':' pts',
-'剩余次数':'Remaining: ','次':'x','寻找':'Find ','无双':'Peerless ',
+'剩余次数':'Remaining: ','次数':' count','次':'x','寻找':'Find ','无双':'Peerless ',
 '传闻':' Rumor','秘闻':' Secrets','风声':' Rumors','一次':'x1 ','一颗':' ',
 // --- Landlord (斗地主) feature ---
 '苦工干活时间满释放会自动提取EXP':'Laborer auto-extracts EXP when work time is full',
