@@ -10,9 +10,9 @@
 	<e:Image width="658" height="3" y="353" source="common_line_png" horizontalCenter="0"/>
 	<e:Image width="209" height="36" y="365" source="common_title_wordBg_png" horizontalCenter="0.5"/>
 	<ns1:Label text="Guild Members" y="370" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62" horizontalCenter="0"/>
-	<e:Image width="66" height="44" x="118" y="404" source="club_career_png"/>
-	<e:Image x="326" y="404" source="common_label_name_png"/>
-	<e:Image x="566" y="404" source="common_fight_rank_png"/>
+	<ns1:Label text="Rank" x="118" y="410" width="66" textAlign="center" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Name" x="290" y="410" width="140" textAlign="center" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Power" x="537" y="410" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:BaseVScrollerList id="_memberList" width="655" height="222" y="454" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5"/>
 	<e:Image width="655" height="55" y="676" scale9Grid="10,10,63,65" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5" source="common_wordBg_normal_png"/>
 	<ns1:Label id="_clubCareer" text="" x="121" y="690" size="24" fontFamily="Microsoft YaHei" textColor="0x38b800"/>
@@ -25,7 +25,7 @@
 	<ns1:Label id="_gongxian" text="0/0" x="376" y="750" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<e:Image width="655" height="126" y="788" source="common_bg1_normal_png" scale9Grid="29,11,181,69" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5"/>
 	<e:Image width="169" height="116" x="39" y="793" source="club_gxIm1_png"/>
-	<e:Image width="122" height="43" x="299" y="805" source="club_gx_word1_png"/>
+	<ns1:Label text="Normal Donation" x="250" y="814" width="220" textAlign="center" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei"/>
 	<ns1:Label text="Guild Contribution:" x="267" y="860" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_gongxianValue1" text="0" x="406" y="861" textColor="0xfd7100" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_timeValue1" text="5 Attempts Left" x="520" y="795" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei" textAlign="center"/>
@@ -41,7 +41,7 @@
 
 	<e:Image width="655" height="126" y="925" source="common_bg1_normal_png" scale9Grid="29,11,181,69" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0.5"/>
 	<e:Image width="169" height="116" x="39" y="928" source="club_gxIm2_png"/>
-	<e:Image width="122" height="43" x="299" y="940" source="club_gx_word2_png"/>
+	<ns1:Label text="Premium Donation" x="250" y="949" width="220" textAlign="center" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei"/>
 	<ns1:Label text="Guild Contribution:" x="267" y="995" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_gongxianValue2" text="0" x="406" y="996" textColor="0xfd7100" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_timeValue2" text="5 Attempts Left" x="520" y="932" textColor="0x7c6e62" size="22" fontFamily="Microsoft YaHei" textAlign="center"/>

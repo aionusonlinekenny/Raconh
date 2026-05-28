@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v77
+// RaconH English Translation Hook v78
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -286,7 +286,7 @@ var _m={
 'Rank 1Disciple':'Rank 1 Disciple','Rank 2Disciple':'Rank 2 Disciple',
 'Rank 3Disciple':'Rank 3 Disciple','Rank 4Disciple':'Rank 4 Disciple','Rank 5Disciple':'Rank 5 Disciple',
 'Guild Contribution:':'Contrib:','Guild Contribution':'Contrib',
-'Guild Power ':'Pwr: ','Guild Power':'Pwr:',
+'Guild Power:':'Pwr:','Guild Power ':'Pwr: ','Guild Power':'Pwr:',
 '通关：':'Clear: ','剩余时间：':'Remaining: ','剩余时间':'Remaining','时间：':'Time: ','盟贡：':'Contrib: ','盟贡':' Guild Contrib',
 '永久':'Permanent','小时':'h ',
 'Requires level ':'Req. Lv.','Available at level ':'Req. Lv.','Available at Lv.':'Req. Lv.',
@@ -538,7 +538,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v64';
+document.title='EN v78';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
