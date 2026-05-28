@@ -237,9 +237,15 @@ main(["patch_filter"]) ->
     case rpc:call(?NODE, compile, file, [TmpFile, [binary, return_errors]]) of
         {ok, filter, Bin} ->
             rpc:call(?NODE, file, delete, [TmpFile]),
-            case rpc:call(?NODE, code, load_binary, [filter, "filter.erl", Bin]) of
-                {module, filter} -> io:format("ok~n");
-                E -> io:format("error|load:~p~n", [E])
+            %% Overwrite the beam on disk → persists across server restarts
+            BeamPath = rpc:call(?NODE, code, which, [filter]),
+            DiskRes  = rpc:call(?NODE, file, write_file, [BeamPath, Bin]),
+            %% Hot-load into the running server immediately
+            case rpc:call(?NODE, code, load_binary, [filter, BeamPath, Bin]) of
+                {module, filter} ->
+                    io:format("ok|saved_to:~s|disk:~p~n", [BeamPath, DiskRes]);
+                E ->
+                    io:format("error|load:~p~n", [E])
             end;
         {error, Errors, _} ->
             io:format("error|compile:~p~n", [Errors]);
