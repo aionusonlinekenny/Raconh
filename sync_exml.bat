@@ -17,7 +17,7 @@ if "%PHP%"=="" (
     exit /b 1
 )
 
-set SCRIPT=%~dp0raconh5\client\main\bin-release\web\221211145302\sync_exml.php
+set SCRIPT=C:\xampp\htdocs\game\sync_exml.php
 
 echo Using PHP: %PHP%
 echo Script:    %SCRIPT%
