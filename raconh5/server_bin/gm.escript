@@ -70,9 +70,12 @@ main(["get", RoleIdStr]) ->
 main(["find", AccountStr]) ->
     connect(),
     Account = list_to_binary(AccountStr),
+    AccountLower = list_to_binary(string:lowercase(AccountStr)),
     Res = rpc:call(?NODE, mnesia, dirty_foldl, [
         fun(RB, Acc) ->
-            case element(5, RB) =:= Account of
+            Stored = element(5, RB),
+            StoredLower = try string:lowercase(binary_to_list(Stored)) of L -> list_to_binary(L) catch _:_ -> Stored end,
+            case Stored =:= Account orelse StoredLower =:= AccountLower of
                 true  -> [RB | Acc];
                 false -> Acc
             end
@@ -88,6 +91,28 @@ main(["find", AccountStr]) ->
             io:format("ok|~B|~ts|~B~n", [Id, Name, Lev]);
         [] ->
             io:format("error|not_found~n");
+        _ ->
+            io:format("error|rpc_failed~n")
+    end;
+
+%% listall: dump every role_base record as rid|account|name|lev
+%% Used by admin panel to build a full account→rid map
+main(["listall"]) ->
+    connect(),
+    Res = rpc:call(?NODE, mnesia, dirty_foldl, [
+        fun(RB, Acc) -> [RB | Acc] end,
+        [],
+        role_base
+    ]),
+    case Res of
+        List when is_list(List) ->
+            lists:foreach(fun(RB) ->
+                Id      = element(2, RB),
+                Account = element(5, RB),
+                Name    = element(6, RB),
+                Lev     = element(12, RB),
+                io:format("~B|~ts|~ts|~B~n", [Id, Account, Name, Lev])
+            end, List);
         _ ->
             io:format("error|rpc_failed~n")
     end;

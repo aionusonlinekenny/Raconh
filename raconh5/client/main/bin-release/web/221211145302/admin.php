@@ -886,21 +886,42 @@ if (isLoggedIn()) {
             }
         }
 
-        // Fallback: for accounts still missing RID, query Mnesia directly via gm.escript
-        // This handles accounts whose character was created before t_log_register logging was set up.
-        foreach ($playerList as &$pl) {
-            if ($pl['erlang_role_id'] !== '') continue;
-            $found = gmFind($pl['username']);
-            if ($found && !empty($found['id'])) {
-                $pl['erlang_role_id'] = $found['id'];
-                // Persist so future loads don't need escript
-                try {
-                    getDB()->prepare("UPDATE web_users SET erlang_role_id=? WHERE id=?")
-                           ->execute([$found['id'], $pl['id']]);
-                } catch (PDOException $e) {}
+        // Fallback: query Mnesia via gm.escript for accounts still missing RID.
+        // Use listall (one call, gets everything) rather than find per account.
+        $stillMissingGm = array_filter($playerList, fn($p) => $p['erlang_role_id'] === '');
+        if (!empty($stillMissingGm)) {
+            $allRoles = gmExec(['listall']);
+            if (strpos($allRoles, 'error|') !== 0 && trim($allRoles) !== '') {
+                // Build case-insensitive map: account_lower → rid, from listall output
+                $gmMap = [];
+                foreach (explode("\n", trim($allRoles)) as $line) {
+                    $parts = explode('|', $line);
+                    if (count($parts) >= 2) {
+                        $gmMap[strtolower(trim($parts[1]))] = trim($parts[0]); // account→rid
+                    }
+                }
+                foreach ($playerList as &$pl) {
+                    if ($pl['erlang_role_id'] !== '') continue;
+                    $key = strtolower($pl['username']);
+                    if (isset($gmMap[$key])) {
+                        $pl['erlang_role_id'] = $gmMap[$key];
+                        try { getDB()->prepare("UPDATE web_users SET erlang_role_id=? WHERE id=?")->execute([$pl['erlang_role_id'], $pl['id']]); } catch(PDOException $e){}
+                    }
+                }
+                unset($pl);
+            } else {
+                // listall failed: try find per account (original fallback)
+                foreach ($playerList as &$pl) {
+                    if ($pl['erlang_role_id'] !== '') continue;
+                    $found = gmFind($pl['username']);
+                    if ($found && !empty($found['id'])) {
+                        $pl['erlang_role_id'] = $found['id'];
+                        try { getDB()->prepare("UPDATE web_users SET erlang_role_id=? WHERE id=?")->execute([$found['id'], $pl['id']]); } catch(PDOException $e){}
+                    }
+                }
+                unset($pl);
             }
         }
-        unset($pl);
 
         // Last fallback: scan ALL MySQL tables that have both 'account' and 'rid' columns
         // (covers t_log_login, t_log_level, t_log_gold_add, t_role, etc.)
