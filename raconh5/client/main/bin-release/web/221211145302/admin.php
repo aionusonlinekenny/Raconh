@@ -902,6 +902,39 @@ if (isLoggedIn()) {
         }
         unset($pl);
 
+        // Last fallback: scan ALL MySQL tables that have both 'account' and 'rid' columns
+        // (covers t_log_login, t_log_level, t_log_gold_add, t_role, etc.)
+        $stillMissing = array_filter($playerList, fn($p) => $p['erlang_role_id'] === '');
+        if (!empty($stillMissing)) {
+            foreach ($allTables as $tbl) {
+                if (empty($stillMissing)) break;
+                $cols = safeQuery("DESCRIBE `$tbl`");
+                if (isset($cols['__error__'])) continue;
+                $colNames = array_column($cols, 'Field');
+                // Need a column named 'rid' or 'role_id', and an account/name column
+                $ridCol = in_array('rid', $colNames) ? 'rid' : (in_array('role_id', $colNames) ? 'role_id' : null);
+                if (!$ridCol) continue;
+                $accCols = array_intersect(['account','name','nick_name','role_name'], $colNames);
+                if (empty($accCols)) continue;
+                foreach ($stillMissing as &$pl) {
+                    if ($pl['erlang_role_id'] !== '') continue;
+                    $parts=[]; $prms=[];
+                    foreach ($accCols as $ac) { $parts[]="LOWER(`$ac`)=?"; $prms[]=strtolower($pl['username']); }
+                    $row = safeQuery("SELECT `$ridCol` FROM `$tbl` WHERE ".implode(' OR ',$parts)." AND `$ridCol`>0 ORDER BY `$ridCol` ASC LIMIT 1", $prms);
+                    if (!empty($row) && !isset($row['__error__']) && !empty($row[0][$ridCol])) {
+                        $pl['erlang_role_id'] = $row[0][$ridCol];
+                        try { getDB()->prepare("UPDATE web_users SET erlang_role_id=? WHERE id=?")->execute([$pl['erlang_role_id'], $pl['id']]); } catch(PDOException $e){}
+                        // Update main playerList too
+                        foreach ($playerList as &$mp) { if ($mp['id']===$pl['id']) { $mp['erlang_role_id']=$pl['erlang_role_id']; break; } }
+                        unset($mp);
+                    }
+                }
+                unset($pl);
+                // Refresh still-missing list
+                $stillMissing = array_filter($playerList, fn($p) => $p['erlang_role_id'] === '');
+            }
+        }
+
         // Player data is in Mnesia (memory), not MySQL columns.
         // Read-only info available from t_log_register + activity logs.
         $logRegCols  = [];
