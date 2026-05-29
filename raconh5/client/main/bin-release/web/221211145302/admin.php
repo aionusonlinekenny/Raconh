@@ -500,6 +500,20 @@ if ($action === 'setup') {
     else { getDB()->prepare('DELETE FROM web_admins WHERE id=?')->execute([$id]);
            header('Location: admin.php?tab=admins&ok=deleted'); exit; }
 
+} elseif ($action === 'set_player_rid') {
+    requireLogin();
+    $uid = (int)($_POST['uid'] ?? 0);
+    $rid = trim($_POST['erlang_role_id'] ?? '');
+    if ($uid && $rid !== '') {
+        try {
+            getDB()->prepare("UPDATE web_users SET erlang_role_id=? WHERE id=?")->execute([$rid, $uid]);
+            $_SESSION['flash'] = ['type'=>'success','msg'=>"Role ID set to $rid."];
+        } catch (PDOException $e) {
+            $_SESSION['flash'] = ['type'=>'error','msg'=>'Failed: '.$e->getMessage()];
+        }
+    }
+    header('Location: admin.php?tab=player'); exit;
+
 } elseif ($action === 'gm_set_stat') {
     requireLogin();
     $rid   = (int)($_POST['rid']   ?? 0);
@@ -857,11 +871,14 @@ if (isLoggedIn()) {
                     $ridMap = [];
                     $lRids = safeQuery("SELECT account, MAX(rid) AS rid FROM t_log_register GROUP BY account");
                     if (!isset($lRids['__error__'])) {
-                        foreach ($lRids as $r) $ridMap[$r['account']] = $r['rid'];
+                        // Case-insensitive key so "BENTO2762" matches "bento2762" etc.
+                        foreach ($lRids as $r) $ridMap[strtolower($r['account'])] = $r['rid'];
                     }
                     foreach ($playerList as &$pl) {
-                        if ($pl['erlang_role_id'] === '' && isset($ridMap[$pl['username']])) {
-                            $pl['erlang_role_id'] = $ridMap[$pl['username']];
+                        if ($pl['erlang_role_id'] === '' && isset($ridMap[strtolower($pl['username'])])) {
+                            $pl['erlang_role_id'] = $ridMap[strtolower($pl['username'])];
+                            // Persist found RID
+                            try { getDB()->prepare("UPDATE web_users SET erlang_role_id=? WHERE id=?")->execute([$pl['erlang_role_id'], $pl['id']]); } catch(PDOException $e){}
                         }
                     }
                     unset($pl);
@@ -1326,7 +1343,14 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
                   <?php if($rid): ?>
                     <div style="font-size:10px;color:#4a5a7a;font-family:monospace;margin-top:1px">RID: <?=htmlspecialchars($rid)?></div>
                   <?php else: ?>
-                    <div style="font-size:10px;color:#384050;margin-top:1px">no role ID</div>
+                    <div style="font-size:10px;color:#8b4513;margin-top:1px">no role ID</div>
+                    <form method="POST" style="margin-top:4px;display:flex;gap:4px" onclick="event.stopPropagation()">
+                      <input type="hidden" name="action" value="set_player_rid">
+                      <input type="hidden" name="uid" value="<?=$pl['id']?>">
+                      <input type="number" name="erlang_role_id" placeholder="Set RID…"
+                             style="flex:1;font-size:11px;padding:3px 6px;background:rgba(0,0,0,.5);border:1px solid rgba(240,180,60,.3);border-radius:4px;color:#e0d0a0;min-width:0">
+                      <button type="submit" style="font-size:10px;padding:3px 7px;background:rgba(200,120,20,.7);border:none;border-radius:4px;color:#fff;cursor:pointer;white-space:nowrap">Set</button>
+                    </form>
                   <?php endif; ?>
                 </a>
               <?php endforeach; ?>
