@@ -138,6 +138,8 @@ function getDB() {
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     ");
+    // Ensure erlang_role_id column exists (added later; safe to run every time)
+    try { $pdo->exec("ALTER TABLE web_users ADD COLUMN erlang_role_id VARCHAR(32) DEFAULT NULL"); } catch (PDOException $e) {}
     return $pdo;
 }
 
@@ -866,6 +868,22 @@ if (isLoggedIn()) {
                 }
             }
         }
+
+        // Fallback: for accounts still missing RID, query Mnesia directly via gm.escript
+        // This handles accounts whose character was created before t_log_register logging was set up.
+        foreach ($playerList as &$pl) {
+            if ($pl['erlang_role_id'] !== '') continue;
+            $found = gmFind($pl['username']);
+            if ($found && !empty($found['id'])) {
+                $pl['erlang_role_id'] = $found['id'];
+                // Persist so future loads don't need escript
+                try {
+                    getDB()->prepare("UPDATE web_users SET erlang_role_id=? WHERE id=?")
+                           ->execute([$found['id'], $pl['id']]);
+                } catch (PDOException $e) {}
+            }
+        }
+        unset($pl);
 
         // Player data is in Mnesia (memory), not MySQL columns.
         // Read-only info available from t_log_register + activity logs.
