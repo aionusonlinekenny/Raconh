@@ -12,6 +12,6 @@
 		"libs/modules/jszip/jszip.min.js"
 	],
 	"game": [
-		"main.min.js?v=20260528"
+		"main.min.js?v=20260529"
 	]
 }
