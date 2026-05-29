@@ -463,6 +463,17 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
+    // Patch ServerSelectView.configUI: guard against null serverList
+    if(typeof ServerSelectView!=='undefined'&&!ServerSelectView.prototype.__cwSSV){
+        ServerSelectView.prototype.__cwSSV=true;
+        var _origCfgSSV=ServerSelectView.prototype.configUI;
+        ServerSelectView.prototype.configUI=function(){
+            if(this._parent&&!this._parent.serverList){
+                this._parent.serverList=[{list:[{name:'Server 1',host:location.hostname,port:9002,serverID:10001,state:0}]}];
+            }
+            _origCfgSSV.call(this);
+        };
+    }
     // Patch LoginView.show() to pre-fetch server list so Switch Server button works
     if(typeof LoginView!=='undefined'&&!LoginView.prototype.__cwPDS){
         LoginView.prototype.__cwPDS=true;
@@ -547,7 +558,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v79';
+document.title='EN v80';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
