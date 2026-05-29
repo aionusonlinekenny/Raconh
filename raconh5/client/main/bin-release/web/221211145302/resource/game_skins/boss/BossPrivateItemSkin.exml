@@ -25,8 +25,8 @@
 		<e:Image id="_label" source="common_label_killed_png" touchEnabled="false" horizontalCenter="0" verticalCenter="0"/>
 		<ns1:Label id="_txtCond" text="Unlocks at Lv.200" fontFamily="Microsoft YaHei" size="22" textColor="0xff2400" horizontalCenter="0" verticalCenter="0" stroke="1.5"/>
 	</e:Group>
-	<ns1:Label id="_txtName" text="Monster Name" x="6" y="148" textColor="0xFFFFFF" fontFamily="Microsoft YaHei" size="20" textAlign="center" width="112"/>
-	<ns1:Label id="_txtLv" text="Lv.80" x="120" y="148" textColor="0xFFFFFF" fontFamily="Microsoft YaHei" size="20"/>
+	<ns1:Label id="_txtName" text="Monster Name" x="7" y="136" textColor="0xFFFFFF" fontFamily="Microsoft YaHei" size="20" textAlign="center" width="176"/>
+	<ns1:Label id="_txtLv" text="Lv.80" x="7" y="159" textColor="0xFFFFFF" fontFamily="Microsoft YaHei" size="20" textAlign="center" width="176"/>
 	<ns1:Label id="_txtLeft" text="1 Attempt Left" x="187" y="21" fontFamily="Microsoft YaHei" size="22" textColor="0xFFFFFF"/>
 
 </e:Skin>
