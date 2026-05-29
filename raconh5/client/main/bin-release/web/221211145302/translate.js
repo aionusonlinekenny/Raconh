@@ -463,6 +463,15 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
+    // Patch LoginView.show() to pre-fetch server list so Switch Server button works
+    if(typeof LoginView!=='undefined'&&!LoginView.prototype.__cwPDS){
+        LoginView.prototype.__cwPDS=true;
+        var _origShowLV=LoginView.prototype.show;
+        LoginView.prototype.show=function(){
+            _origShowLV.call(this);
+            try{this.postDataToServer();}catch(ex){}
+        };
+    }
     // Patch LoginView.onClickHandler to require auth before socket.init()
     // _inputPassword and _lblError are in skinParts → bound directly to host instance
     if(typeof LoginView!=='undefined'&&!LoginView.prototype.__cwAuth){
@@ -538,7 +547,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v78';
+document.title='EN v79';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
