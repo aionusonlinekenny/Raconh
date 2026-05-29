@@ -71,40 +71,34 @@ main(["find", AccountStr]) ->
     connect(),
     Account = list_to_binary(AccountStr),
     AccountLower = list_to_binary(string:lowercase(AccountStr)),
-    Res = rpc:call(?NODE, mnesia, dirty_foldl, [
-        fun(RB, Acc) ->
-            Stored = element(5, RB),
-            StoredLower = try string:lowercase(binary_to_list(Stored)) of L -> list_to_binary(L) catch _:_ -> Stored end,
-            case Stored =:= Account orelse StoredLower =:= AccountLower of
-                true  -> [RB | Acc];
-                false -> Acc
-            end
-        end,
-        [],
-        role_base
-    ]),
-    case Res of
-        [RB|_] when is_tuple(RB) ->
-            Id   = element(2, RB),
-            Name = element(6, RB),
-            Lev  = element(12, RB),
-            io:format("ok|~B|~ts|~B~n", [Id, Name, Lev]);
-        [] ->
-            io:format("error|not_found~n");
+    %% Use ets:tab2list (no fun over RPC) then filter locally
+    Rows = rpc:call(?NODE, ets, tab2list, [role_base]),
+    case Rows of
+        List when is_list(List) ->
+            Matches = lists:filter(fun(RB) ->
+                Stored = element(5, RB),
+                StoredLower = try list_to_binary(string:lowercase(binary_to_list(Stored))) catch _:_ -> Stored end,
+                Stored =:= Account orelse StoredLower =:= AccountLower
+            end, List),
+            case Matches of
+                [RB|_] ->
+                    Id   = element(2, RB),
+                    Name = element(6, RB),
+                    Lev  = element(12, RB),
+                    io:format("ok|~B|~ts|~B~n", [Id, Name, Lev]);
+                [] ->
+                    io:format("error|not_found~n")
+            end;
         _ ->
             io:format("error|rpc_failed~n")
     end;
 
 %% listall: dump every role_base record as rid|account|name|lev
-%% Used by admin panel to build a full account→rid map
+%% Uses ets:tab2list (no fun serialization over RPC)
 main(["listall"]) ->
     connect(),
-    Res = rpc:call(?NODE, mnesia, dirty_foldl, [
-        fun(RB, Acc) -> [RB | Acc] end,
-        [],
-        role_base
-    ]),
-    case Res of
+    Rows = rpc:call(?NODE, ets, tab2list, [role_base]),
+    case Rows of
         List when is_list(List) ->
             lists:foreach(fun(RB) ->
                 Id      = element(2, RB),
