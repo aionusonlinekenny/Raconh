@@ -272,5 +272,39 @@ main(["patch_filter"]) ->
             io:format("error|~p~n", [E])
     end;
 
+main(["kick", RoleIdStr]) ->
+    connect(),
+    RoleId = list_to_integer(RoleIdStr),
+    Rows = rpc:call(?NODE, ets, tab2list, [role_online]),
+    case Rows of
+        List when is_list(List) ->
+            Found = lists:filter(fun(R) -> element(2, R) =:= RoleId end, List),
+            case Found of
+                [R|_] ->
+                    %% element(3) is typically the gen_server pid in role_online
+                    Pid = element(3, R),
+                    rpc:call(?NODE, erlang, exit, [Pid, kicked_by_admin]),
+                    io:format("ok~n");
+                [] ->
+                    io:format("error|not_online~n")
+            end;
+        _ ->
+            io:format("error|rpc_failed~n")
+    end;
+
+main(["delete_role", RoleIdStr]) ->
+    connect(),
+    RoleId = list_to_integer(RoleIdStr),
+    case rpc:call(?NODE, ets, lookup, [role_online, RoleId]) of
+        [_|_] ->
+            io:format("error|player_must_be_offline~n");
+        [] ->
+            rpc:call(?NODE, mnesia, dirty_delete, [role_data, RoleId]),
+            rpc:call(?NODE, mnesia, dirty_delete, [role_base, RoleId]),
+            io:format("ok~n");
+        _ ->
+            io:format("error|rpc_failed~n")
+    end;
+
 main(_) ->
     io:format("error|invalid_args~n").

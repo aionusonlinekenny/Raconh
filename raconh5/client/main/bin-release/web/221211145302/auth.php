@@ -44,8 +44,14 @@ try {
     try {
         $pdo->exec("ALTER TABLE web_users ADD COLUMN erlang_role_id VARCHAR(32) NULL DEFAULT NULL");
     } catch (PDOException $e) {}
+    try {
+        $pdo->exec("ALTER TABLE web_users ADD COLUMN status VARCHAR(16) NOT NULL DEFAULT 'active'");
+    } catch (PDOException $e) {}
+    try {
+        $pdo->exec("ALTER TABLE web_users ADD COLUMN ban_reason VARCHAR(255) NOT NULL DEFAULT ''");
+    } catch (PDOException $e) {}
 
-    $stmt = $pdo->prepare('SELECT password_hash FROM web_users WHERE BINARY username = ?');
+    $stmt = $pdo->prepare('SELECT password_hash, status, ban_reason FROM web_users WHERE BINARY username = ?');
     $stmt->execute([$username]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -55,6 +61,15 @@ try {
     }
     if (!password_verify($password, $row['password_hash'])) {
         echo json_encode(['error' => 'Incorrect password.']);
+        exit;
+    }
+    if ($row['status'] === 'banned') {
+        $reason = $row['ban_reason'] !== '' ? ' Reason: ' . $row['ban_reason'] : '';
+        echo json_encode(['error' => 'This account has been banned.' . $reason]);
+        exit;
+    }
+    if ($row['status'] === 'locked') {
+        echo json_encode(['error' => 'This account is temporarily locked. Contact admin.']);
         exit;
     }
 

@@ -103,6 +103,15 @@ function gmFind($account) {
     return null;
 }
 
+function gmKick($roleId) {
+    $out = gmExec(['kick', (string)(int)$roleId]);
+    return $out;
+}
+function gmDeleteRole($roleId) {
+    $out = gmExec(['delete_role', (string)(int)$roleId]);
+    return $out;
+}
+
 function gmSet($roleId, $field, $value) {
     $allowed = ['lev','exp','gold','gold_bind','coin','vip_lev'];
     if (!in_array($field, $allowed)) return 'error|invalid_field';
@@ -140,6 +149,9 @@ function getDB() {
     ");
     // Ensure erlang_role_id column exists (added later; safe to run every time)
     try { $pdo->exec("ALTER TABLE web_users ADD COLUMN erlang_role_id VARCHAR(32) DEFAULT NULL"); } catch (PDOException $e) {}
+    try { $pdo->exec("ALTER TABLE web_users ADD COLUMN status VARCHAR(16) NOT NULL DEFAULT 'active'"); } catch (PDOException $e) {}
+    try { $pdo->exec("ALTER TABLE web_users ADD COLUMN ban_reason VARCHAR(255) NOT NULL DEFAULT ''"); } catch (PDOException $e) {}
+    try { $pdo->exec("ALTER TABLE web_users ADD COLUMN banned_at DATETIME NULL"); } catch (PDOException $e) {}
     return $pdo;
 }
 
@@ -514,6 +526,93 @@ if ($action === 'setup') {
     }
     header('Location: admin.php?tab=player'); exit;
 
+} elseif ($action === 'ban_player') {
+    requireLogin();
+    $uid    = (int)($_POST['uid'] ?? 0);
+    $reason = trim($_POST['reason'] ?? '');
+    $rid    = (int)($_POST['rid'] ?? 0);
+    if ($uid) {
+        getDB()->prepare("UPDATE web_users SET status='banned', ban_reason=?, banned_at=NOW() WHERE id=?")->execute([$reason, $uid]);
+        // Also kick if online
+        if ($rid) gmKick($rid);
+        $_SESSION['flash'] = ['type'=>'success','msg'=>'Account banned.'];
+    }
+    header('Location: admin.php?tab=player&rid='.$rid); exit;
+
+} elseif ($action === 'unban_player') {
+    requireLogin();
+    $uid = (int)($_POST['uid'] ?? 0);
+    $rid = (int)($_POST['rid'] ?? 0);
+    if ($uid) {
+        getDB()->prepare("UPDATE web_users SET status='active', ban_reason='', banned_at=NULL WHERE id=?")->execute([$uid]);
+        $_SESSION['flash'] = ['type'=>'success','msg'=>'Account unbanned.'];
+    }
+    header('Location: admin.php?tab=player&rid='.$rid); exit;
+
+} elseif ($action === 'lock_player') {
+    requireLogin();
+    $uid = (int)($_POST['uid'] ?? 0);
+    $rid = (int)($_POST['rid'] ?? 0);
+    if ($uid) {
+        getDB()->prepare("UPDATE web_users SET status='locked' WHERE id=?")->execute([$uid]);
+        if ($rid) gmKick($rid);
+        $_SESSION['flash'] = ['type'=>'success','msg'=>'Account locked.'];
+    }
+    header('Location: admin.php?tab=player&rid='.$rid); exit;
+
+} elseif ($action === 'unlock_player') {
+    requireLogin();
+    $uid = (int)($_POST['uid'] ?? 0);
+    $rid = (int)($_POST['rid'] ?? 0);
+    if ($uid) {
+        getDB()->prepare("UPDATE web_users SET status='active' WHERE id=?")->execute([$uid]);
+        $_SESSION['flash'] = ['type'=>'success','msg'=>'Account unlocked.'];
+    }
+    header('Location: admin.php?tab=player&rid='.$rid); exit;
+
+} elseif ($action === 'kick_player') {
+    requireLogin();
+    $rid = (int)($_POST['rid'] ?? 0);
+    if ($rid) {
+        $out = gmKick($rid);
+        if ($out === 'ok') $_SESSION['flash'] = ['type'=>'success','msg'=>'Player kicked.'];
+        elseif (strpos($out,'not_online')!==false) $_SESSION['flash'] = ['type'=>'error','msg'=>'Player is not online.'];
+        else $_SESSION['flash'] = ['type'=>'error','msg'=>'Kick failed: '.$out];
+    }
+    header('Location: admin.php?tab=player&rid='.$rid); exit;
+
+} elseif ($action === 'delete_role') {
+    requireLogin();
+    $rid  = (int)($_POST['rid'] ?? 0);
+    $uid  = (int)($_POST['uid'] ?? 0);
+    $confirm = $_POST['confirm'] ?? '';
+    if ($rid && $confirm === 'DELETE') {
+        $out = gmDeleteRole($rid);
+        if ($out === 'ok') {
+            // Clear erlang_role_id from web_users
+            if ($uid) getDB()->prepare("UPDATE web_users SET erlang_role_id=NULL WHERE id=?")->execute([$uid]);
+            $_SESSION['flash'] = ['type'=>'success','msg'=>"Role $rid deleted from Mnesia."];
+            header('Location: admin.php?tab=player'); exit;
+        } elseif (strpos($out,'player_must_be_offline')!==false) {
+            $_SESSION['flash'] = ['type'=>'error','msg'=>'Player must be offline to delete role.'];
+        } else {
+            $_SESSION['flash'] = ['type'=>'error','msg'=>'Delete role failed: '.$out];
+        }
+    } else {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Type DELETE to confirm role deletion.'];
+    }
+    header('Location: admin.php?tab=player&rid='.$rid); exit;
+
+} elseif ($action === 'delete_account') {
+    requireLogin();
+    $uid = (int)($_POST['uid'] ?? 0);
+    $rid = (int)($_POST['rid'] ?? 0);
+    if ($uid) {
+        getDB()->prepare('DELETE FROM web_users WHERE id=?')->execute([$uid]);
+        $_SESSION['flash'] = ['type'=>'success','msg'=>'Account deleted.'];
+    }
+    header('Location: admin.php?tab=player'); exit;
+
 } elseif ($action === 'gm_set_stat') {
     requireLogin();
     $rid   = (int)($_POST['rid']   ?? 0);
@@ -856,9 +955,9 @@ if (isLoggedIn()) {
         } catch (PDOException $e) { $allTables = []; }
 
         // Build player list: web_users + enrich with role ID from t_log_register
-        $plRaw = safeQuery("SELECT id, username, IFNULL(erlang_role_id,'') AS erlang_role_id, created_at FROM web_users ORDER BY username ASC");
+        $plRaw = safeQuery("SELECT id, username, IFNULL(erlang_role_id,'') AS erlang_role_id, IFNULL(status,'active') AS status, IFNULL(ban_reason,'') AS ban_reason, created_at FROM web_users ORDER BY username ASC");
         if (isset($plRaw['__error__'])) {
-            $plRaw = safeQuery("SELECT id, username, '' AS erlang_role_id, created_at FROM web_users ORDER BY username ASC");
+            $plRaw = safeQuery("SELECT id, username, '' AS erlang_role_id, 'active' AS status, '' AS ban_reason, created_at FROM web_users ORDER BY username ASC");
         }
         if (!isset($plRaw['__error__'])) $playerList = $plRaw;
 
@@ -1393,7 +1492,14 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
                    border-bottom:1px solid rgba(255,255,255,.04);
                    background:<?=$isActive?'rgba(240,180,60,.13)':'transparent'?>;
                    transition:background .12s">
-                  <div style="font-size:13px;font-weight:600;color:<?=$isActive?'#f0c060':'#b0c0d8'?>"><?=htmlspecialchars($pl['username'])?></div>
+                  <?php
+  $plStatus = $pl['status'] ?? 'active';
+  $nameColor = $isActive ? '#f0c060' : ($plStatus==='banned' ? '#e05050' : ($plStatus==='locked' ? '#e0a030' : '#b0c0d8'));
+?>
+<div style="font-size:13px;font-weight:600;color:<?=$nameColor?>"><?=htmlspecialchars($pl['username'])?>
+  <?php if($plStatus==='banned'): ?><span style="font-size:9px;background:rgba(200,40,40,.3);color:#f08080;padding:1px 5px;border-radius:8px;margin-left:4px">BANNED</span><?php endif; ?>
+  <?php if($plStatus==='locked'): ?><span style="font-size:9px;background:rgba(200,140,20,.3);color:#f0c050;padding:1px 5px;border-radius:8px;margin-left:4px">LOCKED</span><?php endif; ?>
+</div>
                   <?php if($rid): ?>
                     <div style="font-size:10px;color:#4a5a7a;font-family:monospace;margin-top:1px">RID: <?=htmlspecialchars($rid)?></div>
                   <?php else: ?>
@@ -1506,6 +1612,103 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
             </div>
           </div>
           <?php endif; ?>
+        </div>
+
+        <!-- Account Actions panel -->
+        <?php
+          // Find the web_users record for this player
+          $acctRow = null;
+          if ($gmRoleId) {
+              foreach ($playerList as $pl) {
+                  if ((string)($pl['erlang_role_id']??'') === (string)$gmRoleId) { $acctRow=$pl; break; }
+              }
+          }
+          $acctStatus = $acctRow['status'] ?? 'active';
+        ?>
+        <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:16px;margin-top:16px">
+          <div style="font-size:12px;font-weight:600;color:#8090a8;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">Account Actions</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start">
+
+            <?php if($online): ?>
+            <!-- Kick -->
+            <form method="POST" onsubmit="return confirm('Kick this player from the game now?')">
+              <input type="hidden" name="action" value="kick_player">
+              <input type="hidden" name="rid" value="<?=$gmRoleId?>">
+              <button type="submit" class="btn btn-blue btn-sm">⚡ Kick</button>
+            </form>
+            <?php endif; ?>
+
+            <?php if($acctStatus === 'active' || $acctStatus === 'locked'): ?>
+            <!-- Ban -->
+            <form method="POST" onsubmit="return confirm('Ban this account?')" style="display:flex;gap:4px;align-items:center">
+              <input type="hidden" name="action" value="ban_player">
+              <input type="hidden" name="uid" value="<?=$acctRow['id']??''?>">
+              <input type="hidden" name="rid" value="<?=$gmRoleId?>">
+              <input type="text" name="reason" placeholder="Ban reason (optional)" style="font-size:12px;padding:4px 8px;width:170px">
+              <button type="submit" class="btn btn-red btn-sm">🚫 Ban</button>
+            </form>
+            <?php endif; ?>
+
+            <?php if($acctStatus === 'banned'): ?>
+            <!-- Unban -->
+            <form method="POST">
+              <input type="hidden" name="action" value="unban_player">
+              <input type="hidden" name="uid" value="<?=$acctRow['id']??''?>">
+              <input type="hidden" name="rid" value="<?=$gmRoleId?>">
+              <button type="submit" class="btn btn-green btn-sm">✔ Unban</button>
+            </form>
+            <?php endif; ?>
+
+            <?php if($acctStatus === 'active'): ?>
+            <!-- Lock -->
+            <form method="POST" onsubmit="return confirm('Temporarily lock this account?')">
+              <input type="hidden" name="action" value="lock_player">
+              <input type="hidden" name="uid" value="<?=$acctRow['id']??''?>">
+              <input type="hidden" name="rid" value="<?=$gmRoleId?>">
+              <button type="submit" class="btn btn-gray btn-sm">🔒 Lock</button>
+            </form>
+            <?php endif; ?>
+
+            <?php if($acctStatus === 'locked'): ?>
+            <!-- Unlock -->
+            <form method="POST">
+              <input type="hidden" name="action" value="unlock_player">
+              <input type="hidden" name="uid" value="<?=$acctRow['id']??''?>">
+              <input type="hidden" name="rid" value="<?=$gmRoleId?>">
+              <button type="submit" class="btn btn-green btn-sm">🔓 Unlock</button>
+            </form>
+            <?php endif; ?>
+
+          </div>
+
+          <?php if($acctStatus==='banned' && !empty($acctRow['ban_reason'])): ?>
+          <div style="margin-top:8px;font-size:11px;color:#e07070">Ban reason: <?=htmlspecialchars($acctRow['ban_reason'])?></div>
+          <?php endif; ?>
+
+          <!-- Danger zone -->
+          <details style="margin-top:14px">
+            <summary style="font-size:11px;color:#804040;cursor:pointer">⚠ Danger Zone</summary>
+            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start">
+              <!-- Delete account -->
+              <?php if($acctRow): ?>
+              <form method="POST" onsubmit="return confirm('Delete web account \'<?=htmlspecialchars(addslashes($acctRow['username']))?>\' from login DB? Role data in Mnesia is NOT deleted.')">
+                <input type="hidden" name="action" value="delete_account">
+                <input type="hidden" name="uid" value="<?=$acctRow['id']?>">
+                <input type="hidden" name="rid" value="<?=$gmRoleId?>">
+                <button type="submit" class="btn btn-red btn-sm">🗑 Delete Account</button>
+              </form>
+              <?php endif; ?>
+              <!-- Delete role from Mnesia -->
+              <form method="POST" onsubmit="return confirm('PERMANENTLY delete Role ID <?=$gmRoleId?> from Mnesia? Character data will be GONE FOREVER.')">
+                <input type="hidden" name="action" value="delete_role">
+                <input type="hidden" name="rid" value="<?=$gmRoleId?>">
+                <input type="hidden" name="uid" value="<?=$acctRow['id']??''?>">
+                <input type="text" name="confirm" placeholder='Type DELETE to confirm' required pattern="DELETE"
+                       style="font-size:12px;padding:4px 8px;width:160px;border-color:rgba(200,40,40,.5)">
+                <button type="submit" class="btn btn-red btn-sm">💀 Delete Role</button>
+              </form>
+            </div>
+          </details>
         </div>
 
       <?php elseif($playerSearch): ?>
