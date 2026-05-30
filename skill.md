@@ -627,3 +627,201 @@ loosen(_,_)            -> {ok}.
 | `ada30ef0` | Add patch_filter command: hot-replace broken filter module at runtime |
 | `61d8938a` | patch_filter: also overwrite filter.beam on disk for permanent fix |
 | `e445cd22` | Fix patch_filter: strict/moderate/loosen must return {ok} not raw text |
+
+---
+
+# EXML Runtime Loading + UI Fixes — Session Knowledge Base
+
+## Vấn đề cốt lõi: tại sao sửa .exml không có tác dụng
+
+Egret kiểm tra `exmls[0].gjs` trong `default.thm.json` trước. Nếu có `gjs` → dùng compiled JS, **bỏ qua hoàn toàn file .exml**. Phải xóa `gjs` và thay bằng `content` (raw EXML XML string).
+
+### Giải pháp: dùng trường `content` thay `gjs`
+
+```json
+{
+  "path": "resource/game_skins/boss/BossPrivateItemSkin.exml",
+  "className": "BossPrivateItemSkin",
+  "content": "<?xml version=\"1.0\" encoding=\"utf-8\"?>..."
+}
+```
+
+Khi có `content`, Egret gọi `$parseURLContent(path, content)` → parse EXML at runtime qua EXMLParser → sửa file .exml có tác dụng ngay.
+
+**Lưu ý:** Không được xóa `gjs` hoàn toàn (để entry trống). `$loadAll` trong `eui.min.js` gọi `h(s, a)` với object entry → `t.indexOf("://")` fail → crash ở 62% loading. Phải dùng `content` field.
+
+---
+
+## Workflow sửa EXML (quan trọng)
+
+1. Sửa file `.exml` trong `resource/game_skins/`
+2. Chạy `sync_exml.php` để embed content vào `default.thm.json`:
+   - Qua browser: `http://localhost/game/sync_exml.php`
+   - Hoặc qua BAT: `C:\raconh5\sync_exml.bat` (dùng PHP từ XAMPP)
+3. Hard refresh browser (Ctrl+Shift+R)
+
+**File sync_exml.php** (`raconh5/client/main/bin-release/web/221211145302/sync_exml.php`):
+- Đọc tất cả entry trong `default.thm.json`
+- Với mỗi entry: đọc file .exml, embed vào `content`, xóa `gjs`
+- Ghi lại `default.thm.json`
+
+**File sync_exml.bat** (`sync_exml.bat` ở root repo):
+- Tự detect PHP tại `C:\xampp\php\php.exe` hoặc `D:\xampp\php\php.exe`
+- SCRIPT path: `C:\xampp\htdocs\game\sync_exml.php`
+
+---
+
+## UI Fixes đã làm
+
+### Guild Hall (ClubViewSkin.exml)
+File: `resource/game_skins/club/ClubViewSkin.exml`
+
+| Thay thế | Từ | Thành |
+|----------|-----|-------|
+| Column header Rank | `<e:Image source="club_career_png".../>` | `<ns1:Label text="Rank" x="118" y="410".../>` |
+| Column header Name | `<e:Image source="common_label_name_png".../>` | `<ns1:Label text="Name" x="290" y="410".../>` |
+| Column header Power | `<e:Image source="common_fight_rank_png".../>` | `<ns1:Label text="Power" x="537" y="410".../>` |
+| Normal Donation label | `<e:Image source="club_gx_word1_png".../>` | `<ns1:Label text="Normal Donation" x="250" y="814".../>` |
+| Premium Donation label | `<e:Image source="club_gx_word2_png".../>` | `<ns1:Label text="Premium Donation" x="250" y="949".../>` |
+
+### Boss List 2-line layout (BossPrivateItemSkin / BossPublicItemSkin)
+File: `resource/game_skins/boss/BossPrivateItemSkin.exml` và `BossPublicItemSkin.exml`
+
+```xml
+<!-- Trước: name và level cùng y=148, chồng lên nhau -->
+<!-- Sau: name dòng 1, level dòng 2 -->
+<ns1:Label id="_txtName" x="7" y="136" width="176" size="20" textAlign="center"/>
+<ns1:Label id="_txtLv"   x="7" y="159" width="176" size="20" textAlign="center"/>
+```
+
+### Task name font size (DailyItemSkin.exml)
+File: `resource/game_skins/activity/DailyItemSkin.exml`
+- `_txtDesc` label tại `size="28"` — đây là chỗ hiện tên task (Smelt, Enh, Level Up...)
+- Đổi `size` để thay font size
+
+### Fragment Attribute Popup (RelicStuffAttrViewSkin.exml)
+File: `resource/game_skins/relicStuff/RelicStuffAttrViewSkin.exml`
+- Popup hiện "碎片属性" với Power, HP, ATK, DEF, Pen và "Obtained by..." text
+- `_attrTxt0..3`: 4 stat labels (2 cột × 2 hàng), y=586 và y=627
+- `_versTxt`: dòng "Obtained by..." màu xanh lá (#00ff00), y=788
+- `_desc1`, `_desc2`: mô tả cam, trong `_descGroup` tại x=204, y=668
+
+---
+
+## Switch Server Button Crash
+
+**Lỗi:** `can't access property 0, e is undefined` trong `ServerSelectView.configUI`
+
+**Root cause:** `LoginView.serverList` là null. `configUI` gọi `e[0].list.length` ngay lập tức.
+
+**Fix trong translate.js:**
+```javascript
+// Guard null serverList khi mở dialog Switch Server
+if(typeof ServerSelectView!=='undefined'&&!ServerSelectView.prototype.__cwSSV){
+    ServerSelectView.prototype.__cwSSV=true;
+    var _origCfgSSV=ServerSelectView.prototype.configUI;
+    ServerSelectView.prototype.configUI=function(){
+        if(this._parent&&!this._parent.serverList){
+            this._parent.serverList=[{list:[{name:'Server 1',host:location.hostname,
+                port:9002,serverID:10001,state:0}]}];
+        }
+        _origCfgSSV.call(this);
+    };
+}
+// Patch LoginView.show() để fetch server list sớm
+if(typeof LoginView!=='undefined'&&!LoginView.prototype.__cwPDS){
+    LoginView.prototype.__cwPDS=true;
+    var _origShowLV=LoginView.prototype.show;
+    LoginView.prototype.show=function(){
+        _origShowLV.call(this);
+        try{this.postDataToServer();}catch(ex){}
+    };
+}
+```
+
+**server_list.php** cần đặt tại game root (`C:\xampp\htdocs\game\server_list.php`) vì `Manager.config.apiUrl=""` → request đến root, không phải `/api/`.
+
+---
+
+## Admin Panel — Player Stats
+
+### Role ID Discovery (theo thứ tự)
+
+1. **`web_users.erlang_role_id`** — column được persist từ lần trước
+2. **`t_log_register`** — `SELECT account, MAX(rid) FROM t_log_register GROUP BY account` (case-insensitive với `strtolower`)
+3. **`gm.escript listall`** — dump toàn bộ `role_base` ETS table, build map `account→rid` (case-insensitive)
+4. **Quét tất cả MySQL tables** — tìm table có cả cột `account`/`name` + `rid`/`role_id`, query từng account thiếu RID
+5. **Manual Set RID** — form input trong sidebar cho account "no role ID"
+
+Khi tìm thấy RID → persist vào `web_users.erlang_role_id` ngay để lần sau không cần tìm lại.
+
+### web_users Schema hiện tại
+
+```sql
+CREATE TABLE web_users (
+    id             INT AUTO_INCREMENT PRIMARY KEY,
+    username       VARCHAR(32) COLLATE utf8_bin NOT NULL UNIQUE,
+    password_hash  VARCHAR(255) NOT NULL,
+    erlang_role_id VARCHAR(32)  NULL DEFAULT NULL,
+    status         VARCHAR(16)  NOT NULL DEFAULT 'active',  -- active|banned|locked
+    ban_reason     VARCHAR(255) NOT NULL DEFAULT '',
+    banned_at      DATETIME NULL,
+    created_at     DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+Các cột được tự động `ALTER TABLE ADD COLUMN IF NOT EXISTS` trong `getDB()` của admin.php.
+
+### Account Moderation Actions
+
+| Action | POST `action=` | Tác dụng |
+|--------|---------------|----------|
+| Ban | `ban_player` | Set status='banned', lưu reason, tự kick nếu online |
+| Unban | `unban_player` | Set status='active', xóa reason |
+| Lock | `lock_player` | Set status='locked', tự kick nếu online |
+| Unlock | `unlock_player` | Set status='active' |
+| Kick | `kick_player` | Gọi `gmKick(rid)` → `gm.escript kick <rid>` |
+| Delete Account | `delete_account` | Xóa khỏi `web_users` (Mnesia KHÔNG bị xóa) |
+| Delete Role | `delete_role` | Xóa khỏi Mnesia, cần gõ `DELETE` để confirm |
+
+**auth.php** check status sau password_verify:
+- `banned` → trả về `{"error": "This account has been banned. Reason: ..."}` 
+- `locked` → trả về `{"error": "This account is temporarily locked."}`
+
+---
+
+## gm.escript — Commands đầy đủ
+
+| Command | Usage | Mô tả |
+|---------|-------|-------|
+| `get` | `get <rid>` | Lấy stats từ Mnesia (lev, exp, gold, coin, vip, online, name) |
+| `find` | `find <account>` | Tìm rid theo account name (case-insensitive, dùng ets:tab2list) |
+| `listall` | `listall` | Dump toàn bộ role_base: `rid\|account\|name\|lev` mỗi dòng |
+| `set` | `set <rid> lev\|exp\|gold\|gold_bind\|coin\|vip_lev <value>` | Sửa stat (player phải offline) |
+| `rename` | `rename <rid> <base64_name>` | Đổi tên nhân vật (player phải offline) |
+| `kick` | `kick <rid>` | Kick player đang online (exit process của họ) |
+| `delete_role` | `delete_role <rid>` | Xóa role_data + role_base khỏi Mnesia (player phải offline) |
+| `online` | `online` | List tất cả player đang online |
+| `patch_filter` | `patch_filter` | Hot-replace filter module (fix private chat crash) |
+| `clear_filter` | `clear_filter` | Xóa ETS + Mnesia sensitive word cache |
+| `fields` | `fields <rid>` | Dump tất cả fields của role_base record (debug) |
+
+**Quan trọng:** `find` và `listall` dùng `ets:tab2list` thay vì `mnesia:dirty_foldl`.  
+Lý do: `dirty_foldl` cần serialize anonymous fun qua RPC → fail nếu khác OTP version giữa escript (erl9.0) và game server. `ets:tab2list` không cần truyền fun → luôn hoạt động.
+
+---
+
+## Commits của Session này
+
+| Commit | Nội dung |
+|--------|---------|
+| `a031b136` | Guild Hall, Boss 2-line, EXML content loading, sync_exml.php, translate.js patches |
+| `d4c6f0f3` | Fix Switch Server: server_list.php at game root + LoginView.show() patch |
+| `9b3aa315` | Fix Switch Server crash: guard null serverList in ServerSelectView.configUI |
+| `d2d47c33` | Admin: auto-discover missing role IDs via gm.escript gmFind fallback |
+| `cf6b38d8` | Admin: case-insensitive RID lookup + manual Set RID form |
+| `693ff54e` | Admin: scan all MySQL tables with account+rid columns |
+| `612ae310` | gm.escript: add listall command + case-insensitive find (both use ets:tab2list) |
+| `7f71ac5b` | gm.escript: replace dirty_foldl with ets:tab2list (fix rpc_failed) |
+| `2ae76245` | Admin: ban/lock/kick/delete_role features + auth.php status check |
+
