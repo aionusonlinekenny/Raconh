@@ -529,6 +529,18 @@ function _patch(){
             xr.send('username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password));
         };
     }
+    // Patch GemView.configUI: resize Gemstone title image (+81w +25h from 181x52)
+    if(typeof GemView!=='undefined'&&GemView.prototype&&!GemView.prototype.__cwGVT){
+        GemView.prototype.__cwGVT=true;
+        var _origGVCfg=GemView.prototype.configUI;
+        GemView.prototype.configUI=function(){
+            _origGVCfg.call(this);
+            try{
+                var ti=this._thisParent&&this._thisParent._titleImg;
+                if(ti){ti.width=262;ti.height=77;}
+            }catch(ex){}
+        };
+    }
     _fixAttrCVO();
     _retranslate();
 }
