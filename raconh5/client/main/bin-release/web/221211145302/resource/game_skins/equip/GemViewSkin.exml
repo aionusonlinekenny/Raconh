@@ -27,5 +27,5 @@
 	</ns1:Button>
 	<e:Image id="_btnImg" y="1045" horizontalCenter="0" x="280" scaleX="1" scaleY="1" source="equip_gem_btnImg_png"/>
 	<e:Image width="720" height="127" y="855" source="equip_strengthen_bottomBg_png" horizontalCenter="0"/>
-	<e:Image id="_sysPriImg" source="sysprivilegesheet.sysprivilege_huangjin2_png" y="692" x="294"/>
+	<ns1:Label text="Gold Privilege +5%" x="230" y="700" width="260" textAlign="center" size="22" fontFamily="Microsoft YaHei" textColor="0xf0c060" bold="true"/>
 </e:Skin>
