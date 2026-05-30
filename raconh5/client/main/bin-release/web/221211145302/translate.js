@@ -537,7 +537,7 @@ function _patch(){
             _origGVCfg.call(this);
             try{
                 var ti=this._thisParent&&this._thisParent._titleImg;
-                if(ti){ti.width=262;ti.height=77;}
+                if(ti){ti.width=301;ti.height=89;}
             }catch(ex){}
         };
     }
