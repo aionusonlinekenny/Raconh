@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v78
+// RaconH English Translation Hook v84
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -293,7 +293,9 @@ var _m={
 '飙升':'Boost ','榜':' Rank',
 // --- Task status & common UI labels ---
 '(完成)':'(Done)','进行中':'In Progress','查看排名':'View Ranking',
-'历史排名':'Historical Ranking','排名：':'Rank: ','排名':'Ranking','名字：':'Name: ','名字':'Name',
+'历史排名':'Historical Ranking',
+'我的排名：':'My Rank: ','我的排行：':'My Rank: ','盟内排名：':'Guild Rank: ',
+'排名':'Ranking','名字：':'Name: ','名字':'Name',
 '请输入新Name: ':'Enter new name:','请输入新Name:':'Enter new name:',
 '1RankDisciple':'Rank 1 Disciple','2RankDisciple':'Rank 2 Disciple',
 '3RankDisciple':'Rank 3 Disciple','4RankDisciple':'Rank 4 Disciple','5RankDisciple':'Rank 5 Disciple',
@@ -307,7 +309,7 @@ var _m={
 ' to challenge':'',
 '挑战次数不足':'Attempts insufficient','先完成任务':'Finish tasks first',
 '活动未开启':'Event not started','背包已满，是否一键熔炼':'Bag full — smelt all?',
-'恭喜你挑战胜利！':'Challenge victory!','连胜':'Win Streak','盟内排名：':'Guild Rank: ',
+'恭喜你挑战胜利！':'Challenge victory!','连胜':'Win Streak',
 // --- NPC names (npc_data) ---
 '邱莫言':'Qiu Moyan','花满堂':'Hua Mantang','沈万山':'Shen Wanshan',
 '大风':'Da Feng','战北野':'Zhan Beiye','神秘':'Mysterious ','长孙无极':'Changsun Wuji',
@@ -1810,7 +1812,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v83';
+document.title='EN v84';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
