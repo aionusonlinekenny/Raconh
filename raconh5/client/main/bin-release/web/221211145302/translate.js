@@ -129,7 +129,8 @@ var _m={
 '道具不足，无法进入副本':'Need items to enter','转生奖励':'Rebirth Reward',
 '背包满了，请注意查收！':'Bag full — check mail!','副本奖励':'Dungeon Reward',
 '离线奖励':'Offline Reward','奖励领取成功！':'Reward claimed!','使用成功！':'Used!',
-'奖励':'Reward',
+'历史排名奖励：':'Historical Rank Rewards:','历史排名奖励':'Historical Rank Rewards',
+'奖励预览':'Reward Preview','奖励':'Reward',
 '已领取':'Claimed','声望不足':'Low reputation','威望不足':'Low prestige',
 '坐骑升阶功能未开放':'Mount upgrade locked','转生后可继续使用！':'Use again after rebirth!',
 '今日寻宝次数已满':'Daily treasure limit','藏宝地空空如也！':'Treasure spot empty!',
@@ -197,7 +198,7 @@ var _m={
 // --- Common UI ---
 '开始游戏':'Start Game','进入游戏':'Enter Game','创建角色':'Create Char',
 '确定':'OK','取消':'Cancel','关闭':'Close','返回':'Back','分钟':'min','回城':'Return',
-'改名卡':'Rename Card','请输入新名字：':'Enter new name:','请输入新名字:':'Enter new name:',
+'改名卡':'Rename Card','已幻化':'Transformed','一键进阶':'One-click Advance','悟性丹':'Aptitude Pill','预览':'Preview','请输入新名字：':'Enter new name:','请输入新名字:':'Enter new name:',
 '名字最长5个字':'Max 5 characters','现任掌门：':'Master: ','虚位以待':'Vacant',
 '钢铁之心':'Steel Heart','钻石特权加成':'Diamond Privilege Bonus ',
 '升级':'Level Up','装备':'Equip','镶嵌':'Inlay','宝石':'Gem','铸魂':'Soul Cast','任务':'Quest',
@@ -237,6 +238,9 @@ var _m={
 '长林军魂':'Changlin Warriors','河堤查案':'Riverside Investigation',
 '山海问道':'Sea Hall Quest','兄弟相见':'Brothers Meet','危机重重':'Crisis',
 '江湖势力':'Jianghu Forces','江湖传闻':'Jianghu Rumors','盟会考验':'Guild Test',
+// --- Post-translation: rank suffix (第→Ch. already fired, 名=place) ---
+'Ch.1名':'Rank #1','Ch.2-3名':'Rank #2-3','Ch.4-10名':'Rank #4-10',
+'Ch.11-50名':'Rank #11-50','Ch.51-100名':'Rank #51-100','Ch.101-200名':'Rank #101-200',
 // --- Mixed keys: post-translation combos (components ran before these) ---
 '可Smelt ':'can Smelt ','件Equip':'x Equip','的DMG':' DMG','HP回复':'HP Regen',
 'Pet现世':'Pet Summon',
@@ -279,7 +283,7 @@ var _m={
 '飙升':'Boost ','榜':' Rank',
 // --- Task status & common UI labels ---
 '(完成)':'(Done)','进行中':'In Progress','查看排名':'View Ranking',
-'排名：':'Rank: ','名字：':'Name: ','名字':'Name',
+'历史排名':'Historical Ranking','排名：':'Rank: ','排名':'Ranking','名字：':'Name: ','名字':'Name',
 '请输入新Name: ':'Enter new name:','请输入新Name:':'Enter new name:',
 '1RankDisciple':'Rank 1 Disciple','2RankDisciple':'Rank 2 Disciple',
 '3RankDisciple':'Rank 3 Disciple','4RankDisciple':'Rank 4 Disciple','5RankDisciple':'Rank 5 Disciple',
