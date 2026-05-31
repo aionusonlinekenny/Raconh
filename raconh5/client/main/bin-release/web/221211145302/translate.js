@@ -1587,6 +1587,7 @@ function _rep(s){
     if(typeof s!=='string'||!s)return s;
     if(_npcN[s])return _npcN[s];
     s=s.replace(/与(.+?)私聊中/,'PM: $1');
+    s=s.replace(/第(\d+)名/g,'Rank #$1');
     for(var k in _m)if(s.indexOf(k)>=0)s=s.split(k).join(_m[k]);
     return s;
 }
@@ -1734,32 +1735,12 @@ function _patch(){
             xr.send('username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password));
         };
     }
-    // Patch LangCVO.getContent: force arena8 (historical rank chest label) to always show rank number
-    if(typeof LangCVO!=='undefined'&&LangCVO.getContent&&!LangCVO.__cwLCG){
-        LangCVO.__cwLCG=true;
-        var _origGetContent=LangCVO.getContent;
-        LangCVO.getContent=function(key){
-            if(key==='arena8'&&arguments.length>=2&&arguments[1]!=null)
-                return 'Rank #'+arguments[1];
-            return _origGetContent.apply(this,arguments);
-        };
-    }
-    // Patch ArenaMaxListItem.setCVO: ensure rank number always appended to label
-    if(typeof ArenaMaxListItem!=='undefined'&&!ArenaMaxListItem.prototype.__cwAML){
-        ArenaMaxListItem.prototype.__cwAML=true;
-        var _origSetCVO=ArenaMaxListItem.prototype.setCVO;
-        ArenaMaxListItem.prototype.setCVO=function(cvo){
-            this._cvo=cvo;
-            _origSetCVO.call(this,cvo);
-            try{if(this._txt&&cvo&&cvo.rankTarget!=null)this._txt.text='Rank #'+cvo.rankTarget;}catch(ex){}
-        };
-    }
-    // Patch ArenaMaxListItem.updateGetData: re-set rank label when data refreshes (covers pre-patch panel opens)
-    if(typeof ArenaMaxListItem!=='undefined'&&ArenaMaxListItem.prototype.updateGetData&&!ArenaMaxListItem.prototype.__cwAMLUGD){
-        ArenaMaxListItem.prototype.__cwAMLUGD=true;
-        var _origUGD=ArenaMaxListItem.prototype.updateGetData;
-        ArenaMaxListItem.prototype.updateGetData=function(){
-            _origUGD.call(this);
+    // Patch ArenaMaxListItem.configUI: runs after skin parts are bound so _txt is always non-null
+    if(typeof ArenaMaxListItem!=='undefined'&&ArenaMaxListItem.prototype.configUI&&!ArenaMaxListItem.prototype.__cwAMLCUI){
+        ArenaMaxListItem.prototype.__cwAMLCUI=true;
+        var _origAMLCUI=ArenaMaxListItem.prototype.configUI;
+        ArenaMaxListItem.prototype.configUI=function(){
+            _origAMLCUI.call(this);
             try{if(this._txt&&this._cvo&&this._cvo.rankTarget!=null)this._txt.text='Rank #'+this._cvo.rankTarget;}catch(ex){}
         };
     }
