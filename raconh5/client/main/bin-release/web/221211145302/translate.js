@@ -241,6 +241,7 @@ var _m={
 // --- Post-translation: rank suffix (第→Ch. already fired, 名=place) ---
 'Ch.1名':'Rank #1','Ch.2-3名':'Rank #2-3','Ch.4-10名':'Rank #4-10',
 'Ch.11-50名':'Rank #11-50','Ch.51-100名':'Rank #51-100','Ch.101-200名':'Rank #101-200',
+'Ch.101-500名':'Rank #101-500','Ch.501-1000名':'Rank #501-1000','Ch.201-500名':'Rank #201-500',
 // --- Mixed keys: post-translation combos (components ran before these) ---
 '可Smelt ':'can Smelt ','件Equip':'x Equip','的DMG':' DMG','HP回复':'HP Regen',
 'Pet现世':'Pet Summon',
