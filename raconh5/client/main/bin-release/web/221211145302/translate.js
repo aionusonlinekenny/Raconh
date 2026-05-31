@@ -1735,7 +1735,16 @@ function _patch(){
             xr.send('username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password));
         };
     }
-    // Patch ArenaMaxListItem.configUI: runs after skin parts are bound so _txt is always non-null
+    // Patch ArenaMaxListItem.setCVO: called right after skin parts bind, _cvo set immediately
+    if(typeof ArenaMaxListItem!=='undefined'&&ArenaMaxListItem.prototype.setCVO&&!ArenaMaxListItem.prototype.__cwAMLS){
+        ArenaMaxListItem.prototype.__cwAMLS=true;
+        var _origAMLS=ArenaMaxListItem.prototype.setCVO;
+        ArenaMaxListItem.prototype.setCVO=function(t){
+            _origAMLS.call(this,t);
+            try{if(this._txt&&this._cvo&&this._cvo.rankTarget!=null)this._txt.text='Rank #'+this._cvo.rankTarget;}catch(ex){}
+        };
+    }
+    // Patch ArenaMaxListItem.configUI: second pass to catch any later re-init
     if(typeof ArenaMaxListItem!=='undefined'&&ArenaMaxListItem.prototype.configUI&&!ArenaMaxListItem.prototype.__cwAMLCUI){
         ArenaMaxListItem.prototype.__cwAMLCUI=true;
         var _origAMLCUI=ArenaMaxListItem.prototype.configUI;
@@ -1801,7 +1810,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v80';
+document.title='EN v83';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
