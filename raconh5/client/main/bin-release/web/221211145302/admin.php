@@ -444,6 +444,151 @@ function applyThmTrans($trans){
     return"Applied $cnt thm.json translations.";
 }
 
+// ── Safe live-binary patch helpers ───────────────────────────────────────────
+// Patch a SINGLE language-section entry in the LIVE cw.txt.
+// Reads from CW_FILE (never from .original), modifies only the language section,
+// preserves all other sections exactly. Safe to run at any time.
+function cwPatchLang($cn, $en) {
+    if (!file_exists(CW_FILE)) return 'cw.txt not found at '.CW_FILE;
+    $data = file_get_contents(CW_FILE);
+    $secs = cwParse($data);
+    $patched = false;
+    $newSecs = [];
+    foreach ($secs as [$nm, $sd]) {
+        if ($nm === 'language' && !$patched) {
+            $tbls = langParse($sd);
+            $newTbls = [];
+            foreach ($tbls as [$tn, $ents]) {
+                $newEnts = [];
+                foreach ($ents as [$sid, $sv]) {
+                    if (!$patched && $sv === $cn) { $sv = $en; $patched = true; }
+                    $newEnts[] = [$sid, $sv];
+                }
+                $newTbls[] = [$tn, $newEnts];
+            }
+            $sd = langBuild($newTbls);
+        }
+        $newSecs[] = [$nm, $sd];
+    }
+    if (!$patched) return 'Entry not found in language section: '.mb_substr($cn,0,40);
+    file_put_contents(CW_FILE, cwBuild($newSecs));
+    return null;
+}
+
+// Patch a SINGLE string in any non-language section by content search.
+// Finds [2B len][cn bytes] anywhere in the binary, replaces in-place.
+// Updates section dlen in outer header if byte length changes.
+function cwPatchContent($cn, $en) {
+    if (!file_exists(CW_FILE)) return 'cw.txt not found at '.CW_FILE;
+    $data = file_get_contents(CW_FILE);
+    $oldB = $cn; $newB = $en;
+    $oldEntry = pack('n', strlen($oldB)) . $oldB;
+    $newEntry = pack('n', strlen($newB)) . $newB;
+    $pos = strpos($data, $oldEntry);
+    if ($pos === false) return 'String not found in binary: '.mb_substr($cn,0,40);
+    $diff = strlen($oldEntry) - strlen($newEntry);
+    $data = substr_replace($data, $newEntry, $pos, strlen($oldEntry));
+    if ($diff !== 0) {
+        // Update the containing section's dlen in the outer header
+        $p = 0; $cnt = ord($data[0]); $p = 1;
+        for ($i = 0; $i < $cnt; $i++) {
+            $nl = unpack('n', substr($data,$p,2))[1]; $p += 2; $p += $nl;
+            $dlPos = $p;
+            $dl = unpack('N', substr($data,$p,4))[1]; $p += 4;
+            $secEnd = $p + $dl;
+            if ($pos >= $p && $pos < $secEnd) {
+                $data = substr_replace($data, pack('N', $dl - $diff), $dlPos, 4);
+                break;
+            }
+            $p = $secEnd;
+        }
+    }
+    file_put_contents(CW_FILE, $data);
+    return null;
+}
+
+// Scan LIVE cw.txt language section — return all entries still containing CJK.
+function cwScanLiveLang() {
+    if (!file_exists(CW_FILE)) return [];
+    $secs = cwParse(file_get_contents(CW_FILE));
+    $out = [];
+    foreach ($secs as [$nm, $sd]) {
+        if ($nm !== 'language') continue;
+        foreach (langParse($sd) as [$tn, $ents]) {
+            foreach ($ents as [$sid, $sv]) {
+                if (hasCJK($sv)) $out[] = ['key'=>"lang|$tn|$sid",'table'=>$tn,'id'=>$sid,'cn'=>$sv,'en'=>''];
+            }
+        }
+    }
+    return $out;
+}
+
+// Scan LIVE cw.txt non-language sections — return strings still containing CJK.
+function cwScanLiveOther($skipSections = ['scene_robot_data']) {
+    if (!file_exists(CW_FILE)) return [];
+    $secs = cwParse(file_get_contents(CW_FILE));
+    $out = [];
+    foreach ($secs as [$nm, $sd]) {
+        if ($nm === 'language' || in_array($nm, $skipSections)) continue;
+        foreach (scanCJK($sd) as [$off, $txt]) {
+            $out[] = ['key'=>"$nm|$off",'section'=>$nm,'offset'=>$off,'cn'=>$txt,'en'=>''];
+        }
+    }
+    return $out;
+}
+
+// Scan EXML files for Chinese text="..." attribute values.
+function scanEXMLChinese() {
+    $dir = __DIR__ . '/resource/game_skins';
+    if (!is_dir($dir)) return [];
+    $out = [];
+    $iter = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(
+        $dir, RecursiveDirectoryIterator::SKIP_DOTS));
+    foreach ($iter as $f) {
+        if (strtolower($f->getExtension()) !== 'exml') continue;
+        $content = file_get_contents($f->getPathname());
+        if (preg_match_all('/\btext="([^"]*)"/', $content, $m)) {
+            foreach ($m[1] as $val) {
+                // Decode XML entities for CJK check
+                $decoded = html_entity_decode($val, ENT_XML1 | ENT_QUOTES, 'UTF-8');
+                if (!hasCJK($decoded)) continue;
+                $rel = ltrim(str_replace(__DIR__, '', $f->getPathname()), '/\\');
+                $out[] = ['file'=>$rel,'cn'=>$decoded,'en'=>''];
+            }
+        }
+    }
+    return $out;
+}
+
+// Patch a Chinese text attribute in an EXML file and sync it into default.thm.json.
+function patchEXML($relFile, $cn, $en) {
+    $full = __DIR__ . '/' . ltrim($relFile, '/\\');
+    if (!file_exists($full)) return 'EXML not found: '.$relFile;
+    $raw = file_get_contents($full);
+    // The cn value inside the file may be as-is or XML-encoded; try both.
+    $enXml = htmlspecialchars($en, ENT_XML1 | ENT_COMPAT, 'UTF-8');
+    $new = str_replace('text="'.htmlspecialchars($cn,ENT_XML1|ENT_COMPAT,'UTF-8').'"',
+                       'text="'.$enXml.'"', $raw);
+    if ($new === $raw) $new = str_replace('text="'.$cn.'"', 'text="'.$enXml.'"', $raw);
+    if ($new === $raw) return 'String not found in EXML: '.mb_substr($cn,0,40);
+    file_put_contents($full, $new);
+    // Sync updated content into default.thm.json (content field)
+    if (file_exists(THM_FILE)) {
+        $thm = json_decode(file_get_contents(THM_FILE), true);
+        if (is_array($thm) && isset($thm['exmls'])) {
+            foreach ($thm['exmls'] as &$entry) {
+                if (isset($entry['content']) && mb_strpos($entry['content'], $cn) !== false) {
+                    $entry['content'] = file_get_contents($full);
+                    break;
+                }
+            }
+            unset($entry);
+            file_put_contents(THM_FILE, json_encode($thm, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+        }
+    }
+    return null;
+}
+
 // ── POST handler ──────────────────────────────────────────────────────────────
 
 if (empty($flash['msg'])) $flash = ['type' => '', 'msg' => ''];
@@ -906,6 +1051,110 @@ if ($action === 'setup') {
         else $_SESSION['flash']=['type'=>'success','msg'=>"Deleted '$dk'. v".jsGetVersion()." saved."];
     }
     header('Location: admin.php?tab=translation&tmode=js&jsq='.urlencode($_POST['jsq']??'')); exit;
+
+// ── Live binary patch (lang section) ─────────────────────────────────────────
+} elseif ($action === 'live_patch_lang') {
+    requireLogin();
+    $cn = $_POST['lv_cn'] ?? '';
+    $en = trim($_POST['lv_en'] ?? '');
+    if ($cn === '' || $en === '') {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Both Chinese and English values are required.'];
+    } else {
+        $err = cwPatchLang($cn, $en);
+        if ($err) $_SESSION['flash'] = ['type'=>'error','msg'=>$err];
+        else      $_SESSION['flash'] = ['type'=>'success','msg'=>'Patched: '.mb_substr($cn,0,30).' → '.mb_substr($en,0,30)];
+    }
+    $p = (int)($_POST['lvpg'] ?? 1);
+    header('Location: admin.php?tab=translation&tmode=live&lvsec=lang&lvpg='.$p); exit;
+
+// ── Live binary patch (other sections) ───────────────────────────────────────
+} elseif ($action === 'live_patch_content') {
+    requireLogin();
+    $cn  = $_POST['lv_cn'] ?? '';
+    $en  = trim($_POST['lv_en'] ?? '');
+    $sec = $_POST['lvsec_filter'] ?? '';
+    if ($cn === '' || $en === '') {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'Both values required.'];
+    } else {
+        $err = cwPatchContent($cn, $en);
+        if ($err) $_SESSION['flash'] = ['type'=>'error','msg'=>$err];
+        else      $_SESSION['flash'] = ['type'=>'success','msg'=>'Patched: '.mb_substr($en,0,40)];
+    }
+    $p = (int)($_POST['lvpg'] ?? 1);
+    $fs = $sec ? '&lvsec_filter='.urlencode($sec) : '';
+    header('Location: admin.php?tab=translation&tmode=live&lvsec=other&lvpg='.$p.$fs); exit;
+
+// ── Live batch: save page then patch all filled entries ───────────────────────
+} elseif ($action === 'live_batch_lang') {
+    requireLogin();
+    $ens = $_POST['lv_en'] ?? []; // key => english
+    $cns = $_POST['lv_cn'] ?? []; // key => chinese
+    $ok = 0; $skip = 0; $errors = [];
+    foreach ($ens as $key => $en) {
+        $cn = $cns[$key] ?? ''; $en = trim($en);
+        if ($en === '' || $en === $cn) { $skip++; continue; }
+        $err = cwPatchLang($cn, $en);
+        if ($err) $errors[] = $err; else $ok++;
+    }
+    $msg = "Patched $ok language entries.";
+    if ($skip) $msg .= " Skipped $skip (empty).";
+    if ($errors) $msg .= ' Errors: '.implode('; ', array_slice($errors,0,3));
+    $_SESSION['flash'] = ['type'=>$errors?'error':'success','msg'=>$msg];
+    $p = (int)($_POST['lvpg'] ?? 1);
+    header('Location: admin.php?tab=translation&tmode=live&lvsec=lang&lvpg='.$p); exit;
+
+// ── Live batch: other sections ────────────────────────────────────────────────
+} elseif ($action === 'live_batch_other') {
+    requireLogin();
+    $ens = $_POST['lv_en'] ?? []; // key => english
+    $cns = $_POST['lv_cn'] ?? []; // key => chinese
+    $ok = 0; $skip = 0; $errors = [];
+    foreach ($ens as $key => $en) {
+        $cn = $cns[$key] ?? ''; $en = trim($en);
+        if ($en === '' || $en === $cn) { $skip++; continue; }
+        $err = cwPatchContent($cn, $en);
+        if ($err) $errors[] = $err; else $ok++;
+    }
+    $msg = "Patched $ok entries.";
+    if ($skip) $msg .= " Skipped $skip (empty).";
+    if ($errors) $msg .= ' Errors: '.implode('; ', array_slice($errors,0,3));
+    $_SESSION['flash'] = ['type'=>$errors?'error':'success','msg'=>$msg];
+    $sec = $_POST['lvsec_filter'] ?? '';
+    $p = (int)($_POST['lvpg'] ?? 1);
+    header('Location: admin.php?tab=translation&tmode=live&lvsec=other&lvpg='.$p.($sec?'&lvsec_filter='.urlencode($sec):'')); exit;
+
+// ── EXML patch ────────────────────────────────────────────────────────────────
+} elseif ($action === 'exml_patch') {
+    requireLogin();
+    $file = $_POST['ex_file'] ?? '';
+    $cn   = $_POST['ex_cn'] ?? '';
+    $en   = trim($_POST['ex_en'] ?? '');
+    if ($file === '' || $cn === '' || $en === '') {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'File, Chinese and English values all required.'];
+    } else {
+        $err = patchEXML($file, $cn, $en);
+        if ($err) $_SESSION['flash'] = ['type'=>'error','msg'=>$err];
+        else      $_SESSION['flash'] = ['type'=>'success','msg'=>'EXML patched & thm.json synced: '.basename($file)];
+    }
+    header('Location: admin.php?tab=translation&tmode=live&lvsec=exml'); exit;
+
+} elseif ($action === 'exml_batch') {
+    requireLogin();
+    $ens   = $_POST['ex_en']   ?? []; // b64key => english
+    $cns   = $_POST['ex_cn']   ?? []; // b64key => chinese
+    $files = $_POST['ex_file'] ?? []; // b64key => file path
+    $ok = 0; $skip = 0; $errors = [];
+    foreach ($ens as $k => $en) {
+        $en = trim($en); $cn = $cns[$k] ?? ''; $f = $files[$k] ?? '';
+        if ($en === '' || $en === $cn) { $skip++; continue; }
+        $err = patchEXML($f, $cn, $en);
+        if ($err) $errors[] = $err; else $ok++;
+    }
+    $msg = "Patched $ok EXML strings.";
+    if ($skip) $msg .= " Skipped $skip.";
+    if ($errors) $msg .= ' Errors: '.implode('; ', array_slice($errors,0,3));
+    $_SESSION['flash'] = ['type'=>$errors?'error':'success','msg'=>$msg];
+    header('Location: admin.php?tab=translation&tmode=live&lvsec=exml'); exit;
 }
 
 // URL flash
@@ -1130,7 +1379,7 @@ if (isLoggedIn()) {
 
     // ── Translation tab ──
     if ($activeTab === 'translation') {
-        $tMode = $_GET['tmode'] ?? 'cw'; // 'cw' or 'js'
+        $tMode = $_GET['tmode'] ?? 'cw'; // 'cw', 'js', or 'live'
         // JS dict
         $jsAllEntries = jsParseDict();
         $jsVersion    = jsGetVersion();
@@ -1169,6 +1418,43 @@ if (isLoggedIn()) {
         $trPageCount=max(1,(int)ceil(count($filtered)/$perPage));
         $trPage=min($trPage,$trPageCount);
         $trRows=array_slice($filtered,($trPage-1)*$perPage,$perPage,true);
+
+        // ── Live scanner data ──────────────────────────────────────────────────
+        $lvSec       = $_GET['lvsec'] ?? 'lang'; // 'lang' | 'other' | 'exml'
+        $lvPage      = max(1,(int)($_GET['lvpg'] ?? 1));
+        $lvSecFilter = trim($_GET['lvsec_filter'] ?? '');
+        $lvPerPage   = 50;
+        $lvRows      = []; $lvPageCount = 1; $lvTotal = 0;
+        $lvSections  = []; // for section filter sidebar (other mode)
+        if ($tMode === 'live') {
+            if ($lvSec === 'lang') {
+                $all = cwScanLiveLang();
+                $lvTotal = count($all);
+                $lvPageCount = max(1,(int)ceil($lvTotal/$lvPerPage));
+                $lvPage = min($lvPage,$lvPageCount);
+                $lvRows = array_slice($all,($lvPage-1)*$lvPerPage,$lvPerPage);
+            } elseif ($lvSec === 'other') {
+                $all = cwScanLiveOther();
+                // Build section list for filter
+                foreach ($all as $r) {
+                    $s = $r['section'];
+                    if (!isset($lvSections[$s])) $lvSections[$s] = 0;
+                    $lvSections[$s]++;
+                }
+                ksort($lvSections);
+                if ($lvSecFilter) $all = array_values(array_filter($all, fn($r)=>$r['section']===$lvSecFilter));
+                $lvTotal = count($all);
+                $lvPageCount = max(1,(int)ceil($lvTotal/$lvPerPage));
+                $lvPage = min($lvPage,$lvPageCount);
+                $lvRows = array_slice($all,($lvPage-1)*$lvPerPage,$lvPerPage);
+            } elseif ($lvSec === 'exml') {
+                $all = scanEXMLChinese();
+                $lvTotal = count($all);
+                $lvPageCount = max(1,(int)ceil($lvTotal/$lvPerPage));
+                $lvPage = min($lvPage,$lvPageCount);
+                $lvRows = array_slice($all,($lvPage-1)*$lvPerPage,$lvPerPage);
+            }
+        }
     }
 
     // ── Game DB tab ──
@@ -1946,6 +2232,11 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           ⚡ translate.js — Active Dictionary
           <small><?=count($jsEntries)?> active rules · v<?=$jsVersion?></small>
         </a>
+        <a href="admin.php?tab=translation&tmode=live&lvsec=<?=$lvSec?>"
+           class="tr-stab <?=$tMode==='live'?'active':''?>">
+          🔍 Live Scanner
+          <small>Scan &amp; patch Chinese directly in cw.txt / EXML</small>
+        </a>
       </div>
 
       <?php if($tMode==='cw'): ?>
@@ -2091,7 +2382,7 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
         </div>
       <?php endif; ?>
 
-      <?php else: ?>
+      <?php elseif($tMode==='js'): ?>
       <!-- ══ JS DICT SUB-TAB ══ -->
       <div class="page-sub" style="margin-bottom:14px">
         Edit the translate.js active dictionary. Saving auto-increments the version and updates index.html cache-bust.
@@ -2227,6 +2518,226 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           <code><?=htmlspecialchars(JS_FILE)?></code>
         </div>
       <?php endif; ?>
+
+      <?php elseif($tMode==='live'): ?>
+      <!-- ══ LIVE SCANNER SUB-TAB ══ -->
+      <div class="page-sub" style="margin-bottom:14px">
+        Scan the <strong>live</strong> cw.txt and EXML files for remaining Chinese text, translate, and patch in-place.
+        Uses safe targeted binary patching — never rebuilds from <code>.original</code>.
+      </div>
+
+      <!-- Source selector -->
+      <div class="tr-subtabs" style="margin-bottom:16px">
+        <a href="admin.php?tab=translation&tmode=live&lvsec=lang"
+           class="tr-stab <?=$lvSec==='lang'?'active':''?>" style="font-size:13px;padding:8px 14px">
+          📋 Language Section
+          <small>cw.txt lang|table|id entries</small>
+        </a>
+        <a href="admin.php?tab=translation&tmode=live&lvsec=other"
+           class="tr-stab <?=$lvSec==='other'?'active':''?>" style="font-size:13px;padding:8px 14px">
+          📦 Other Sections
+          <small>cw.txt non-language binary strings</small>
+        </a>
+        <a href="admin.php?tab=translation&tmode=live&lvsec=exml"
+           class="tr-stab <?=$lvSec==='exml'?'active':''?>" style="font-size:13px;padding:8px 14px">
+          🎨 EXML Files
+          <small>game_skins UI attribute text</small>
+        </a>
+      </div>
+
+      <?php if($lvSec==='lang'): ?>
+      <!-- ── LANG MODE ── -->
+      <?php if($lvTotal===0): ?>
+        <div class="alert alert-info">No Chinese strings found in the language section of cw.txt.
+          Either all are translated, or cw.txt is not accessible.</div>
+      <?php else: ?>
+      <div style="font-size:12px;color:#607090;margin-bottom:10px">
+        <strong><?=$lvTotal?></strong> Chinese entries remaining in language section
+        &nbsp;·&nbsp; Page <?=$lvPage?>/<?=$lvPageCount?>
+      </div>
+      <form method="POST">
+        <input type="hidden" name="action" value="live_batch_lang">
+        <input type="hidden" name="lvpg"   value="<?=$lvPage?>">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+          <button type="submit" class="btn btn-gold btn-sm">💾 Patch All Filled on This Page</button>
+        </div>
+        <div class="table-wrap" style="max-height:600px">
+        <table class="tr-table">
+          <thead><tr>
+            <th style="width:140px">Key (table · id)</th>
+            <th style="min-width:180px">Chinese (live)</th>
+            <th style="min-width:220px">English replacement</th>
+          </tr></thead>
+          <tbody>
+          <?php foreach($lvRows as $row): ?>
+          <tr>
+            <td>
+              <div style="color:#8090a0;font-size:11px;font-family:monospace"><?=htmlspecialchars($row['table'])?></div>
+              <div style="color:#506080;font-size:10px">id <?=htmlspecialchars((string)$row['id'])?></div>
+            </td>
+            <td><div class="tr-cn"><?=htmlspecialchars($row['cn'])?></div></td>
+            <td>
+              <input type="text" name="lv_en[<?=htmlspecialchars($row['key'])?>]"
+                     value="" class="tr-input" placeholder="English…">
+              <input type="hidden" name="lv_cn[<?=htmlspecialchars($row['key'])?>]"
+                     value="<?=htmlspecialchars($row['cn'])?>">
+            </td>
+          </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        </div>
+        <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <div class="tr-pager">
+            <?php $lBase='admin.php?tab=translation&tmode=live&lvsec=lang'; ?>
+            <?php if($lvPage>1): ?><a href="<?=$lBase?>&lvpg=<?=$lvPage-1?>">‹ Prev</a><?php endif; ?>
+            <?php for($p=max(1,$lvPage-3);$p<=min($lvPageCount,$lvPage+3);$p++): ?>
+              <?php if($p===$lvPage): ?><span class="cur"><?=$p?></span>
+              <?php else: ?><a href="<?=$lBase?>&lvpg=<?=$p?>"><?=$p?></a><?php endif; ?>
+            <?php endfor; ?>
+            <?php if($lvPage<$lvPageCount): ?><a href="<?=$lBase?>&lvpg=<?=$lvPage+1?>">Next ›</a><?php endif; ?>
+          </div>
+          <button type="submit" class="btn btn-gold btn-sm">💾 Patch All Filled on This Page</button>
+        </div>
+      </form>
+      <?php endif; ?>
+
+      <?php elseif($lvSec==='other'): ?>
+      <!-- ── OTHER SECTIONS MODE ── -->
+      <?php if(empty($lvSections) && $lvTotal===0): ?>
+        <div class="alert alert-info">No Chinese strings found in non-language sections of cw.txt.</div>
+      <?php else: ?>
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <!-- Section filter sidebar -->
+        <div style="min-width:160px;flex-shrink:0">
+          <div style="font-size:11px;color:#607090;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Sections</div>
+          <div class="tr-sec-list" style="display:flex;flex-direction:column;gap:4px">
+            <a href="admin.php?tab=translation&tmode=live&lvsec=other"
+               class="tr-sec-btn <?=$lvSecFilter===''?'sel':''?>">All sections</a>
+            <?php foreach($lvSections as $sn=>$cnt): ?>
+              <a href="admin.php?tab=translation&tmode=live&lvsec=other&lvsec_filter=<?=urlencode($sn)?>"
+                 class="tr-sec-btn <?=$lvSecFilter===$sn?'sel':''?>">
+                <?=htmlspecialchars($sn)?> <span style="opacity:.6">(<?=$cnt?>)</span>
+              </a>
+            <?php endforeach; ?>
+          </div>
+        </div>
+        <!-- Main table -->
+        <div style="flex:1;min-width:0">
+          <div style="font-size:12px;color:#607090;margin-bottom:10px">
+            <strong><?=$lvTotal?></strong> strings<?=$lvSecFilter?' in '.htmlspecialchars($lvSecFilter):'';?>
+            &nbsp;·&nbsp; Page <?=$lvPage?>/<?=$lvPageCount?>
+          </div>
+          <form method="POST">
+            <input type="hidden" name="action"      value="live_batch_other">
+            <input type="hidden" name="lvpg"        value="<?=$lvPage?>">
+            <input type="hidden" name="lvsec_filter" value="<?=htmlspecialchars($lvSecFilter)?>">
+            <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+              <button type="submit" class="btn btn-gold btn-sm">💾 Patch All Filled on This Page</button>
+            </div>
+            <div class="table-wrap" style="max-height:560px">
+            <table class="tr-table">
+              <thead><tr>
+                <th style="width:120px">Section · offset</th>
+                <th style="min-width:160px">Chinese (live)</th>
+                <th style="min-width:200px">English replacement</th>
+              </tr></thead>
+              <tbody>
+              <?php foreach($lvRows as $row): ?>
+              <tr>
+                <td>
+                  <div style="color:#8090a0;font-size:11px;font-family:monospace"><?=htmlspecialchars($row['section'])?></div>
+                  <div style="color:#506080;font-size:10px">@<?=htmlspecialchars((string)$row['offset'])?></div>
+                </td>
+                <td><div class="tr-cn"><?=htmlspecialchars($row['cn'])?></div></td>
+                <td>
+                  <input type="text" name="lv_en[<?=htmlspecialchars($row['key'])?>]"
+                         value="" class="tr-input" placeholder="English…">
+                  <input type="hidden" name="lv_cn[<?=htmlspecialchars($row['key'])?>]"
+                         value="<?=htmlspecialchars($row['cn'])?>">
+                </td>
+              </tr>
+              <?php endforeach; ?>
+              </tbody>
+            </table>
+            </div>
+            <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <div class="tr-pager">
+                <?php $oBase='admin.php?tab=translation&tmode=live&lvsec=other'.($lvSecFilter?'&lvsec_filter='.urlencode($lvSecFilter):''); ?>
+                <?php if($lvPage>1): ?><a href="<?=$oBase?>&lvpg=<?=$lvPage-1?>">‹ Prev</a><?php endif; ?>
+                <?php for($p=max(1,$lvPage-3);$p<=min($lvPageCount,$lvPage+3);$p++): ?>
+                  <?php if($p===$lvPage): ?><span class="cur"><?=$p?></span>
+                  <?php else: ?><a href="<?=$oBase?>&lvpg=<?=$p?>"><?=$p?></a><?php endif; ?>
+                <?php endfor; ?>
+                <?php if($lvPage<$lvPageCount): ?><a href="<?=$oBase?>&lvpg=<?=$lvPage+1?>">Next ›</a><?php endif; ?>
+              </div>
+              <button type="submit" class="btn btn-gold btn-sm">💾 Patch All Filled on This Page</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <?php endif; ?>
+
+      <?php elseif($lvSec==='exml'): ?>
+      <!-- ── EXML MODE ── -->
+      <?php if($lvTotal===0): ?>
+        <div class="alert alert-info">No Chinese text attributes found in EXML files under <code>resource/game_skins/</code>.</div>
+      <?php else: ?>
+      <div style="font-size:12px;color:#607090;margin-bottom:10px">
+        <strong><?=$lvTotal?></strong> Chinese text attributes in EXML files
+        &nbsp;·&nbsp; Page <?=$lvPage?>/<?=$lvPageCount?>
+        &nbsp;·&nbsp;
+        <span style="color:#a07030">⚠ After patching EXML, default.thm.json is updated automatically.</span>
+      </div>
+      <form method="POST">
+        <input type="hidden" name="action" value="exml_batch">
+        <input type="hidden" name="lvpg"   value="<?=$lvPage?>">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+          <button type="submit" class="btn btn-gold btn-sm">💾 Patch All Filled on This Page</button>
+        </div>
+        <div class="table-wrap" style="max-height:600px">
+        <table class="tr-table">
+          <thead><tr>
+            <th style="min-width:160px">EXML file</th>
+            <th style="min-width:160px">Chinese text (live)</th>
+            <th style="min-width:200px">English replacement</th>
+          </tr></thead>
+          <tbody>
+          <?php foreach($lvRows as $idx=>$row): ?>
+          <?php $eKey = base64_encode($row['file'].'||'.$row['cn']); ?>
+          <tr>
+            <td>
+              <div style="font-family:monospace;font-size:10px;color:#8090a0;word-break:break-all">
+                <?=htmlspecialchars($row['file'])?>
+              </div>
+            </td>
+            <td><div class="tr-cn"><?=htmlspecialchars($row['cn'])?></div></td>
+            <td>
+              <input type="text" name="ex_en[<?=$eKey?>]"
+                     value="" class="tr-input" placeholder="English…">
+              <input type="hidden" name="ex_cn[<?=$eKey?>]" value="<?=htmlspecialchars($row['cn'])?>">
+              <input type="hidden" name="ex_file[<?=$eKey?>]" value="<?=htmlspecialchars($row['file'])?>">
+            </td>
+          </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        </div>
+        <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <div class="tr-pager">
+            <?php $eBase='admin.php?tab=translation&tmode=live&lvsec=exml'; ?>
+            <?php if($lvPage>1): ?><a href="<?=$eBase?>&lvpg=<?=$lvPage-1?>">‹ Prev</a><?php endif; ?>
+            <?php for($p=max(1,$lvPage-3);$p<=min($lvPageCount,$lvPage+3);$p++): ?>
+              <?php if($p===$lvPage): ?><span class="cur"><?=$p?></span>
+              <?php else: ?><a href="<?=$eBase?>&lvpg=<?=$p?>"><?=$p?></a><?php endif; ?>
+            <?php endfor; ?>
+            <?php if($lvPage<$lvPageCount): ?><a href="<?=$eBase?>&lvpg=<?=$lvPage+1?>">Next ›</a><?php endif; ?>
+          </div>
+          <button type="submit" class="btn btn-gold btn-sm">💾 Patch All Filled on This Page</button>
+        </div>
+      </form>
+      <?php endif; ?>
+      <?php endif; ?><!-- end lvsec if -->
 
       <?php endif; ?>
     </div>
