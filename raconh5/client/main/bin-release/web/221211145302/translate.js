@@ -534,6 +534,16 @@ function _patch(){
             xr.send('username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password));
         };
     }
+    // Patch LangCVO.getContent: force arena8 (historical rank chest label) to always show rank number
+    if(typeof LangCVO!=='undefined'&&LangCVO.getContent&&!LangCVO.__cwLCG){
+        LangCVO.__cwLCG=true;
+        var _origGetContent=LangCVO.getContent;
+        LangCVO.getContent=function(key){
+            if(key==='arena8'&&arguments.length>=2&&arguments[1]!=null)
+                return 'Rank #'+arguments[1];
+            return _origGetContent.apply(this,arguments);
+        };
+    }
     // Patch ArenaMaxListItem.setCVO: ensure rank number always appended to label
     if(typeof ArenaMaxListItem!=='undefined'&&!ArenaMaxListItem.prototype.__cwAML){
         ArenaMaxListItem.prototype.__cwAML=true;
