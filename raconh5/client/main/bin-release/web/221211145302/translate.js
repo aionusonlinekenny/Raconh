@@ -534,6 +534,15 @@ function _patch(){
             xr.send('username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password));
         };
     }
+    // Patch ArenaMaxListItem.setCVO: ensure rank number always appended to label
+    if(typeof ArenaMaxListItem!=='undefined'&&!ArenaMaxListItem.prototype.__cwAML){
+        ArenaMaxListItem.prototype.__cwAML=true;
+        var _origSetCVO=ArenaMaxListItem.prototype.setCVO;
+        ArenaMaxListItem.prototype.setCVO=function(cvo){
+            _origSetCVO.call(this,cvo);
+            try{if(this._txt&&cvo&&cvo.rankTarget)this._txt.text='Rank #'+cvo.rankTarget;}catch(ex){}
+        };
+    }
     // Patch GemView.configUI: resize Gemstone title image (+81w +25h from 181x52)
     if(typeof GemView!=='undefined'&&GemView.prototype&&!GemView.prototype.__cwGVT){
         GemView.prototype.__cwGVT=true;
