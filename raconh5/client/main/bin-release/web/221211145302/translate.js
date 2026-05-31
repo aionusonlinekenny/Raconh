@@ -1754,16 +1754,13 @@ function _patch(){
             try{if(this._txt&&cvo&&cvo.rankTarget!=null)this._txt.text='Rank #'+cvo.rankTarget;}catch(ex){}
         };
     }
-    // Patch ArenaMaxListItem.draw: re-apply rank label on every render so pre-patch items are fixed
-    if(typeof ArenaMaxListItem!=='undefined'&&ArenaMaxListItem.prototype.draw&&!ArenaMaxListItem.prototype.__cwAMLDraw){
-        ArenaMaxListItem.prototype.__cwAMLDraw=true;
-        var _origAMLDraw=ArenaMaxListItem.prototype.draw;
-        ArenaMaxListItem.prototype.draw=function(stage,inkId){
-            _origAMLDraw.call(this,stage,inkId);
-            try{
-                var _rt=this._cvo&&this._cvo.rankTarget;
-                if(this._txt&&_rt!=null)this._txt.text='Rank #'+_rt;
-            }catch(ex){}
+    // Patch ArenaMaxListItem.updateGetData: re-set rank label when data refreshes (covers pre-patch panel opens)
+    if(typeof ArenaMaxListItem!=='undefined'&&ArenaMaxListItem.prototype.updateGetData&&!ArenaMaxListItem.prototype.__cwAMLUGD){
+        ArenaMaxListItem.prototype.__cwAMLUGD=true;
+        var _origUGD=ArenaMaxListItem.prototype.updateGetData;
+        ArenaMaxListItem.prototype.updateGetData=function(){
+            _origUGD.call(this);
+            try{if(this._txt&&this._cvo&&this._cvo.rankTarget!=null)this._txt.text='Rank #'+this._cvo.rankTarget;}catch(ex){}
         };
     }
     // Patch GemView.configUI: resize Gemstone title image (+81w +25h from 181x52)
