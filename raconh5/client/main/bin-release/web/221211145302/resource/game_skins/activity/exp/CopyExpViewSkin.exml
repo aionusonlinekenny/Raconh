@@ -21,7 +21,7 @@
 		<ns1:Label id="_txtCooling" text="" y="120" fontFamily="Microsoft YaHei" size="24" textAlign="center" textColor="0xfff7e6" horizontalCenter="0"/>
 	</e:Group>
 
-	<ns1:Label id="_txtDesc" text="Next: Guild rank {0} & clear current difficulty" x="58" y="993" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="605" textAlign="center" textColor="0xfff7e6"/>
+	<ns1:Label id="_txtDesc" text="Next: Guild rank {0} &amp; clear current difficulty" x="58" y="993" fontFamily="Microsoft YaHei" size="24" anchorOffsetX="0" width="605" textAlign="center" textColor="0xfff7e6"/>
 	<ns1:Label id="_txtCount" text="Attempts Left: 2/2" x="456" y="887" fontFamily="Microsoft YaHei" size="24" textColor="0x7B6D61"/>
 	<ns1:Label id="_txtTips" text="VIP" x="456" y="924" fontFamily="Microsoft YaHei" size="24" textColor="0x7B6D61"/>
 
