@@ -3,8 +3,8 @@
 	<ns1:BasePopUpView id="_basePopView" width="720" height="1280" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
 	<e:Image width="140" height="140" x="39" y="202" source="common_itemBg_png" scale9Grid="53,62,34,19"/>
 	<ns1:Label id="_clubName" text="Name" x="192" y="224" textColor="0x7c6e62" size="28" fontFamily="Microsoft YaHei"/>
-	<ns1:Label text="Current Master:" x="192" y="262" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
-	<ns1:Label id="_masterName" text="Vacancy" x="312" y="262" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
+	<ns1:Label text="Master:" x="192" y="262" size="24" fontFamily="Microsoft YaHei" textColor="0x7c6e62"/>
+	<ns1:Label id="_masterName" text="Vacancy" x="278" y="262" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<e:Label text="Guild Power:" x="192" y="294" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<ns1:Label id="_allFight" text="999.9B" x="312" y="295" textColor="0x7c6e62" size="24" fontFamily="Microsoft YaHei"/>
 	<e:Image width="658" height="3" y="353" source="common_line_png" horizontalCenter="0"/>
