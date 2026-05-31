@@ -158,28 +158,58 @@ Gem descriptions (e.g., `可在"锻造-宝石"中镶嵌\n攻击+75\n战力+300`)
 
 ## Deployment Instructions (XAMPP)
 
+**Stack: XAMPP (Apache) on Windows. NOT phpstudy_pro. NOT nginx.**
+
 After committing and pushing:
 
-```bash
+```
 # On the Windows server running XAMPP:
-# 1. Open the git repo folder in File Explorer
-# 2. Pull latest changes:
+# 1. Pull latest changes in git repo folder:
 git pull origin claude/xampp-setup-guide-vFsWS
 
-# 3. Copy updated game files to XAMPP web root:
+# 2. Copy updated game files to XAMPP web root:
 #    SOURCE: <repo>/raconh5/client/main/bin-release/web/221211145302/
-#    DESTINATION: C:\xampp\htdocs\<your-game-folder>\221211145302\
-#    Files to copy:
-#      - resource/res/cw.txt
-#      - main.min.js
+#    DESTINATION: C:\xampp\htdocs\<your-game-folder>\
+#    Files that change often:
+#      - resource/res/cw.txt        (binary translations)
+#      - translate.js               (JS hook translations)
+#      - resource/default.thm.json  (skin/UI changes)
+#      - admin.php                  (admin panel updates)
 
-# 4. Hard-refresh browser (bypasses cache):
+# 3. Hard-refresh browser (bypasses cache):
 #    Chrome/Edge: Ctrl + Shift + R  (or Ctrl + F5)
 #    OR open DevTools (F12) → Network tab → check "Disable cache" → reload
 ```
 
 > **IMPORTANT**: Normal browser reload (F5) uses cached JS and binary files.
 > You MUST do Ctrl+Shift+R or clear browser cache to see changes.
+
+---
+
+## WebSocket Architecture (XAMPP setup)
+
+**Game JS always connects to: `ws://[location.hostname]:9002`**
+
+`location.hostname` = the hostname in the browser's address bar.
+
+- If player opens `http://127.0.0.1/game/` → game connects to `ws://127.0.0.1:9002`
+- If player opens `http://192.168.1.100/game/` → game connects to `ws://192.168.1.100:9002`
+
+**Erlang game server** (Start_Server.bat) listens via `-extra game GAME_BIND GAME_PORT`:
+- `GAME_BIND=0.0.0.0` → accepts from all interfaces (LAN + localhost)
+- `GAME_BIND=127.0.0.1` → localhost only (single-machine testing)
+- `GAME_PORT=9002` → **must match what game JS connects to**
+
+**No nginx proxy needed with XAMPP.** Apache does NOT proxy WebSocket on port 9002;
+Erlang handles port 9002 directly.
+
+> The file `raconh5/phpstudy_pro/Extensions/Nginx1.15.11/conf/vhosts/ws_proxy_9002.conf`
+> exists in the repo but is **NOT applicable** to XAMPP setups. Ignore it.
+
+### Common mistake: changing GAME_PORT to 19002
+If Erlang is restarted with `GAME_PORT=19002` but there is no nginx proxy,
+the game client will connect to port 9002 and find nothing listening → connect/disconnect loop.
+**Always keep `GAME_PORT=9002` with XAMPP.**
 
 ---
 

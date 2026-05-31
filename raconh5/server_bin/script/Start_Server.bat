@@ -1,9 +1,12 @@
 @echo off
+:: Erlang node name host (keep as 127.0.0.1 for local node naming)
 set MASTER_DOMAIN=127.0.0.1
-:: Game WebSocket port: Erlang listens on GAME_PORT internally (localhost only).
-:: Nginx proxies external port 9002 → 127.0.0.1:GAME_PORT with WS upgrade headers.
-:: Changing this from 9002 to 19002 avoids port conflict with the nginx proxy.
-set GAME_PORT=19002
+:: GAME_BIND: interface Erlang's game server listens on.
+::   127.0.0.1 = localhost only (single-machine, or behind a reverse proxy)
+::   0.0.0.0   = all interfaces (direct LAN/internet access, no proxy needed)
+set GAME_BIND=0.0.0.0
+:: GAME_PORT must match what game client connects to (location.hostname:9002)
+set GAME_PORT=9002
 
 :: Tự động tính REPO_ROOT từ vị trí file bat (server_bin\script\ -> lên 2 cấp)
 pushd "%~dp0..\.."
@@ -36,5 +39,5 @@ set ERL_ROOTDIR=%ERL_ROOT%
 set ERL_LIBS=
 
 cd /d "%REPO_ROOT%\server_bin"
-"%ERL_ROOT%\bin\erl.exe" +pc unicode -hidden -kernel inet_dist_listen_min 40001 -kernel inet_dist_listen_max 40100 +P 204800 +K true -smp enable -name newserver@%MASTER_DOMAIN% -setcookie stupidcat -pa ebin config -config config/sys -eval "gen_event:start({local, error_logger})" -s main start -extra game %MASTER_DOMAIN% %GAME_PORT%
+"%ERL_ROOT%\bin\erl.exe" +pc unicode -hidden -kernel inet_dist_listen_min 40001 -kernel inet_dist_listen_max 40100 +P 204800 +K true -smp enable -name newserver@%MASTER_DOMAIN% -setcookie stupidcat -pa ebin config -config config/sys -eval "gen_event:start({local, error_logger})" -s main start -extra game %GAME_BIND% %GAME_PORT%
 pause
