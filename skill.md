@@ -1014,3 +1014,161 @@ if(typeof ClassName!=='undefined'&&ClassName.prototype.methodName&&!ClassName.pr
 | `7f5162af` | [FAILED] configUI hook + regex — width issue + cache |
 | `746b6ad7` | ✅ setCVO patch + widen label + cache bust v83 |
 
+---
+
+# Guild Hall UI Fixes — Session Knowledge Base
+
+## 1. Overlap "Current Masterncy available" — ClubViewSkin.exml
+
+### Nguyên nhân
+Label tĩnh `text="Current Master:"` ở `x=192, size=24` → chiếm ~182px → đè lên `_masterName` ở `x=312`.
+
+### Fix
+```xml
+<!-- Trước -->
+<ns1:Label text="Current Master:" x="192" y="262" size="24"/>
+<ns1:Label id="_masterName" text="Vacancy" x="312" y="262" size="24"/>
+
+<!-- Sau -->
+<ns1:Label text="Master:" x="192" y="262" size="24"/>
+<ns1:Label id="_masterName" text="Vacancy" x="278" y="262" size="24"/>
+```
+- "Master:" ≈ 86px từ x=192 → kết thúc tại ~x=278 → không còn overlap
+
+---
+
+## 2. Rút ngắn "Remaining attempts: N" → "Attempts left: N"
+
+### Nguồn dữ liệu
+- Text đến từ `LangCVO.getContent("club5", numValue)` → language binary `club|5`
+- Giá trị gốc: `"剩余次数<font color='#38B800'>{0}</font>次"` (47 bytes)
+
+### Quy tắc: KHÔNG dùng `apply_all_translations.py` để sửa 1 entry
+`apply_all_translations.py` rebuild toàn bộ `cw.txt` từ `.original` → **mất tất cả patches từ các session trước** → game crash Error #1025 (readUTF fail).
+
+### Fix đúng: Targeted binary patch
+```python
+import struct
+CW = '.../cw.txt'
+with open(CW,'rb') as f:
+    data = bytearray(f.read())
+
+old_val = "剩余次数<font color='#38B800'>{0}</font>次".encode('utf-8')
+new_val = "Attempts left: <font color='#38B800'>{0}</font>".encode('utf-8')
+# Nếu cùng length → in-place, không cần update section size
+# Nếu khác length → phải update language section dlen trong outer header
+
+old_entry = struct.pack('>H', len(old_val)) + old_val
+new_entry = struct.pack('>H', len(new_val)) + new_val
+pos = data.find(old_entry)
+data[pos:pos+len(old_entry)] = new_entry
+
+# Nếu khác length, update outer section dlen:
+diff = len(old_entry) - len(new_entry)
+# tìm dlen_pos của section 'language' → struct.pack_into('>I', data, dlen_pos, dlen-diff)
+
+with open(CW,'wb') as f:
+    f.write(data)
+```
+
+---
+
+## 3. XML Parse Error: `&` trong EXML — BẮT BUỘC escape
+
+### Lỗi
+```
+XML Parsing Error: not well-formed
+<ns1:Label text="Next: Guild rank {0} & clear current difficulty" .../>
+```
+
+### Nguyên nhân
+Trong XML, `&` là ký tự đặc biệt. Phải escape trong attribute value.
+
+### Fix
+```xml
+<!-- SAI -->
+text="Guild rank {0} & clear current difficulty"
+
+<!-- ĐÚNG -->
+text="Guild rank {0} &amp; clear current difficulty"
+```
+
+### Bảng escape XML đầy đủ
+| Ký tự | Escape | Khi nào dùng |
+|-------|--------|--------------|
+| `&` | `&amp;` | Luôn luôn trong XML |
+| `<` | `&lt;` | Trong attribute hoặc text node |
+| `>` | `&gt;` | Trong attribute hoặc text node |
+| `"` | `&quot;` | Trong attribute `"..."` |
+| `'` | `&apos;` | Trong attribute `'...'` |
+
+Files bị lỗi: `CopyExpViewSkin.exml`, `CopySilverViewSkin.exml` — đều fix bằng `&amp;`.
+
+**Sau khi sửa EXML phải sync vào `default.thm.json`** (chạy sync_exml.php hoặc Python script).
+
+---
+
+## 4. Cấu trúc Guild Hall UI — Hai file EXML
+
+### Member list (dòng trắng)
+File: `resource/game_skins/club/items/ClubMemberItemViewSkin.exml`
+```xml
+<e:Skin class="ClubMemberItemViewSkin" width="655" height="55">
+    <ns1:Label id="_career"   x="90"  y="14" size="24"/>  <!-- "Rank 5 Disciple" -->
+    <ns1:Label id="_nickName" horizontalCenter="0" y="14" size="24"/>  <!-- Tên -->
+    <ns1:Label id="_fighting" x="537" y="14" size="24"/>  <!-- Power -->
+</e:Skin>
+```
+
+### Dòng của chính mình (dòng xanh lá)
+File: `resource/game_skins/club/ClubViewSkin.exml` tại y=676
+```xml
+<ns1:Label id="_clubCareer" x="121" y="690" size="24" textColor="0x38b800"/>
+<ns1:Label id="_nickName"   horizontalCenter="3.5" y="690" size="24" textColor="0x38b800"/>
+<ns1:Label id="_fighting"   x="567" y="690" size="24" textColor="0x38b800"/>
+```
+
+**Muốn dời label rank sang trái → phải sửa CẢ HAI file** để đồng nhau.
+
+---
+
+## 5. Dịch chuỗi Chinese trong cw.txt — Quy trình đúng
+
+### Tìm entry nào còn Chinese
+```python
+python3 -c "
+import struct, unicodedata
+# ... parse language section ...
+for tname, entries in tables.items():
+    for eid, val in entries.items():
+        if any(unicodedata.category(c) == 'Lo' for c in val):
+            print(f'{tname}|{eid}: {val[:60]}')
+"
+```
+
+### Dịch guild welcome message (club|15)
+- Chinese: `'风云聚会，龙翔九天，欢迎少侠加入本盟会。'` (60 bytes)
+- English: `'Heroes gather, dragons soar — welcome, young hero!'` (52 bytes)
+- Patch: targeted binary + update language section dlen (diff=8)
+
+### Quy trình an toàn để dịch 1 entry
+1. Đọc current value từ binary (xác nhận đúng entry)
+2. Tính byte length của old và new value
+3. Nếu same length → in-place replace (không cần update header)
+4. Nếu khác length → update length prefix + update section dlen trong outer
+5. Verify bằng cách parse lại binary sau khi patch
+
+### KHÔNG BAO GIỜ dùng `apply_all_translations.py` để sửa 1 entry
+→ Script rebuild từ `.original` → mất tất cả patches → Error #1025 crash 37%
+
+---
+
+## Commits
+
+| Commit | Nội dung |
+|--------|---------|
+| `bb8fb780` | [BROKEN] Guild Hall label fix + club5 dịch bằng apply_all_translations.py → crash 37% |
+| `79252e18` | Restore cw.txt + targeted binary patch club5 |
+| `5c467926` | Fix XML &amp; trong CopyExp/CopySilverViewSkin |
+| `3e1e53f0` | Dịch club\|15 welcome message binary patch |
+
