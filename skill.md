@@ -825,3 +825,192 @@ Lý do: `dirty_foldl` cần serialize anonymous fun qua RPC → fail nếu khác
 | `7f71ac5b` | gm.escript: replace dirty_foldl with ets:tab2list (fix rpc_failed) |
 | `2ae76245` | Admin: ban/lock/kick/delete_role features + auth.php status check |
 
+---
+
+# Arena Rank Label Fix — Session Knowledge Base
+
+## Triệu chứng
+
+Trong panel "拾剑台" (Arena History), 4 chest items hiển thị nhãn **"Rank #"** (không có số) thay vì "Rank #1", "Rank #2-3", v.v.
+
+---
+
+## Cơ chế hiển thị rank — Dòng chảy dữ liệu
+
+```
+ArenaMaxRankCVO.parse()
+  → o.rankTarget = e.readShort()          // số nguyên từ binary protocol
+
+ArenaMaxListView.configUI()
+  → for each cvo:
+      var n = new ArenaMaxListItem          // 1. constructor: skin bind ngay lập tức
+      n.setCVO(e[i])                        // 2. gọi ngay: _txt.text = LangCVO.getContent("arena8", rankTarget)
+      n.x = ...; n.y = 2
+      this._group.addChild(n)              // 3. addChild → __addedToStage → Manager.render.add(renderInvalid)
+
+// Sau đó, render queue xử lý (deferred):
+renderInvalid → drawAll → drawInit → ArenaMaxListItem.configUI()
+```
+
+### `LangCVO.getContent("arena8", rankTarget)`
+- `arena8` trong `cw.txt` binary = `"第{0}名"` (Chinese template)
+- `cw.StringUtil.format("第{0}名", [rankTarget])` = `"第N名"` (ví dụ: "第1名", "第2名")
+- Đây là TEXT được set vào `_txt.text`
+
+---
+
+## Timing — Điều quan trọng nhất
+
+| Thời điểm | Sự kiện | `_cvo` | `_txt` |
+|-----------|---------|--------|--------|
+| Constructor `new ArenaMaxListItem` | Skin bind synchronous qua `setSkin()` | null | bound ✓ |
+| `n.setCVO(e[i])` | Set `_cvo`, set `_txt.text = "第N名"` | set ✓ | bound ✓ |
+| `addChild(n)` | Đưa vào stage | set ✓ | bound ✓ |
+| Render queue fires → `configUI()` | Deferred | set ✓ | bound ✓ |
+
+**Kết luận:** Cả `_cvo` và `_txt` đều ĐÃ available khi `setCVO` gọi. Patch tại `setCVO` là timing tốt nhất.
+
+---
+
+## Translation Chain — Cách `_rep()` xử lý "第N名"
+
+### Path 1: Regex (thêm bởi session này)
+```
+"第1名" → s.replace(/第(\d+)名/g, 'Rank #$1') → "Rank #1" ✓
+```
+- Chỉ hoạt động với số nguyên đơn (regex `\d+`)
+
+### Path 2: `_m` dictionary chain (original, vẫn còn)
+```
+"第2-3名"
+  → _m['第'] = 'Ch.' → "Ch.2-3名"
+  → _m['Ch.2-3名'] = 'Rank #2-3' → "Rank #2-3" ✓
+```
+- Xử lý range text như "2-3", "4-10", "11-50", v.v.
+- Có sẵn trong `_m` dict tại line 251-253
+
+**Cả 2 path đều đúng và bổ sung nhau.** Regex xử lý trường hợp số đơn, `_m` xử lý range.
+
+### Kiểm tra: `_m` scan có làm hỏng "Rank #1" không?
+- Tất cả key trong `_m` đều là ký tự Trung → "Rank #1" không có ký tự Trung → **không bị ảnh hưởng** ✓
+
+---
+
+## Nguyên nhân lỗi sau khi sửa translate.js
+
+### Nguyên nhân 1: Browser cache (QUAN TRỌNG NHẤT)
+- `index.html` load `translate.js?v=80` — browser cache theo URL
+- Nếu không đổi version number → browser serve bản cũ từ cache
+- **MỌI thay đổi translate.js đều phải kèm tăng version số**
+- Xác nhận: tab title hiện `"EN vXX"` → đúng version đang chạy
+
+### Nguyên nhân 2: Label width quá hẹp
+- `ArenaMaxListItemSkin.exml`: `_txt` có `width="91"` tại `size="24"`
+- Tại size 24px, "Rank #" ≈ 80-85px, "Rank #1" ≈ 95-100px
+- Với `textAlign="center"` và `width=91`, text "Rank #1" có thể vừa đủ, nhưng "Rank #2-3" (~120px) bị clip → chỉ thấy "Rank #"
+- **Fix:** Mở rộng từ `width="91" x="75"` → `width="163" x="2"` (full skin width = 167px)
+
+### Nguyên nhân 3: Patch không đúng timing (các lần thất bại)
+- `draw()` hook → method không tồn tại trên `ArenaMaxListItem`
+- `updateGetData()` hook → có thể fire trước khi patch chạy
+- `configUI` hook alone → đúng timing nhưng không đủ nếu width bị clip
+
+---
+
+## Fix Đúng (commit `746b6ad7`)
+
+### 1. Patch `setCVO` trực tiếp (primary fix)
+```javascript
+if(typeof ArenaMaxListItem!=='undefined'&&ArenaMaxListItem.prototype.setCVO&&!ArenaMaxListItem.prototype.__cwAMLS){
+    ArenaMaxListItem.prototype.__cwAMLS=true;
+    var _origAMLS=ArenaMaxListItem.prototype.setCVO;
+    ArenaMaxListItem.prototype.setCVO=function(t){
+        _origAMLS.call(this,t);
+        try{if(this._txt&&this._cvo&&this._cvo.rankTarget!=null)this._txt.text='Rank #'+this._cvo.rankTarget;}catch(ex){}
+    };
+}
+```
+- Gọi original trước (để `_cvo` được set)
+- Sau đó override `_txt.text` với giá trị đúng
+
+### 2. Patch `configUI` (secondary/belt-and-suspenders)
+```javascript
+if(typeof ArenaMaxListItem!=='undefined'&&ArenaMaxListItem.prototype.configUI&&!ArenaMaxListItem.prototype.__cwAMLCUI){
+    ArenaMaxListItem.prototype.__cwAMLCUI=true;
+    var _origAMLCUI=ArenaMaxListItem.prototype.configUI;
+    ArenaMaxListItem.prototype.configUI=function(){
+        _origAMLCUI.call(this);
+        try{if(this._txt&&this._cvo&&this._cvo.rankTarget!=null)this._txt.text='Rank #'+this._cvo.rankTarget;}catch(ex){}
+    };
+}
+```
+
+### 3. Mở rộng label trong EXML
+```xml
+<!-- Trước: -->
+<ns1:Label id="_txt" x="75" width="91" size="24" textAlign="center" y="101"/>
+<!-- Sau: -->
+<ns1:Label id="_txt" x="2" width="163" size="24" textAlign="center" y="101"/>
+```
+File: `resource/game_skins/arena/ArenaMaxListItemSkin.exml`
+
+### 4. Cache bust — BẮT BUỘC mỗi khi sửa translate.js
+- `index.html`: `translate.js?v=80` → `translate.js?v=83`
+- `translate.js`: `document.title='EN v80'` → `document.title='EN v83'`
+
+---
+
+## Quy tắc Cache Busting — KHÔNG ĐƯỢC QUÊN
+
+> **Mỗi lần sửa `translate.js`, BẮT BUỘC phải:**
+> 1. Tăng version number trong `document.title='EN vXX'`
+> 2. Tăng version number trong `index.html`: `translate.js?v=XX`
+> 3. Cả 2 số phải KHỚP nhau
+
+Kiểm tra nhanh: nhìn tab title trong browser, nếu hiện đúng version → code mới đang chạy.
+
+---
+
+## Lỗi Prototype Patch — Pattern Đúng
+
+Khi patch một method trên prototype của class Egret:
+
+```javascript
+// ✅ Đúng
+if(typeof ClassName!=='undefined'&&ClassName.prototype.methodName&&!ClassName.prototype.__cwFLAG){
+    ClassName.prototype.__cwFLAG=true;          // đặt flag trên prototype, không phải instance
+    var _orig=ClassName.prototype.methodName;   // lưu original
+    ClassName.prototype.methodName=function(){  // override trên prototype
+        _orig.call(this, ...arguments);         // gọi original với đúng context
+        try{ /* thêm logic */ }catch(ex){}      // wrap try/catch để không crash silent
+    };
+}
+```
+
+**Lý do `try/catch`:** Nếu `_txt` hay `_cvo` null → patch không crash, chỉ bỏ qua.  
+**Lý do flag trên prototype:** Flag được share toàn bộ instances, `_patch()` chỉ chạy 1 lần/class.
+
+---
+
+## Egret EUI Skin Binding — Tóm tắt
+
+| Thời điểm | Sự kiện |
+|-----------|---------|
+| `new ClassName()` → constructor | `setSkin()` chạy synchronous → tất cả skin parts (`_txt`, `_pic`, ...) được bind |
+| Trước `addChild()` | Skin parts đã sẵn sàng — có thể gọi `setCVO`, set text |
+| `addChild()` | `__addedToStage` → `Manager.render.add(renderInvalid)` |
+| Render queue fires | `drawInit()` → `configUI()` + `addEvent()` + `initData()` |
+
+**Nguyên tắc:** Patch `setCVO` (hoặc bất kỳ method nào gọi trước `addChild`) là timing an toàn nhất để set text.
+
+---
+
+## Commits Arena Fix
+
+| Commit | Nội dung |
+|--------|---------|
+| `23e0d2a4` | [FAILED] draw() hook — method không tồn tại |
+| `5c5b408e` | [FAILED] updateGetData() hook — timing sai |
+| `7f5162af` | [FAILED] configUI hook + regex — width issue + cache |
+| `746b6ad7` | ✅ setCVO patch + widen label + cache bust v83 |
+
