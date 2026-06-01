@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="CashCowViewSkin" width="720" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:ns1="*" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="ashCow_zi_png" y="727" x="115"/>
-	<e:Image source="common_back5_png" y="882" anchorOffsetX="0" width="424" x="148"/>
-	<ns1:Label id="_conentTxt" text="Label" y="893" anchorOffsetX="0" width="433" fontFamily="Microsoft YaHei" textAlign="center" x="144"/>
-	<ns1:Label id="_vipNumTxt" text="Label" x="167" y="946" anchorOffsetX="0" width="324" fontFamily="Microsoft YaHei" textAlign="right"/>
-	<ns1:Label id="_timeTxt" text="Label" y="1006" anchorOffsetX="0" width="462" fontFamily="Microsoft YaHei" textAlign="center" x="129"/>
-	<ns1:Label id="_vipTxt" text="Upgrade VIP Level" x="494" y="946" anchorOffsetX="0" width="170" fontFamily="Microsoft YaHei" textAlign="center" textColor="0x34d31b"/>
-	<ns1:Button id="_rewardBtn" label="Button" y="1026" x="241">
+	<!-- Panel nền mở rộng full width để chứa text EN dài hơn -->
+	<e:Image source="common_back5_png" y="875" anchorOffsetX="0" width="660" x="30"/>
+	<!-- Dòng 1: Silver coin reward -->
+	<ns1:Label id="_conentTxt" text="Label" y="886" anchorOffsetX="0" width="650" fontFamily="Microsoft YaHei" textAlign="center" x="35" size="22"/>
+	<!-- Dòng 2: Jackpot attempts (full width, centered) -->
+	<ns1:Label id="_vipNumTxt" text="Label" x="35" y="928" anchorOffsetX="0" width="650" fontFamily="Microsoft YaHei" textAlign="center" size="20"/>
+	<!-- Dòng 3: VIP upgrade link (below attempts, centered) -->
+	<ns1:Label id="_vipTxt" text="Upgrade VIP Level" x="35" y="960" anchorOffsetX="0" width="650" fontFamily="Microsoft YaHei" textAlign="center" textColor="0x34d31b" size="20"/>
+	<!-- Dòng 4: Time text -->
+	<ns1:Label id="_timeTxt" text="Label" y="996" anchorOffsetX="0" width="650" fontFamily="Microsoft YaHei" textAlign="center" x="35" size="20"/>
+	<ns1:Button id="_rewardBtn" label="Button" y="1030" x="241">
 		<ns1:skinName>
 		<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
 		</e:Skin>
 		</ns1:skinName>
 	</ns1:Button>
-	<e:Image source="ashCow_mianfeijubao_png" id="_freeImg" scaleX="1" scaleY="1" y="1053" x="271"/>
-	<e:Image id="_redIcon" source="common_red_icon_png" x="435" y="1035"/>
+	<e:Image source="ashCow_mianfeijubao_png" id="_freeImg" scaleX="1" scaleY="1" y="1057" x="271"/>
+	<e:Image id="_redIcon" source="common_red_icon_png" x="435" y="1039"/>
 
-	<e:Group id="_resGroup" x="225" y="1053" visible="false">
+	<e:Group id="_resGroup" x="225" y="1057" visible="false">
 		<e:Image source="ashCow_jubao_png" x="0" y="0"/>
 		<ns1:PlayerResItems id="_res" width="164" height="46" x="140" y="3" anchorOffsetX="0" anchorOffsetY="0"/>
 	</e:Group>
