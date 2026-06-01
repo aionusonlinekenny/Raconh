@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v85
+// RaconH English Translation Hook v86
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -275,6 +275,7 @@ var _m={
 '激活':'Activate ','穿戴':'Wear ','个人':'Solo ','全身':'Full ',
 '普通捐献':'Normal Donation','高级捐献':'Premium Donation','捐献':'Donate','贡献':' pts',
 '剩余次数':'Remaining: ','次数':' count','次':'x','寻找':'Find ','无双':'Peerless ',
+'不可':'cannot ','可以':'can ','可':'can ',
 '传闻':' Rumor','秘闻':' Secrets','风声':' Rumors','一次':'x1 ','一颗':' ',
 // --- Landlord (斗地主) feature ---
 '苦工干活时间满释放会自动提取EXP':'Laborer auto-extracts EXP when work time is full',
@@ -1827,7 +1828,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v85';
+document.title='EN v86';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
