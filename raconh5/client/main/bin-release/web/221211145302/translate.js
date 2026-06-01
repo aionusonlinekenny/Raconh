@@ -1,4 +1,4 @@
-// RaconH English Translation Hook v84
+// RaconH English Translation Hook v85
 (function(){
 var _m={
 // --- Treasure hunt description (MUST be first: 绝学/银币/品质/次/万 components fire early) ---
@@ -66,7 +66,7 @@ var _m={
 '绝学境界':'Skill Realm','绝学属性':'Skill Stats','激活条件':'Requirements','额外属性':'Extra Stats',
 '境界':'Realm',
 '命轮':'Fate Wheel','墨宠':'Pet','命格':'Destiny','绝学':'Skills','聚宝蟾':'Treasure','等级礼':'Lv.Gift',
-'七日礼':'7-Day Gift','自动任务':'Auto Task','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
+'七日礼':'7-Day Gift','自动任务':'Auto Task','自动':'Auto ','日常任务':'Daily Quest','盟会正殿':'Guild Hall','盟会职位':'Guild Rank',
 '盟会试炼':'Guild Trial','冲榜竞技':'PvP Rank','充值活动':'Top-up Event',
 '装扮':'Costume','称号':'Title','论剑台':'Duel Arena','神兵':'Weapon','摆摊':'Market',
 '魔神入侵':'Devil Raid','好友系统':'Friends','神器':'Artifact','功能预告':'Preview',
@@ -121,6 +121,13 @@ var _m={
 '好友推荐':'Suggested Friends','换一批':'Refresh','一键添加':'Add All',
 '请输入玩家Name':'Search player name',
 '好友已达上限':'Friends list full','对方不在线':'Offline',
+// --- Offline Earnings popup (longer forms BEFORE shorter '离线'/'收益') ---
+'离线收益':'Offline Earnings','离线时间：':'Offline Time: ','离线时间:':'Offline Time: ',
+'收益减弱：':'Reduced Earnings: ','收益减弱:':'Reduced Earnings: ',
+'最多累计':'max accumulated ','超过8h':'over 8h','超过':'over ',
+'收益':'Earnings',
+'Gold卡':'Gold Card','Diamond卡':'Diamond Card',
+// ---
 '好友':'Friends','总Power:':'Power:','离线':'Offline ','在线':'Online ',
 '副本进入次数已满！':'Dungeon limit reached!','上个副本评分太低！':'Last dungeon score too low!',
 '副本已达到最高层':'Max dungeon floor','已经在副本里面！':'Already in dungeon!',
@@ -1671,6 +1678,14 @@ function _patch(){
             if(_ldh&&_ldh.set){lp.__cwLH=true;Object.defineProperty(lp,'htmlText',{get:_ldh.get,set:function(v){_ldh.set.call(this,_rep(v));},configurable:true,enumerable:_ldh.enumerable});}
         }
     }
+    // Patch eui.Button.prototype.label so button labels are translated
+    if(typeof eui!=='undefined'&&eui.Button&&eui.Button.prototype){
+        var bp=eui.Button.prototype;
+        if(!bp.__cwBL){
+            var _bd=Object.getOwnPropertyDescriptor(bp,'label');
+            if(_bd&&_bd.set){bp.__cwBL=true;Object.defineProperty(bp,'label',{get:_bd.get,set:function(v){_bd.set.call(this,_rep(v));},configurable:true,enumerable:_bd.enumerable});}
+        }
+    }
     // Patch ServerSelectView.configUI: guard against null serverList
     if(typeof ServerSelectView!=='undefined'&&!ServerSelectView.prototype.__cwSSV){
         ServerSelectView.prototype.__cwSSV=true;
@@ -1812,7 +1827,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v84';
+document.title='EN v85';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
