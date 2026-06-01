@@ -3,7 +3,7 @@
 	<e:Group width="720" height="1280" y="0" horizontalCenter="0">
 		<ns1:BasePopUpView id="_basePopupSkin" width="100%" height="100%" x="0" y="0" skinName="BasePopUpSkin" scaleX="1" scaleY="1"/>
 		<e:Image source="tips_title_png" x="321" y="320" scaleX="1" scaleY="1"/>
-		<ns1:Button id="_closeBtn" label="Button" x="71" y="673" scaleX="1" scaleY="1">
+		<ns1:Button id="_closeBtn" label="Button" x="71" y="703" scaleX="1" scaleY="1">
 			<ns1:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="common_btn2_1_png" source.down="common_btn2_2_png"/>
@@ -11,7 +11,7 @@
 			</e:Skin>
 			</ns1:skinName>
 		</ns1:Button>
-		<ns1:Button id="_useBtn" label="Button" x="413" y="673" scaleX="1" scaleY="1">
+		<ns1:Button id="_useBtn" label="Button" x="413" y="703" scaleX="1" scaleY="1">
 			<ns1:skinName>
 			<e:Skin states="up,down,disabled">
 				<e:Image width="100%" height="100%" source="common_btn1_1_png" source.down="common_btn1_2_png"/>
@@ -20,8 +20,9 @@
 			</ns1:skinName>
 		</ns1:Button>
 		<ns1:BaseGoods id="_goods" width="141" height="141" y="405" skinName="BaseGoodsSkin" scaleX="1" scaleY="1" horizontalCenter="0"/>
-		<ns1:Label id="_nameTxt" text="1111" x="212" y="535" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="304" verticalAlign="middle" textAlign="center" textColor="0x7C6E62" scaleX="1" scaleY="1"/>
-		<ns1:AddItemsScroller id="_addScorlle" width="400" height="98" y="568" skinName="AddItemsScrollerSKin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
+		<!-- wider + wordWrap so long English item names wrap to 2 lines instead of clipping -->
+		<ns1:Label id="_nameTxt" text="1111" x="130" y="530" fontFamily="Microsoft YaHei" anchorOffsetX="0" width="460" textAlign="center" textColor="0x7C6E62" wordWrap="true" scaleX="1" scaleY="1"/>
+		<ns1:AddItemsScroller id="_addScorlle" width="400" height="98" y="600" skinName="AddItemsScrollerSKin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0"/>
 	</e:Group>
 
 
