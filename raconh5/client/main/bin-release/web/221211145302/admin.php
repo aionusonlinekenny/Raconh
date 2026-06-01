@@ -962,10 +962,11 @@ if ($action === 'setup') {
     if (empty($newEntries)) {
         $_SESSION['flash'] = ['type'=>'error','msg'=>'No new translations to export. Enter English values first, or all keys already exist in translate.js.'];
     } else {
-        // Insert before the very last entry (before 万)
-        $insertAt = count($entries);
-        for ($i=count($entries)-1;$i>=0;$i--) { if($entries[$i]['t']==='e'){$insertAt=$i;break;} }
-        array_splice($entries, $insertAt, 0, $newEntries);
+        // Sort by Chinese key length descending: longer (more specific) rules fire first.
+        // Then prepend before ALL existing entries so specific new rules are never
+        // blocked by shorter generic rules that are already in the dict.
+        usort($newEntries, function($a,$b){ return mb_strlen($b['k'],'UTF-8') - mb_strlen($a['k'],'UTF-8'); });
+        array_splice($entries, 0, 0, $newEntries);
         $err = jsSaveAndBump($entries);
         if ($err) {
             $_SESSION['flash'] = ['type'=>'error','msg'=>$err];
@@ -992,10 +993,8 @@ if ($action === 'setup') {
         } else {
             $ne = ['t'=>'e','k'=>$nk,'v'=>$nv];
             if ($after === '__end__') {
-                // Insert before the very last entry
-                $insertAt = count($entries);
-                for ($i=count($entries)-1;$i>=0;$i--) { if($entries[$i]['t']==='e'){$insertAt=$i;break;} }
-                array_splice($entries,$insertAt,0,[$ne]);
+                // Prepend so specific new rules fire before existing generic shorter rules
+                array_splice($entries, 0, 0, [$ne]);
             } else {
                 $out=[]; $inserted=false;
                 foreach ($entries as $e) {
