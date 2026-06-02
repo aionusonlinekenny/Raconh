@@ -195,16 +195,38 @@ git pull origin claude/xampp-setup-guide-vFsWS
 - If player opens `http://127.0.0.1/game/` → game connects to `ws://127.0.0.1:9002`
 - If player opens `http://192.168.1.100/game/` → game connects to `ws://192.168.1.100:9002`
 
-**Erlang game server** (Start_Server.bat) listens via `-extra game GAME_BIND GAME_PORT`:
-- `GAME_BIND=0.0.0.0` → accepts from all interfaces (LAN + localhost)
-- `GAME_BIND=127.0.0.1` → localhost only (single-machine testing)
-- `GAME_PORT=9002` → **must match what game JS connects to**
+**Erlang game server** (Start_Server.bat) starts with `-extra game GAME_BIND GAME_PORT`:
+- `game.beam` reads args as `[Master="game", _Index=GAME_BIND, Port=GAME_PORT]`
+- **`GAME_BIND` is the `_Index` positional argument and is IGNORED by Erlang code.**
+- `gen_tcp:listen(Port, [...])` in `sys_listener.erl` has no `{ip, _}` option → binds to **0.0.0.0** always.
+- `GAME_PORT=9002` → must match what game JS connects to.
 
 **No nginx proxy needed with XAMPP.** Apache does NOT proxy WebSocket on port 9002;
 Erlang handles port 9002 directly.
 
 > The file `raconh5/phpstudy_pro/Extensions/Nginx1.15.11/conf/vhosts/ws_proxy_9002.conf`
 > exists in the repo but is **NOT applicable** to XAMPP setups. Ignore it.
+
+### Erlang listener TCP options (from sys_listener.beam)
+```erlang
+gen_tcp:listen(Port, [binary, {packet,0}, {active,false}, {reuseaddr,true},
+    {nodelay,false},        % Nagle algorithm ON → small packets may be coalesced
+    {delay_send,true},      % buffers sends → 101 Switching Protocols may be delayed ~40ms
+    {send_timeout,5000},
+    {send_timeout_close,false}, {exit_on_close,false}])
+```
+- 10 acceptors spawned (`start_acceptor(10, LSocket)`)
+- `recv(Socket, 5, 5000)` reads first 5 bytes within 5s to detect protocol (WebSocket = `"GET /"`)
+- Bots/scanners that connect but never send data → `{tcp_error,timeout}` after 5s — normal/expected
+
+### PC players connecting slowly or intermittently
+Root cause checklist:
+1. **Windows Firewall** — port 9002 must have an inbound allow rule.
+   `Start_Server.bat` now runs `netsh advfirewall` automatically (requires admin).
+   Manual: Control Panel → Windows Defender Firewall → Inbound Rules → New Rule → Port 9002 TCP.
+2. **Router port forwarding** — for players outside the LAN, port 9002 must be forwarded to the server PC.
+3. **delay_send + nodelay:false** — adds ~40ms to the 101 WS handshake response. Compounded with high RTT, this can slow initial connection but should not cause failures.
+4. Mobile connects immediately because mobile is typically on the same WiFi (LAN) as the server — no firewall/NAT involved.
 
 ### Common mistake: changing GAME_PORT to 19002
 If Erlang is restarted with `GAME_PORT=19002` but there is no nginx proxy,

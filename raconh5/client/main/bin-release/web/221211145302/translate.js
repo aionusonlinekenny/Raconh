@@ -1731,6 +1731,7 @@ function _patch(){
             if(errLabel)errLabel.text='Verifying...';
             var xr=new XMLHttpRequest();
             xr.open('POST','auth.php',true);
+            xr.timeout=8000;
             xr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
             xr.onload=function(){
                 try{
@@ -1749,6 +1750,9 @@ function _patch(){
             };
             xr.onerror=function(){
                 if(errLabel)errLabel.text='Network error.';
+            };
+            xr.ontimeout=function(){
+                if(errLabel)errLabel.text='Server timeout. Try again.';
             };
             xr.send('username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password));
         };

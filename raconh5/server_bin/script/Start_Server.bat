@@ -1,12 +1,27 @@
 @echo off
 :: Erlang node name host (keep as 127.0.0.1 for local node naming)
 set MASTER_DOMAIN=127.0.0.1
-:: GAME_BIND: interface Erlang's game server listens on.
-::   127.0.0.1 = localhost only (single-machine, or behind a reverse proxy)
-::   0.0.0.0   = all interfaces (direct LAN/internet access, no proxy needed)
+:: NOTE: GAME_BIND is passed as the 2nd plain arg but Erlang code ignores it (_Index).
+::       Erlang's gen_tcp:listen always binds to 0.0.0.0 (all interfaces) by default.
+::       This variable is kept for documentation only.
 set GAME_BIND=0.0.0.0
 :: GAME_PORT must match what game client connects to (location.hostname:9002)
 set GAME_PORT=9002
+
+:: Open Windows Firewall for Erlang WebSocket port so LAN/internet players can connect.
+:: Requires admin rights; silently skip if rule already exists.
+netsh advfirewall firewall show rule name="Erlang Game WS %GAME_PORT%" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [Setup] Adding Windows Firewall rule for port %GAME_PORT%...
+    netsh advfirewall firewall add rule name="Erlang Game WS %GAME_PORT%" protocol=TCP dir=in localport=%GAME_PORT% action=allow >nul 2>&1
+    if %errorlevel% equ 0 (
+        echo [Setup] Firewall rule added OK.
+    ) else (
+        echo [WARN] Could not add firewall rule - run as Administrator if players cannot connect.
+    )
+) else (
+    echo [Setup] Firewall rule for port %GAME_PORT% already exists.
+)
 
 :: Tự động tính REPO_ROOT từ vị trí file bat (server_bin\script\ -> lên 2 cấp)
 pushd "%~dp0..\.."
