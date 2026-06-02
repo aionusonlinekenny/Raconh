@@ -70,6 +70,7 @@ define('THM_ORIG',   __DIR__ . '/resource/default.thm.json.original');
 define('TRANS_FILE', __DIR__ . '/cw_translations.json');
 define('JS_FILE',    __DIR__ . '/translate.js');
 define('HTML_FILE',  __DIR__ . '/index.html');
+define('EXTRA_FILE', __DIR__ . '/extra_translations.json');
 
 function gmExec(array $args) {
     if (!function_exists('shell_exec')) return 'error|shell_exec_disabled';
@@ -333,6 +334,25 @@ function jsSaveAndBump($entries) {
 }
 
 function hasCJK($s){return(bool)preg_match('/[\x{4e00}-\x{9fff}\x{3400}-\x{4dbf}]/u',$s);}
+
+// ── extra_translations.json management ──────────────────────────────────────
+// These are admin-managed translations loaded at runtime by translate.js.
+// Stored as a plain JSON object: {"Chinese": "English", ...}
+// translate.js is never modified — entries merge into _m at startup.
+
+function extraLoad() {
+    if (!file_exists(EXTRA_FILE)) return [];
+    $raw = file_get_contents(EXTRA_FILE);
+    $d = json_decode($raw, true);
+    return is_array($d) ? $d : [];
+}
+
+function extraSave(array $data) {
+    $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    if ($json === false) return 'JSON encode failed.';
+    if (file_put_contents(EXTRA_FILE, $json) === false) return 'Cannot write ' . EXTRA_FILE;
+    return null;
+}
 
 function scanCJK($sec){
     $found=[];$len=strlen($sec);$i=0;
@@ -1122,6 +1142,58 @@ if ($action === 'setup') {
     $p = (int)($_POST['lvpg'] ?? 1);
     header('Location: admin.php?tab=translation&tmode=live&lvsec=other&lvpg='.$p.($sec?'&lvsec_filter='.urlencode($sec):'')); exit;
 
+// ── Extra JS translations (extra_translations.json) ──────────────────────────
+} elseif ($action === 'extra_add') {
+    requireLogin();
+    $cn = trim($_POST['extra_cn'] ?? '');
+    $en = trim($_POST['extra_en'] ?? '');
+    if ($cn === '') { $_SESSION['flash']=['type'=>'error','msg'=>'Chinese key required.']; }
+    elseif ($en === '') { $_SESSION['flash']=['type'=>'error','msg'=>'English value required.']; }
+    else {
+        $data = extraLoad();
+        if (isset($data[$cn])) {
+            $_SESSION['flash']=['type'=>'error','msg'=>"Key already exists. Edit the existing row instead."];
+        } else {
+            $data[$cn] = $en;
+            $err = extraSave($data);
+            if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
+            else $_SESSION['flash']=['type'=>'success','msg'=>"Added: '$cn' → '$en'"];
+        }
+    }
+    header('Location: admin.php?tab=translation&tmode=extra&exq='.urlencode($_POST['exq']??'')); exit;
+
+} elseif ($action === 'extra_save_all') {
+    requireLogin();
+    $cns = $_POST['exk'] ?? [];
+    $ens = $_POST['exv'] ?? [];
+    if (count($cns) !== count($ens)) {
+        $_SESSION['flash']=['type'=>'error','msg'=>'Key/value count mismatch.'];
+    } else {
+        $data = extraLoad();
+        $changed = 0;
+        for ($i = 0; $i < count($cns); $i++) {
+            $k = $cns[$i]; $v = trim($ens[$i]);
+            if (isset($data[$k]) && $data[$k] !== $v) { $data[$k]=$v; $changed++; }
+        }
+        $err = extraSave($data);
+        if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
+        else $_SESSION['flash']=['type'=>'success','msg'=>"Saved $changed change(s) to extra_translations.json."];
+    }
+    header('Location: admin.php?tab=translation&tmode=extra&exq='.urlencode($_POST['exq']??'')); exit;
+
+} elseif ($action === 'extra_delete') {
+    requireLogin();
+    $dk = $_POST['del_k'] ?? '';
+    $data = extraLoad();
+    if (!isset($data[$dk])) { $_SESSION['flash']=['type'=>'error','msg'=>"Key not found."]; }
+    else {
+        unset($data[$dk]);
+        $err = extraSave($data);
+        if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
+        else $_SESSION['flash']=['type'=>'success','msg'=>"Deleted entry."];
+    }
+    header('Location: admin.php?tab=translation&tmode=extra&exq='.urlencode($_POST['exq']??'')); exit;
+
 // ── EXML patch ────────────────────────────────────────────────────────────────
 } elseif ($action === 'exml_patch') {
     requireLogin();
@@ -1175,6 +1247,7 @@ $trCwExists = file_exists(CW_FILE); $trOrigExists = file_exists(CW_ORIG);
 $jsAllEntries=[]; $jsEntries=[]; $jsFiltered=[]; $jsPageRows=[];
 $jsVersion=0; $jsQuery=''; $jsPage=1; $jsTotal=0; $jsPageCount=1;
 $jsAllKeys=[]; $jsPerPage=50; $tMode='cw';
+$exData=[]; $exFiltered=[]; $exQuery='';
 $setupMode = noAdmins();
 
 $players=$admins=$stats=[];
@@ -1378,7 +1451,7 @@ if (isLoggedIn()) {
 
     // ── Translation tab ──
     if ($activeTab === 'translation') {
-        $tMode = $_GET['tmode'] ?? 'cw'; // 'cw', 'js', or 'live'
+        $tMode = $_GET['tmode'] ?? 'cw'; // 'cw', 'js', 'live', or 'extra'
         // JS dict
         $jsAllEntries = jsParseDict();
         $jsVersion    = jsGetVersion();
@@ -1454,6 +1527,13 @@ if (isLoggedIn()) {
                 $lvRows = array_slice($all,($lvPage-1)*$lvPerPage,$lvPerPage);
             }
         }
+        // extra_translations.json
+        $exData = extraLoad();
+        $exQuery = trim($_GET['exq'] ?? '');
+        $exFiltered = $exQuery === '' ? $exData
+            : array_filter($exData, function($v,$k) use($exQuery){
+                return mb_stripos($k,$exQuery)!==false||mb_stripos($v,$exQuery)!==false;
+              }, ARRAY_FILTER_USE_BOTH);
     }
 
     // ── Game DB tab ──
@@ -2236,6 +2316,11 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           🔍 Live Scanner
           <small>Scan &amp; patch Chinese directly in cw.txt / EXML</small>
         </a>
+        <a href="admin.php?tab=translation&tmode=extra"
+           class="tr-stab <?=$tMode==='extra'?'active':''?>">
+          ✏️ Extra JS Translations
+          <small><?=count($exData)?> entries · never touches translate.js</small>
+        </a>
       </div>
 
       <?php if($tMode==='cw'): ?>
@@ -2737,6 +2822,71 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
       </form>
       <?php endif; ?>
       <?php endif; ?><!-- end lvsec if -->
+
+      <?php elseif($tMode==='extra'): ?>
+      <!-- ══ EXTRA JS TRANSLATIONS SUB-TAB ══ -->
+      <div style="margin-bottom:10px;font-size:13px;color:#8090b0">
+        Entries here are stored in <code>extra_translations.json</code> and merged into the game's
+        translation dictionary at page load. <strong>translate.js is never modified.</strong>
+        Useful for one-off string fixes without touching the JS file.
+      </div>
+
+      <!-- Add new entry form -->
+      <form method="POST" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+        <input type="hidden" name="action" value="extra_add">
+        <input type="hidden" name="exq" value="<?=htmlspecialchars($exQuery)?>">
+        <input type="text" name="extra_cn" placeholder="Chinese text (key)" required
+               style="flex:1;min-width:160px;padding:5px 8px;background:#1a2240;border:1px solid #4060a0;color:#c8d8ff;border-radius:4px">
+        <input type="text" name="extra_en" placeholder="English translation (value)" required
+               style="flex:2;min-width:200px;padding:5px 8px;background:#1a2240;border:1px solid #4060a0;color:#c8d8ff;border-radius:4px">
+        <button type="submit" class="btn btn-green btn-sm">+ Add</button>
+      </form>
+
+      <!-- Search -->
+      <form method="GET" style="display:flex;gap:6px;margin-bottom:10px">
+        <input type="hidden" name="tab" value="translation">
+        <input type="hidden" name="tmode" value="extra">
+        <input type="search" name="exq" value="<?=htmlspecialchars($exQuery)?>" placeholder="Search Chinese or English…"
+               style="flex:1;padding:5px 8px;background:#1a2240;border:1px solid #4060a0;color:#c8d8ff;border-radius:4px">
+        <button type="submit" class="btn btn-blue btn-sm">🔍</button>
+        <?php if($exQuery): ?><a href="admin.php?tab=translation&tmode=extra" class="btn btn-gray btn-sm">✕</a><?php endif; ?>
+      </form>
+
+      <?php if(empty($exFiltered)): ?>
+        <p style="color:#8090b0;font-style:italic"><?=$exQuery?'No matches.':'No extra translations yet. Add your first entry above.'?></p>
+      <?php else: ?>
+      <form method="POST">
+        <input type="hidden" name="action" value="extra_save_all">
+        <input type="hidden" name="exq" value="<?=htmlspecialchars($exQuery)?>">
+        <table class="data-table" style="width:100%">
+          <thead><tr><th style="width:40%">Chinese (key)</th><th>English (value)</th><th style="width:60px">Del</th></tr></thead>
+          <tbody>
+          <?php foreach($exFiltered as $k=>$v): ?>
+          <tr>
+            <td style="font-family:monospace;color:#e8c87c"><?=htmlspecialchars($k)?></td>
+            <td>
+              <input type="hidden" name="exk[]" value="<?=htmlspecialchars($k)?>">
+              <input type="text" name="exv[]" value="<?=htmlspecialchars($v)?>"
+                     style="width:100%;padding:3px 6px;background:#1a2240;border:1px solid #4060a0;color:#c8d8ff;border-radius:3px">
+            </td>
+            <td style="text-align:center">
+              <form method="POST" style="display:inline" onsubmit="return confirm('Delete this entry?')">
+                <input type="hidden" name="action" value="extra_delete">
+                <input type="hidden" name="del_k" value="<?=htmlspecialchars($k)?>">
+                <input type="hidden" name="exq" value="<?=htmlspecialchars($exQuery)?>">
+                <button type="submit" class="btn btn-red btn-sm" title="Delete">✕</button>
+              </form>
+            </td>
+          </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        <div style="margin-top:10px">
+          <button type="submit" class="btn btn-gold btn-sm">💾 Save All Changes</button>
+          <span style="margin-left:10px;color:#6070a0;font-size:12px"><?=count($exFiltered)?> entries shown</span>
+        </div>
+      </form>
+      <?php endif; ?>
 
       <?php endif; ?>
     </div>

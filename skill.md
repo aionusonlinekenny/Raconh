@@ -386,7 +386,22 @@ with open(thm_path, 'w', encoding='utf-8') as f:
 
 ### 2. Patch `LoginView.prototype.onClickHandler` trong `translate.js`
 
-Thêm vào hàm `_patch()` — chạy mỗi 500ms cho đến khi `LoginView` được định nghĩa:
+**QUAN TRỌNG — Lịch sử debug (v88→v89→v90):**
+
+| Version | Cách làm | Vấn đề |
+|---------|---------|--------|
+| v88 | Gọi `_origClick` với synthetic event `{currentTarget:self._btnEnter}` | TypeError — original handler gọi `e.stopPropagation()` v.v. trên plain object |
+| v89 | Block `socket.init=no-op`, gọi `_origClick.call(self, e)` với real event, sau đó restore và gọi real init từ XHR callback | First login after refresh luôn fail: client disconnect ngay sau khi server nhận login packet. Second attempt OK. |
+| **v90** | **Skip `_origClick` hoàn toàn** cho `_btnEnter` path. Set model fields trực tiếp, gọi `socket.init` chỉ từ XHR callback. | ✅ WORKING |
+
+**Tại sao v89 fail:** Decompile `main.min.js` xác nhận original handler chỉ làm 2 việc trước socket.init:
+```javascript
+Manager.model.getLogin().clientName = this._inputClient.text;
+egret.localStorage.setItem("username", this._inputClient.text);
+```
+Khi `_origClick` được gọi ngay cả với `socket.init` bị block thành no-op, game engine framework có thể set state nội bộ (flags, timers) giả định rằng một kết nối đang được thiết lập. Khi real `socket.init` được gọi ~200ms sau từ XHR callback, trạng thái pre-set đó gây conflict lần đầu tiên.
+
+**v90 — Code đúng cuối cùng:**
 
 ```javascript
 if (typeof LoginView !== 'undefined' && !LoginView.prototype.__cwAuth) {
@@ -408,23 +423,27 @@ if (typeof LoginView !== 'undefined' && !LoginView.prototype.__cwAuth) {
         }
         if (errLabel) errLabel.text = 'Verifying...';
 
+        // Replicate only the 2 pre-init lines from original handler — do NOT call _origClick
+        try { Manager.model.getLogin().clientName = username; } catch(_ex) {}
+        try { egret.localStorage.setItem('username', username); } catch(_ex) {}
+
         var xr = new XMLHttpRequest();
         xr.open('POST', 'auth.php', true);
+        xr.timeout = 8000;
         xr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xr.onload = function() {
             try {
                 var res = JSON.parse(xr.responseText || xr.response);
                 if (res.ok) {
                     if (errLabel) errLabel.text = '';
-                    Manager.model.getLogin().clientName = username;
-                    egret.localStorage.setItem('username', username);
-                    Manager.socket.init();   // chỉ gọi khi auth thành công
+                    try { Manager.socket.init.call(Manager.socket); } catch(_ex) {}
                 } else {
                     if (errLabel) errLabel.text = res.error || 'Login failed.';
                 }
             } catch(ex) { if (errLabel) errLabel.text = 'Server error.'; }
         };
         xr.onerror = function() { if (errLabel) errLabel.text = 'Network error.'; };
+        xr.ontimeout = function() { if (errLabel) errLabel.text = 'Server timeout. Try again.'; };
         xr.send('username=' + encodeURIComponent(username) +
                 '&password=' + encodeURIComponent(password));
     };
@@ -434,6 +453,38 @@ if (typeof LoginView !== 'undefined' && !LoginView.prototype.__cwAuth) {
 **Tại sao không cần WebSocket override hay session nữa:**
 - Auth chặn ngay tại nút Start Game trước khi `Manager.socket.init()` được gọi.
 - Không có cách nào bypass vì hàm gốc không bao giờ được gọi nếu auth fail.
+
+### 2b. `extra_translations.json` — Admin-managed translations (không đụng translate.js)
+
+File: `raconh5/client/main/bin-release/web/221211145302/extra_translations.json`
+
+Plain JSON object: `{"Chinese text": "English translation", ...}`
+
+**translate.js** load file này async lúc khởi động và merge vào `_m`:
+```javascript
+(function(){
+    var xr=new XMLHttpRequest();
+    xr.open('GET','extra_translations.json?_='+Date.now(),true);
+    xr.onload=function(){
+        try{
+            var ex=JSON.parse(xr.responseText||xr.response);
+            if(ex&&typeof ex==='object'){Object.keys(ex).forEach(function(k){_m[k]=ex[k];});}
+        }catch(_){}
+    };
+    xr.send(null);
+})();
+```
+
+**admin.php** có tab "✏️ Extra JS Translations" (`tmode=extra`) để:
+- Xem tất cả entries
+- Tìm kiếm (Chinese hoặc English)
+- Thêm entry mới (form ở đầu trang)
+- Sửa giá trị inline → Save All
+- Xóa từng entry
+
+**Quy tắc thứ tự (quan trọng):** `extra_translations.json` được load async, các entries được **append** vào `_m` sau khi `_m` gốc đã chạy xong. Nếu có key trùng → extra file **ghi đè** giá trị trong translate.js. Dùng điều này để "patch" các translation sai trong translate.js mà không cần sửa file.
+
+**Lưu ý timing:** Load là async (~vài ms), text được set SAU khi game render (user interaction). Với text hiển thị ngay lúc game load (title labels v.v.) có thể chưa kịp. Nhưng tooltip, button click, panel open → luôn có đủ thời gian.
 
 ### 3. `auth.php` — Chỉ login, không tạo account mới
 

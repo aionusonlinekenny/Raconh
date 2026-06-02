@@ -403,6 +403,22 @@ var _m={
 // --- Final-pass combos (must be last: depend on 次→x and 装备→Equip having already fired) ---
 '一xEquip':'1x Equip','一x Equip':'1x Equip'
 };
+// Load admin-managed extra translations at startup (non-blocking).
+// Entries are merged into _m so _rep() picks them up automatically.
+// File is managed via admin.php Translation tab → Extra JS Translations.
+(function(){
+    var xr=new XMLHttpRequest();
+    xr.open('GET','extra_translations.json?_='+Date.now(),true);
+    xr.onload=function(){
+        try{
+            var ex=JSON.parse(xr.responseText||xr.response);
+            if(ex&&typeof ex==='object'){
+                Object.keys(ex).forEach(function(k){_m[k]=ex[k];});
+            }
+        }catch(_){}
+    };
+    xr.send(null);
+})();
 var _npcN = {
   '一刀': 'OneSaber',
   '一刀99': 'OneSaber99',
@@ -1842,7 +1858,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v86';
+document.title='EN v91';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
