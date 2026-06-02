@@ -1709,6 +1709,10 @@ function _patch(){
     }
     // Patch LoginView.onClickHandler to require auth before socket.init()
     // _inputPassword and _lblError are in skinParts → bound directly to host instance
+    // v90: do NOT call _origClick at all — the original handler only sets clientName +
+    //      localStorage then calls socket.init(). We replicate those two lines manually
+    //      so no async game-engine side-effects (timers, state flags) are set up before
+    //      the XHR completes and we call the real socket.init().
     if(typeof LoginView!=='undefined'&&!LoginView.prototype.__cwAuth){
         LoginView.prototype.__cwAuth=true;
         var _origClick=LoginView.prototype.onClickHandler;
@@ -1731,15 +1735,12 @@ function _patch(){
             }
             if(errLabel)errLabel.text='Verifying...';
 
-            // Step 1 (sync, before XHR): temporarily block socket.init() so the original
-            // handler can set ALL model state (username, password, server selection)
-            // WITHOUT actually opening the WebSocket yet.
-            var _realInit=Manager.socket.init;
-            Manager.socket.init=function(){};
-            try{_origClick.call(self,e);}catch(_ex){}
-            Manager.socket.init=_realInit;
+            // Set model state directly (mirrors original handler's 2 pre-init lines)
+            // without calling _origClick, so no engine state is set up prematurely.
+            try{Manager.model.getLogin().clientName=username;}catch(_ex){}
+            try{egret.localStorage.setItem('username',username);}catch(_ex){}
 
-            // Step 2 (async): verify credentials via auth.php, then open socket on success.
+            // Async: verify credentials, then open socket on success.
             var xr=new XMLHttpRequest();
             xr.open('POST','auth.php',true);
             xr.timeout=8000;
