@@ -1716,6 +1716,7 @@ function _patch(){
             if(e.currentTarget!==this._btnEnter){
                 return _origClick.call(this,e);
             }
+            var self=this;
             var username=this._inputClient?this._inputClient.text:'';
             var pwdField=this._inputPassword;
             var errLabel=this._lblError;
@@ -1738,9 +1739,11 @@ function _patch(){
                     var res=JSON.parse(xr.responseText||xr.response);
                     if(res.ok){
                         if(errLabel)errLabel.text='';
-                        try{Manager.model.getLogin().clientName=username;}catch(ex){}
-                        try{egret.localStorage.setItem('username',username);}catch(ex){}
-                        Manager.socket.init();
+                        // Delegate to original handler so it sets up ALL model state
+                        // (username, password, server selection) then calls socket.init().
+                        // Pass a synthetic event so currentTarget check passes even though
+                        // the original DOM event may be stale after the async XHR callback.
+                        _origClick.call(self,{currentTarget:self._btnEnter});
                     }else{
                         if(errLabel)errLabel.text=res.error||'Login failed.';
                     }

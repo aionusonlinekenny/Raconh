@@ -20,19 +20,23 @@ set ERL_ERTS=%ERL_ROOT%\erts-10.4\bin
 set ERL_ROOT_ESC=%ERL_ROOT:\=\\%
 set ERL_ERTS_ESC=%ERL_ERTS:\=\\%
 
-(
-echo [erlang]
-echo Bindir=%ERL_ERTS_ESC%
-echo Progname=erl
-echo Rootdir=%ERL_ROOT_ESC%
-) > "%ERL_ROOT%\bin\erl.ini" 2>nul
+if exist "%ERL_ROOT%\bin\" (
+    (
+    echo [erlang]
+    echo Bindir=%ERL_ERTS_ESC%
+    echo Progname=erl
+    echo Rootdir=%ERL_ROOT_ESC%
+    ) > "%ERL_ROOT%\bin\erl.ini"
+)
 
-(
-echo [erlang]
-echo Bindir=%ERL_ERTS_ESC%
-echo Progname=erl
-echo Rootdir=%ERL_ROOT_ESC%
-) > "%ERL_ERTS%\erl.ini" 2>nul
+if exist "%ERL_ERTS%\" (
+    (
+    echo [erlang]
+    echo Bindir=%ERL_ERTS_ESC%
+    echo Progname=erl
+    echo Rootdir=%ERL_ROOT_ESC%
+    ) > "%ERL_ERTS%\erl.ini"
+)
 
 set PATH=%ERL_ROOT%\bin;%PATH%
 set ERL_ROOTDIR=%ERL_ROOT%
