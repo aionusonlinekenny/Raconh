@@ -956,120 +956,64 @@ if ($action === 'setup') {
     $_SESSION['flash'] = ['type'=>'success','msg'=>'Translation data cleared.'];
     header('Location: admin.php?tab=translation&tmode=cw'); exit;
 
-} elseif ($action === 'tr_export_js') {
+} elseif ($action === 'tr_export_extra') {
+    // Export cw.txt translations → extra_translations.json (SAFE: never touches translate.js)
     requireLogin();
     $trans = loadTrans();
-    $entries = jsParseDict();
-    // Build existing key lookup
-    $existing = [];
-    foreach ($entries as $e) if ($e['t']==='e') $existing[$e['k']] = true;
-    // Collect new translations not already in translate.js
-    // Use jsEscNew() so real newlines/backslashes from cw.txt don't break JS syntax
-    $newEntries = [];
-    $seenCN = []; // deduplicate: same Chinese text at multiple binary offsets
+    $extraData = extraLoad();
+    $newPairs = [];
+    $seenCN = [];
     foreach ($trans as $k => $row) {
         if ($row['en'] === '' || $row['en'] === $row['cn']) continue;
-        // Strip leading/trailing whitespace and binary control chars (keep \n \t in middle)
         $cn = preg_replace('/^[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\s]+|[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\s]+$/', '', $row['cn']);
         if ($cn === '') continue;
-        // Reject if binary control chars remain anywhere (garbage extraction)
         if (preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', $cn)) continue;
-        if (isset($existing[$cn])) continue; // already in dict
-        if (isset($seenCN[$cn])) continue;   // duplicate in this export batch
+        if (isset($extraData[$cn])) continue; // already in extra (don't overwrite manual edits)
+        if (isset($seenCN[$cn])) continue;
         $seenCN[$cn] = true;
-        $newEntries[] = ['t'=>'e','k'=>jsEscNew($cn),'v'=>jsEscNew($row['en'])];
+        $newPairs[$cn] = $row['en'];
     }
-    if (empty($newEntries)) {
-        $_SESSION['flash'] = ['type'=>'error','msg'=>'No new translations to export. Enter English values first, or all keys already exist in translate.js.'];
+    if (empty($newPairs)) {
+        $_SESSION['flash'] = ['type'=>'error','msg'=>'No new translations to export. Translate strings first, or all keys already exist in Extra JS Dict.'];
     } else {
-        // Sort by Chinese key length descending: longer (more specific) rules fire first.
-        // Then prepend before ALL existing entries so specific new rules are never
-        // blocked by shorter generic rules that are already in the dict.
-        usort($newEntries, function($a,$b){ return mb_strlen($b['k'],'UTF-8') - mb_strlen($a['k'],'UTF-8'); });
-        array_splice($entries, 0, 0, $newEntries);
-        $err = jsSaveAndBump($entries);
+        // Sort new entries by key length desc (longer/more-specific keys first)
+        uksort($newPairs, function($a,$b){ return mb_strlen($b,'UTF-8') - mb_strlen($a,'UTF-8'); });
+        // Merge: new entries first (prepend), then existing extra entries
+        $merged = array_merge($newPairs, $extraData);
+        $err = extraSave($merged);
         if ($err) {
             $_SESSION['flash'] = ['type'=>'error','msg'=>$err];
         } else {
-            $cnt = count($newEntries);
-            $_SESSION['flash'] = ['type'=>'success','msg'=>"Exported $cnt translations to translate.js v".jsGetVersion().". Game will use them immediately on next reload."];
+            $_SESSION['flash'] = ['type'=>'success','msg'=>count($newPairs).' translations saved to extra_translations.json. Game picks them up on next page reload.'];
         }
     }
     header('Location: admin.php?tab=translation&tmode=cw'); exit;
 
 } elseif ($action === 'js_add') {
+    // Redirect: new entries go to extra_translations.json, never to translate.js
     requireLogin();
     $nk = trim($_POST['new_k'] ?? '');
     $nv = trim($_POST['new_v'] ?? '');
-    $after = $_POST['after'] ?? '__end__';
     if ($nk === '') { $_SESSION['flash']=['type'=>'error','msg'=>'Chinese key is required.']; }
     elseif ($nv === '') { $_SESSION['flash']=['type'=>'error','msg'=>'English value is required.']; }
     else {
-        $entries = jsParseDict();
-        $dup = false;
-        foreach ($entries as $e) if ($e['t']==='e' && $e['k']===$nk) { $dup=true; break; }
-        if ($dup) {
-            $_SESSION['flash']=['type'=>'error','msg'=>"Key already exists: '$nk'. Edit the existing row instead."];
+        $data = extraLoad();
+        if (isset($data[$nk])) {
+            $_SESSION['flash']=['type'=>'error','msg'=>"Key already exists in Extra JS Dict: '$nk'. Edit it there."];
         } else {
-            $ne = ['t'=>'e','k'=>$nk,'v'=>$nv];
-            if ($after === '__end__') {
-                // Prepend so specific new rules fire before existing generic shorter rules
-                array_splice($entries, 0, 0, [$ne]);
-            } else {
-                $out=[]; $inserted=false;
-                foreach ($entries as $e) {
-                    $out[]=$e;
-                    if ($e['t']==='e'&&$e['k']===$after) { $out[]=$ne; $inserted=true; }
-                }
-                if (!$inserted) $out[]=$ne;
-                $entries=$out;
-            }
-            $err = jsSaveAndBump($entries);
+            $data[$nk] = $nv;
+            $err = extraSave($data);
             if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
-            else $_SESSION['flash']=['type'=>'success','msg'=>"Added '$nk' → '$nv'. v".jsGetVersion()." saved."];
+            else $_SESSION['flash']=['type'=>'success','msg'=>"Added '$nk' → '$nv' to extra_translations.json."];
         }
     }
-    header('Location: admin.php?tab=translation&tmode=js&jsq='.urlencode($_POST['jsq']??'')); exit;
+    header('Location: admin.php?tab=translation&tmode=extra'); exit;
 
-} elseif ($action === 'js_save_all') {
+} elseif ($action === 'js_save_all' || $action === 'js_delete') {
+    // translate.js is read-only from admin — direct to Extra JS Dict
     requireLogin();
-    $keys = $_POST['jk'] ?? [];
-    $vals = $_POST['jv'] ?? [];
-    if (count($keys) !== count($vals)) {
-        $_SESSION['flash']=['type'=>'error','msg'=>'Key/value count mismatch.'];
-    } else {
-        $updates = [];
-        for ($i=0;$i<count($keys);$i++) $updates[$keys[$i]] = trim($vals[$i]);
-        $entries = jsParseDict();
-        $changed = 0;
-        foreach ($entries as &$e) {
-            if ($e['t']==='e' && isset($updates[$e['k']]) && $updates[$e['k']] !== $e['v']) {
-                $e['v'] = $updates[$e['k']]; $changed++;
-            }
-        }
-        unset($e);
-        $err = jsSaveAndBump($entries);
-        if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
-        else $_SESSION['flash']=['type'=>'success','msg'=>"Saved $changed change(s). translate.js v".jsGetVersion()." written."];
-    }
-    $redir = 'admin.php?tab=translation&tmode=js';
-    if (!empty($_POST['jsq']))  $redir .= '&jsq='.urlencode($_POST['jsq']);
-    if (!empty($_POST['jspg'])) $redir .= '&jspg='.(int)$_POST['jspg'];
-    header('Location: '.$redir); exit;
-
-} elseif ($action === 'js_delete') {
-    requireLogin();
-    $dk = $_POST['del_k'] ?? '';
-    $entries = jsParseDict();
-    $cnt = count($entries);
-    $entries = array_values(array_filter($entries, fn($e)=>!($e['t']==='e'&&$e['k']===$dk)));
-    if (count($entries)===$cnt) { $_SESSION['flash']=['type'=>'error','msg'=>"Key not found: '$dk'"]; }
-    else {
-        $err = jsSaveAndBump($entries);
-        if ($err) $_SESSION['flash']=['type'=>'error','msg'=>$err];
-        else $_SESSION['flash']=['type'=>'success','msg'=>"Deleted '$dk'. v".jsGetVersion()." saved."];
-    }
-    header('Location: admin.php?tab=translation&tmode=js&jsq='.urlencode($_POST['jsq']??'')); exit;
+    $_SESSION['flash'] = ['type'=>'error','msg'=>'translate.js is read-only. To add/edit translations use the ✏️ Extra JS Dict tab.'];
+    header('Location: admin.php?tab=translation&tmode=js'); exit;
 
 // ── Live binary patch (lang section) ─────────────────────────────────────────
 } elseif ($action === 'live_patch_lang') {
@@ -2306,20 +2250,20 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           📄 cw.txt — Source Strings
           <small>Extract &amp; translate all <?=$trTotal>0?number_format($trTotal).' strings':'game source strings'?></small>
         </a>
-        <a href="admin.php?tab=translation&tmode=js<?=$jsQuery?'&jsq='.urlencode($jsQuery):''?>"
-           class="tr-stab <?=$tMode==='js'?'active':''?>">
-          ⚡ translate.js — Active Dictionary
-          <small><?=count($jsEntries)?> active rules · v<?=$jsVersion?></small>
+        <a href="admin.php?tab=translation&tmode=extra"
+           class="tr-stab <?=$tMode==='extra'?'active':''?>">
+          ✏️ Extra JS Dict
+          <small><?=count($exData)?> entries · safe · never touches translate.js</small>
         </a>
         <a href="admin.php?tab=translation&tmode=live&lvsec=<?=$lvSec?>"
            class="tr-stab <?=$tMode==='live'?'active':''?>">
           🔍 Live Scanner
           <small>Scan &amp; patch Chinese directly in cw.txt / EXML</small>
         </a>
-        <a href="admin.php?tab=translation&tmode=extra"
-           class="tr-stab <?=$tMode==='extra'?'active':''?>">
-          ✏️ Extra JS Translations
-          <small><?=count($exData)?> entries · never touches translate.js</small>
+        <a href="admin.php?tab=translation&tmode=js<?=$jsQuery?'&jsq='.urlencode($jsQuery):''?>"
+           class="tr-stab <?=$tMode==='js'?'active':''?>">
+          📋 Base Dict (read-only)
+          <small><?=count($jsEntries)?> rules · v<?=$jsVersion?> · reference only</small>
         </a>
       </div>
 
@@ -2335,16 +2279,16 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
           <input type="hidden" name="tmode" value="cw">
           <button type="submit" class="btn btn-gold btn-sm">⬇ Extract Strings</button></form>
         <?php if(file_exists(TRANS_FILE)): ?>
-        <form method="POST" style="display:inline" title="Fill empty translations using existing translate.js entries">
+        <form method="POST" style="display:inline" title="Pre-fill empty English boxes from translate.js base dict">
           <input type="hidden" name="action" value="tr_sync_js">
           <input type="hidden" name="tmode" value="cw">
-          <button type="submit" class="btn btn-blue btn-sm">🔄 Sync from translate.js</button></form>
+          <button type="submit" class="btn btn-blue btn-sm">🔄 Pre-fill from base dict</button></form>
         <?php endif; ?>
         <?php if(file_exists(TRANS_FILE)): ?>
-        <form method="POST" style="display:inline" onsubmit="return confirm('Export all translations to translate.js?\n\nThis is the SAFE option — game will not break.')">
-          <input type="hidden" name="action" value="tr_export_js">
+        <form method="POST" style="display:inline" onsubmit="return confirm('Export completed translations to extra_translations.json?\n\nSafe — translate.js is never touched.')">
+          <input type="hidden" name="action" value="tr_export_extra">
           <input type="hidden" name="tmode" value="cw">
-          <button type="submit" class="btn btn-green btn-sm">🚀 Export to translate.js</button></form>
+          <button type="submit" class="btn btn-green btn-sm">🚀 Export to Extra JS Dict</button></form>
         <?php endif; ?>
         <form method="POST" style="display:inline" onsubmit="return confirm('Apply to thm.json?')">
           <input type="hidden" name="action" value="tr_applythm">
@@ -2467,20 +2411,21 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
       <?php endif; ?>
 
       <?php elseif($tMode==='js'): ?>
-      <!-- ══ JS DICT SUB-TAB ══ -->
-      <div class="page-sub" style="margin-bottom:14px">
-        Edit the translate.js active dictionary. Saving auto-increments the version and updates index.html cache-bust.
-        &nbsp;
-        <span style="color:<?=file_exists(JS_FILE)?'#60d070':'#d06060'?>">
-          <?=file_exists(JS_FILE)?'✔ translate.js found':'✘ translate.js NOT found at '.htmlspecialchars(JS_FILE)?>
-        </span>
+      <!-- ══ JS DICT SUB-TAB — READ-ONLY VIEW ══ -->
+      <div style="background:#1a2830;border:1px solid #4a7040;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:13px">
+        🔒 <strong>translate.js is read-only from admin.</strong>
+        This tab shows the hardcoded base dictionary for reference only.
+        To add new translations or override entries here, use the
+        <a href="admin.php?tab=translation&tmode=extra" style="color:#80d8a0">✏️ Extra JS Dict</a> tab —
+        entries there load at startup and take priority over this base dict.
       </div>
 
       <!-- Stats -->
       <div class="jsd-stats">
-        <div class="jsd-stat"><div class="v"><?=count($jsEntries)?></div><div class="l">Active rules</div></div>
+        <div class="jsd-stat"><div class="v"><?=count($jsEntries)?></div><div class="l">Base rules</div></div>
         <div class="jsd-stat"><div class="v">v<?=$jsVersion?></div><div class="l">Version</div></div>
         <div class="jsd-stat"><div class="v"><?=file_exists(JS_FILE)?number_format(filesize(JS_FILE)).' B':'—'?></div><div class="l">File size</div></div>
+        <div class="jsd-stat"><div class="v"><?=count(extraLoad())?></div><div class="l">Extra entries</div></div>
       </div>
 
       <!-- Search -->
@@ -2488,112 +2433,70 @@ td.trunc{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowr
         <input type="hidden" name="tab" value="translation">
         <input type="hidden" name="tmode" value="js">
         <input type="search" name="jsq" value="<?=htmlspecialchars($jsQuery)?>"
-               placeholder="Search Chinese or English…" style="max-width:300px;font-size:13px;padding:8px 12px">
+               placeholder="Search base dictionary…" style="max-width:300px;font-size:13px;padding:8px 12px">
         <button type="submit" class="btn btn-blue btn-sm">Search</button>
         <?php if($jsQuery): ?>
           <a href="admin.php?tab=translation&tmode=js" class="btn btn-gray btn-sm">✕ Clear</a>
           <span style="font-size:12px;color:#607090"><?=$jsTotal?> result<?=$jsTotal==1?'':'s'?></span>
         <?php endif; ?>
+        <a href="admin.php?tab=translation&tmode=extra" class="btn btn-green btn-sm" style="margin-left:auto">
+          ✏️ Go to Extra JS Dict →
+        </a>
       </form>
 
-      <!-- Add new entry -->
-      <div class="jsd-add">
-        <h3>➕ Add new entry</h3>
-        <form method="POST">
-          <input type="hidden" name="action" value="js_add">
-          <input type="hidden" name="jsq"    value="<?=htmlspecialchars($jsQuery)?>">
-          <input type="hidden" name="tmode"  value="js">
-          <div class="jsd-row">
-            <div class="jsd-fg">
-              <label>Chinese key (exact text to match in game)</label>
-              <input type="text" name="new_k" placeholder="e.g. 攻击力增加" required style="font-family:monospace">
-            </div>
-            <div class="jsd-fg">
-              <label>English replacement</label>
-              <input type="text" name="new_v" placeholder="e.g. ATK Boost" required>
-            </div>
-            <div class="jsd-fg" style="max-width:240px">
-              <label>Insert position (after this key)</label>
-              <select name="after">
-                <option value="__end__">— Before last entry (万) —</option>
-                <?php foreach($jsAllKeys as $k): ?>
-                  <option value="<?=htmlspecialchars($k)?>"><?=htmlspecialchars(mb_strlen($k)>44?mb_substr($k,0,44).'…':$k)?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-            <div style="padding-bottom:2px">
-              <button type="submit" class="btn btn-green">➕ Add &amp; Save</button>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <!-- Entries table -->
+      <!-- Read-only entries table -->
       <?php if(!empty($jsPageRows)): ?>
-      <form method="POST">
-        <input type="hidden" name="action" value="js_save_all">
-        <input type="hidden" name="jsq"   value="<?=htmlspecialchars($jsQuery)?>">
-        <input type="hidden" name="jspg"  value="<?=$jsPage?>">
-        <input type="hidden" name="tmode" value="js">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
-          <span style="font-size:12px;color:#607090">
-            Showing <?=count($jsPageRows)?>/<?=$jsTotal?> entries
-            <?=$jsQuery ? '— filtered by "'.htmlspecialchars($jsQuery).'"' : ''?>
-            &nbsp;(page <?=$jsPage?>/<?=$jsPageCount?>)
-          </span>
-          <button type="submit" class="btn btn-gold btn-sm">💾 Save Changes on This Page</button>
-        </div>
-        <div class="table-wrap" style="max-height:640px">
-        <table class="jsd-tbl">
-          <thead><tr>
-            <th style="width:40px">#</th>
-            <th style="min-width:180px">Chinese Key</th>
-            <th style="min-width:240px">English Value (editable)</th>
-            <th style="width:56px">Del</th>
-          </tr></thead>
-          <tbody>
-          <?php foreach($jsPageRows as $idx=>$row): ?>
-          <tr>
-            <td style="color:#405060;font-size:11px"><?=($jsPage-1)*$jsPerPage+$idx+1?></td>
-            <td>
-              <div class="jsd-key"><?=htmlspecialchars($row['k'])?></div>
-              <input type="hidden" name="jk[]" value="<?=htmlspecialchars($row['k'])?>">
-            </td>
-            <td>
-              <input type="text" name="jv[]" value="<?=htmlspecialchars($row['v'])?>"
-                     class="jsd-vi" placeholder="English translation…">
-            </td>
-            <td>
-              <form method="POST" style="display:inline"
-                    onsubmit="return confirm('Delete entry:\n<?=addslashes(htmlspecialchars($row['k']))?>\n→ <?=addslashes(htmlspecialchars($row['v']))?>')">
-                <input type="hidden" name="action" value="js_delete">
-                <input type="hidden" name="del_k" value="<?=htmlspecialchars($row['k'])?>">
-                <input type="hidden" name="jsq"   value="<?=htmlspecialchars($jsQuery)?>">
-                <input type="hidden" name="tmode" value="js">
-                <button type="submit" class="btn btn-red btn-sm">✕</button>
-              </form>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-          </tbody>
-        </table>
-        </div>
-        <!-- Pager -->
-        <?php if($jsPageCount>1): ?>
-        <div class="jsd-pager">
-          <?php $pB='admin.php?tab=translation&tmode=js'.($jsQuery?'&jsq='.urlencode($jsQuery):''); ?>
-          <?php if($jsPage>1): ?><a href="<?=$pB?>&jspg=<?=$jsPage-1?>">‹ Prev</a><?php endif; ?>
-          <?php for($p=max(1,$jsPage-3);$p<=min($jsPageCount,$jsPage+3);$p++): ?>
-            <?php if($p===$jsPage): ?><span class="cur"><?=$p?></span>
-            <?php else: ?><a href="<?=$pB?>&jspg=<?=$p?>"><?=$p?></a><?php endif; ?>
-          <?php endfor; ?>
-          <?php if($jsPage<$jsPageCount): ?><a href="<?=$pB?>&jspg=<?=$jsPage+1?>">Next ›</a><?php endif; ?>
-        </div>
-        <?php endif; ?>
-        <div style="margin-top:12px">
-          <button type="submit" class="btn btn-gold">💾 Save Changes on This Page</button>
-        </div>
-      </form>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+        <span style="font-size:12px;color:#607090">
+          Showing <?=count($jsPageRows)?>/<?=$jsTotal?> base entries
+          <?=$jsQuery ? '— filtered by "'.htmlspecialchars($jsQuery).'"' : ''?>
+          &nbsp;(page <?=$jsPage?>/<?=$jsPageCount?>)
+        </span>
+        <span style="font-size:11px;color:#506050;font-style:italic">Read-only — use Extra JS Dict to add/edit</span>
+      </div>
+      <div class="table-wrap" style="max-height:640px">
+      <table class="jsd-tbl">
+        <thead><tr>
+          <th style="width:40px">#</th>
+          <th style="min-width:200px">Chinese Key</th>
+          <th style="min-width:240px">English Value</th>
+          <th style="width:90px">Override</th>
+        </tr></thead>
+        <tbody>
+        <?php
+        $extraKeys = array_keys(extraLoad());
+        foreach($jsPageRows as $idx=>$row):
+            $hasOverride = in_array($row['k'], $extraKeys);
+        ?>
+        <tr <?=$hasOverride?'style="opacity:.45" title="Overridden by Extra JS Dict"':''?>>
+          <td style="color:#405060;font-size:11px"><?=($jsPage-1)*$jsPerPage+$idx+1?></td>
+          <td><div class="jsd-key"><?=htmlspecialchars($row['k'])?></div></td>
+          <td style="color:#a8c8a0"><?=htmlspecialchars($row['v'])?></td>
+          <td style="text-align:center">
+            <?php if($hasOverride): ?>
+              <span style="color:#80d8a0;font-size:11px">✓ Extra</span>
+            <?php else: ?>
+              <a href="admin.php?tab=translation&tmode=extra&exq=<?=urlencode($row['k'])?>"
+                 class="btn btn-gray btn-sm" style="font-size:10px" title="Add override in Extra JS Dict">+ Extra</a>
+            <?php endif; ?>
+          </td>
+        </tr>
+        <?php endforeach; ?>
+        </tbody>
+      </table>
+      </div>
+      <!-- Pager -->
+      <?php if($jsPageCount>1): ?>
+      <div class="jsd-pager">
+        <?php $pB='admin.php?tab=translation&tmode=js'.($jsQuery?'&jsq='.urlencode($jsQuery):''); ?>
+        <?php if($jsPage>1): ?><a href="<?=$pB?>&jspg=<?=$jsPage-1?>">‹ Prev</a><?php endif; ?>
+        <?php for($p=max(1,$jsPage-3);$p<=min($jsPageCount,$jsPage+3);$p++): ?>
+          <?php if($p===$jsPage): ?><span class="cur"><?=$p?></span>
+          <?php else: ?><a href="<?=$pB?>&jspg=<?=$p?>"><?=$p?></a><?php endif; ?>
+        <?php endfor; ?>
+        <?php if($jsPage<$jsPageCount): ?><a href="<?=$pB?>&jspg=<?=$jsPage+1?>">Next ›</a><?php endif; ?>
+      </div>
+      <?php endif; ?>
       <?php elseif($jsQuery): ?>
         <p style="color:#607090;font-size:13px">No entries match "<?=htmlspecialchars($jsQuery)?>".</p>
       <?php else: ?>

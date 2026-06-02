@@ -413,7 +413,17 @@ var _m={
         try{
             var ex=JSON.parse(xr.responseText||xr.response);
             if(ex&&typeof ex==='object'){
-                Object.keys(ex).forEach(function(k){_m[k]=ex[k];});
+                var ks=Object.keys(ex);
+                if(ks.length>0){
+                    // Rebuild _m: extra entries first, sorted by length desc so longer
+                    // more-specific keys are matched before shorter generic ones.
+                    // Extra entries override translate.js entries when keys overlap.
+                    ks.sort(function(a,b){return b.length-a.length;});
+                    var nm={};
+                    ks.forEach(function(k){nm[k]=ex[k];});
+                    Object.keys(_m).forEach(function(k){if(!nm.hasOwnProperty(k))nm[k]=_m[k];});
+                    _m=nm;
+                }
             }
         }catch(_){}
     };
@@ -1858,7 +1868,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v91';
+document.title='EN v92';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){

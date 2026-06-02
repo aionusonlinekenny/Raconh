@@ -482,9 +482,50 @@ Plain JSON object: `{"Chinese text": "English translation", ...}`
 - Sửa giá trị inline → Save All
 - Xóa từng entry
 
-**Quy tắc thứ tự (quan trọng):** `extra_translations.json` được load async, các entries được **append** vào `_m` sau khi `_m` gốc đã chạy xong. Nếu có key trùng → extra file **ghi đè** giá trị trong translate.js. Dùng điều này để "patch" các translation sai trong translate.js mà không cần sửa file.
+**Thứ tự key trong `_m` (v92+):** `_rep()` dùng `for(var k in _m)` — key nào ở đầu được xét trước. Nếu key ngắn ở trước sẽ "match sớm" và khiến key dài hơn không còn gì để match. Vì vậy v92 rebuild `_m` khi load extra entries:
+```javascript
+ks.sort(function(a,b){return b.length-a.length;}); // extra keys sorted longest-first
+var nm={};
+ks.forEach(function(k){nm[k]=ex[k];});             // extra entries FIRST in nm
+Object.keys(_m).forEach(function(k){if(!nm.hasOwnProperty(k))nm[k]=_m[k];}); // then base
+_m=nm;  // reassign — _rep() uses new object
+```
+- Extra entries được xét TRƯỚC base entries → chúng override đúng
+- Key trùng: extra wins (dùng điều này để "patch" translation sai trong translate.js mà không cần sửa file)
 
 **Lưu ý timing:** Load là async (~vài ms), text được set SAU khi game render (user interaction). Với text hiển thị ngay lúc game load (title labels v.v.) có thể chưa kịp. Nhưng tooltip, button click, panel open → luôn có đủ thời gian.
+
+### 2c. Admin Translation Workflow (Safe — translate.js không bao giờ bị chạm)
+
+```
+[Admin dịch string]
+         │
+         ├─► Tab "📄 cw.txt Scan"
+         │     1. Extract Strings → scan binary, lưu vào cw_translations.json DB
+         │     2. Pre-fill from base dict → điền sẵn English từ translate.js
+         │     3. Nhập English cho các string chưa dịch
+         │     4. 🚀 Export to Extra JS Dict → ghi vào extra_translations.json
+         │                                     ↑ KHÔNG đụng translate.js
+         │
+         ├─► Tab "✏️ Extra JS Dict" (primary write target)
+         │     - Add/edit/delete entries trong extra_translations.json
+         │     - Tìm kiếm, sửa inline, xoá
+         │
+         ├─► Tab "🔍 Live Scanner"
+         │     - Patch cw.txt binary trực tiếp (language section)
+         │     - Patch EXML strings
+         │
+         └─► Tab "📋 Base Dict (read-only)"
+               - Xem translate.js _m entries để tham khảo
+               - "+ Extra" button: redirect sang Extra JS Dict với key đó
+               - Entries bị override bởi Extra sẽ bị mờ đi (opacity 0.45)
+               - KHÔNG có nút Save/Delete/Add → translate.js được bảo vệ
+```
+
+**Tại sao translate.js không được chỉnh từ admin:**
+- translate.js chứa login auth patch (`__cwAuth`) — nếu file bị hỏng syntax → login sẽ không chạy
+- `jsSaveAndBump` dùng regex để rewrite `_m` dict — hoạt động đúng về mặt kỹ thuật nhưng có rủi ro nếu parse thất bại với special chars
+- `extra_translations.json` là plain JSON → không có rủi ro syntax error, không ảnh hưởng login
 
 ### 3. `auth.php` — Chỉ login, không tạo account mới
 
