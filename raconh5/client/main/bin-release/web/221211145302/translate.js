@@ -429,23 +429,6 @@ var _m={
     };
     xr.send(null);
 })();
-// v93: Block premature WebSocket connections that fire on page load before auth.
-// Polls until Manager.socket is available, then wraps init() so it's a no-op
-// until _cwSocketReady() is called by the login patch on auth success.
-// After first auth, restores the real init so reconnects work without re-auth.
-(function(){
-    function _tryGuard(){
-        if(typeof Manager==='undefined'||!Manager.socket||!Manager.socket.init||Manager.socket.__cwG)return;
-        Manager.socket.__cwG=true;
-        var _ri=Manager.socket.init.bind(Manager.socket);
-        Manager.socket.init=function(){/* blocked until auth */};
-        window._cwSocketReady=function(){
-            Manager.socket.init=_ri;
-            try{_ri();}catch(e){}
-        };
-    }
-    [0,100,500,1000,2000,4000].forEach(function(d){setTimeout(_tryGuard,d);});
-})();
 var _npcN = {
   '一刀': 'OneSaber',
   '一刀99': 'OneSaber99',
@@ -1793,10 +1776,7 @@ function _patch(){
                     var res=JSON.parse(xr.responseText||xr.response);
                     if(res.ok){
                         if(errLabel)errLabel.text='';
-                        try{
-                            if(typeof window._cwSocketReady==='function')window._cwSocketReady();
-                            else Manager.socket.init.call(Manager.socket);
-                        }catch(_ex){}
+                        try{Manager.socket.init.call(Manager.socket);}catch(_ex){}
                     }else{
                         if(errLabel)errLabel.text=res.error||'Login failed.';
                     }
@@ -1909,7 +1889,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v94';
+document.title='EN v95';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
