@@ -1730,6 +1730,16 @@ function _patch(){
                 return;
             }
             if(errLabel)errLabel.text='Verifying...';
+
+            // Step 1 (sync, before XHR): temporarily block socket.init() so the original
+            // handler can set ALL model state (username, password, server selection)
+            // WITHOUT actually opening the WebSocket yet.
+            var _realInit=Manager.socket.init;
+            Manager.socket.init=function(){};
+            try{_origClick.call(self,e);}catch(_ex){}
+            Manager.socket.init=_realInit;
+
+            // Step 2 (async): verify credentials via auth.php, then open socket on success.
             var xr=new XMLHttpRequest();
             xr.open('POST','auth.php',true);
             xr.timeout=8000;
@@ -1739,11 +1749,7 @@ function _patch(){
                     var res=JSON.parse(xr.responseText||xr.response);
                     if(res.ok){
                         if(errLabel)errLabel.text='';
-                        // Delegate to original handler so it sets up ALL model state
-                        // (username, password, server selection) then calls socket.init().
-                        // Pass a synthetic event so currentTarget check passes even though
-                        // the original DOM event may be stale after the async XHR callback.
-                        _origClick.call(self,{currentTarget:self._btnEnter});
+                        try{Manager.socket.init.call(Manager.socket);}catch(_ex){}
                     }else{
                         if(errLabel)errLabel.text=res.error||'Login failed.';
                     }
