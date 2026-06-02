@@ -8,21 +8,6 @@ set GAME_BIND=0.0.0.0
 :: GAME_PORT must match what game client connects to (location.hostname:9002)
 set GAME_PORT=9002
 
-:: Open Windows Firewall for Erlang WebSocket port so LAN/internet players can connect.
-:: Requires admin rights; silently skip if rule already exists.
-netsh advfirewall firewall show rule name="Erlang Game WS %GAME_PORT%" >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [Setup] Adding Windows Firewall rule for port %GAME_PORT%...
-    netsh advfirewall firewall add rule name="Erlang Game WS %GAME_PORT%" protocol=TCP dir=in localport=%GAME_PORT% action=allow >nul 2>&1
-    if %errorlevel% equ 0 (
-        echo [Setup] Firewall rule added OK.
-    ) else (
-        echo [WARN] Could not add firewall rule - run as Administrator if players cannot connect.
-    )
-) else (
-    echo [Setup] Firewall rule for port %GAME_PORT% already exists.
-)
-
 :: Tự động tính REPO_ROOT từ vị trí file bat (server_bin\script\ -> lên 2 cấp)
 pushd "%~dp0..\.."
 set REPO_ROOT=%CD%
@@ -40,14 +25,14 @@ echo [erlang]
 echo Bindir=%ERL_ERTS_ESC%
 echo Progname=erl
 echo Rootdir=%ERL_ROOT_ESC%
-) > "%ERL_ROOT%\bin\erl.ini"
+) > "%ERL_ROOT%\bin\erl.ini" 2>nul
 
 (
 echo [erlang]
 echo Bindir=%ERL_ERTS_ESC%
 echo Progname=erl
 echo Rootdir=%ERL_ROOT_ESC%
-) > "%ERL_ERTS%\erl.ini"
+) > "%ERL_ERTS%\erl.ini" 2>nul
 
 set PATH=%ERL_ROOT%\bin;%PATH%
 set ERL_ROOTDIR=%ERL_ROOT%
