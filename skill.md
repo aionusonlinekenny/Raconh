@@ -1316,3 +1316,113 @@ for tname, entries in tables.items():
 | `5c467926` | Fix XML &amp; trong CopyExp/CopySilverViewSkin |
 | `3e1e53f0` | Dịch club\|15 welcome message binary patch |
 
+---
+
+# translate.js v93 — Socket Guard + Pet Panel Fix
+
+## v93 Changes (translate.js)
+
+### 1. Socket Guard — Block premature WebSocket auto-connect
+
+**Vấn đề:** `socket.min.js` tự động kết nối đến game server ngay khi load (trước khi user login). Server drop sau 5s (`{tcp_error,timeout}`). Làm xuất hiện WS connection đầu tiên trong network tab TRƯỚC `auth.php`.
+
+**Fix:** Sau khi `extra_translations.json` loader, thêm IIFE poll cho `Manager.socket`:
+```javascript
+(function(){
+    function _tryGuard(){
+        if(typeof Manager==='undefined'||!Manager.socket||!Manager.socket.init||Manager.socket.__cwG)return;
+        Manager.socket.__cwG=true;
+        var _ri=Manager.socket.init.bind(Manager.socket);
+        Manager.socket.init=function(){/* blocked until auth */};
+        window._cwSocketReady=function(){
+            Manager.socket.init=_ri; // restore for reconnects
+            try{_ri();}catch(e){}
+        };
+    }
+    [0,100,500,1000,2000,4000].forEach(function(d){setTimeout(_tryGuard,d);});
+})();
+```
+
+**Quan trọng:** Sau khi `_cwSocketReady()` chạy lần đầu, `Manager.socket.init` được **restore về real init** để engine reconnect tự nhiên hoạt động bình thường (không cần re-auth mỗi lần reconnect).
+
+Login patch (v90) thay `Manager.socket.init.call(Manager.socket)` bằng:
+```javascript
+if(typeof window._cwSocketReady==='function')window._cwSocketReady();
+else Manager.socket.init.call(Manager.socket);
+```
+
+### 2. `benefit_data` — Unknown table (harmless)
+
+Server gửi `benefit_data` trong binary `res/cw.txt` (blob parsed bởi CVOManager). Client `CVOManager.loadFileData()` không có `case "benefit_data"` → hit `default:` → `Trace.error("未定义的表","benefit_data")`. Game tiếp tục bình thường.
+
+**Không cần sửa** — chỉ là console noise. Không có `benefit_data.beam` trong `server_bin/ebin/`, không tìm thấy trong client TypeScript sources. Likely là một feature chưa hoàn chỉnh từ game source.
+
+### 3. PetView2 stat label wrap fix
+
+**Vấn đề:** Trên PC browser, Spirit Pet panel thiếu dòng "Pen+21900":
+- Mobile (iOS): "Max HP+350600 / ATK+17560 / DEF+61320 / Pen+21900" (4 dòng, đúng)
+- PC browser: "Max HP+35060 / 0 / ATK+17560 / DEF+61320" (Pen mất)
+
+**Root cause:** `PetView2.ts` tạo `_attrTxt = TextField.create(180, 164)` (width=180, height=164, size=24). Tất cả 4 stats là 1 multi-line label với `\n`. "Max HP+350600" (13 chars × ~14px = 182px) vượt 180px → wrap thành 2 dòng trên PC khi font fallback rộng hơn (Microsoft YaHei không có trên Mac/Linux Chrome).
+
+Khi wrap xảy ra:
+- Line 1: "Max HP+35060" 
+- Line 2: "0" (overflow từ "350600")
+- Line 3: "ATK+17560"
+- Line 4: "DEF+61320"
+- Line 5: "Pen+21900" → clipped bởi `height=164` (5 dòng × 44px = 220px > 164px)
+
+**Fix trong translate.js** (patch `PetView2.prototype.start`):
+```javascript
+if(typeof PetView2!=='undefined'&&!PetView2.prototype.__cwPV2){
+    PetView2.prototype.__cwPV2=true;
+    var _origPV2Start=PetView2.prototype.start;
+    PetView2.prototype.start=function(){
+        _origPV2Start.call(this);
+        try{if(this._attrTxt)this._attrTxt.size=22;}catch(e){}
+    };
+}
+```
+
+Size 24→22: 8% nhỏ hơn → "Max HP+350600" ≈ 167px < 180px → không wrap, 4 dòng vừa đúng trong 164px.
+
+**Lý do dùng translate.js patch thay vì sửa TypeScript:** `PetView2.ts` là programmatic view (không dùng EXML) → sync_exml.bat không ảnh hưởng. Cần rebuild TypeScript để sửa source. Translate.js patch nhanh hơn và không ảnh hưởng đến các view khác.
+
+## PC Connectivity — Multi-connect Pattern (normal)
+
+Network log thấy nhiều WS connections (5.06s mỗi cái) là bình thường sau khi v93:
+- Sau auth thành công: 1 WS kết nối → game load đầy đủ (Erlang log confirm)
+- Heartbeat timeout 80s → server disconnect
+- Engine auto-reconnect → WS connect mới → game reload không cần re-enter password
+
+## index.php Cleanup
+
+Cả 2 `index.php` đã xóa:
+- `bin-release/.../index.php` (v64, no auth)
+- `client/main/index.php` (PHP session gate, v51)
+
+**Lý do quan trọng:** Apache's `DirectoryIndex` serve `.php` TRƯỚC `.html`. Khi cả 2 file cùng tồn tại, players hit `index.php` (old) thay vì `index.html` (v93 với login patch).
+
+## sessionStorage Redirect Removed (index.html)
+
+Removed từ `index.html`:
+```javascript
+// REMOVED — was blocking PC players with fresh sessionStorage
+(function() {
+    var u = new URLSearchParams(window.location.search).get('username')
+            || sessionStorage.getItem('cw_game_user');
+    if (!u) window.location.href = 'login.php';
+})();
+```
+iPhone works vì đã có `cw_game_user` trong sessionStorage từ session cũ. PC fresh session không có → bị redirect → game không load → không có WS connection nào tới Erlang.
+
+## Commits
+
+| Commit | Nội dung |
+|--------|---------|
+| `46267305` | Remove obsolete sessionStorage redirect from index.html |
+| `9f8c1f1c` | Remove obsolete index.php files (Apache DirectoryIndex issue) |
+| `8185fd66` | translate.js v93: block premature WebSocket auto-connect |
+| (current) | translate.js v93: PetView2 stat label size fix |
+
+

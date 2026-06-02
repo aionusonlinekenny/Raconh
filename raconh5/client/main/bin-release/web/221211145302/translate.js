@@ -1860,6 +1860,17 @@ function _patch(){
         };
     }
     _fixAttrCVO();
+    // Patch PetView2._attrTxt: reduce font size 24→22 so translated stat labels
+    // ("Max HP+350600" etc.) don't wrap in the 180px container on PC browsers
+    // where Microsoft YaHei falls back to a wider font.
+    if(typeof PetView2!=='undefined'&&!PetView2.prototype.__cwPV2){
+        PetView2.prototype.__cwPV2=true;
+        var _origPV2Start=PetView2.prototype.start;
+        PetView2.prototype.start=function(){
+            _origPV2Start.call(this);
+            try{if(this._attrTxt)this._attrTxt.size=22;}catch(e){}
+        };
+    }
     _retranslate();
 }
 function _retranslate(){
