@@ -1871,6 +1871,16 @@ function _patch(){
             try{if(this._attrTxt)this._attrTxt.size=22;}catch(e){}
         };
     }
+    // Patch PetSkillView.configUI: increase bgHeight 370→440 to accommodate
+    // 2-line description text after EXML _descTxt width constraint was added.
+    if(typeof PetSkillView!=='undefined'&&!PetSkillView.prototype.__cwPSV){
+        PetSkillView.prototype.__cwPSV=true;
+        var _origPSVConfig=PetSkillView.prototype.configUI;
+        PetSkillView.prototype.configUI=function(){
+            _origPSVConfig.call(this);
+            try{if(this._baseView)this._baseView.bgHeight=440;}catch(e){}
+        };
+    }
     _retranslate();
 }
 function _retranslate(){
@@ -1899,7 +1909,7 @@ function _retranslate(){
     }
     walk(s);
 }
-document.title='EN v93';
+document.title='EN v94';
 _patch();
 var _t=setInterval(function(){_patch();},500);
 setTimeout(function(){
