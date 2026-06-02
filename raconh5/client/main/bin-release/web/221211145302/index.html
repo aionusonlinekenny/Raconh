@@ -26,15 +26,6 @@
     <audio id="1002" class="media-audio" src="resource/res/sound/1002.mp3" preload loop="loop"></audio >
     <audio id="1001" class="media-audio" src="resource/res/sound/1001.mp3" preload loop="loop"></audio >
 	<script>
-        // Redirect to login portal if no username (URL param or sessionStorage)
-        (function() {
-            var u = new URLSearchParams(window.location.search).get('username')
-                    || sessionStorage.getItem('cw_game_user');
-            if (!u) window.location.href = 'login.php';
-        })();
-
-
-
         var version = Math.random();
 		function showLoading()
 		{
