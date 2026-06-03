@@ -1478,6 +1478,41 @@ Removed từ `index.html`:
 ```
 iPhone works vì đã có `cw_game_user` trong sessionStorage từ session cũ. PC fresh session không có → bị redirect → game không load → không có WS connection nào tới Erlang.
 
+## Repo Cleanup (v95+)
+
+Xóa các file gây nhầm lẫn / conflict với in-game auth overlay:
+
+| File đã xóa | Lý do |
+|---|---|
+| `bin-release/.../login.php` | Web portal tạo redirect 302 loop; translate.js v95 không dùng sessionStorage → portal vô dụng |
+| `bin-release/.../logout.php` | Chỉ redirect về login.php (đã xóa) |
+| `client/main/login.php` | Bản cũ, duplicate |
+| `client/main/logout.php` | Bản cũ, duplicate |
+| `client/main/test_db.php` | File test với hardcoded credentials, không phù hợp trong repo |
+| `client/main/api/server_list.php` | Bản sao y hệt của `bin-release/.../api/server_list.php` |
+
+Đã sửa `client/main/index.html`: xóa sessionStorage redirect + cập nhật `?v=50` → `?v=95`.
+
+**Kiến trúc hiện tại (sạch):**
+```
+http://134.22.38.31/
+  └── index.html          ← entry point duy nhất
+       └── translate.js v95
+            └── in-game login overlay
+                 └── auth.php (AJAX, POST)
+                      └── socket.init() → Erlang
+```
+
+Không có login.php, không có session redirect, không có web portal. Một đường duy nhất.
+
+**Files PHP trong game directory (bin-release/.../):  **
+- `auth.php` — AJAX login (POST username/password → JSON)
+- `server_list.php` — proxy to Erlang center port 8220
+- `api/server_list.php` — same proxy, called by game via `apiUrl+"server_list.php"`
+- `save_role.php` — lưu erlang_role_id → web_users (auth.php đặt $_SESSION['game_user'])
+- `admin.php` — admin panel
+- `sync_exml.php` — EXML sync dev tool
+
 ## Commits
 
 | Commit | Nội dung |
@@ -1488,5 +1523,6 @@ iPhone works vì đã có `cw_game_user` trong sessionStorage từ session cũ. 
 | `e253ec46` | translate.js v93: PetView2 stat label size fix |
 | `821fc6f0` | v94: fix PetSkillView description text overflow |
 | `578ba662` | v95: remove socket guard IIFE — **fix PC login** |
+| (current) | Cleanup: remove login.php/logout.php/test_db.php/duplicate api/server_list.php |
 
 
