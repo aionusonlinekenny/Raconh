@@ -1322,12 +1322,15 @@ for tname, entries in tables.items():
 
 ## v93 Changes (translate.js)
 
-### 1. Socket Guard — Block premature WebSocket auto-connect
+### 1. Socket Guard — Block premature WebSocket auto-connect [ĐÃ XÓA TRONG v95 — GÂY LỖI]
 
-**Vấn đề:** `socket.min.js` tự động kết nối đến game server ngay khi load (trước khi user login). Server drop sau 5s (`{tcp_error,timeout}`). Làm xuất hiện WS connection đầu tiên trong network tab TRƯỚC `auth.php`.
+> ⚠️ **CẢNH BÁO: Đây là nguyên nhân gây ra lỗi PC login không kết nối được.** Socket guard đã được xóa hoàn toàn trong v95. Chi tiết xem phần "v95 — Socket Guard Bug & Fix" bên dưới.
 
-**Fix:** Sau khi `extra_translations.json` loader, thêm IIFE poll cho `Manager.socket`:
+**Lý do thêm vào:** Tưởng rằng `socket.min.js` tự động kết nối đến game server ngay khi load (trước khi user login). Thực tế: `main.min.js` chỉ có đúng MỘT lần gọi `Manager.socket.init()` — trong `_btnEnter` handler của login button, vốn đã bị translate.js intercept hoàn toàn. Không có auto-connect nào xảy ra. Guard là không cần thiết.
+
+**Code đã thêm (v93) — ĐÃ XÓA TRONG v95:**
 ```javascript
+// [XÓA — GÂY LỖI PC LOGIN]
 (function(){
     function _tryGuard(){
         if(typeof Manager==='undefined'||!Manager.socket||!Manager.socket.init||Manager.socket.__cwG)return;
@@ -1336,17 +1339,16 @@ for tname, entries in tables.items():
         Manager.socket.init=function(){/* blocked until auth */};
         window._cwSocketReady=function(){
             Manager.socket.init=_ri; // restore for reconnects
-            try{_ri();}catch(e){}
+            try{_ri();}catch(e){}   // ← BUG: nuốt lỗi thầm lặng
         };
     }
     [0,100,500,1000,2000,4000].forEach(function(d){setTimeout(_tryGuard,d);});
 })();
 ```
 
-**Quan trọng:** Sau khi `_cwSocketReady()` chạy lần đầu, `Manager.socket.init` được **restore về real init** để engine reconnect tự nhiên hoạt động bình thường (không cần re-auth mỗi lần reconnect).
-
-Login patch (v90) thay `Manager.socket.init.call(Manager.socket)` bằng:
+Login patch (v90→v93) thay `Manager.socket.init.call(Manager.socket)` bằng:
 ```javascript
+// [XÓA — GÂY LỖI PC LOGIN]
 if(typeof window._cwSocketReady==='function')window._cwSocketReady();
 else Manager.socket.init.call(Manager.socket);
 ```
@@ -1388,6 +1390,66 @@ Size 24→22: 8% nhỏ hơn → "Max HP+350600" ≈ 167px < 180px → không wra
 
 **Lý do dùng translate.js patch thay vì sửa TypeScript:** `PetView2.ts` là programmatic view (không dùng EXML) → sync_exml.bat không ảnh hưởng. Cần rebuild TypeScript để sửa source. Translate.js patch nhanh hơn và không ảnh hưởng đến các view khác.
 
+---
+
+# translate.js v95 — Socket Guard Bug & Fix
+
+## Nguyên nhân lỗi: PC Firefox/Chrome không kết nối được
+
+**Triệu chứng:**
+- iPhone đăng nhập OK, PC Firefox/Chrome không kết nối được
+- Erlang server log chỉ thấy `{tcp_error,timeout}`, không có login packet nào
+- Browser network tab: `auth.php` trả về 200 OK, nhưng 4× WebSocket connections đều 0 bytes received
+- Tab title hiện "EN-HOOK v3" (phiên bản cũ trước khi có translate.js login patch)
+
+**Root cause — Socket guard IIFE (v93):**
+
+Luồng thực tế khi PC login sau v93:
+1. User nhấn Enter → translate.js intercept `_btnEnter`
+2. `auth.php` POST → trả về `{ok:true}`
+3. translate.js gọi `window._cwSocketReady()` (từ v93 guard)
+4. `_cwSocketReady()` restore `Manager.socket.init = _ri` rồi gọi `try{_ri();}catch(e){}`
+5. `_ri()` = `Manager.socket.init.bind(Manager.socket)` — **có thể ném exception trên PC Chrome/Firefox** (khác biệt về timing hoặc WebSocket API behavior)
+6. `catch(e){}` nuốt exception thầm lặng — không có gì xảy ra
+7. WebSocket TCP handshake VẪN thành công (101) nhờ connection cũ hoặc retry của engine
+8. Nhưng `onSocketOpen` không fire đúng → `sendServerNeedCMD()` không gửi → không có `"game_client"` packet nào đến Erlang
+9. Erlang đợi 5s → `{tcp_error,timeout}` → close → client `reConnect()` → vòng lặp
+
+**Tại sao iPhone hoạt động:** iOS WebSocket implementation khác PC — `_ri()` không ném exception trên iOS, nên hoạt động bình thường.
+
+**Tại sao guard là không cần thiết:**
+- Kiểm tra `main.min.js`: chỉ có đúng 1 lần gọi `Manager.socket.init()` — trong `_btnEnter` case của `onClickHandler`
+- translate.js đã intercept `onClickHandler` hoàn toàn
+- Không có auto-connect nào xảy ra trước login → guard giải quyết vấn đề không tồn tại
+
+## Fix (v95): Xóa guard, gọi thẳng
+
+**Xóa hoàn toàn** socket guard IIFE. Login handler sau `auth.php` OK:
+```javascript
+if(res.ok){
+    if(errLabel)errLabel.text='';
+    try{Manager.socket.init.call(Manager.socket);}catch(_ex){}
+}else{
+    if(errLabel)errLabel.text=res.error||'Login failed.';
+}
+```
+
+Gọi thẳng `Manager.socket.init.call(Manager.socket)` — không qua wrapper, không qua guard. Exception có thể xảy ra nhưng ít khả năng hơn nhiều vì gọi trực tiếp đúng context.
+
+**Version indicator:** `document.title='EN v95'` — tab title phải hiện "EN v95" sau khi deploy. Nếu vẫn thấy "EN-HOOK v3" hoặc "EN v93/v94" thì XAMPP chưa được cập nhật.
+
+**Để deploy v95 lên XAMPP:**
+```
+git pull origin claude/xampp-setup-guide-vFsWS
+```
+Sau đó copy files vào htdocs và hard refresh (Ctrl+Shift+R).
+
+## Bài học
+
+**Đừng thêm complexity vào login flow khi không cần thiết.** Mỗi wrapper/guard đều có thể tạo ra failure mode mới, đặc biệt khi dùng `try{}catch(e){}` để nuốt lỗi. Nếu logic gốc đã đủ (login button handler tự gọi `socket.init`), không cần wrap thêm.
+
+---
+
 ## PC Connectivity — Multi-connect Pattern (normal)
 
 Network log thấy nhiều WS connections (5.06s mỗi cái) là bình thường sau khi v93:
@@ -1422,7 +1484,9 @@ iPhone works vì đã có `cw_game_user` trong sessionStorage từ session cũ. 
 |--------|---------|
 | `46267305` | Remove obsolete sessionStorage redirect from index.html |
 | `9f8c1f1c` | Remove obsolete index.php files (Apache DirectoryIndex issue) |
-| `8185fd66` | translate.js v93: block premature WebSocket auto-connect |
-| (current) | translate.js v93: PetView2 stat label size fix |
+| `8185fd66` | translate.js v93: block premature WebSocket auto-connect (**GÂY LỖI**) |
+| `e253ec46` | translate.js v93: PetView2 stat label size fix |
+| `821fc6f0` | v94: fix PetSkillView description text overflow |
+| `578ba662` | v95: remove socket guard IIFE — **fix PC login** |
 
 
